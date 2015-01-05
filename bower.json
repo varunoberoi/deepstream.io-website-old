@@ -1,0 +1,22 @@
+{
+  "name": "deepstream.io-website",
+  "version": "0.0.0",
+  "homepage": "http://deepstream.io",
+  "authors": [
+    "Wolfram Hempel <hempel.wolfram@gmail.com>"
+  ],
+  "description": "http://deepstream.io",
+  "main": "index.html",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "flat-surface-shader": "latest"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
