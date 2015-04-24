@@ -19,13 +19,66 @@
 	document.createElement( 'header' );
 	document.createElement( 'nav' );
 	</script>
-	<script type="text/javascript" src="{{link 'asset' 'js/jquery.js'}}"></script>
-	<script type="text/javascript" src="{{link 'asset' 'js/fss.js'}}"></script>
 	<script type="text/javascript" src="{{link 'asset' 'js/main.js'}}"></script>
 </head>
 <body class="category_{{category}}">
-	<div id="main-background">
+	<div id="main-background"></div>
 
+	<div id="outerWrapper">
+		
+		<!-- Navigation -->
+		<div id="nav" {{#if isNotStart}}class="standalone"{{/if}}>
+			{{#if isNotStart}}
+			<img src="{{link 'asset' 'images/background-abstract.jpg'}}" />
+			{{/if}}
+			<ul>
+				<li {{#if pageIs_start}}class="active"{{/if}}><a href="{{link 'page' ''}}">START</a></li>
+				<li {{#if pageIs_download}}class="active"{{/if}}><a href="{{link 'page' 'download'}}">DOWNLOAD</a></li>
+				<li {{#if pageIs_tutorials}}class="active"{{/if}}><a href="{{link 'page' 'tutorials'}}">TUTORIALS</a></li>
+				<li {{#if pageIs_docs}}class="active"{{/if}}><a href="{{link 'page' 'docs'}}">DOCS</a></li>
+			</ul>
+		</div>
+
+		<!-- Page Content -->
+		<div class="content main">
+			{{pageContent}}
+		</div>
+
+		<!-- Footer -->
+		<div id="footerPush"></div>
+		</div>
+		<div id="footer">
+			<div class="copyright">&copy;2015 Hoxton One Ltd. All rights reserved.</div>
+			<ul class="footerItems">
+				<li class="news">
+					<h4>Social</h4>
+					<ul class="social">
+						<li class="twitter">
+							<a href="https://twitter.com/hoxtonone">Follow @HoxtonOne on Twitter</a>
+						</li>
+						<li class="github">
+							<a href="https://github.com/hoxton-one/deepstream.io">Deepstream on Github</a>
+						</li>
+					</ul>
+				</li>
+				<li class="footerItem about">
+					<h4>About</h4>
+					<p>
+						GoldenLayout is developed by <b>Hoxton One Ltd.</b>, a small Company based in London's dodgy, yet glorious East.
+					</p>
+					<p>
+						<b>Registered Offices</b>:
+						Suite 7,
+						KD Tower,
+						Cotterells,
+						Hemel Hempstead,
+						Herts,
+						HP1 1FW
+					</p>
+					<p>Registered in England and Wales, Company Nr 09121068</p>
+				</li>
+			</ul>
+		</div>
 	</div>
 </body>
 </html>

@@ -19,13 +19,134 @@
 	document.createElement( 'header' );
 	document.createElement( 'nav' );
 	</script>
-	<script type="text/javascript" src="../assets/js/jquery.js"></script>
-	<script type="text/javascript" src="../assets/js/fss.js"></script>
 	<script type="text/javascript" src="../assets/js/main.js"></script>
 </head>
 <body class="category_tutorials">
-	<div id="main-background">
+	<div id="main-background"></div>
 
+	<div id="outerWrapper">
+		
+		<!-- Navigation -->
+		<div id="nav" class="standalone">
+			
+			<img src="../assets/images/background-abstract.jpg" />
+			
+			<ul>
+				<li ><a href="..">START</a></li>
+				<li ><a href="../download">DOWNLOAD</a></li>
+				<li class="active"><a href="../tutorials">TUTORIALS</a></li>
+				<li ><a href="../docs">DOCS</a></li>
+			</ul>
+		</div>
+
+		<!-- Page Content -->
+		<div class="content main">
+			<h1>Adding controls to headers</h1><p>GoldenLayout provides a number of hooks that make it easy to extend its native functionality, e.g. by adding additional controls to all headers.</p><h3>The goal</h3><p>For this tutorial we&#39;ll add a dropdown to every header that allows the user to change the background color.</p><p>It needs to:</p><ul>
+<li>Change the component&#39;s background color when a color is selected</li>
+<li>Set the initial color based on the component&#39;s configuration</li>
+<li>Notify the LayoutManager about state changes when a new color is selected</li>
+</ul>
+<h3>The result</h3><p><p data-height="268" data-theme-id="7376" data-slug-hash="e15391fb136593e265013408cf68e561" data-default-tab="result" class='codepen'>See the Pen <a href='http://codepen.io/wolframhempel/pen/e15391fb136593e265013408cf68e561/'>Add Control to Header</a> by Wolfram Hempel (<a href='http://codepen.io/wolframhempel'>@wolframhempel</a>) on <a href='http://codepen.io'>CodePen</a>.</p></p><script async src="//codepen.io/assets/embed/ei.js"></script>
+
+<h3>The approach</h3><p>Whenever a new Row, Column, Stack or Component is created, GoldenLayout emits an event, providing the new item as an argument.</p><pre><code>myLayout<span class="token punctuation" >.</span><span class="token function" >on<span class="token punctuation" >(</span></span> <span class="token string" >'stackCreated'</span><span class="token punctuation" >,</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> stack <span class="token punctuation" >)</span><span class="token punctuation" >{</span>
+   <span class="token comment" spellcheck="true"> // ...manipulate the stack
+</span><span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+
+myLayout<span class="token punctuation" >.</span><span class="token function" >on<span class="token punctuation" >(</span></span> <span class="token string" >'componentCreated'</span><span class="token punctuation" >,</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> component <span class="token punctuation" >)</span><span class="token punctuation" >{</span>
+   <span class="token comment" spellcheck="true"> // ...manipulate the component
+</span><span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+</code></pre><p>Stacks, Rows, Columns and Components expose the <a href="../docs/Item.html">Item API</a>.</p><div class="info">Please note: All components are children of Stacks (the item with the header and the tabs)! Even if a component is not configured as a child of a stack one will implicitly be added.</div>
+
+<p>The Stack item provides access to its header and the components within it. Some examples:</p><pre><code>myLayout<span class="token punctuation" >.</span><span class="token function" >on<span class="token punctuation" >(</span></span> <span class="token string" >'stackCreated'</span><span class="token punctuation" >,</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> stack <span class="token punctuation" >)</span><span class="token punctuation" >{</span>
+
+    <span class="token comment" spellcheck="true">/*
+     * Accessing the DOM element that contains the popout, maximise and * close icon
+     */</span>
+    stack<span class="token punctuation" >.</span>header<span class="token punctuation" >.</span>controlsContainer<span class="token punctuation" >.</span><span class="token function" >prepend<span class="token punctuation" >(</span></span> <span class="token string" >'&lt;div>foo&lt;/div>'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+
+    <span class="token comment" spellcheck="true">/*
+     * Listening for activeContentItemChanged. This happens initially
+     * when the stack is created and everytime the user clicks a tab
+     */</span>
+    stack<span class="token punctuation" >.</span><span class="token function" >on<span class="token punctuation" >(</span></span> <span class="token string" >'activeContentItemChanged'</span><span class="token punctuation" >,</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> contentItem <span class="token punctuation" >)</span><span class="token punctuation" >{</span>
+       <span class="token comment" spellcheck="true"> // interact with the contentItem
+</span>    <span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+
+    <span class="token comment" spellcheck="true">/*
+     * Accessing the container and updating its state
+     */</span>
+    stack<span class="token punctuation" >.</span><span class="token function" >getActiveContentItem<span class="token punctuation" >(</span></span><span class="token punctuation" >)</span><span class="token punctuation" >.</span>container<span class="token punctuation" >.</span><span class="token function" >extendState<span class="token punctuation" >(</span></span><span class="token punctuation" >{</span>color<span class="token punctuation" >:</span> <span class="token string" >'#faa'</span><span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+<span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+</code></pre><h3>And that&#39;s the entire code for our dropdown</h3><pre><code><span class="token comment" spellcheck="true">/// Callback for every created stack
+</span>myLayout<span class="token punctuation" >.</span><span class="token function" >on<span class="token punctuation" >(</span></span> <span class="token string" >'stackCreated'</span><span class="token punctuation" >,</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> stack <span class="token punctuation" >)</span><span class="token punctuation" >{</span>
+
+   <span class="token comment" spellcheck="true"> //HTML for the colorDropdown is stored in a template tag
+</span>    <span class="token keyword" >var</span> colorDropdown <span class="token operator" >=</span> $<span class="token punctuation" >(</span> $<span class="token punctuation" >(</span> <span class="token string" >'template'</span> <span class="token punctuation" >)</span><span class="token punctuation" >.</span><span class="token function" >html<span class="token punctuation" >(</span></span><span class="token punctuation" >)</span> <span class="token punctuation" >)</span><span class="token punctuation" >,</span>
+        colorDropdownBtn <span class="token operator" >=</span> colorDropdown<span class="token punctuation" >.</span><span class="token function" >find<span class="token punctuation" >(</span></span> <span class="token string" >'.selectedColor'</span> <span class="token punctuation" >)</span><span class="token punctuation" >,</span>
+
+        setColor <span class="token operator" >=</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> color <span class="token punctuation" >)</span><span class="token punctuation" >{</span>
+            <span class="token keyword" >var</span> container <span class="token operator" >=</span> stack<span class="token punctuation" >.</span><span class="token function" >getActiveContentItem<span class="token punctuation" >(</span></span><span class="token punctuation" >)</span><span class="token punctuation" >.</span>container<span class="token punctuation" >;</span>
+
+           <span class="token comment" spellcheck="true"> // Set the color on both the dropDown and the background
+</span>            colorDropdownBtn<span class="token punctuation" >.</span><span class="token function" >css<span class="token punctuation" >(</span></span> <span class="token string" >'background-color'</span><span class="token punctuation" >,</span> color <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+            container<span class="token punctuation" >.</span><span class="token function" >getElement<span class="token punctuation" >(</span></span><span class="token punctuation" >)</span><span class="token punctuation" >.</span><span class="token function" >css<span class="token punctuation" >(</span></span> <span class="token string" >'background-color'</span><span class="token punctuation" >,</span> color <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+
+           <span class="token comment" spellcheck="true"> // Update the state
+</span>            container<span class="token punctuation" >.</span><span class="token function" >extendState<span class="token punctuation" >(</span></span><span class="token punctuation" >{</span> color<span class="token punctuation" >:</span> color <span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+        <span class="token punctuation" >}</span><span class="token punctuation" >;</span>
+
+   <span class="token comment" spellcheck="true"> // Add the colorDropdown to the header
+</span>    stack<span class="token punctuation" >.</span>header<span class="token punctuation" >.</span>controlsContainer<span class="token punctuation" >.</span><span class="token function" >prepend<span class="token punctuation" >(</span></span> colorDropdown <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+
+   <span class="token comment" spellcheck="true"> // Update the color initially and whenever the tab changes
+</span>    stack<span class="token punctuation" >.</span><span class="token function" >on<span class="token punctuation" >(</span></span> <span class="token string" >'activeContentItemChanged'</span><span class="token punctuation" >,</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> contentItem <span class="token punctuation" >)</span><span class="token punctuation" >{</span>
+        <span class="token function" >setColor<span class="token punctuation" >(</span></span> contentItem<span class="token punctuation" >.</span>container<span class="token punctuation" >.</span><span class="token function" >getState<span class="token punctuation" >(</span></span><span class="token punctuation" >)</span><span class="token punctuation" >.</span>color <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+    <span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+
+   <span class="token comment" spellcheck="true"> // Update when the user selects a different color
+</span>   <span class="token comment" spellcheck="true"> // from the dropdown
+</span>    colorDropdown<span class="token punctuation" >.</span><span class="token function" >find<span class="token punctuation" >(</span></span> <span class="token string" >'li'</span> <span class="token punctuation" >)</span><span class="token punctuation" >.</span><span class="token function" >click<span class="token punctuation" >(</span></span><span class="token keyword" >function</span><span class="token punctuation" >(</span><span class="token punctuation" >)</span><span class="token punctuation" >{</span>
+        <span class="token function" >setColor<span class="token punctuation" >(</span></span> $<span class="token punctuation" >(</span><span class="token keyword" >this</span><span class="token punctuation" >)</span><span class="token punctuation" >.</span><span class="token function" >css<span class="token punctuation" >(</span></span> <span class="token string" >'background-color'</span> <span class="token punctuation" >)</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+    <span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+<span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+</code></pre>
+		</div>
+
+		<!-- Footer -->
+		<div id="footerPush"></div>
+		</div>
+		<div id="footer">
+			<div class="copyright">&copy;2015 Hoxton One Ltd. All rights reserved.</div>
+			<ul class="footerItems">
+				<li class="news">
+					<h4>Social</h4>
+					<ul class="social">
+						<li class="twitter">
+							<a href="https://twitter.com/hoxtonone">Follow @HoxtonOne on Twitter</a>
+						</li>
+						<li class="github">
+							<a href="https://github.com/hoxton-one/deepstream.io">Deepstream on Github</a>
+						</li>
+					</ul>
+				</li>
+				<li class="footerItem about">
+					<h4>About</h4>
+					<p>
+						GoldenLayout is developed by <b>Hoxton One Ltd.</b>, a small Company based in London's dodgy, yet glorious East.
+					</p>
+					<p>
+						<b>Registered Offices</b>:
+						Suite 7,
+						KD Tower,
+						Cotterells,
+						Hemel Hempstead,
+						Herts,
+						HP1 1FW
+					</p>
+					<p>Registered in England and Wales, Company Nr 09121068</p>
+				</li>
+			</ul>
+		</div>
 	</div>
 </body>
 </html>

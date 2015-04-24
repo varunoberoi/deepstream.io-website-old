@@ -19,13 +19,67 @@
 	document.createElement( 'header' );
 	document.createElement( 'nav' );
 	</script>
-	<script type="text/javascript" src="../assets/js/jquery.js"></script>
-	<script type="text/javascript" src="../assets/js/fss.js"></script>
 	<script type="text/javascript" src="../assets/js/main.js"></script>
 </head>
 <body class="category_docs">
-	<div id="main-background">
+	<div id="main-background"></div>
 
+	<div id="outerWrapper">
+		
+		<!-- Navigation -->
+		<div id="nav" class="standalone">
+			
+			<img src="../assets/images/background-abstract.jpg" />
+			
+			<ul>
+				<li ><a href="..">START</a></li>
+				<li ><a href="../download">DOWNLOAD</a></li>
+				<li ><a href="../tutorials">TUTORIALS</a></li>
+				<li class="active"><a href="../docs">DOCS</a></li>
+			</ul>
+		</div>
+
+		<!-- Page Content -->
+		<div class="content main">
+			<div class="section"><h2><a name="Properties">Properties</a></h2><h3>layoutManager</h3><p>A reference to the LayoutManager instance</p><h3>parent</h3><p>A reference to the Stack this Header belongs to</p><h3>tabs</h3><p>An array of the Tabs within this header</p><h3>activeContentItem</h3><p>The currently selected activeContentItem</p><h3>element</h3><p>The outer (jQuery) DOM element of this Header</p><h3>tabsContainer</h3><p>The (jQuery) DOM element containing the tabs</p><h3>controlsContainer</h3><p>The (jQuery) DOM element containing the close, maximise and popout button</p></div><div class="section"><h2><a name="setActiveContentItem( contentItem )">setActiveContentItem( contentItem )</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">contentItem</td><td class="type">ContentItem</td><td class="optional">false</td><td class="default">-</td><td class="description">The content item that will be selected</td></tr></tbody></table><p>Hides the currently selected contentItem, shows the specified one and highlights
+its tab.</p></div><div class="section"><h2><a name="createTab( contentItem, index )">createTab( contentItem, index )</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">contentItem</td><td class="type">ContentItem</td><td class="optional">false</td><td class="default">-</td><td class="description">The content item the tab will be associated with</td></tr><tr><td class="argument">index</td><td class="type">Number</td><td class="optional">false</td><td class="default">-</td><td class="description">A zero based index, specifying the position of the new tab</td></tr></tbody></table><p>Creates a new tab and associates it with a content item</p></div><div class="section"><h2><a name="removeTab( contentItem )">removeTab( contentItem )</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">contentItem</td><td class="type">ContentItem</td><td class="optional">false</td><td class="default">-</td><td class="description">The content item the tab is associated with</td></tr></tbody></table><p>Finds a tab by its contentItem and removes it</p><p></div></p>
+		</div>
+
+		<!-- Footer -->
+		<div id="footerPush"></div>
+		</div>
+		<div id="footer">
+			<div class="copyright">&copy;2015 Hoxton One Ltd. All rights reserved.</div>
+			<ul class="footerItems">
+				<li class="news">
+					<h4>Social</h4>
+					<ul class="social">
+						<li class="twitter">
+							<a href="https://twitter.com/hoxtonone">Follow @HoxtonOne on Twitter</a>
+						</li>
+						<li class="github">
+							<a href="https://github.com/hoxton-one/deepstream.io">Deepstream on Github</a>
+						</li>
+					</ul>
+				</li>
+				<li class="footerItem about">
+					<h4>About</h4>
+					<p>
+						GoldenLayout is developed by <b>Hoxton One Ltd.</b>, a small Company based in London's dodgy, yet glorious East.
+					</p>
+					<p>
+						<b>Registered Offices</b>:
+						Suite 7,
+						KD Tower,
+						Cotterells,
+						Hemel Hempstead,
+						Herts,
+						HP1 1FW
+					</p>
+					<p>Registered in England and Wales, Company Nr 09121068</p>
+				</li>
+			</ul>
+		</div>
 	</div>
 </body>
 </html>

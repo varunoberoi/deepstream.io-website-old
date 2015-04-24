@@ -19,13 +19,68 @@
 	document.createElement( 'header' );
 	document.createElement( 'nav' );
 	</script>
-	<script type="text/javascript" src="../assets/js/jquery.js"></script>
-	<script type="text/javascript" src="../assets/js/fss.js"></script>
 	<script type="text/javascript" src="../assets/js/main.js"></script>
 </head>
 <body class="category_docs">
-	<div id="main-background">
+	<div id="main-background"></div>
 
+	<div id="outerWrapper">
+		
+		<!-- Navigation -->
+		<div id="nav" class="standalone">
+			
+			<img src="../assets/images/background-abstract.jpg" />
+			
+			<ul>
+				<li ><a href="..">START</a></li>
+				<li ><a href="../download">DOWNLOAD</a></li>
+				<li ><a href="../tutorials">TUTORIALS</a></li>
+				<li class="active"><a href="../docs">DOCS</a></li>
+			</ul>
+		</div>
+
+		<!-- Page Content -->
+		<div class="content main">
+			<div class="section"><h2><a name="on( eventName, callback, context )">on( eventName, callback, context )</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">eventName</td><td class="type">String</td><td class="optional">false</td><td class="default">-</td><td class="description">The name of the event to describe to</td></tr><tr><td class="argument">callback</td><td class="type">Function</td><td class="optional">false</td><td class="default">-</td><td class="description">The function that should be invoked when the event occurs</td></tr><tr><td class="argument">context</td><td class="type">Object</td><td class="optional">true</td><td class="default">-</td><td class="description">The value of the <code>this</code> pointer in the callback function</td></tr></tbody></table><p>Subscribe to an event</p></div><div class="section"><h2><a name="emit( eventName, arg1, arg2, ...argN )">emit( eventName, arg1, arg2, ...argN )</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">eventName</td><td class="type">String</td><td class="optional">false</td><td class="default">-</td><td class="description">The name of the event to emit</td></tr></tbody></table><p>Notify listeners of an event and pass arguments along</p></div><div class="section"><h2><a name="trigger( eventName, arg1, arg2, ...argN )">trigger( eventName, arg1, arg2, ...argN )</a></h2><p>Alias for <code>emit</code></p></div><div class="section"><h2><a name="unbind( eventName, callback, context )">unbind( eventName, callback, context )</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">eventName</td><td class="type">String</td><td class="optional">false</td><td class="default">-</td><td class="description">The name of the event to unsubscribe from</td></tr><tr><td class="argument">callback</td><td class="type">Function</td><td class="optional">true</td><td class="default">-</td><td class="description">The function that should be invoked when the event occurs</td></tr><tr><td class="argument">context</td><td class="type">Object</td><td class="optional">true</td><td class="default">-</td><td class="description">The value of the <code>this</code> pointer in the callback function</td></tr></tbody></table><p>Unsubscribes either all listeners if just an eventName is provided, just a specific callback
+if invoked with eventName and callback or just a specific callback with a specific context if invoked
+with all three arguments.</p></div><div class="section"><h2><a name="off( eventName, callback, context )">off( eventName, callback, context )</a></h2><p>Alias for <code>unbind</code></p><p></div></p>
+		</div>
+
+		<!-- Footer -->
+		<div id="footerPush"></div>
+		</div>
+		<div id="footer">
+			<div class="copyright">&copy;2015 Hoxton One Ltd. All rights reserved.</div>
+			<ul class="footerItems">
+				<li class="news">
+					<h4>Social</h4>
+					<ul class="social">
+						<li class="twitter">
+							<a href="https://twitter.com/hoxtonone">Follow @HoxtonOne on Twitter</a>
+						</li>
+						<li class="github">
+							<a href="https://github.com/hoxton-one/deepstream.io">Deepstream on Github</a>
+						</li>
+					</ul>
+				</li>
+				<li class="footerItem about">
+					<h4>About</h4>
+					<p>
+						GoldenLayout is developed by <b>Hoxton One Ltd.</b>, a small Company based in London's dodgy, yet glorious East.
+					</p>
+					<p>
+						<b>Registered Offices</b>:
+						Suite 7,
+						KD Tower,
+						Cotterells,
+						Hemel Hempstead,
+						Herts,
+						HP1 1FW
+					</p>
+					<p>Registered in England and Wales, Company Nr 09121068</p>
+				</li>
+			</ul>
+		</div>
 	</div>
 </body>
 </html>

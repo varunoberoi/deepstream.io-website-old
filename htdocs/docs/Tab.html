@@ -19,13 +19,66 @@
 	document.createElement( 'header' );
 	document.createElement( 'nav' );
 	</script>
-	<script type="text/javascript" src="../assets/js/jquery.js"></script>
-	<script type="text/javascript" src="../assets/js/fss.js"></script>
 	<script type="text/javascript" src="../assets/js/main.js"></script>
 </head>
 <body class="category_docs">
-	<div id="main-background">
+	<div id="main-background"></div>
 
+	<div id="outerWrapper">
+		
+		<!-- Navigation -->
+		<div id="nav" class="standalone">
+			
+			<img src="../assets/images/background-abstract.jpg" />
+			
+			<ul>
+				<li ><a href="..">START</a></li>
+				<li ><a href="../download">DOWNLOAD</a></li>
+				<li ><a href="../tutorials">TUTORIALS</a></li>
+				<li class="active"><a href="../docs">DOCS</a></li>
+			</ul>
+		</div>
+
+		<!-- Page Content -->
+		<div class="content main">
+			<div class="section"><h2><a name="Properties">Properties</a></h2><h3>isActive</h3><p>True if this tab is the selected tab</p><h3>header</h3><p>A reference to the header this tab is a child of</p><h3>contentIten</h3><p>A reference to the content item this tab relates to</p><h3>element</h3><p>The tabs outer (jQuery) DOM element</p><h3>titleElement</h3><p>The (jQuery) DOM element containing the title</p><h3>isActive</h3><p>The (jQuery) DOM element that closes the tab</p></div><div class="section"><h2><a name="setTitle( title )">setTitle( title )</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">title</td><td class="type">String</td><td class="optional">false</td><td class="default">-</td><td class="description">The new title</td></tr></tbody></table><p>Sets the tab&#39;s title. Does not affect the contentItem&#39;s title!</p></div><div class="section"><h2><a name="setActive( isActive )">setActive( isActive )</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">isActive</td><td class="type">Boolean</td><td class="optional">false</td><td class="default">-</td><td class="description">Whether the tab is active</td></tr></tbody></table><p>Sets this tab&#39;s active state. To programmatically switch tabs, use header.setActiveContentItem( item ) instead.</p><p></div></p>
+		</div>
+
+		<!-- Footer -->
+		<div id="footerPush"></div>
+		</div>
+		<div id="footer">
+			<div class="copyright">&copy;2015 Hoxton One Ltd. All rights reserved.</div>
+			<ul class="footerItems">
+				<li class="news">
+					<h4>Social</h4>
+					<ul class="social">
+						<li class="twitter">
+							<a href="https://twitter.com/hoxtonone">Follow @HoxtonOne on Twitter</a>
+						</li>
+						<li class="github">
+							<a href="https://github.com/hoxton-one/deepstream.io">Deepstream on Github</a>
+						</li>
+					</ul>
+				</li>
+				<li class="footerItem about">
+					<h4>About</h4>
+					<p>
+						GoldenLayout is developed by <b>Hoxton One Ltd.</b>, a small Company based in London's dodgy, yet glorious East.
+					</p>
+					<p>
+						<b>Registered Offices</b>:
+						Suite 7,
+						KD Tower,
+						Cotterells,
+						Hemel Hempstead,
+						Herts,
+						HP1 1FW
+					</p>
+					<p>Registered in England and Wales, Company Nr 09121068</p>
+				</li>
+			</ul>
+		</div>
 	</div>
 </body>
 </html>

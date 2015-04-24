@@ -19,13 +19,99 @@
 	document.createElement( 'header' );
 	document.createElement( 'nav' );
 	</script>
-	<script type="text/javascript" src="../assets/js/jquery.js"></script>
-	<script type="text/javascript" src="../assets/js/fss.js"></script>
 	<script type="text/javascript" src="../assets/js/main.js"></script>
 </head>
 <body class="category_tutorials">
-	<div id="main-background">
+	<div id="main-background"></div>
 
+	<div id="outerWrapper">
+		
+		<!-- Navigation -->
+		<div id="nav" class="standalone">
+			
+			<img src="../assets/images/background-abstract.jpg" />
+			
+			<ul>
+				<li ><a href="..">START</a></li>
+				<li ><a href="../download">DOWNLOAD</a></li>
+				<li class="active"><a href="../tutorials">TUTORIALS</a></li>
+				<li ><a href="../docs">DOCS</a></li>
+			</ul>
+		</div>
+
+		<!-- Page Content -->
+		<div class="content main">
+			<h1>Using GoldenLayout with RequireJS</h1><p>Like most modern libraries, GoldenLayout uses UMD (Universal Module Definition) to ensure compatibility with AMD / RequireJS and CommonJS alike. This means that when it comes to using it with RequireJS, there really isn&#39;t much to it.</p><h3>jQuery</h3><p>GoldenLayout depends on jQuery. When requiring GoldenLayout it in turn will require <code>&#39;jquery&#39;</code> (all lowercase) which is the name that jQuery registeres itself under as a named module. So all that&#39;s left is telling RequireJS where this model can be found, e.g. like this:</p><pre><code>requirejs<span class="token punctuation" >.</span><span class="token function" >config<span class="token punctuation" >(</span></span><span class="token punctuation" >{</span>
+    paths<span class="token punctuation" >:</span> <span class="token punctuation" >{</span>
+        <span class="token string" >'jquery'</span><span class="token punctuation" >:</span> <span class="token string" >'lib/jquery'</span>
+    <span class="token punctuation" >}</span>
+<span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+</code></pre><p>And that&#39;s it. Now you can require GoldenLayout and your components and start it, e.g. like that:</p><pre><code>requirejs<span class="token punctuation" >.</span><span class="token function" >config<span class="token punctuation" >(</span></span><span class="token punctuation" >{</span>
+    baseUrl<span class="token punctuation" >:</span> <span class="token string" >'../js'</span><span class="token punctuation" >,</span>
+    paths<span class="token punctuation" >:</span> <span class="token punctuation" >{</span>
+        <span class="token string" >'jquery'</span><span class="token punctuation" >:</span> <span class="token string" >'lib/jquery'</span>
+    <span class="token punctuation" >}</span>
+<span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+
+<span class="token function" >require<span class="token punctuation" >(</span></span> <span class="token punctuation" >[</span> <span class="token string" >'lib/goldenlayout'</span><span class="token punctuation" >,</span> <span class="token string" >'src/TestComponent'</span> <span class="token punctuation" >]</span><span class="token punctuation" >,</span> 
+    <span class="token keyword" >function</span><span class="token punctuation" >(</span> GoldenLayout<span class="token punctuation" >,</span> TestComponent <span class="token punctuation" >)</span><span class="token punctuation" >{</span>
+
+    <span class="token keyword" >var</span> myLayout <span class="token operator" >=</span> <span class="token keyword" >new</span> <span class="token class-name" >GoldenLayout</span><span class="token punctuation" >(</span><span class="token punctuation" >{</span>
+        content<span class="token punctuation" >:</span><span class="token punctuation" >[</span><span class="token punctuation" >{</span>
+            type<span class="token punctuation" >:</span> <span class="token string" >'row'</span><span class="token punctuation" >,</span>
+            content<span class="token punctuation" >:</span> <span class="token punctuation" >[</span><span class="token punctuation" >{</span>
+                type<span class="token punctuation" >:</span> <span class="token string" >'component'</span><span class="token punctuation" >,</span>
+                componentName<span class="token punctuation" >:</span> <span class="token string" >'testComponent'</span><span class="token punctuation" >,</span>
+                componentState<span class="token punctuation" >:</span> <span class="token punctuation" >{</span> title<span class="token punctuation" >:</span> <span class="token string" >'First Item'</span> <span class="token punctuation" >}</span>
+            <span class="token punctuation" >}</span><span class="token punctuation" >,</span><span class="token punctuation" >{</span>
+                type<span class="token punctuation" >:</span> <span class="token string" >'component'</span><span class="token punctuation" >,</span>
+                componentName<span class="token punctuation" >:</span> <span class="token string" >'testComponent'</span><span class="token punctuation" >,</span>
+                componentState<span class="token punctuation" >:</span> <span class="token punctuation" >{</span> title<span class="token punctuation" >:</span> <span class="token string" >'Second Item'</span> <span class="token punctuation" >}</span>
+            <span class="token punctuation" >}</span><span class="token punctuation" >]</span>
+        <span class="token punctuation" >}</span><span class="token punctuation" >]</span>
+    <span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+
+    myLayout<span class="token punctuation" >.</span><span class="token function" >registerComponent<span class="token punctuation" >(</span></span> <span class="token string" >'testComponent'</span><span class="token punctuation" >,</span> TestComponent <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+    myLayout<span class="token punctuation" >.</span><span class="token function" >init<span class="token punctuation" >(</span></span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+<span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+</code></pre>
+		</div>
+
+		<!-- Footer -->
+		<div id="footerPush"></div>
+		</div>
+		<div id="footer">
+			<div class="copyright">&copy;2015 Hoxton One Ltd. All rights reserved.</div>
+			<ul class="footerItems">
+				<li class="news">
+					<h4>Social</h4>
+					<ul class="social">
+						<li class="twitter">
+							<a href="https://twitter.com/hoxtonone">Follow @HoxtonOne on Twitter</a>
+						</li>
+						<li class="github">
+							<a href="https://github.com/hoxton-one/deepstream.io">Deepstream on Github</a>
+						</li>
+					</ul>
+				</li>
+				<li class="footerItem about">
+					<h4>About</h4>
+					<p>
+						GoldenLayout is developed by <b>Hoxton One Ltd.</b>, a small Company based in London's dodgy, yet glorious East.
+					</p>
+					<p>
+						<b>Registered Offices</b>:
+						Suite 7,
+						KD Tower,
+						Cotterells,
+						Hemel Hempstead,
+						Herts,
+						HP1 1FW
+					</p>
+					<p>Registered in England and Wales, Company Nr 09121068</p>
+				</li>
+			</ul>
+		</div>
 	</div>
 </body>
 </html>

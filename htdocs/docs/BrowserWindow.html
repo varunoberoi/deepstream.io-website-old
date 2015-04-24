@@ -19,13 +19,77 @@
 	document.createElement( 'header' );
 	document.createElement( 'nav' );
 	</script>
-	<script type="text/javascript" src="../assets/js/jquery.js"></script>
-	<script type="text/javascript" src="../assets/js/fss.js"></script>
 	<script type="text/javascript" src="../assets/js/main.js"></script>
 </head>
 <body class="category_docs">
-	<div id="main-background">
+	<div id="main-background"></div>
 
+	<div id="outerWrapper">
+		
+		<!-- Navigation -->
+		<div id="nav" class="standalone">
+			
+			<img src="../assets/images/background-abstract.jpg" />
+			
+			<ul>
+				<li ><a href="..">START</a></li>
+				<li ><a href="../download">DOWNLOAD</a></li>
+				<li ><a href="../tutorials">TUTORIALS</a></li>
+				<li class="active"><a href="../docs">DOCS</a></li>
+			</ul>
+		</div>
+
+		<!-- Page Content -->
+		<div class="content main">
+			<div class="section"><h2><a name="Properties">Properties</a></h2><h3>isInitialised</h3><p>True if the window has been opened and its GoldenLayout instance initialised.</p></div><div class="section"><h2><a name="Events">Events</a></h2><h3>initialised</h3><p>Emitted when the window has been opened and its GoldenLayout instance initialised</p><h3>closed</h3><p>Emitted when the window has been closed</p></div><div class="section"><h2><a name="toConfig()">toConfig()</a></h2><p>Creates a window configuration object from the Popout. Window configurations look like this:</p><pre><code><span class="token punctuation" >{</span>
+    <span class="token string" >"dimensions"</span><span class="token punctuation" >:</span> <span class="token punctuation" >{</span>
+        <span class="token string" >"width"</span><span class="token punctuation" >:</span> <span class="token number" >1532</span><span class="token punctuation" >,</span>
+        <span class="token string" >"height"</span><span class="token punctuation" >:</span> <span class="token number" >100</span><span class="token punctuation" >,</span>
+        <span class="token string" >"left"</span><span class="token punctuation" >:</span> <span class="token number" >0</span><span class="token punctuation" >,</span>
+        <span class="token string" >"top"</span><span class="token punctuation" >:</span> <span class="token number" >129</span>
+    <span class="token punctuation" >}</span><span class="token punctuation" >,</span>
+    <span class="token string" >"content"</span><span class="token punctuation" >:</span> <span class="token punctuation" >[</span><span class="token comment" spellcheck="true">/* your usual content config */</span><span class="token punctuation" >]</span><span class="token punctuation" >,</span>
+    <span class="token string" >"parentId"</span><span class="token punctuation" >:</span> <span class="token string" >"4ef2ubr28tor"</span><span class="token punctuation" >,</span>
+    <span class="token string" >"indexInParent"</span><span class="token punctuation" >:</span> <span class="token number" >1</span>
+<span class="token punctuation" >}</span>
+</code></pre></div><div class="section"><h2><a name="getGlInstance()">getGlInstance()</a></h2><p>Returns the GoldenLayout instance from the child window</p></div><div class="section"><h2><a name="getWindow()">getWindow()</a></h2><p>Returns the native Window object</p></div><div class="section"><h2><a name="close()">close()</a></h2><p>Closes the popout</p></div><div class="section"><h2><a name="popIn()">popIn()</a></h2><p>Returns the popout to its original position as specified in <code>parentId</code> and <code>indexInParent</code></p><p></div></p>
+		</div>
+
+		<!-- Footer -->
+		<div id="footerPush"></div>
+		</div>
+		<div id="footer">
+			<div class="copyright">&copy;2015 Hoxton One Ltd. All rights reserved.</div>
+			<ul class="footerItems">
+				<li class="news">
+					<h4>Social</h4>
+					<ul class="social">
+						<li class="twitter">
+							<a href="https://twitter.com/hoxtonone">Follow @HoxtonOne on Twitter</a>
+						</li>
+						<li class="github">
+							<a href="https://github.com/hoxton-one/deepstream.io">Deepstream on Github</a>
+						</li>
+					</ul>
+				</li>
+				<li class="footerItem about">
+					<h4>About</h4>
+					<p>
+						GoldenLayout is developed by <b>Hoxton One Ltd.</b>, a small Company based in London's dodgy, yet glorious East.
+					</p>
+					<p>
+						<b>Registered Offices</b>:
+						Suite 7,
+						KD Tower,
+						Cotterells,
+						Hemel Hempstead,
+						Herts,
+						HP1 1FW
+					</p>
+					<p>Registered in England and Wales, Company Nr 09121068</p>
+				</li>
+			</ul>
+		</div>
 	</div>
 </body>
 </html>

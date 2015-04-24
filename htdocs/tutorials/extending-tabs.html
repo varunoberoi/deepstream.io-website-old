@@ -19,13 +19,83 @@
 	document.createElement( 'header' );
 	document.createElement( 'nav' );
 	</script>
-	<script type="text/javascript" src="../assets/js/jquery.js"></script>
-	<script type="text/javascript" src="../assets/js/fss.js"></script>
 	<script type="text/javascript" src="../assets/js/main.js"></script>
 </head>
 <body class="category_tutorials">
-	<div id="main-background">
+	<div id="main-background"></div>
 
+	<div id="outerWrapper">
+		
+		<!-- Navigation -->
+		<div id="nav" class="standalone">
+			
+			<img src="../assets/images/background-abstract.jpg" />
+			
+			<ul>
+				<li ><a href="..">START</a></li>
+				<li ><a href="../download">DOWNLOAD</a></li>
+				<li class="active"><a href="../tutorials">TUTORIALS</a></li>
+				<li ><a href="../docs">DOCS</a></li>
+			</ul>
+		</div>
+
+		<!-- Page Content -->
+		<div class="content main">
+			<h1>Extending Tabs</h1><p>GoldenLayout makes it easy to add new functionality to pretty much everything - and tabs are no exception. This tutorial shows how to add a simple counter to a tab, for instance to show new messages.</p><p>Here’s what we’re after:</p><p><p data-height="268" data-theme-id="7376" data-slug-hash="9cb7e16c6e3a5ad427297cc4d390b971" data-default-tab="result" class='codepen'>See the Pen <a href='http://codepen.io/wolframhempel/pen/9cb7e16c6e3a5ad427297cc4d390b971/'>Extending Tabs</a> by Wolfram Hempel (<a href='http://codepen.io/wolframhempel'>@wolframhempel</a>) on <a href='http://codepen.io'>CodePen</a>.</p></p><script async src="//codepen.io/assets/embed/ei.js"></script>
+
+<h3>Accessing the Tab</h3><p>There are two ways to access an instance of a <a href="../docs/Tab.html">Tab object</a>. Either by traversing the item-tree, e.g.</p><pre><code>tab <span class="token operator" >=</span> myLayout<span class="token punctuation" >.</span>root<span class="token punctuation" >.</span>contentItems<span class="token punctuation" >[</span> <span class="token number" >0</span> <span class="token punctuation" >]</span><span class="token punctuation" >.</span>header<span class="token punctuation" >.</span>tabs<span class="token punctuation" >[</span> <span class="token number" >1</span> <span class="token punctuation" >]</span><span class="token punctuation" >;</span>
+</code></pre><p>or, more commonly, via a container. The tricky bit though is that GoldenLayout changes the tab that’s associated with a component whilst it is dragged around the layout. So in order to manipulate the tab, we have to listen to the container’s <code>tab</code> event.</p><pre><code>container<span class="token punctuation" >.</span><span class="token function" >on<span class="token punctuation" >(</span></span> <span class="token string" >'tab'</span><span class="token punctuation" >,</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> tab <span class="token punctuation" >)</span><span class="token punctuation" >{</span>
+    tab<span class="token punctuation" >.</span>element<span class="token punctuation" >.</span><span class="token function" >append<span class="token punctuation" >(</span></span> counter <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+<span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+</code></pre><p>To put it into perspective, here&#39;s what the essential bits of our example-component look like:</p><pre><code>myLayout<span class="token punctuation" >.</span><span class="token function" >registerComponent<span class="token punctuation" >(</span></span> <span class="token string" >'example'</span><span class="token punctuation" >,</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> container <span class="token punctuation" >)</span><span class="token punctuation" >{</span>
+    <span class="token keyword" >var</span> counter <span class="token operator" >=</span> $<span class="token punctuation" >(</span> <span class="token string" >'&lt;div class="messageCounter">0&lt;/div>'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+
+    container<span class="token punctuation" >.</span><span class="token function" >on<span class="token punctuation" >(</span></span> <span class="token string" >'tab'</span><span class="token punctuation" >,</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> tab <span class="token punctuation" >)</span><span class="token punctuation" >{</span>
+        tab<span class="token punctuation" >.</span>element<span class="token punctuation" >.</span><span class="token function" >append<span class="token punctuation" >(</span></span> counter <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+    <span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+<span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+</code></pre><p>Please note that the counter&#39;s DOM element (the orange bubble with the number) is only created once and then moved to every new tab that&#39;s created. This way we don&#39;t have to rebind events.
+Another note-worthy bit is the css. Our bubble should be a bit darker when its tab isn&#39;t selected. This can be done by checking for an <code>.lm_active</code> class on the tab.</p><pre><code><span class="token punctuation" >.</span>lm_active <span class="token punctuation" >.</span>messageCounter<span class="token punctuation" >{</span>
+    background<span class="token punctuation" >:</span> #ee7813<span class="token punctuation" >;</span>
+<span class="token punctuation" >}</span>
+</code></pre>
+		</div>
+
+		<!-- Footer -->
+		<div id="footerPush"></div>
+		</div>
+		<div id="footer">
+			<div class="copyright">&copy;2015 Hoxton One Ltd. All rights reserved.</div>
+			<ul class="footerItems">
+				<li class="news">
+					<h4>Social</h4>
+					<ul class="social">
+						<li class="twitter">
+							<a href="https://twitter.com/hoxtonone">Follow @HoxtonOne on Twitter</a>
+						</li>
+						<li class="github">
+							<a href="https://github.com/hoxton-one/deepstream.io">Deepstream on Github</a>
+						</li>
+					</ul>
+				</li>
+				<li class="footerItem about">
+					<h4>About</h4>
+					<p>
+						GoldenLayout is developed by <b>Hoxton One Ltd.</b>, a small Company based in London's dodgy, yet glorious East.
+					</p>
+					<p>
+						<b>Registered Offices</b>:
+						Suite 7,
+						KD Tower,
+						Cotterells,
+						Hemel Hempstead,
+						Herts,
+						HP1 1FW
+					</p>
+					<p>Registered in England and Wales, Company Nr 09121068</p>
+				</li>
+			</ul>
+		</div>
 	</div>
 </body>
 </html>
