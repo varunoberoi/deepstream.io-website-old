@@ -156,13 +156,15 @@ module.exports = function(grunt) {
 	});
 
 	grunt.registerTask('release', [
+		'update-gl',
 		'readVersions',
 		'checkVersion',
 		'writeVersion',
 		'copy:release',
 		'compress', 
 		'clean:latest',
-		'copy:latest'
+		'copy:latest',
+		'build'
 	]);
 
 	grunt.registerTask( 'show-versions', [ 'readVersions', 'logVersions' ] );
