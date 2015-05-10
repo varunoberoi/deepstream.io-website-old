@@ -160,6 +160,7 @@ nav{
 	margin: 0 0 3px !important;
 	padding-bottom: 2px;
 }
+
 /***********************
 * CONTENT
 ***********************/
@@ -340,4 +341,27 @@ nav{
 #wrapper #content #categoryList li h3{
 	margin: 0 0 5px;
 	border: none;
+}
+
+#wrapper #content table.mini *{
+	font: 12px/16px Arial, sans-serif;
+	color: #333;
+}
+
+#wrapper #content table.mini th,
+#wrapper #content table.mini td{
+	vertical-align: top;
+	text-align: left;
+}
+
+#wrapper #content table.mini th{
+	font-weight: bold;
+	padding-bottom: 5px;
+}
+
+#wrapper #content table.mini tr:nth-child(odd) td{
+	background: #f3f3f3;
+}
+#wrapper #content table.mini td{
+	padding: 10px 5px;
 }

@@ -14,6 +14,13 @@ $(function(){
 		scrollTo( $(this).attr( 'href' ) );
 	});
 
+	$('#content a').click(function( e ){
+		if( $(this).attr( 'href' )[ 0 ] === '#' ) {
+			e.preventDefault();
+			scrollTo( $(this).attr( 'href' ) );
+		}
+	});
+
 	var scrollTo = function( href ) {
 		var target = $( 'a[name="_' + href.substr( 1 ) + '"]' );
 

@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>GOLDEN LAYOUT - the ultimate javascript layout manager</title>
+	
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="keywords" content="deepstream, deepstream.io, streaming, realtime, server, socket" />
+	<meta name="description" content="deepstream.io - a scalable server for realtime web apps" />
+	<meta name="author" content="Wolfram Hempel" />
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="stylesheet" type="text/css" href="../assets/css/screen.css" />
+	
+	<link rel="stylesheet" type="text/css" href="../assets/css/api.css" />
+	<link rel="stylesheet" type="text/css" href="../assets/css/syntaxhighlighter.css" />
+	
+	<script type="text/javascript">
+	document.createElement( 'header' );
+	document.createElement( 'nav' );
+	</script>
+	<script type="text/javascript" src="../assets/js/jquery.js"></script>
+</head>
+<body class="category_docs">
+
+	
+	<div id="outerWrapper">
+		<div class="topSection">
+			
+			<div id="header" class="orangeGradient micro">
+				<h1><a href="..">deepstream.io - a scalable server for realtime web apps</a></h1>
+				
+			</div>  
+			
+			<div id="nav" class="standalone">
+				
+				<img src="../assets/images/background-abstract.jpg" />
+				
+				<ul>
+					<li ><a href="..">START</a></li>
+					<li ><a href="../download">DOWNLOAD</a></li>
+					<li ><a href="../tutorials">TUTORIALS</a></li>
+					<li class="active"><a href="../docs">DOCS</a></li>
+				</ul>
+			</div>
+		</div>
+		
+		<div id="wrapper" class="main">
+			<ul id="subnav">
+	<li class="head first">Server</li>
+	<li >
+		<a href="Deepstream.html">Deepstream</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+
+	<li class="head">JS Client</li>
+	<li >
+		<a href="Client.html">Client</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+		
+	</li>
+	<li class="active">
+		<a href="client-options.html">Client Options</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+</ul>
+			<div id="content">
+				<div class="section"><h2><a name="Client Options">Client Options</a></h2><p><table class="mini"></p><p><thead></p><tr>
+<th>option</th>
+<th>type</th>
+<th>default</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="option">reconnectIntervalIncrement</td>
+<td class="type">Number</td>
+<td class="default">4000</td>
+<td class="description">
+Specifies the number of milliseconds by which the time until the next reconnection attempt will be incremented after every unsuccesful attempt.<br />E.g.for 1500: if the connection is lost,the client will attempt to reconnect immediatly, if that fails it will try again after 1.5 seconds, if that fails it will try again after 3 seconds and so on...
+</td>
+</tr>
+
+<tr>
+<td class="option">maxReconnectAttempts</td>
+<td class="type">Number</td>
+<td class="default">5</td>
+<td class="description">
+The number of reconnection attempts until the client gives up and declares the connection closed
+</td>
+</tr>
+
+<tr>
+<td class="option">rpcAckTimeout</td>
+<td class="type">Number</td>
+<td class="default">6000</td>
+<td class="description">
+The number of milliseconds after which a rpc will create an error if no Ack-message has been received
+</td>
+</tr>
+
+<tr>
+<td class="option">rpcResponseTimeout</td>
+<td class="type">Number</td>
+<td class="default">10000</td>
+<td class="description">
+The number of milliseconds after which a rpc will create an error if no response-message has been received
+</td>
+</tr>
+
+<tr>
+<td class="option">subscriptionTimeout</td>
+<td class="type">Number</td>
+<td class="default">2000</td>
+<td class="description">
+The number of milliseconds that can pass after providing/unproviding a RPC or subscribing/unsubscribing/listening to a record before an error is thrown
+</td>
+</tr>
+
+<tr>
+<td class="option">maxMessagesPerPacket</td>
+<td class="type">Number</td>
+<td class="default">100</td>
+<td class="description">
+If the implementation tries to send a large number of messages at the same
+time, the deepstream client will try to split them into smaller packets and send
+these every &lt;timeBetweenSendingQueuedPackages&gt;ms.
+
+This parameter specifies the number of messages after which deepstream sends the
+packet and queues the remaining messages. Set to Infinity to turn the feature off.
+</td>
+</tr>
+
+<tr>
+<td class="option">timeBetweenSendingQueuedPackages</td>
+<td class="type">Number</td>
+<td class="default">16</td>
+<td class="description">
+Please see description for maxMessagesPerPacket. Sets the time in ms.
+</td>
+</tr>
+
+<tr>
+<td class="option">recordReadAckTimeout</td>
+<td class="type">Number</td>
+<td class="default">1000</td>
+<td class="description">
+The number of milliseconds from the moment client.record.getRecord() is called until an error is thrown since no ack message has been received.
+</td>
+</tr>
+
+<tr>
+<td class="option">recordReadTimeout</td>
+<td class="type">Number</td>
+<td class="default">3000</td>
+<td class="description">
+The number of milliseconds from the moment client.record.getRecord() is called until an error is thrown since no data has been received.
+</td>
+</tr>
+
+<tr>
+<td class="option">recordDeleteTimeout</td>
+<td class="type">Number</td>
+<td class="default">3000</td>
+<td class="description">
+The number of milliseconds from the moment record.delete() is called
+until an error is thrown since no delete ack message had been received. Please 
+take into account that the deletion is only complete after the record has been
+deleted from both cache and storage
+</td>
+</tr>
+
+<tr>
+<td class="option">upgrade</td>
+<td class="type">Boolean</td>
+<td class="default">true</td>
+<td class="description">
+whether the client should try to upgrade the transport from long-polling to something better, e.g. WebSocket
+</td>
+</tr>
+
+<tr>
+<td class="option">forceJSONP</td>
+<td class="type">Boolean</td>
+<td class="default">false</td>
+<td class="description">
+forces JSONP for polling transport
+</td>
+</tr>
+
+<tr>
+<td class="option">jsonp</td>
+<td class="type">Boolean</td>
+<td class="default">true</td>
+<td class="description">
+determines whether to use JSONP when 
+necessary for polling. If disabled (by settings to false) 
+an error will be emitted (saying &quot;No transports available&quot;) 
+if no other transports are available. If another transport 
+is available for opening a connection (e.g. WebSocket) 
+that transport will be used instead.
+</td>
+</tr>
+
+<tr>
+<td class="option">forceBase64</td>
+<td class="type">Boolean</td>
+<td class="default">false</td>
+<td class="description">
+forces base 64 encoding for polling transport even when XHR2 responseType is available and WebSocket even if the used standard supports binary.
+</td>
+</tr>
+
+<tr>
+<td class="option">enablesXDR</td>
+<td class="type">Boolean</td>
+<td class="default">false</td>
+<td class="description">
+Enable Cross Domain Requests for IE8 to avoid loading the bar flashing click sounds. Default to false because Cross Domain Requests can&#39;t send cookies.
+</td>
+</tr>
+
+<tr>
+<td class="option">timestampRequests</td>
+<td class="type">Boolean</td>
+<td class="default">false</td>
+<td class="description">
+whether to add the timestamp with each transport request. Note: this is ignored if the browser is IE or Android, in which case requests are always stamped
+</td>
+</tr>
+
+<tr>
+<td class="option">timestampParam</td>
+<td class="type">String</td>
+<td class="default">&#39;t&#39;</td>
+<td class="description">
+The GET parameter key to use for the timestamp
+</td>
+</tr>
+
+<tr>
+<td class="option">path</td>
+<td class="type">String</td>
+<td class="default">&#39;/engine.io&#39;</td>
+<td class="description">
+The path to connect to for engine.io connections
+</td>
+</tr>
+
+<tr>
+<td class="option">transports</td>
+<td class="type">Array</td>
+<td class="default">[ &#39;polling&#39;, &#39;websocket&#39; ]</td>
+<td class="description">
+a list of transports to try (in order). Engine.io always  attempts to connect directly with the first one, provided the feature detection test for it passes.
+</td>
+</tr>
+
+<p><tr></p><p><td class="option">transports</td></p><p><td class="type">Array</td></p><p><td class="default">[ &#39;polling&#39;, &#39;websocket&#39; ]</td></p><p><td class="description">
+If true and if the previous websocket connection to 
+the server succeeded, the connection attempt will bypass the normal 
+upgrade process and will initially try websocket. A connection 
+attempt following a transport error will use the normal upgrade 
+process. It is recommended you turn this on only when using 
+SSL/TLS connections, or if you know that 
+your network does not block websockets.
+</td>
+</tr>
+</tbody>
+</table></div></p>
+				
+				<h3>Comments and Questions</h3>
+				<div id="disqusContainer">
+					<div id="disqus_thread"></div>
+				    <script type="text/javascript">
+				        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+				        var disqus_shortname = 'goldenlayoutcom'; // required: replace example with your forum shortname
+
+				        /* * * DON'T EDIT BELOW THIS LINE * * */
+				        (function() {
+				            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+				            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+				            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+				        })();
+				    </script>
+				    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+				    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+			    
+					
+					
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="../assets/js/docs.js"></script>
+		
+		<div id="footerPush"></div>
+	</div>
+	<div id="footer">
+		<div class="copyright">&copy;2014 Hoxton One Ltd. All rights reserved.</div>
+		<ul class="footerItems">
+			<li class="news">
+				<h4>GoldenLayout on...</h4>
+				<ul class="social">
+					<li class="twitter">
+						<a href="https://twitter.com/goldenlayout">Twitter</a>
+					</li>
+					<li class="github">
+						<a href="https://github.com/hoxton-one/golden-layout">Github</a>
+					</li>
+					<li class="bower">
+						<a href="http://bower.io/search/?q=golden-layout">Bower: golden-layout</a>
+					</li>
+				</ul>
+			</li>
+
+			<li class="contact">
+				<h4>Contact</h4>
+				<p>
+					Like to learn more?
+					<a href="mailto:info@golden-layout.com">info@golden-layout.com</a>
+				</p>
+				<p>
+					Support for licensees
+					<a href="mailto:support@golden-layout.com">support@golden-layout.com</a>
+				</p>
+				<p>
+					For technical questions please also check the comment section at the bottom of docs and tutorials
+				</p>
+			</li>
+
+			<li class="footerItem about">
+				<h4>About</h4>
+				<p>
+					GoldenLayout is developed by <b>Hoxton One Ltd.</b>, a small Company based in London's dodgy, yet glorious East.
+				</p>
+				<p>
+					<b>Registered Offices</b>:
+					Suite 7,
+					KD Tower,
+					Cotterells,
+					Hemel Hempstead,
+					Herts,
+					HP1 1FW
+				</p>
+				<p>Registered in England and Wales, Company Nr 09121068</p>
+				
+			</li>
+		</ul>
+	</div>
+
+
+	
+		
+	
+</body>
+</html>
