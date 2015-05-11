@@ -66,7 +66,7 @@
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
 
-	<li >
+	<li class="active">
 		<a href="connection_states.html">connectionStates</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
@@ -120,63 +120,43 @@
 	</li>
 </ul>
 			<div id="content">
-				<div id="docsIndex">
-	<h3>Server</h3>
-	<ul class="apiOverview">
-		<li>
-			<a href="../docs/server.html">
-				<h5>Deepstream</h5>
-				<p>Configuration & Events</p>
-			</a>
-		</li>
-	</ul>
+				<div class="section"><h2><a name="Connection States">Connection States</a></h2><table class="mini">
 
-	<h3>JS Client</h3>
-	<ul class="apiOverview">
-		<li>
-			<a href="../docs/GoldenLayout.html">
-				<h5>GoldenLayout</h5>
-				<p>The main GoldenLayout instance</p>
-			</a>
-		</li>
-		<li>
-			<a href="../docs/Item.html">
-				<h5>Item</h5>
-				<p>Components, Rows, Columns and Stacks</p>
-			</a>
-		</li>
-		<li>
-			<a href="../docs/Container.html">
-				<h5>Container</h5>
-				<p>The Container that your components live in</p>
-			</a>
-		</li>
-		<li>
-			<a href="../docs/Header.html">
-				<h5>Header</h5>
-				<p>The Header bar on top of every Stack</p>
-			</a>
-		</li>
-		<li>
-			<a href="../docs/Tab.html">
-				<h5>Tab</h5>
-				<p>A Tab within a Header</p>
-			</a>
-		</li>
-		<li>
-			<a href="../docs/BrowserWindow.html">
-				<h5>BrowserWindow</h5>
-				<p>A object representing a popup window</p>
-			</a>
-		</li>
-		<li>
-			<a href="../docs/EventEmitter.html">
-				<h5>EventEmitter</h5>
-				<p>Every object within GoldenLayout can emit events. Here's the API</p>
-			</a>
-		</li>
-	</ul>
-</div>
+<tr>
+<td>CLOSED</td>
+<td>Connection state after the client has been closed, either as a result of calling <code>close()</code> or due to a disconnect
+    and multiple failed reconnection attempts.
+
+    Please note: The initial state after the client was created is not &#39;CLOSED&#39;, but &#39;AWAITING_AUTHENTICATION&#39;
+</td>
+</tr>
+
+<tr>
+<td>AWAITING_AUTHENTICATION</td>
+<td>State after the client was created, but before <code>login()</code> was called.</td>
+</tr>
+
+<tr>
+<td>AUTHENTICATING</td>
+<td>State after the <code>login()</code> was called, but before the response was received.</td>
+</tr>
+
+<tr>
+<td>OPEN</td>
+<td>State after a successful login.</td>
+</tr>
+
+<tr>
+<td>ERROR</td>
+<td>State after a unrecoverable connection error occured.</td>
+</tr>
+
+<tr>
+<td>RECONNECTING</td>
+<td>State while the client is trying to reconnect.</td>
+</tr>
+
+</table>
 				
 				<h3>Comments and Questions</h3>
 				<div id="disqusContainer">

@@ -71,7 +71,7 @@
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
 
-	<li >
+	<li class="active">
 		<a href="client_errors.html">errors</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
@@ -120,63 +120,59 @@
 	</li>
 </ul>
 			<div id="content">
-				<div id="docsIndex">
-	<h3>Server</h3>
-	<ul class="apiOverview">
-		<li>
-			<a href="../docs/server.html">
-				<h5>Deepstream</h5>
-				<p>Configuration & Events</p>
-			</a>
-		</li>
-	</ul>
+				<div class="section"><h2><a name="Errors">Errors</a></h2><table class="mini">
 
-	<h3>JS Client</h3>
-	<ul class="apiOverview">
-		<li>
-			<a href="../docs/GoldenLayout.html">
-				<h5>GoldenLayout</h5>
-				<p>The main GoldenLayout instance</p>
-			</a>
-		</li>
-		<li>
-			<a href="../docs/Item.html">
-				<h5>Item</h5>
-				<p>Components, Rows, Columns and Stacks</p>
-			</a>
-		</li>
-		<li>
-			<a href="../docs/Container.html">
-				<h5>Container</h5>
-				<p>The Container that your components live in</p>
-			</a>
-		</li>
-		<li>
-			<a href="../docs/Header.html">
-				<h5>Header</h5>
-				<p>The Header bar on top of every Stack</p>
-			</a>
-		</li>
-		<li>
-			<a href="../docs/Tab.html">
-				<h5>Tab</h5>
-				<p>A Tab within a Header</p>
-			</a>
-		</li>
-		<li>
-			<a href="../docs/BrowserWindow.html">
-				<h5>BrowserWindow</h5>
-				<p>A object representing a popup window</p>
-			</a>
-		</li>
-		<li>
-			<a href="../docs/EventEmitter.html">
-				<h5>EventEmitter</h5>
-				<p>Every object within GoldenLayout can emit events. Here's the API</p>
-			</a>
-		</li>
-	</ul>
-</div>
+<tr>
+<td>CONNECTION_ERROR</td>
+<td>Either the Engine.io or TCP connection has encountered an error</td>
+</tr>
+
+<tr>
+<td>UNSOLICITED_MESSAGE</td>
+<td>A message was received that the client didn&#39;t expect, e.g. an update for a record that the client isn&#39;t subscribed to. This doesn&#39;t necessarily have to be an error, but can also be the result of messages crossing on the wire, e.g. when an outgoing record discard and an incoming message overlap.</td>
+</tr>
+
+<tr>
+<td>MESSAGE_PARSE_ERROR</td>
+<td>The client has received a syntactically incorrect message</td>
+</tr>
+
+<tr>
+<td>IS_CLOSED</td>
+<td>Emitted when the client tries to authenticate against an already closed connection.</td>
+</tr>
+
+<tr>
+<td>VERSION_EXISTS</td>
+<td>The client has tried to update a record to a version that the server already has. This might happen if multiple clients try to update the same record at the same time. The best thing to do might be to wait a few milliseconds for the record update to come in and then try again. This error will also be emitted by the affected Record.</td>
+</tr>
+
+<tr>
+<td>NOT_AUTHENTICATED</td>
+<td>Emitted if an operation is attempted before the client is authenticated (before <code>login()</code> has been called and a response was received.)</td>
+</tr>
+
+<tr>
+<td>ACK_TIMEOUT</td>
+<td>The acknowledgement response for a record subscription, event subscription or rpc call hasn&#39;t been received in time. This error is also emitted by the object that encountered it, e.g. the Record or Rpc.</td>
+</tr>
+
+<tr>
+<td>LISTENER_EXISTS</td>
+<td>Emitted when <code>ds.record.listen( pattern, callback )</code> is called more than once for the same pattern</td>
+</tr>
+
+<tr>
+<td>NOT_LISTENING</td>
+<td>Emitted when <code>ds.record.unlisten( pattern )</code> is called for a pattern that no listener exists for.</td>
+</tr>
+
+<tr>
+<td>TOO_MANY_AUTH_ATTEMPTS</td>
+<td>Emitted when the client has made more invalid authentication attempts than the server accepts. This can be configured as <code>maxAuthAttempts</code> on the server.</td>
+</tr>
+
+</table>
 				
 				<h3>Comments and Questions</h3>
 				<div id="disqusContainer">

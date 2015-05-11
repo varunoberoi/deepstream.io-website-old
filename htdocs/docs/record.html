@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>GOLDEN LAYOUT - the ultimate javascript layout manager</title>
+	
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="keywords" content="deepstream, deepstream.io, streaming, realtime, server, socket" />
+	<meta name="description" content="deepstream.io - a scalable server for realtime web apps" />
+	<meta name="author" content="Wolfram Hempel" />
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="stylesheet" type="text/css" href="../assets/css/screen.css" />
+	
+	<link rel="stylesheet" type="text/css" href="../assets/css/api.css" />
+	<link rel="stylesheet" type="text/css" href="../assets/css/syntaxhighlighter.css" />
+	
+	<script type="text/javascript">
+	document.createElement( 'header' );
+	document.createElement( 'nav' );
+	</script>
+	<script type="text/javascript" src="../assets/js/jquery.js"></script>
+</head>
+<body class="category_docs">
+
+	
+	<div id="outerWrapper">
+		<div class="topSection">
+			
+			<div id="header" class="orangeGradient micro">
+				<h1><a href="..">deepstream.io - a scalable server for realtime web apps</a></h1>
+				
+			</div>  
+			
+			<div id="nav" class="standalone">
+				
+				<img src="../assets/images/background-abstract.jpg" />
+				
+				<ul>
+					<li ><a href="..">START</a></li>
+					<li ><a href="../download">DOWNLOAD</a></li>
+					<li ><a href="../tutorials">TUTORIALS</a></li>
+					<li class="active"><a href="../docs">DOCS</a></li>
+				</ul>
+			</div>
+		</div>
+		
+		<div id="wrapper" class="main">
+			<ul id="subnav">
+	<li class="head first">Server</li>
+	<li >
+		<a href="Deepstream.html">Deepstream</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+
+	<li class="head">JS Client</li>
+	<li >
+		<a href="Client.html">Client</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+		
+	</li>
+
+	<li >
+		<a href="client_options.html">options</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li >
+		<a href="connection_states.html">connectionStates</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li >
+		<a href="client_errors.html">errors</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li >
+		<a href="event_emitter.html">EventEmitter</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li class="de-emphasized">Record</li>
+	<li >
+		<a href="client.record.html">client.record</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li class="active">
+		<a href="record.html">Record</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li >
+		<a href="list.html">List</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li >
+		<a href="anonymous_record.html">Anonymous Record</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li class="de-emphasized">RPC</li>
+	<li >
+		<a href="client.rpc.html">client.rpc</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li >
+		<a href="rpc_response.html">RpcResponse</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li class="de-emphasized">Event</li>
+	<li >
+		<a href="client.event.html">client.event</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+</ul>
+			<div id="content">
+				<div class="section"><h2><a name="Properties">Properties</a></h2><table class="mini">
+<tbody>
+
+<tr>
+<td>name</td>
+<td>String</td>
+<td>The name of the record, as specified when calling ds.record.getRecord()</td>
+</tr>
+
+<tr>
+<td>usages</td>
+<td>Number</td>
+<td>The number of active subscriptions to this record by this client</td>
+</tr>
+
+<tr>
+<td>isReady</td>
+<td>Boolean</td>
+<td>True once the record has received its current data and emitted &#39;ready&#39;</td>
+</tr>
+
+<tr>
+<td>isDestroyed</td>
+<td>Boolean</td>
+<td>True once the record has been discarded or deleted</td>
+</tr>
+
+</tbody>
+</table>
+
+</div><div class="section"><h2><a name="Events">Events</a></h2><table class="mini">
+<tbody>
+
+<tr>
+<td>ready</td>
+<td>Emitted once the record has received its current data from the server.</td>
+</tr>
+
+<tr>
+<td>delete</td>
+<td>Emitted when the record was deleted, whether by this client or by another.</td>
+</tr>
+
+<tr>
+<td>discard</td>
+<td>Emitted once the record was discarded.</td>
+</tr>
+
+<tr>
+<td>error</td>
+<td>Emitted if the record encounters an error. The error message is passed to the event callback.</td>
+</tr>
+
+</tbody>
+</table>
+
+</div><div class="section"><h2><a name="whenReady()">whenReady()</a></h2><p>Convenience method. Gets executed straight away if the record is ready or scheduled for callback once the record is ready.</p></div><div class="section"><h2><a name="get( path )">get( path )</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">path</td><td class="type">String</td><td class="optional">true</td><td class="default">-</td><td class="description">A particular path within the JSON structure that should be retrieved.</td></tr></tbody></table><p>Returns the entire record&#39;s data if called without a path or the value of a specific path within the record&#39;s
+data structure. Paths are expressed as JSON, e.g. <code>record.get( &#39;user.hobbies[2]&#39; )</code>. Will return undefined if the path
+can&#39;t be found;</p></div><div class="section"><h2><a name="set( path, value )">set( path, value )</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">path</td><td class="type">String</td><td class="optional">true</td><td class="default">-</td><td class="description">A particular path within the JSON structure that should be set.</td></tr><tr><td class="argument">value</td><td class="type">Various</td><td class="optional">false</td><td class="default">-</td><td class="description">The value the record or path should be set to</td></tr></tbody></table><p>Set can be called either with just a value, e.g. <code>ds.record.getRecord( &#39;user/14&#39; ).set({ firstname: &#39;Wolfram&#39;, lastname: &#39;Hempel&#39; })</code> or with
+a path and a value <code>ds.record.getRecord( &#39;user/14&#39; ).set({ &#39;firstname&#39; &#39;Egon&#39; });</code>.</p></div><div class="section"><h2><a name="subscribe( path, callback, triggerNow )">subscribe( path, callback, triggerNow )</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">path</td><td class="type">String</td><td class="optional">true</td><td class="default">-</td><td class="description">A particular path within the JSON structure that should be subscribed to</td></tr><tr><td class="argument">callback</td><td class="type">Function</td><td class="optional">false</td><td class="default">-</td><td class="description">A callback function that should be called whenever the value changes</td></tr><tr><td class="argument">triggerNow</td><td class="type">Boolean</td><td class="optional">true</td><td class="default">-</td><td class="description">If true, the callback function will be called immediatly with the current value.</td></tr></tbody></table><p>Subscribe registers a callback that will be notified whenever the value changes. It can be called with just a callback function,
+a callback and a path to subscribe to or all three arguments.</p><pre><code>shoppingCart <span class="token operator" >=</span> ds<span class="token punctuation" >.</span>record<span class="token punctuation" >.</span><span class="token function" >getRecord<span class="token punctuation" >(</span></span> <span class="token string" >'shopping-cart/4322'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+renderPrice <span class="token operator" >=</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> price <span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
+    document<span class="token punctuation" >.</span><span class="token function" >getElementById<span class="token punctuation" >(</span></span> <span class="token string" >'price'</span> <span class="token punctuation" >)</span><span class="token punctuation" >.</span>innerHTML <span class="token operator" >=</span> price<span class="token punctuation" >;</span>
+<span class="token punctuation" >}</span><span class="token punctuation" >;</span>
+shoppingCart<span class="token punctuation" >.</span><span class="token function" >subscribe<span class="token punctuation" >(</span></span> <span class="token string" >'price'</span><span class="token punctuation" >,</span> renderPrice<span class="token punctuation" >,</span> <span class="token keyword" >true</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+</code></pre></div><div class="section"><h2><a name="unsubscribe( path, callback )">unsubscribe( path, callback )</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">path</td><td class="type">String</td><td class="optional">true</td><td class="default">-</td><td class="description">The path that was previously used to subscribe</td></tr><tr><td class="argument">callback</td><td class="type">Function</td><td class="optional">false</td><td class="default">-</td><td class="description">The previously registered callback function</td></tr></tbody></table><p>Removes a subscription that was previously made using record.subscribe()</p><p>Can be called with a path to remove the callback for this specific
+path or only with a callback which removes it from the generic subscriptions</p><p>Please Note: unsubscribe is a purely client side operation. If the app is no longer
+interested in receiving updates for this record from the server it needs to call
+discard instead</p></div><div class="section"><h2><a name="discard()">discard()</a></h2><p>Removes all change listeners and notifies the server that the client is
+no longer interested in updates for this record</p></div><div class="section"><h2><a name="delete()">delete()</a></h2><p>Deletes the record on the server. This action deletes the record for all users and is irreversible.</p><p></div></p>
+				
+				<h3>Comments and Questions</h3>
+				<div id="disqusContainer">
+					<div id="disqus_thread"></div>
+				    <script type="text/javascript">
+				        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+				        var disqus_shortname = 'goldenlayoutcom'; // required: replace example with your forum shortname
+
+				        /* * * DON'T EDIT BELOW THIS LINE * * */
+				        (function() {
+				            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+				            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+				            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+				        })();
+				    </script>
+				    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+				    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+			    
+					
+					
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="../assets/js/docs.js"></script>
+		
+		<div id="footerPush"></div>
+	</div>
+	<div id="footer">
+		<div class="copyright">&copy;2014 Hoxton One Ltd. All rights reserved.</div>
+		<ul class="footerItems">
+			<li class="news">
+				<h4>GoldenLayout on...</h4>
+				<ul class="social">
+					<li class="twitter">
+						<a href="https://twitter.com/goldenlayout">Twitter</a>
+					</li>
+					<li class="github">
+						<a href="https://github.com/hoxton-one/golden-layout">Github</a>
+					</li>
+					<li class="bower">
+						<a href="http://bower.io/search/?q=golden-layout">Bower: golden-layout</a>
+					</li>
+				</ul>
+			</li>
+
+			<li class="contact">
+				<h4>Contact</h4>
+				<p>
+					Like to learn more?
+					<a href="mailto:info@golden-layout.com">info@golden-layout.com</a>
+				</p>
+				<p>
+					Support for licensees
+					<a href="mailto:support@golden-layout.com">support@golden-layout.com</a>
+				</p>
+				<p>
+					For technical questions please also check the comment section at the bottom of docs and tutorials
+				</p>
+			</li>
+
+			<li class="footerItem about">
+				<h4>About</h4>
+				<p>
+					GoldenLayout is developed by <b>Hoxton One Ltd.</b>, a small Company based in London's dodgy, yet glorious East.
+				</p>
+				<p>
+					<b>Registered Offices</b>:
+					Suite 7,
+					KD Tower,
+					Cotterells,
+					Hemel Hempstead,
+					Herts,
+					HP1 1FW
+				</p>
+				<p>Registered in England and Wales, Company Nr 09121068</p>
+				
+			</li>
+		</ul>
+	</div>
+
+
+	
+		
+	
+</body>
+</html>

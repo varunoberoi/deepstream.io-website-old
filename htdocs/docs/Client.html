@@ -65,10 +65,6 @@
 				
 				<li><a href="#Events">Events</a></li>
 				
-				<li><a href="#Connection States">Connection States</a></li>
-				
-				<li><a href="#Errors">Errors</a></li>
-				
 				<li><a href="#login( authParams, callback )">login( authParams, callback )</a></li>
 				
 				<li><a href="#close()">close()</a></li>
@@ -80,107 +76,69 @@
 			</ul>
 		
 	</li>
+
 	<li >
-		<a href="client-options.html">Client Options</a>
+		<a href="client_options.html">options</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li >
+		<a href="connection_states.html">connectionStates</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li >
+		<a href="client_errors.html">errors</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li >
+		<a href="event_emitter.html">EventEmitter</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li class="de-emphasized">Record</li>
+	<li >
+		<a href="client.record.html">client.record</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li >
+		<a href="record.html">Record</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li >
+		<a href="list.html">List</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li >
+		<a href="anonymous_record.html">Anonymous Record</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li class="de-emphasized">RPC</li>
+	<li >
+		<a href="client.rpc.html">client.rpc</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li >
+		<a href="rpc_response.html">RpcResponse</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li class="de-emphasized">Event</li>
+	<li >
+		<a href="client.event.html">client.event</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
 </ul>
 			<div id="content">
-				<div class="section"><h2><a name="deepstream( url, options )">deepstream( url, options )</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">url</td><td class="type">String</td><td class="optional">false</td><td class="default">-</td><td class="description">A url in the format &lt;host&gt;:&lt;port&gt;</td></tr><tr><td class="argument">options</td><td class="type">Object</td><td class="optional">true</td><td class="default">-</td><td class="description">A map of options. Please read the segment on <a href="client_options.html">Client Options</a> for details</td></tr></tbody></table><p></tbody></table></p></div><div class="section"><h2><a name="Events">Events</a></h2><h3>connectionStateChanged <connectionState></h3><p>Emitted everytime the connectionState changes. The connectionState is passed to the callback and can also be retrieved using <a href="#getConnectionState()">getConnectionState()</a>. Please find a list of connectionStates <a href="#Connection States">here</a>.</p><h3>error</h3><p>Aggregates all errors that are encountered. Some errors like <code>CONNECTION_ERROR</code> or <code>MESSAGE_PARSE_ERROR</code> are exlusively emitted
+				<div class="section"><h2><a name="deepstream( url, options )">deepstream( url, options )</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">url</td><td class="type">String</td><td class="optional">false</td><td class="default">-</td><td class="description">A url in the format &lt;host&gt;:&lt;port&gt;</td></tr><tr><td class="argument">options</td><td class="type">Object</td><td class="optional">true</td><td class="default">-</td><td class="description">A map of options. Please read the segment on <a href="client_options.html">Client Options</a> for details</td></tr></tbody></table><p></tbody></table></p></div><div class="section"><h2><a name="Events">Events</a></h2><h3>connectionStateChanged <connectionState></h3><p>Emitted everytime the connectionState changes. The connectionState is passed to the callback and can also be retrieved using <a href="#getConnectionState()">getConnectionState()</a>. Please find a list of connectionStates <a href="connection_states.html">here</a>.</p><h3>error</h3><p>Aggregates all errors that are encountered. Some errors like <code>CONNECTION_ERROR</code> or <code>MESSAGE_PARSE_ERROR</code> are exlusively emitted
 by the client, others like <code>ACK_TIMEOUT</code> or <code>VERSION_EXISTS</code> that relate to a specific Record, Event or RPC are emitted first by the object
-they relate to and are then forwarded to the client.</p></div><div class="section"><h2><a name="Connection States">Connection States</a></h2><table class="mini">
-
-<tr>
-<td>CLOSED</td>
-<td>Connection state after the client has been closed, either as a result of calling <code>close()</code> or due to a disconnect
-    and multiple failed reconnection attempts.
-
-    Please note: The initial state after the client was created is not &#39;CLOSED&#39;, but &#39;AWAITING_AUTHENTICATION&#39;
-</td>
-</tr>
-
-<tr>
-<td>AWAITING_AUTHENTICATION</td>
-<td>State after the client was created, but before <code>login()</code> was called.</td>
-</tr>
-
-<tr>
-<td>AUTHENTICATING</td>
-<td>State after the <code>login()</code> was called, but before the response was received.</td>
-</tr>
-
-<tr>
-<td>OPEN</td>
-<td>State after a successful login.</td>
-</tr>
-
-<tr>
-<td>ERROR</td>
-<td>State after a unrecoverable connection error occured.</td>
-</tr>
-
-<tr>
-<td>RECONNECTING</td>
-<td>State while the client is trying to reconnect.</td>
-</tr>
-
-</table>
-
-</div><div class="section"><h2><a name="Errors">Errors</a></h2><table class="mini">
-
-<tr>
-<td>CONNECTION_ERROR</td>
-<td>Either the Engine.io or TCP connection has encountered an error</td>
-</tr>
-
-<tr>
-<td>UNSOLICITED_MESSAGE</td>
-<td>A message was received that the client didn&#39;t expect, e.g. an update for a record that the client isn&#39;t subscribed to. This doesn&#39;t necessarily have to be an error, but can also be the result of messages crossing on the wire, e.g. when an outgoing record discard and an incoming message overlap.</td>
-</tr>
-
-<tr>
-<td>MESSAGE_PARSE_ERROR</td>
-<td>The client has received a syntactically incorrect message</td>
-</tr>
-
-<tr>
-<td>IS_CLOSED</td>
-<td>Emitted when the client tries to authenticate against an already closed connection.</td>
-</tr>
-
-<tr>
-<td>VERSION_EXISTS</td>
-<td>The client has tried to update a record to a version that the server already has. This might happen if multiple clients try to update the same record at the same time. The best thing to do might be to wait a few milliseconds for the record update to come in and then try again. This error will also be emitted by the affected Record.</td>
-</tr>
-
-<tr>
-<td>NOT_AUTHENTICATED</td>
-<td>Emitted if an operation is attempted before the client is authenticated (before <code>login()</code> has been called and a response was received.)</td>
-</tr>
-
-<tr>
-<td>ACK_TIMEOUT</td>
-<td>The acknowledgement response for a record subscription, event subscription or rpc call hasn&#39;t been received in time. This error is also emitted by the object that encountered it, e.g. the Record or Rpc.</td>
-</tr>
-
-<tr>
-<td>LISTENER_EXISTS</td>
-<td>Emitted when <code>ds.record.listen( pattern, callback )</code> is called more than once for the same pattern</td>
-</tr>
-
-<tr>
-<td>NOT_LISTENING</td>
-<td>Emitted when <code>ds.record.unlisten( pattern )</code> is called for a pattern that no listener exists for.</td>
-</tr>
-
-<tr>
-<td>TOO_MANY_AUTH_ATTEMPTS</td>
-<td>Emitted when the client has made more invalid authentication attempts than the server accepts. This can be configured as <code>maxAuthAttempts</code> on the server.</td>
-</tr>
-
-</table>
-
-</div><div class="section"><h2><a name="login( authParams, callback )">login( authParams, callback )</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">authParams</td><td class="type">Object</td><td class="optional">false</td><td class="default">-</td><td class="description">An object with authentication parameters, e.g. <code>{ username: &#39;PeterA&#39;, password: &#39;sesame&#39; }</code></td></tr><tr><td class="argument">callback</td><td class="type">Function</td><td class="optional">true</td><td class="default">-</td><td class="description">A function that will be called once the response to the authentication request is received.</td></tr></tbody></table><p>Authenticates the client against the server. To learn more about how authentication works, please have a look at the <a href="../tutorials/authentication_and_permissioning.html">Authentication and Permissioning tutorial</a>.</p><p>Callback will be called with three arguments: success (Boolean), errorEvent (String) and errorMessage (String)</p><pre><code><span class="token keyword" >var</span> deepstream <span class="token operator" >=</span> <span class="token function" >require<span class="token punctuation" >(</span></span> <span class="token string" >'deepstream.io-client-js'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+they relate to and are then forwarded to the client. Please find a <a href="client_errors.html">list of all errors here</a>.</p></div><div class="section"><h2><a name="login( authParams, callback )">login( authParams, callback )</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">authParams</td><td class="type">Object</td><td class="optional">false</td><td class="default">-</td><td class="description">An object with authentication parameters, e.g. <code>{ username: &#39;PeterA&#39;, password: &#39;sesame&#39; }</code></td></tr><tr><td class="argument">callback</td><td class="type">Function</td><td class="optional">true</td><td class="default">-</td><td class="description">A function that will be called once the response to the authentication request is received.</td></tr></tbody></table><p>Authenticates the client against the server. To learn more about how authentication works, please have a look at the <a href="../tutorials/authentication_and_permissioning.html">Authentication and Permissioning tutorial</a>.</p><p>Callback will be called with three arguments: success (Boolean), errorEvent (String) and errorMessage (String)</p><pre><code><span class="token keyword" >var</span> deepstream <span class="token operator" >=</span> <span class="token function" >require<span class="token punctuation" >(</span></span> <span class="token string" >'deepstream.io-client-js'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
 
 ds <span class="token operator" >=</span> <span class="token function" >deepstream<span class="token punctuation" >(</span></span> <span class="token string" >'localhost:6020'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
 <span class="token comment" spellcheck="true">
@@ -204,7 +162,15 @@ ds<span class="token punctuation" >.</span><span class="token function" >login<s
 
 ds<span class="token punctuation" >.</span><span class="token function" >close<span class="token punctuation" >(</span></span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
 </code></pre></div><div class="section"><h2><a name="getConnectionState()">getConnectionState()</a></h2><p>Returns the current connectionState. Please find a list of available connectionStates <a href="#Connection States">here</a>.</p></div><div class="section"><h2><a name="getUid()">getUid()</a></h2><p>Returnes a unique id. The uid starts with a Base64 encoded timestamt to allow for semi-sequentual ordering and ends in a random string.</p><pre><code>ds<span class="token punctuation" >.</span><span class="token function" >getUid<span class="token punctuation" >(</span></span><span class="token punctuation" >)</span><span class="token comment" spellcheck="true"> // 'i9i6db5q-1xak1s2sfzk'</span>
-</code></pre><p></div></p>
+</code></pre><p>record.getRecord
+record.getList
+record.getAnonymousRecord
+record.listen
+record.unlisten</p><p>rpc.provide
+rpc.unprovide
+rpc.make</p><p>event.subscribe
+event.unsubscribe
+event.emit</p><p></div></p>
 				
 				<h3>Comments and Questions</h3>
 				<div id="disqusContainer">

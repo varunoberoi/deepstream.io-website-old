@@ -38,7 +38,7 @@ nav{
 * SUBNAV
 ***********************/
 #wrapper > #subnav li{
-	margin-bottom: 10px;
+	margin-bottom: 3px;
 	text-align: right;
 	border-right: 3px solid transparent;
 	padding-right: 10px;
@@ -46,6 +46,14 @@ nav{
 	clear:both;
 }
 
+#wrapper > #subnav li.de-emphasized{
+	font-family: Kalinga;
+	font-size: 12px;
+	font-style: italic;
+	color: #aaa;
+	margin-bottom: 0;
+	margin-top: 20px;
+}
 #wrapper > #subnav li.head{
 	font-family: Kalinga;
 	font-size: 14px;
@@ -341,6 +349,10 @@ nav{
 #wrapper #content #categoryList li h3{
 	margin: 0 0 5px;
 	border: none;
+}
+
+#wrapper #content table.mini{
+	width: 100%;
 }
 
 #wrapper #content table.mini *{
