@@ -378,6 +378,12 @@ nav{
 #wrapper #content table.mini tr:nth-child(odd) td{
 	background: #f3f3f3;
 }
+
 #wrapper #content table.mini td{
 	padding: 10px 5px;
+}
+
+#wrapper #content .center{
+	margin: 0 auto;
+	display: block;
 }

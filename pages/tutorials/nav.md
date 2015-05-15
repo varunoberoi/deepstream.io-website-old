@@ -24,6 +24,11 @@
 	</li>
 
 	<li class="head">Client</li>
+	<li {{#if fileIs_node-js-client}}class="active"{{/if}}>
+		<a href="node-js-client.html">Using the client in NodeJS</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
 	<li {{#if fileIs_records-events-rpcs}}class="active"{{/if}}>
 		<a href="records-events-rpcs.html">Records, Events and RPCs</a>
 		<div class="isActiveIndicator orangeGradient"></div>

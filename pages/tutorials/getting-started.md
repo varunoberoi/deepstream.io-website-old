@@ -1,14 +1,17 @@
 Getting started
 ====================================
-Learn how to install and start a deepstream server, how to connect to it from a browser and
-how to wire a record to a text input and keep them in sync.
+Learn how to 
+* install and start a deepstream server
+* connect to it from a browser 
+* create a record
+* wire the record to a text input
 
 ### Server
 Install the server via npm
 
 	npm install deepstream.io
 
-Create a js file, e.g. `start.js`
+Create a js file, e.g. `start.js` with the following content
 
 	var DeepstreamServer = require( 'deepstream.io' ),
 		server = new DeepstreamServer();
@@ -25,25 +28,44 @@ run the file with node
 
 	node start.js
 
+your console should now show this
+
+<img src="../assets/images/deepstream-started-console.png" />
+
 ### Client
-Create a simple webpage with a single text input field. Then 
-install the javascript client via bower or npm
+
+Install the javascript client via bower or npm
 
 	bower install deepstream.io-client-js
+
+Create a simple webpage with a single text input field. 
+
+	<!DOCTYPE html>
+	<html>
+		<head>
+			<script 
+				type="text/javascript" 
+				src="bower_components/deepstream.io-client-js/dist/deepstream.js">
+			</script>
+		</head>
+		<body>
+			<input type="text" />
+			<script type="text/javascript">
+				//js goes here
+			</script>
+		</body>
+	</html>
+
 
 Connect to the server and login without credentials.
 
 	ds = deepstream( 'localhost:6020' ).login();
 
-Create a text input field
-
-	<input type="text" />
-
-Create a deepstream record
+Create a record
 
 	record = ds.record.getRecord( 'someUser' );
 
-Wire the two together
+Wire it up to the input
 
 	input = document.querySelector( 'input' );
 				
@@ -55,7 +77,7 @@ Wire the two together
 		input.value = value;
 	});
 
-Open your page in two browser windows and watch both inputs stay in sync. Alltogether your page
+Now open your page in two browser windows and watch both inputs stay in sync. Alltogether your page
 should now look like this:
 
 	<!DOCTYPE html>

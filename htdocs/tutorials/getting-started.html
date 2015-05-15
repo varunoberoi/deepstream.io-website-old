@@ -73,6 +73,11 @@
 
 	<li class="head">Client</li>
 	<li >
+		<a href="node-js-client.html">Using the client in NodeJS</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li >
 		<a href="records-events-rpcs.html">Records, Events and RPCs</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
@@ -88,9 +93,14 @@
 	</li>
 </ul>
 			<div id="content">
-				<h1>Getting started</h1><p>Learn how to install and start a deepstream server, how to connect to it from a browser and
-how to wire a record to a text input and keep them in sync.</p><h3>Server</h3><p>Install the server via npm</p><pre><code>npm install deepstream<span class="token punctuation" >.</span>io
-</code></pre><p>Create a js file, e.g. <code>start.js</code></p><pre><code><span class="token keyword" >var</span> DeepstreamServer <span class="token operator" >=</span> <span class="token function" >require<span class="token punctuation" >(</span></span> <span class="token string" >'deepstream.io'</span> <span class="token punctuation" >)</span><span class="token punctuation" >,</span>
+				<h1>Getting started</h1><p>Learn how to</p><ul>
+<li>install and start a deepstream server</li>
+<li>connect to it from a browser </li>
+<li>create a record</li>
+<li>wire the record to a text input</li>
+</ul>
+<h3>Server</h3><p>Install the server via npm</p><pre><code>npm install deepstream<span class="token punctuation" >.</span>io
+</code></pre><p>Create a js file, e.g. <code>start.js</code> with the following content</p><pre><code><span class="token keyword" >var</span> DeepstreamServer <span class="token operator" >=</span> <span class="token function" >require<span class="token punctuation" >(</span></span> <span class="token string" >'deepstream.io'</span> <span class="token punctuation" >)</span><span class="token punctuation" >,</span>
     server <span class="token operator" >=</span> <span class="token keyword" >new</span> <span class="token class-name" >DeepstreamServer</span><span class="token punctuation" >(</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
 <span class="token comment" spellcheck="true">
 // Optionally you can specify some settings, a full list of which
@@ -101,12 +111,25 @@ server<span class="token punctuation" >.</span><span class="token keyword" >set<
 // start the server
 </span>server<span class="token punctuation" >.</span><span class="token function" >start<span class="token punctuation" >(</span></span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
 </code></pre><p>run the file with node</p><pre><code>node start<span class="token punctuation" >.</span>js
-</code></pre><h3>Client</h3><p>Create a simple webpage with a single text input field. Then 
-install the javascript client via bower or npm</p><pre><code>bower install deepstream<span class="token punctuation" >.</span>io<span class="token operator" >-</span>client<span class="token operator" >-</span>js
+</code></pre><p>your console should now show this</p><p><img src="../assets/images/deepstream-started-console.png" /></p><h3>Client</h3><p>Install the javascript client via bower or npm</p><pre><code>bower install deepstream<span class="token punctuation" >.</span>io<span class="token operator" >-</span>client<span class="token operator" >-</span>js
+</code></pre><p>Create a simple webpage with a single text input field.</p><pre><code><span class="token operator" >&lt;</span><span class="token operator" >!</span>DOCTYPE html<span class="token operator" >></span>
+<span class="token operator" >&lt;</span>html<span class="token operator" >></span>
+    <span class="token operator" >&lt;</span>head<span class="token operator" >></span>
+        <span class="token operator" >&lt;</span>script 
+            type<span class="token operator" >=</span><span class="token string" >"text/javascript"</span> 
+            src<span class="token operator" >=</span><span class="token string" >"bower_components/deepstream.io-client-js/dist/deepstream.js"</span><span class="token operator" >></span>
+        <span class="token operator" >&lt;</span><span class="token operator" >/</span>script<span class="token operator" >></span>
+    <span class="token operator" >&lt;</span><span class="token operator" >/</span>head<span class="token operator" >></span>
+    <span class="token operator" >&lt;</span>body<span class="token operator" >></span>
+        <span class="token operator" >&lt;</span>input type<span class="token operator" >=</span><span class="token string" >"text"</span> <span class="token operator" >/</span><span class="token operator" >></span>
+        <span class="token operator" >&lt;</span>script type<span class="token operator" >=</span><span class="token string" >"text/javascript"</span><span class="token operator" >></span>
+           <span class="token comment" spellcheck="true"> //js goes here
+</span>        <span class="token operator" >&lt;</span><span class="token operator" >/</span>script<span class="token operator" >></span>
+    <span class="token operator" >&lt;</span><span class="token operator" >/</span>body<span class="token operator" >></span>
+<span class="token operator" >&lt;</span><span class="token operator" >/</span>html<span class="token operator" >></span>
 </code></pre><p>Connect to the server and login without credentials.</p><pre><code>ds <span class="token operator" >=</span> <span class="token function" >deepstream<span class="token punctuation" >(</span></span> <span class="token string" >'localhost:6020'</span> <span class="token punctuation" >)</span><span class="token punctuation" >.</span><span class="token function" >login<span class="token punctuation" >(</span></span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-</code></pre><p>Create a text input field</p><pre><code><span class="token operator" >&lt;</span>input type<span class="token operator" >=</span><span class="token string" >"text"</span> <span class="token operator" >/</span><span class="token operator" >></span>
-</code></pre><p>Create a deepstream record</p><pre><code>record <span class="token operator" >=</span> ds<span class="token punctuation" >.</span>record<span class="token punctuation" >.</span><span class="token function" >getRecord<span class="token punctuation" >(</span></span> <span class="token string" >'someUser'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-</code></pre><p>Wire the two together</p><pre><code>input <span class="token operator" >=</span> document<span class="token punctuation" >.</span><span class="token function" >querySelector<span class="token punctuation" >(</span></span> <span class="token string" >'input'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+</code></pre><p>Create a record</p><pre><code>record <span class="token operator" >=</span> ds<span class="token punctuation" >.</span>record<span class="token punctuation" >.</span><span class="token function" >getRecord<span class="token punctuation" >(</span></span> <span class="token string" >'someUser'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+</code></pre><p>Wire it up to the input</p><pre><code>input <span class="token operator" >=</span> document<span class="token punctuation" >.</span><span class="token function" >querySelector<span class="token punctuation" >(</span></span> <span class="token string" >'input'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
 
 input<span class="token punctuation" >.</span>onkeyup <span class="token operator" >=</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span><span class="token punctuation" >)</span><span class="token punctuation" >{</span>
     record<span class="token punctuation" >.</span><span class="token keyword" >set</span><span class="token punctuation" >(</span> <span class="token string" >'firstname'</span><span class="token punctuation" >,</span> input<span class="token punctuation" >.</span>value <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
@@ -115,7 +138,7 @@ input<span class="token punctuation" >.</span>onkeyup <span class="token operato
 record<span class="token punctuation" >.</span><span class="token function" >subscribe<span class="token punctuation" >(</span></span> <span class="token string" >'firstname'</span><span class="token punctuation" >,</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> value <span class="token punctuation" >)</span><span class="token punctuation" >{</span>
     input<span class="token punctuation" >.</span>value <span class="token operator" >=</span> value<span class="token punctuation" >;</span>
 <span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-</code></pre><p>Open your page in two browser windows and watch both inputs stay in sync. Alltogether your page
+</code></pre><p>Now open your page in two browser windows and watch both inputs stay in sync. Alltogether your page
 should now look like this:</p><pre><code><span class="token operator" >&lt;</span><span class="token operator" >!</span>DOCTYPE html<span class="token operator" >></span>
 <span class="token operator" >&lt;</span>html<span class="token operator" >></span>
     <span class="token operator" >&lt;</span>head<span class="token operator" >></span>
