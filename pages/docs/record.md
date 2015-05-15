@@ -1,3 +1,11 @@
+Record
+----------------------------------
+Records are one of deepstream's core features. A Record is an arbitrary JSON data structure that can be created, retrieved, updated, deleted and listened to. Records are created and retrieved using `client.record.getRecord( &lt;name 
+
+	var record = client.record.getRecord( 'recordName' );
+
+Please see <a href="client.record.html#getRecord( name )">getRecord( name );</a> for details.
+
 Properties
 ----------------------------------
 <table class="mini">
@@ -6,19 +14,19 @@ Properties
 <tr>
 <td>name</td>
 <td>String</td>
-<td>The name of the record, as specified when calling ds.record.getRecord()</td>
+<td>The name of the record, as specified when calling `client.record.getRecord( &lt;name&gt; );`</td>
 </tr>
 
 <tr>
 <td>usages</td>
 <td>Number</td>
-<td>The number of active subscriptions to this record by this client</td>
+<td>The number of times `client.record.getRecord()` has been called for this record throughout the application</td>
 </tr>
 
 <tr>
 <td>isReady</td>
 <td>Boolean</td>
-<td>True once the record has received its current data and emitted 'ready'</td>
+<td>True once the record has received its current data and emitted the `'ready'` event</td>
 </tr>
 
 <tr>
@@ -58,9 +66,14 @@ Events
 </tbody>
 </table>
 
-whenReady()
+whenReady( callback )
 ---------------------------------------------------
-Convenience method. Gets executed straight away if the record is ready or scheduled for callback once the record is ready.
+argument: callback
+type: Function
+optional: false
+desc: A function that should be invoked as soon as the record is ready.
+
+Convenience method that executes the callback straight away if the record is ready or registers it as a callback for the `'ready'` event.
 
 get( path )
 ---------------------------------------------------
@@ -69,9 +82,25 @@ type: String
 optional: true
 desc: A particular path within the JSON structure that should be retrieved.
 
-Returns the entire record's data if called without a path or the value of a specific path within the record's
-data structure. Paths are expressed as JSON, e.g. `record.get( 'user.hobbies[2]' )`. Will return undefined if the path
-can't be found;
+`get()` is used to return the record's data. If called without an argument it returns all the data. Alternatively you can call it with a path string to only retrieve a specific part. If this path can't be found, `get()` will return `undefined`.
+
+	
+	var record = client.record.getRecord( 'user/14' );
+
+	record.set({
+		personalData: {
+			firstname: 'Homer',
+			lastname: 'Simpson'
+		}
+		children: [ 'Bart', 'Maggie', 'Lisa' ]
+	});
+
+	record.get(); // Returns entire object
+	record.get( 'children[1]' ); // 'Maggie'
+	record.get( 'personalData.firstname' ); // 'Homer';
+
+
+
  
 set( path, value )
 ---------------------------------------------------
@@ -85,8 +114,22 @@ type: Various
 optional: false
 desc: The value the record or path should be set to
 
-Set can be called either with just a value, e.g. `ds.record.getRecord( 'user/14' ).set({ firstname: 'Wolfram', lastname: 'Hempel' })` or with
-a path and a value `ds.record.getRecord( 'user/14' ).set({ 'firstname' 'Egon' });`.
+Set is used to set the record's data. It can be called with just a value or with a path and a value.
+
+	var record = client.record.getRecord( 'user/14' );
+
+	// Set the entire record's data
+	record.set({
+		personalData: {
+			firstname: 'Homer',
+			lastname: 'Simpson'
+		}
+		children: [ 'Bart', 'Maggie', 'Lisa' ]
+	});
+
+	// Update only firstname
+	record.set( 'personalData.firstname', 'Marge' );
+
 
 
 subscribe( path, callback, triggerNow )
@@ -94,7 +137,7 @@ subscribe( path, callback, triggerNow )
 argument: path
 type: String
 optional: true
-desc: A particular path within the JSON structure that should be subscribed to
+desc: A path within the JSON structure that should be subscribed to
 
 argument: callback
 type: Function
@@ -106,10 +149,19 @@ type: Boolean
 optional: true
 desc: If true, the callback function will be called immediatly with the current value.
 
-Subscribe registers a callback that will be notified whenever the value changes. It can be called with just a callback function,
-a callback and a path to subscribe to or all three arguments.
+Subscribe registers a function that will be invoked whenever the record's value changes. You can subscribe to all changes off the record's data by just providing a callback function or to changes of a specific path within the record.
+
+Optionally one can also pass `true` to execute the callback function straight away with the record's current value.
 
 	shoppingCart = ds.record.getRecord( 'shopping-cart/4322' );
+
+	// Subscribe to any change of the record
+	shoppingCart.subscribe(function( data ){
+		// do stuff...
+	});
+
+	// Only subscribe to price changes and add true to run 
+	// renderPrice straight away for the current price
 	renderPrice = function( price ) {
 		document.getElementById( 'price' ).innerHTML = price;
 	};
@@ -120,26 +172,29 @@ unsubscribe( path, callback )
 argument: path
 type: String
 optional: true
-desc: The path that was previously used to subscribe
+desc: The path that was previously used for subscribe
 
 argument: callback
 type: Function
 optional: false
 desc: The previously registered callback function
 
-Removes a subscription that was previously made using record.subscribe()
+Removes a subscription that was previously made using `record.subscribe()`
 
 Can be called with a path to remove the callback for this specific
 path or only with a callback which removes it from the generic subscriptions
 
-Please Note: unsubscribe is a purely client side operation. If the app is no longer
-interested in receiving updates for this record from the server it needs to call
-discard instead
+Please Note: unsubscribe is purely a client side operation. Use `discard()` to notify the server
+that the app is no longer interested in this record.
 
 discard()
 -----------------------------------------------------
 Removes all change listeners and notifies the server that the client is
-no longer interested in updates for this record
+no longer interested in updates for this record.
+
+<div class="info">
+It is important to make sure that `discard()` is called for any record that's no longer needed. If you only remove the listeners using `unsubscribe()` the server won't be notified and will continue to send updates to the client.
+</div>
 
 delete()
 -----------------------------------------------------

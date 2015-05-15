@@ -90,11 +90,13 @@
 	<li >
 		<a href="record.html">Record</a>
 		<div class="isActiveIndicator orangeGradient"></div>
+		
 	</li>
 
 	<li >
 		<a href="list.html">List</a>
 		<div class="isActiveIndicator orangeGradient"></div>
+		
 	</li>
 
 	<li >
@@ -120,11 +122,71 @@
 	</li>
 </ul>
 			<div id="content">
-				<p>record.getRecord
-record.getList
-record.getAnonymousRecord
-record.listen
-record.unlisten</p>
+				<div class="section"><h2><a name="client.record.getRecord( name )">client.record.getRecord( name )</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">name</td><td class="type">String</td><td class="optional">false</td><td class="default">-</td><td class="description">The name / primaryKey for the record.</td></tr></tbody></table><p>Retrieves or creates a <a href="Record.html">Record</a> with the given name. Records are persistant datastructures
+that clients can manipulate and observe.</p><pre><code><span class="token comment" spellcheck="true">// clientA
+</span><span class="token keyword" >var</span> user <span class="token operator" >=</span> client<span class="token punctuation" >.</span>record<span class="token punctuation" >.</span><span class="token function" >getRecord<span class="token punctuation" >(</span></span> <span class="token string" >'user/14'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+
+user<span class="token punctuation" >.</span><span class="token function" >subscribe<span class="token punctuation" >(</span></span> <span class="token string" >'age'</span><span class="token punctuation" >,</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> age <span class="token punctuation" >)</span><span class="token punctuation" >{</span>
+    <span class="token function" >alert<span class="token punctuation" >(</span></span> <span class="token string" >'Happy Birthday '</span> <span class="token operator" >+</span> user<span class="token punctuation" >.</span><span class="token keyword" >get</span><span class="token punctuation" >(</span> <span class="token string" >'firstname'</span> <span class="token punctuation" >)</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+<span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+<span class="token comment" spellcheck="true">
+// clientB
+</span>client<span class="token punctuation" >.</span>record<span class="token punctuation" >.</span><span class="token function" >getRecord<span class="token punctuation" >(</span></span> <span class="token string" >'user/14'</span> <span class="token punctuation" >)</span><span class="token punctuation" >.</span><span class="token keyword" >set</span><span class="token punctuation" >(</span> <span class="token string" >'age'</span><span class="token punctuation" >,</span> <span class="token number" >30</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+</code></pre></div><div class="section"><h2><a name="client.record.getList( name )">client.record.getList( name )</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">name</td><td class="type">String</td><td class="optional">false</td><td class="default">-</td><td class="description">The name / primaryKey for the record.</td></tr></tbody></table><p>Retrieves or creates a <a href="List.html">List</a> with the given name. Lists are arrays of recordNames that clients
+can manipulate and observe.</p><pre><code><span class="token keyword" >var</span> beatlesAlbums <span class="token operator" >=</span> client<span class="token punctuation" >.</span>record<span class="token punctuation" >.</span><span class="token function" >getList<span class="token punctuation" >(</span></span> <span class="token string" >'beatlesAlbums'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+
+beatlesAlbums<span class="token punctuation" >.</span><span class="token function" >whenReady<span class="token punctuation" >(</span></span><span class="token keyword" >function</span><span class="token punctuation" >(</span><span class="token punctuation" >)</span><span class="token punctuation" >{</span>
+
+    <span class="token comment" spellcheck="true">/*
+     * Returns
+     * [
+     *        "album/i9l0z34v-109vblpqddy", 
+     *        "album/i9l0z3v4-ibrbp139rbr", 
+     *        "album/i9l0z4d8-1w0p8xnk1sy" 
+     *    ]
+     */</span>
+    beatlesAlbums<span class="token punctuation" >.</span><span class="token function" >getEntries<span class="token punctuation" >(</span></span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+<span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+</code></pre></div><div class="section"><h2><a name="client.record.getAnonymousRecord()">client.record.getAnonymousRecord()</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">name</td><td class="type">String</td><td class="optional">false</td><td class="default">-</td><td class="description">The name / primaryKey for the record.</td></tr></tbody></table><p>Returns an <a href="AnonymousRecord">AnonymousRecord</a>.</p><p>An AnonymousRecord is a record without a predefined name. It
+acts like a wrapper around an actual record that can
+be swapped out for another one whilst keeping all bindings intact.</p><p>Imagine a customer relationship management system with a list of users
+on the left and a user detail panel on the right. The user detail
+panel could use the anonymous record to set up its bindings.</p><p>Whenever a user is chosen from the list of existing users, the anonymous record&#39;s
+<code>setName()</code> method is called and the detail panel will update to
+show the selected user&#39;s details.</p><pre><code><span class="token keyword" >var</span> bindInput <span class="token operator" >=</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> record<span class="token punctuation" >,</span> path<span class="token punctuation" >,</span> inputElement <span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
+    inputElement<span class="token punctuation" >.</span><span class="token function" >on<span class="token punctuation" >(</span></span> <span class="token string" >'change'</span><span class="token punctuation" >,</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span><span class="token punctuation" >)</span><span class="token punctuation" >{</span>
+        record<span class="token punctuation" >.</span><span class="token keyword" >set</span><span class="token punctuation" >(</span> path<span class="token punctuation" >,</span> inputElement<span class="token punctuation" >.</span><span class="token function" >val<span class="token punctuation" >(</span></span><span class="token punctuation" >)</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+    <span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+
+    record<span class="token punctuation" >.</span><span class="token function" >subscribe<span class="token punctuation" >(</span></span> path<span class="token punctuation" >,</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> value <span class="token punctuation" >)</span><span class="token punctuation" >{</span>
+        inputElement<span class="token punctuation" >.</span><span class="token function" >val<span class="token punctuation" >(</span></span> value <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+    <span class="token punctuation" >}</span><span class="token punctuation" >,</span> <span class="token keyword" >true</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+<span class="token punctuation" >}</span><span class="token punctuation" >;</span>
+
+user <span class="token operator" >=</span> client<span class="token punctuation" >.</span>record<span class="token punctuation" >.</span><span class="token function" >getAnonymousRecord<span class="token punctuation" >(</span></span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+
+<span class="token function" >bindInput<span class="token punctuation" >(</span></span> user<span class="token punctuation" >,</span> <span class="token string" >'firstname'</span><span class="token punctuation" >,</span> $<span class="token punctuation" >(</span> <span class="token string" >'input.firstname'</span> <span class="token punctuation" >)</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+<span class="token function" >bindInput<span class="token punctuation" >(</span></span> user<span class="token punctuation" >,</span> <span class="token string" >'lastname'</span><span class="token punctuation" >,</span> $<span class="token punctuation" >(</span> <span class="token string" >'input.lastname'</span> <span class="token punctuation" >)</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+
+<span class="token comment" spellcheck="true">/**
+ * Swap the underlying record while keeping the
+ * bindings intact
+ */</span>
+user<span class="token punctuation" >.</span><span class="token function" >setName<span class="token punctuation" >(</span></span> <span class="token string" >'user/Anton'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+user<span class="token punctuation" >.</span><span class="token function" >setName<span class="token punctuation" >(</span></span> <span class="token string" >'user/Wolfram'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+</code></pre></div><div class="section"><h2><a name="client.record.listen( pattern, callback )">client.record.listen( pattern, callback )</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">name</td><td class="type">String</td><td class="optional">false</td><td class="default">-</td><td class="description">A RegExp as a string</td></tr><tr><td class="argument">name</td><td class="type">String</td><td class="optional">false</td><td class="default">-</td><td class="description">A function that will be called</td></tr></tbody></table><p>Allows to listen for record subscriptions made by this or other clients. This
+is usefull to create &quot;active&quot; data providers, e.g. providers that only provide
+data for a particular record if a user is actually interested in it</p><pre><code>client<span class="token punctuation" >.</span>record<span class="token punctuation" >.</span><span class="token function" >listen<span class="token punctuation" >(</span></span> <span class="token string" >'raceHorse/.*'</span><span class="token punctuation" >,</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> match<span class="token punctuation" >,</span> isSubscribed <span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
+    <span class="token comment" spellcheck="true">/*
+     * match === 'raceHorse/fast-betty'
+     * isSubscribed === true
+     *
+     * Provide updates for fast-betty here
+     */</span>
+<span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+
+client<span class="token punctuation" >.</span>record<span class="token punctuation" >.</span><span class="token function" >getRecord<span class="token punctuation" >(</span></span> <span class="token string" >'raceHorse/fast-betty'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+</code></pre></div><div class="section"><h2><a name="client.record.unlisten( pattern )">client.record.unlisten( pattern )</a></h2>
 				
 				<h3>Comments and Questions</h3>
 				<div id="disqusContainer">
