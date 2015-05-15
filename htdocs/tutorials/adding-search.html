@@ -66,7 +66,7 @@
 		<a href="forex-price-provider.html">Building a Forex price provider</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
-	<li >
+	<li class="active">
 		<a href="adding-search.html">Adding search</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
@@ -77,7 +77,7 @@
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
 
-	<li class="active">
+	<li >
 		<a href="simple-app-using-ko.html">Simple App using Knockout</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
@@ -88,12 +88,7 @@
 	</li>
 </ul>
 			<div id="content">
-				<p><a href="http://knockoutjs.com/">knockout.js</a> goes incredibly well with deepstream. Its two way bindings, atomic updates and overall speed make it a great fit for realtime applications. So well in fact, that we developed a tool (bower/npm deepstream.io-tools-ko), that makes using it even easier.</p><p>Knockout has observable properties and observable arrays. Deepstream has observable lists and records with path bindings. Our tool maps the two together.</p><pre><code><span class="token keyword" >var</span> koTools <span class="token operator" >=</span> 
-<span class="token punctuation" >.</span>getObservable <span class="token operator" >=</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> record<span class="token punctuation" >,</span> path <span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
-<span class="token keyword" >return</span> <span class="token function" >getObservable<span class="token punctuation" >(</span></span> <span class="token keyword" >this</span><span class="token punctuation" >.</span>ko<span class="token punctuation" >,</span> record<span class="token punctuation" >,</span> path <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-</code></pre><p>};</p><p>KoTools.prototype.getViewList = function( viewmodel, list ) {
-    return new ViewList( this.ko, viewmodel, list );
-};</p>
+				<h1>Adding Search functionality</h1>
 				
 				<h3>Comments and Questions</h3>
 				<div id="disqusContainer">
