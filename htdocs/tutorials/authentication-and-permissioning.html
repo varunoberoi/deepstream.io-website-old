@@ -92,26 +92,146 @@
 	</li>
 </ul>
 			<div id="content">
-				<h1>Authentication and Permissioning</h1><p>Text...</p>
+				<h1>Authentication and Permissioning</h1><p>Deepstream&#39;s security and permission model is very powerful, yet really simple. In fact,
+here&#39;s all there is to it:</p><pre><code>server<span class="token punctuation" >.</span><span class="token keyword" >set</span><span class="token punctuation" >(</span> <span class="token string" >'permissionHandler'</span><span class="token punctuation" >,</span> <span class="token punctuation" >{</span>
+    isValidUser<span class="token punctuation" >:</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> handshakeData<span class="token punctuation" >,</span> authData<span class="token punctuation" >,</span> callback <span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
+        <span class="token function" >callback<span class="token punctuation" >(</span></span> <span class="token keyword" >null</span><span class="token punctuation" >,</span> authData<span class="token punctuation" >.</span>username <span class="token operator" >||</span> <span class="token string" >'open'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+    <span class="token punctuation" >}</span><span class="token punctuation" >,</span>
+
+    canPerformAction<span class="token punctuation" >:</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> username<span class="token punctuation" >,</span> message<span class="token punctuation" >,</span> callback <span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
+        <span class="token function" >callback<span class="token punctuation" >(</span></span> <span class="token keyword" >null</span><span class="token punctuation" >,</span> <span class="token keyword" >true</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+    <span class="token punctuation" >}</span>
+<span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+</code></pre><p>Granted, this needs a bit of explanation: Permissions are managed by a &#39;permissionHandler&#39;, a
+class that can be registered with the server using the <code>set()</code> method. A permissionHandler exposes 
+two methods: <code>isValidUser</code> and <code>canPerformAction</code>.</p><p><code>isValidUser</code> is called whenever a client calls <code>login()</code>. Let&#39;s go through it step by step:</p><p>First, the client is created:</p><pre><code><span class="token keyword" >var</span> ds <span class="token operator" >=</span> <span class="token function" >deepstream<span class="token punctuation" >(</span></span> <span class="token string" >'localhost:6020'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+</code></pre><p>this establishes a connection to the server straight away, however the connection is kept in a quarantine
+state until <code>ds.login()</code> is called. <code>ds.login()</code> takes up to two arguments, an object with authentication data and
+a callback function. E.g.</p><pre><code>ds<span class="token punctuation" >.</span><span class="token function" >login<span class="token punctuation" >(</span></span><span class="token punctuation" >{</span>
+    user<span class="token punctuation" >:</span> <span class="token string" >'LisaA'</span><span class="token punctuation" >,</span>
+    password<span class="token punctuation" >:</span> <span class="token string" >'sesame'</span>
+<span class="token punctuation" >}</span><span class="token punctuation" >,</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> success<span class="token punctuation" >,</span> errorCode<span class="token punctuation" >,</span> errorMessage <span class="token punctuation" >)</span><span class="token punctuation" >{</span>
+   <span class="token comment" spellcheck="true"> //...
+</span><span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+</code></pre><p>This will call the server&#39;s <code>isValidUser</code> method with three arguments:</p><ul>
+<li><code>handshakeData</code> is a map of connection information</li>
+<li><code>authData</code> is the object that the client send with <code>ds.login( authData )</code></li>
+<li><code>callback</code> is a function that expects the result of the login. It should be called with either <code>callback( null, username )</code> for successful logins or <code>callback( &#39;rejection reason&#39; )</code> for unsucessful ones.</li>
+</ul>
+<pre><code>isValidUser<span class="token punctuation" >:</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> handshakeData<span class="token punctuation" >,</span> authData<span class="token punctuation" >,</span> callback <span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
+    <span class="token comment" spellcheck="true">/* 
+     * handshakeData
+     * {
+     *     "remoteAddress": "::1",
+     *     "headers": {
+     *         "host": "localhost:6020",
+     *         "connection": "keep-alive",
+     *         "user-agent": "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36",
+     *         "origin": "http://localhost",
+     *         "accept": "",
+     *         "referer": "http://localhost/dev/ds-demos/booksearch/frontend/shell/",
+     *         "accept-encoding": "gzip, deflate, sdch",
+     *         "accept-language": "de-DE,de;q=0.8,en-US;q=0.6,en;q=0.4",
+     *         "cookie": "_ga=GA1.1.697722771.1430908927"
+     *     },
+     *     "referer": "http://localhost/dev/ds-demos/booksearch/frontend/shell/"
+     * }
+     * 
+     * authData
+     * {
+     *     user: 'LisaA',
+     *     password: 'sesame'
+     * }
+     */</span>
+
+    <span class="token keyword" >if</span><span class="token punctuation" >(</span> authData<span class="token punctuation" >.</span>user <span class="token operator" >===</span> <span class="token string" >'LisaA'</span> <span class="token operator" >&amp;&amp;</span> password <span class="token operator" >===</span> <span class="token string" >'sesame'</span> <span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
+        <span class="token function" >callback<span class="token punctuation" >(</span></span> <span class="token keyword" >null</span><span class="token punctuation" >,</span> authData<span class="token punctuation" >.</span>user <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+    <span class="token punctuation" >}</span> <span class="token keyword" >else</span> <span class="token punctuation" >{</span>
+        <span class="token function" >callback<span class="token punctuation" >(</span></span> <span class="token string" >'invalid credentials'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+    <span class="token punctuation" >}</span>
+<span class="token punctuation" >}</span>
+</code></pre><p>Allowing / denying individual actions</p><p>Once the user is logged in, every interaction (creating, reading, writing records, events, rpcs etc.) goes trough <code>canPerformAction( username, message, callback )</code> with <code>username</code> being what ever was passed to <code>isValidUser</code>&#39;s callback.</p><p>It&#39;s now up to <code>canPerformAction</code> to decide whether that specific action can be performed for that specific user with that specific data. Here are some examples:</p><pre><code><span class="token comment" spellcheck="true">//Allow everything
+</span>canPerformAction<span class="token punctuation" >:</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> username<span class="token punctuation" >,</span> message<span class="token punctuation" >,</span> callback <span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
+    <span class="token function" >callback<span class="token punctuation" >(</span></span> <span class="token keyword" >null</span><span class="token punctuation" >,</span> <span class="token keyword" >true</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+<span class="token punctuation" >}</span>
+<span class="token comment" spellcheck="true">
+//Prevent LisaA from deleting records
+</span>canPerformAction<span class="token punctuation" >:</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> username<span class="token punctuation" >,</span> message<span class="token punctuation" >,</span> callback <span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
+    <span class="token keyword" >var</span> isAllowed <span class="token operator" >=</span> <span class="token punctuation" >(</span>
+        username <span class="token operator" >===</span> <span class="token string" >'LisaA'</span> <span class="token operator" >&amp;&amp;</span> 
+        message<span class="token punctuation" >.</span>topic <span class="token operator" >===</span> deepstream<span class="token punctuation" >.</span>constants<span class="token punctuation" >.</span>TOPIC<span class="token punctuation" >.</span>RECORD <span class="token operator" >&amp;&amp;</span>
+        message<span class="token punctuation" >.</span>action <span class="token operator" >===</span> deepstream<span class="token punctuation" >.</span>constants<span class="token punctuation" >.</span>ACTIONS<span class="token punctuation" >.</span>DELETE
+    <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+
+    <span class="token function" >callback<span class="token punctuation" >(</span></span> <span class="token keyword" >null</span><span class="token punctuation" >,</span> isAllowed <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+<span class="token punctuation" >}</span>
+<span class="token comment" spellcheck="true">
+// Create private records by forcing the record name to contain
+</span><span class="token comment" spellcheck="true">// the name of the logged in user
+</span>canPerformAction<span class="token punctuation" >:</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> username<span class="token punctuation" >,</span> message<span class="token punctuation" >,</span> callback <span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
+   <span class="token comment" spellcheck="true"> // Allow every non-record message
+</span>    <span class="token keyword" >if</span><span class="token punctuation" >(</span> message<span class="token punctuation" >.</span>topic <span class="token operator" >!</span><span class="token operator" >==</span> deepstream<span class="token punctuation" >.</span>constants<span class="token punctuation" >.</span>TOPIC<span class="token punctuation" >.</span>RECORD <span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
+        <span class="token function" >callback<span class="token punctuation" >(</span></span> <span class="token keyword" >null</span><span class="token punctuation" >,</span> <span class="token keyword" >true</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+    <span class="token punctuation" >}</span>
+    <span class="token keyword" >else</span> <span class="token punctuation" >{</span>
+        <span class="token keyword" >var</span> recordName <span class="token operator" >=</span> message<span class="token punctuation" >.</span>data<span class="token punctuation" >[</span> <span class="token number" >0</span> <span class="token punctuation" >]</span><span class="token punctuation" >;</span>
+        <span class="token function" >callback<span class="token punctuation" >(</span></span> <span class="token keyword" >null</span><span class="token punctuation" >,</span> recordName<span class="token punctuation" >.</span><span class="token function" >indexOf<span class="token punctuation" >(</span></span> username <span class="token punctuation" >)</span> <span class="token operator" >!</span><span class="token operator" >==</span> <span class="token operator" >-</span><span class="token number" >1</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+    <span class="token punctuation" >}</span>
+<span class="token punctuation" >}</span>
+
+<span class="token comment" spellcheck="true">/* Prevent the value of 'price' for record 'fancyCar' to be set to less than 60000
+ * This is a bit tricky since there are two ways to set a record's data
+ *
+ * ACTIONS.PATCH is used if only a path within the record should be changed
+ * message.data for PATCH is an array with [ recordName, version, path, value ]
+ * PLEASE NOTE! values for patch operations start with an extra character that
+ * helps deepstream to identify their type later on. To ignore them, just use 
+ * message.data[3].substr(1)
+ *
+ * ACTIONS.UPDATE is used to set the entire record's data.
+ * message.data for UPDATE is an array with [ recordName, version, data ]
+ */</span>
+canPerformAction<span class="token punctuation" >:</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> username<span class="token punctuation" >,</span> message<span class="token punctuation" >,</span> callback <span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
+   <span class="token comment" spellcheck="true"> // Allow every non-record message
+</span>    <span class="token keyword" >if</span><span class="token punctuation" >(</span> 
+        message<span class="token punctuation" >.</span>topic <span class="token operator" >===</span> deepstream<span class="token punctuation" >.</span>constants<span class="token punctuation" >.</span>TOPIC<span class="token punctuation" >.</span>RECORD <span class="token operator" >&amp;&amp;</span>
+        message<span class="token punctuation" >.</span>data<span class="token punctuation" >[</span> <span class="token number" >0</span> <span class="token punctuation" >]</span> <span class="token operator" >===</span> <span class="token string" >'fancyCar'</span> <span class="token operator" >&amp;&amp;</span> <span class="token punctuation" >(</span> 
+            message<span class="token punctuation" >.</span>action <span class="token operator" >===</span> deepstream<span class="token punctuation" >.</span>constants<span class="token punctuation" >.</span>ACTIONS<span class="token punctuation" >.</span>PATCH <span class="token operator" >||</span> 
+            message<span class="token punctuation" >.</span>action <span class="token operator" >===</span> deepstream<span class="token punctuation" >.</span>constants<span class="token punctuation" >.</span>ACTIONS<span class="token punctuation" >.</span>UPDATE
+        <span class="token punctuation" >)</span>
+    <span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
+        <span class="token keyword" >if</span><span class="token punctuation" >(</span> message<span class="token punctuation" >.</span>action <span class="token operator" >===</span> deepstream<span class="token punctuation" >.</span>constants<span class="token punctuation" >.</span>ACTIONS<span class="token punctuation" >.</span>PATCH <span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
+            <span class="token keyword" >var</span> price <span class="token operator" >=</span> <span class="token function" >parseInt<span class="token punctuation" >(</span></span> message<span class="token punctuation" >.</span>data<span class="token punctuation" >[</span> <span class="token number" >3</span> <span class="token punctuation" >]</span><span class="token punctuation" >.</span><span class="token function" >substr<span class="token punctuation" >(</span></span> <span class="token number" >1</span> <span class="token punctuation" >)</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+        <span class="token punctuation" >}</span> <span class="token keyword" >else</span> <span class="token punctuation" >{</span>
+            <span class="token keyword" >var</span> price <span class="token operator" >=</span> message<span class="token punctuation" >.</span>data<span class="token punctuation" >[</span> <span class="token number" >2</span> <span class="token punctuation" >]</span><span class="token punctuation" >.</span>price<span class="token punctuation" >;</span>
+        <span class="token punctuation" >}</span>
+
+        <span class="token keyword" >if</span><span class="token punctuation" >(</span> <span class="token function" >isNaN<span class="token punctuation" >(</span></span> price <span class="token punctuation" >)</span> <span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
+            <span class="token function" >callback<span class="token punctuation" >(</span></span> <span class="token string" >'price is not a number'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+        <span class="token punctuation" >}</span> <span class="token keyword" >else</span> <span class="token punctuation" >{</span>
+            <span class="token function" >callback<span class="token punctuation" >(</span></span> <span class="token keyword" >null</span><span class="token punctuation" >,</span> price <span class="token operator" >>=</span> <span class="token number" >60000</span> <span class="token punctuation" >)</span>
+        <span class="token punctuation" >}</span>
+    <span class="token punctuation" >}</span> <span class="token keyword" >else</span> <span class="token punctuation" >{</span>
+        <span class="token function" >callback<span class="token punctuation" >(</span></span> <span class="token keyword" >null</span><span class="token punctuation" >,</span> <span class="token keyword" >true</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+    <span class="token punctuation" >}</span>
+<span class="token punctuation" >}</span>
+</code></pre>
 				
 				<h3>Comments and Questions</h3>
 				<div id="disqusContainer">
 					<div id="disqus_thread"></div>
-				    <script type="text/javascript">
-				        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-				        var disqus_shortname = 'goldenlayoutcom'; // required: replace example with your forum shortname
-
-				        /* * * DON'T EDIT BELOW THIS LINE * * */
-				        (function() {
-				            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-				            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-				            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-				        })();
-				    </script>
-				    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-				    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-			    
-					
+					<script type="text/javascript">
+					    /* * * CONFIGURATION VARIABLES * * */
+					    var disqus_shortname = 'deepstreamio';
+					    
+					    /* * * DON'T EDIT BELOW THIS LINE * * */
+					    (function() {
+					        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+					        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+					        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+					    })();
+					</script>
+					<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
 				</div>
 			</div>
 		</div>
