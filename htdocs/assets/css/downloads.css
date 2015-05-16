@@ -1,0 +1,84 @@
+#downloads{
+	width: 980px;
+	margin: 20px auto;
+}
+
+#downloads *{
+	font: 12px/16px Arial, sans-serif;
+	color: #333;
+}
+
+#downloads h2{
+	font-size: 16px;
+	color: #333;
+	padding-bottom: 3px;
+	border-bottom: 1px solid #ccc;
+	margin-top: 20px;
+}
+
+#downloads p{
+	margin-bottom: 10px;
+}
+#downloads ul{
+	overflow: hidden;
+}
+
+#downloads ul li{
+	width: 200px;
+	margin: 0 10px;
+	float: left;
+}
+
+#downloads ul li h3{
+	font-weight: bold;
+	font-size: 14px;
+}
+
+#downloads ul li span.pckg-name{
+	color: #666;
+}
+
+#downloads ul li img{
+	display: block;
+	margin: 10px 0;
+	text-align: center;
+}
+
+#downloads ul li .img-container{
+	position: relative;
+	width: 180px;
+	height: 180px;
+}
+
+#downloads ul li .version{
+	position: absolute;
+	background: rgba( 0, 0, 0, 0.7);
+	color: #fff;
+	right: 0;
+	bottom: 0;
+	padding: 2px;
+	font-weight: bold;
+}
+
+#downloads ul a{
+	display: inline-block;
+	height: 21px;
+	background: red;
+	margin-right: 10px;
+}
+
+#downloads ul a.npm{
+	width: 36px;
+	height: 14px;
+	background: url(../images/npm-mini.png);
+}
+
+#downloads ul a.bower{
+	width: 25px;
+	background: url(../images/bower-mini.png);
+}
+
+#downloads ul a.github{
+	width: 21px;
+	background: url(../images/github-mini.png);
+}

@@ -22,6 +22,14 @@
 		<a href="adding-search.html">Adding search</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
+	<li {{#if fileIs_writing-storage-cache-connector}}class="active"{{/if}}>
+		<a href="writing-storage-cache-connector.html">Writing storage and cache connectors</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+	<li {{#if fileIs_writing-messaging-connector}}class="active"{{/if}}>
+		<a href="writing-messaging-connector.html">Writing a messaging connector</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
 
 	<li class="head">Client</li>
 	<li {{#if fileIs_node-js-client}}class="active"{{/if}}>
