@@ -24,32 +24,25 @@ body{
   color: white;
 }
 
-.diagram-label-1{
+.diagram-label{
   font-family: 'Quicksand', sans-serif; font-weight: 300;
   position: relative;
-  top: 115px;
   opacity: 0.5;
+}
 
+.diagram-label-1{
+  top: 115px;
 }
 
 .diagram-label-2{
-  font-family: 'Quicksand', sans-serif; font-weight: 300;
-  position: relative;
   top: 138px;
-  opacity: 0.5;
-
 }
 
 .diagram-label-3{
-  font-family: 'Quicksand', sans-serif; font-weight: 300;
-  position: relative;
   top: 161px;
-  opacity: 0.5;
-
 }
 
 .diagram-label-4{
-  position: relative;
   top: 230px;
   font-family: 'Montserrat', sans-serif;
   opacity: 1;
@@ -57,9 +50,6 @@ body{
 }
 
 .diagram-label-5{
-  font-family: 'Quicksand', sans-serif; font-weight: 300;
-  position: relative;
   top: 364px;
-  opacity: 0.5;
-
 }
+
