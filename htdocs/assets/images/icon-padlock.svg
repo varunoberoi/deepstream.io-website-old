@@ -1,0 +1,114 @@
+
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="none" x="0px" y="0px" width="235px" height="235px" viewBox="0 0 235 235">
+<defs>
+<linearGradient id="Gradient_1" gradientUnits="userSpaceOnUse" x1="311.5" y1="456.5" x2="311.5" y2="310" spreadMethod="pad">
+<stop  offset="0%" stop-color="#FFFFFF" stop-opacity="0.5019607843137255"/>
+
+<stop  offset="100%" stop-color="#FFFFFF" stop-opacity="0.8"/>
+</linearGradient>
+
+<linearGradient id="Gradient_2" gradientUnits="userSpaceOnUse" x1="-227.08750000000003" y1="575.2875" x2="602.1875" y2="-253.98750000000004" spreadMethod="pad">
+<stop  offset="0%" stop-color="#000000" stop-opacity="0"/>
+
+<stop  offset="100%" stop-color="#000000" stop-opacity="0.10196078431372549"/>
+</linearGradient>
+
+<linearGradient id="Gradient_3" gradientUnits="userSpaceOnUse" x1="200.8" y1="389.7" x2="413.2" y2="177.3" spreadMethod="pad">
+<stop  offset="0%" stop-color="#000000" stop-opacity="0"/>
+
+<stop  offset="100%" stop-color="#000000" stop-opacity="0.10196078431372549"/>
+</linearGradient>
+
+<linearGradient id="Gradient_4" gradientUnits="userSpaceOnUse" x1="109.12499999999999" y1="840.2750000000001" x2="311.275" y2="638.125" spreadMethod="pad">
+<stop  offset="0%" stop-color="#000000" stop-opacity="0"/>
+
+<stop  offset="100%" stop-color="#000000" stop-opacity="0.10196078431372549"/>
+</linearGradient>
+
+<linearGradient id="Gradient_5" gradientUnits="userSpaceOnUse" x1="21.82499999999999" y1="927.925" x2="311.375" y2="638.375" spreadMethod="pad">
+<stop  offset="0%" stop-color="#000000" stop-opacity="0"/>
+
+<stop  offset="100%" stop-color="#000000" stop-opacity="0.10196078431372549"/>
+</linearGradient>
+
+<linearGradient id="Gradient_6" gradientUnits="userSpaceOnUse" x1="-20.825000000000017" y1="940.775" x2="320.725" y2="599.225" spreadMethod="pad">
+<stop  offset="0%" stop-color="#000000" stop-opacity="0"/>
+
+<stop  offset="100%" stop-color="#000000" stop-opacity="0.10196078431372549"/>
+</linearGradient>
+
+<g id="icon_padlock_0_Layer3_0_FILL">
+<path fill="#FFFFFF" fill-opacity="0.8" stroke="none" d="
+M 69.1 418.2
+L 69.15 418.15 69.1 418.15 69.1 418.2
+M 311.5 480.65
+L 175.3 559.3 175.3 716.6 311.5 795.2 447.7 716.6 447.7 559.3 311.5 480.65 Z"/>
+
+<path fill="#FFFFFF" stroke="none" d="
+M 311.55 278.25
+L 161.45 364.9 69.15 418.15 69.1 418.2 0 458.1 0 817.85 311.55 997.7 623.05 817.85 623.05 458.1 553.95 418.2 461.45 364.8 311.55 278.25
+M 116.75 525.5
+L 311.5 413 506.3 525.5 506.3 750.45 311.5 862.85 116.75 750.45 116.75 525.5 Z"/>
+
+<path fill="#FFFFFF" fill-opacity="0.6980392156862745" stroke="none" d="
+M 311.5 413
+L 116.75 525.5 116.75 750.45 311.5 862.85 506.3 750.45 506.3 525.5 311.5 413
+M 175.3 559.3
+L 311.5 480.65 447.7 559.3 447.7 716.6 311.5 795.2 175.3 716.6 175.3 559.3 Z"/>
+
+<path fill="url(#Gradient_1)" stroke="none" d="
+M 461.45 193.35
+L 461.45 364.8 553.95 418.2 553.95 139.95 311.55 0 69.1 139.95 69.1 418.15 69.15 418.15 161.45 364.9 161.45 193.35 311.5 106.75 461.45 193.35 Z"/>
+</g>
+
+<g id="icon_padlock_0_Layer2_0_FILL">
+<path fill="url(#Gradient_2)" stroke="none" d="
+M 0 458.15
+L 69.15 418.15 69.1 140.05 -403.4 612.5 -279.45 736.45 -1.2 458.15 0 458.15 Z"/>
+
+<path fill="url(#Gradient_3)" stroke="none" d="
+M 461.45 364.8
+L 461.45 193.35 311.5 106.75 161.45 193.35 161.45 364.9 311.55 278.25 461.45 364.8 Z"/>
+</g>
+
+<g id="icon_padlock_0_Layer1_0_FILL">
+<path fill="url(#Gradient_4)" stroke="none" d="
+M 116.65 617.95
+L 116.65 750.8 304.85 859.4 447.7 716.6 311.5 795.2 175.3 716.6 175.3 559.3 116.65 617.95 Z"/>
+
+<path fill="url(#Gradient_5)" stroke="none" d="
+M 116.65 750.8
+L 116.65 617.95 116.65 525.5 1 641.1 1 817.1 2.75 819.5 278.8 978.8 506.8 750.8 311.7 863.35 304.85 859.4 116.65 750.8 Z"/>
+</g>
+
+<g id="icon_padlock_0_Layer0_0_FILL">
+<path fill="url(#Gradient_6)" stroke="none" d="
+M -1.2 458.1
+L -279.5 736.4 212.85 1228.75 623.05 818.55 310.95 998.65 -1.2 818.55 -1.2 458.1 Z"/>
+</g>
+
+<path id="icon_padlock_0_Layer1_0_1_STROKES" stroke="#0033FF" stroke-opacity="0.4980392156862745" stroke-width="1" stroke-linejoin="miter" stroke-linecap="square" stroke-miterlimit="3" fill="none" d="
+M 0 817.9
+L 2.775 819.5"/>
+</defs>
+
+<g transform="matrix( 0.19049072265625, 0, 0, 0.19049072265625, 97.1,0) ">
+<g transform="matrix( 1, 0, 0, 1, 0,0) ">
+<use xlink:href="#icon_padlock_0_Layer3_0_FILL"/>
+</g>
+
+<g transform="matrix( 1, 0, 0, 1, 0,0) ">
+<use xlink:href="#icon_padlock_0_Layer2_0_FILL"/>
+</g>
+
+<g transform="matrix( 1, 0, 0, 1, 0,0) ">
+<use xlink:href="#icon_padlock_0_Layer1_0_FILL"/>
+
+<use xlink:href="#icon_padlock_0_Layer1_0_1_STROKES"/>
+</g>
+
+<g transform="matrix( 1, 0, 0, 1, 0,0) ">
+<use xlink:href="#icon_padlock_0_Layer0_0_FILL"/>
+</g>
+</g>
+</svg>
