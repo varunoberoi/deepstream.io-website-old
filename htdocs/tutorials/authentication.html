@@ -18,6 +18,10 @@
 	document.createElement( 'nav' );
 	</script>
 	<script type="text/javascript" src="../assets/js/jquery.js"></script>
+
+	<link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Quicksand:300,400,700' rel='stylesheet' type='text/css'>
+
 </head>
 <body class="category_tutorials">
 
@@ -97,17 +101,12 @@
 
 	<li class="head">Internals</li>
 	<li >
-		<a href="constants.html">Constants</a>
-		<div class="isActiveIndicator orangeGradient"></div>
-	</li>
-
-	<li >
 		<a href="message-structure.html">Message Structure</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
 </ul>
 			<div id="content">
-				<h1>Authentication and Permissioning</h1><p>Deepstream&#39;s security and permission model is very powerful, yet really simple. In fact,
+				<h1>Authentication</h1><p>Deepstream&#39;s security and permission model is very powerful, yet really simple. In fact,
 here&#39;s all there is to it:</p><pre><code>server<span class="token punctuation" >.</span><span class="token keyword" >set</span><span class="token punctuation" >(</span> <span class="token string" >'permissionHandler'</span><span class="token punctuation" >,</span> <span class="token punctuation" >{</span>
     isValidUser<span class="token punctuation" >:</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> handshakeData<span class="token punctuation" >,</span> authData<span class="token punctuation" >,</span> callback <span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
         <span class="token function" >callback<span class="token punctuation" >(</span></span> <span class="token keyword" >null</span><span class="token punctuation" >,</span> authData<span class="token punctuation" >.</span>username <span class="token operator" >||</span> <span class="token string" >'open'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
@@ -128,8 +127,8 @@ a callback function. E.g.</p><pre><code>ds<span class="token punctuation" >.</sp
 <span class="token punctuation" >}</span><span class="token punctuation" >,</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> success<span class="token punctuation" >,</span> errorCode<span class="token punctuation" >,</span> errorMessage <span class="token punctuation" >)</span><span class="token punctuation" >{</span>
    <span class="token comment" spellcheck="true"> //...
 </span><span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-</code></pre><p>This will call the server&#39;s <code>isValidUser</code> method with three arguments:</p><ul>
-<li><code>handshakeData</code> is a map of connection information</li>
+</code></pre><p>This will call the permissionHandler&#39;s <code>isValidUser</code> method with three arguments:</p><ul>
+<li><code>handshakeData</code> is an object with connection information</li>
 <li><code>authData</code> is the object that the client send with <code>ds.login( authData )</code></li>
 <li><code>callback</code> is a function that expects the result of the login. It should be called with either <code>callback( null, username )</code> for successful logins or <code>callback( &#39;rejection reason&#39; )</code> for unsucessful ones.</li>
 </ul>
@@ -165,7 +164,7 @@ a callback function. E.g.</p><pre><code>ds<span class="token punctuation" >.</sp
         <span class="token function" >callback<span class="token punctuation" >(</span></span> <span class="token string" >'invalid credentials'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
     <span class="token punctuation" >}</span>
 <span class="token punctuation" >}</span>
-</code></pre>
+</code></pre><div class="section"><h2><a name="Why do I have to pass the username to the callback?">Why do I have to pass the username to the callback?</a></h2><p>The username will be passed to <code>canPerformAction()</code> which allows you to permission individual operations. Read about it in the <a href="permissioning.html">permissioning tutorial</a></p>
 				
 				<h3>Comments and Questions</h3>
 				<div id="disqusContainer">

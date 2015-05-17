@@ -57,11 +57,6 @@
 	</li>
 
 	<li class="head">Internals</li>
-	<li {{#if fileIs_constants}}class="active"{{/if}}>
-		<a href="constants.html">Constants</a>
-		<div class="isActiveIndicator orangeGradient"></div>
-	</li>
-
 	<li {{#if fileIs_message-structure}}class="active"{{/if}}>
 		<a href="message-structure.html">Message Structure</a>
 		<div class="isActiveIndicator orangeGradient"></div>

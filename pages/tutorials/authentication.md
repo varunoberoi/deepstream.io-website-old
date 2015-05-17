@@ -1,4 +1,4 @@
-Authentication and Permissioning
+Authentication
 ======================================
 Deepstream's security and permission model is very powerful, yet really simple. In fact,
 here's all there is to it:
@@ -34,9 +34,9 @@ a callback function. E.g.
 		//...
 	});
 
-This will call the server's `isValidUser` method with three arguments:
+This will call the permissionHandler's `isValidUser` method with three arguments:
 
-* `handshakeData` is a map of connection information
+* `handshakeData` is an object with connection information
 * `authData` is the object that the client send with `ds.login( authData )`
 * `callback` is a function that expects the result of the login. It should be called with either `callback( null, username )` for successful logins or `callback( 'rejection reason' )` for unsucessful ones.
 
@@ -73,3 +73,7 @@ This will call the server's `isValidUser` method with three arguments:
 			callback( 'invalid credentials' );
 		}
 	}
+
+Why do I have to pass the username to the callback?
+---------------------------------------------------
+The username will be passed to `canPerformAction()` which allows you to permission individual operations. Read about it in the [permissioning tutorial](permissioning.html)
