@@ -1,0 +1,42 @@
+
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="none" x="0px" y="0px" width="155px" height="155px" viewBox="0 0 155 155">
+<defs>
+<g id="icon_RPCs_0_Layer0_0_FILL">
+<path fill="#FFFFFF" fill-opacity="0.4980392156862745" stroke="none" d="
+M 28.7 65.4
+L 6.4 65.4 0 76.4 28.7 126.1 28.7 65.4
+M 70.6 26.65
+L 44.2 26.65 44.2 126.1 70.6 126.1 70.6 26.65
+M 86.1 87.35
+L 108.45 87.35 114.8 76.4 86.1 26.65 86.1 87.35 Z"/>
+
+<path fill="#145068" stroke="none" d="
+M 26.55 30.45
+L 28.85 26.65 28.7 26.65 26.55 30.45
+M 44.2 26.65
+L 44.2 0 28.85 26.65 26.55 30.45 6.4 65.4 28.7 65.4 28.7 126.1 44.2 126.1 44.2 26.65
+M 108.45 87.35
+L 86.1 87.35 86.1 26.65 70.6 26.65 70.6 126.1 70.6 153.15 108.45 87.35 Z"/>
+</g>
+
+<path id="icon_RPCs_0_Layer0_0_1_STROKES" stroke="#FFFFFF" stroke-width="1" stroke-linejoin="bevel" stroke-linecap="butt" fill="none" d="
+M 108.45 87.35
+L 86.1 87.35 86.1 26.65 70.6 26.65 70.6 126.1 70.6 153.15 108.45 87.35 114.8 76.4 86.1 26.65
+M 6.4 65.4
+L 26.55 30.45 28.7 26.65 28.85 26.65 44.2 0 44.2 26.65 70.6 26.65
+M 26.55 30.45
+L 28.85 26.65
+M 28.7 126.1
+L 28.7 65.4 6.4 65.4 0 76.4 28.7 126.1 44.2 126.1 44.2 26.65
+M 70.6 126.1
+L 44.2 126.1"/>
+</defs>
+
+<g transform="matrix( 1, 0, 0, 1, 24.55,0.95) ">
+<g transform="matrix( 1, 0, 0, 1, 0,0) ">
+<use xlink:href="#icon_RPCs_0_Layer0_0_FILL"/>
+
+<use xlink:href="#icon_RPCs_0_Layer0_0_1_STROKES"/>
+</g>
+</g>
+</svg>
