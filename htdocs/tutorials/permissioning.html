@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>GOLDEN LAYOUT - the ultimate javascript layout manager</title>
+	
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="keywords" content="deepstream, deepstream.io, streaming, realtime, server, socket" />
+	<meta name="description" content="deepstream.io - a scalable server for realtime web apps" />
+	<meta name="author" content="Wolfram Hempel" />
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="stylesheet" type="text/css" href="../assets/css/screen.css" />
+	<link rel="stylesheet" type="text/css" href="../assets/css/api.css" />
+	<link rel="stylesheet" type="text/css" href="../assets/css/syntaxhighlighter.css" />
+	<script type="text/javascript">
+	document.createElement( 'header' );
+	document.createElement( 'nav' );
+	</script>
+	<script type="text/javascript" src="../assets/js/jquery.js"></script>
+</head>
+<body class="category_tutorials">
+
+	<div id="outerWrapper">
+		<div class="topSection">
+			<div id="header" class="orangeGradient micro">
+				<h1><a href="..">deepstream.io - a scalable server for realtime web apps</a></h1>
+			</div>  
+			<div id="nav" class="standalone">
+				<img src="../assets/images/background-abstract.jpg" />
+				<ul>
+					<li ><a href="..">START</a></li>
+					<li ><a href="../download">DOWNLOAD</a></li>
+					<li class="active"><a href="../tutorials">TUTORIALS</a></li>
+					<li ><a href="../docs">DOCS</a></li>
+				</ul>
+			</div>
+		</div>
+		<div id="wrapper" class="main">
+			<ul id="subnav">
+	<li class="head first">General</li>
+	<li >
+		<a href="getting-started.html">Getting started</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+	<li >
+		<a href="authentication.html">Authentication</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+	<li class="active">
+		<a href="permissioning.html">Permissioning</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li class="head">Server</li>
+	<li >
+		<a href="connectors-and-deployment.html">Connectors and Deployment</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+	<li >
+		<a href="forex-price-provider.html">Building a Forex price provider</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+	<li >
+		<a href="adding-search.html">Adding search</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+	<li >
+		<a href="writing-storage-cache-connector.html">Writing storage and cache connectors</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+	<li >
+		<a href="writing-messaging-connector.html">Writing a messaging connector</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li class="head">Client</li>
+	<li >
+		<a href="node-js-client.html">Using the client in NodeJS</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li >
+		<a href="records-events-rpcs.html">Records, Events and RPCs</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li >
+		<a href="simple-app-using-ko.html">Simple App using Knockout</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li >
+		<a href="simple-app-using-angular.html">Simple App using Angular</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li class="head">Internals</li>
+	<li >
+		<a href="constants.html">Constants</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li >
+		<a href="message-structure.html">Message Structure</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+</ul>
+			<div id="content">
+				<p>Allowing / denying individual actions</p><p>Once the user is logged in, every interaction (creating, reading, writing records, events, rpcs etc.) goes trough <code>canPerformAction( username, message, callback )</code> with <code>username</code> being what ever was passed to <code>isValidUser</code>&#39;s callback.</p><p>It&#39;s now up to <code>canPerformAction</code> to decide whether that specific action can be performed for that specific user with that specific data. Here are some examples:</p><pre><code><span class="token comment" spellcheck="true">//Allow everything
+</span>canPerformAction<span class="token punctuation" >:</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> username<span class="token punctuation" >,</span> message<span class="token punctuation" >,</span> callback <span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
+    <span class="token function" >callback<span class="token punctuation" >(</span></span> <span class="token keyword" >null</span><span class="token punctuation" >,</span> <span class="token keyword" >true</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+<span class="token punctuation" >}</span>
+<span class="token comment" spellcheck="true">
+//Prevent LisaA from deleting records
+</span>canPerformAction<span class="token punctuation" >:</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> username<span class="token punctuation" >,</span> message<span class="token punctuation" >,</span> callback <span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
+    <span class="token keyword" >var</span> isAllowed <span class="token operator" >=</span> <span class="token punctuation" >(</span>
+        username <span class="token operator" >===</span> <span class="token string" >'LisaA'</span> <span class="token operator" >&amp;&amp;</span> 
+        message<span class="token punctuation" >.</span>topic <span class="token operator" >===</span> deepstream<span class="token punctuation" >.</span>constants<span class="token punctuation" >.</span>TOPIC<span class="token punctuation" >.</span>RECORD <span class="token operator" >&amp;&amp;</span>
+        message<span class="token punctuation" >.</span>action <span class="token operator" >===</span> deepstream<span class="token punctuation" >.</span>constants<span class="token punctuation" >.</span>ACTIONS<span class="token punctuation" >.</span>DELETE
+    <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+
+    <span class="token function" >callback<span class="token punctuation" >(</span></span> <span class="token keyword" >null</span><span class="token punctuation" >,</span> isAllowed <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+<span class="token punctuation" >}</span>
+<span class="token comment" spellcheck="true">
+// Create private records by forcing the record name to contain
+</span><span class="token comment" spellcheck="true">// the name of the logged in user
+</span>canPerformAction<span class="token punctuation" >:</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> username<span class="token punctuation" >,</span> message<span class="token punctuation" >,</span> callback <span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
+   <span class="token comment" spellcheck="true"> // Allow every non-record message
+</span>    <span class="token keyword" >if</span><span class="token punctuation" >(</span> message<span class="token punctuation" >.</span>topic <span class="token operator" >!</span><span class="token operator" >==</span> deepstream<span class="token punctuation" >.</span>constants<span class="token punctuation" >.</span>TOPIC<span class="token punctuation" >.</span>RECORD <span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
+        <span class="token function" >callback<span class="token punctuation" >(</span></span> <span class="token keyword" >null</span><span class="token punctuation" >,</span> <span class="token keyword" >true</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+    <span class="token punctuation" >}</span>
+    <span class="token keyword" >else</span> <span class="token punctuation" >{</span>
+        <span class="token keyword" >var</span> recordName <span class="token operator" >=</span> message<span class="token punctuation" >.</span>data<span class="token punctuation" >[</span> <span class="token number" >0</span> <span class="token punctuation" >]</span><span class="token punctuation" >;</span>
+        <span class="token function" >callback<span class="token punctuation" >(</span></span> <span class="token keyword" >null</span><span class="token punctuation" >,</span> recordName<span class="token punctuation" >.</span><span class="token function" >indexOf<span class="token punctuation" >(</span></span> username <span class="token punctuation" >)</span> <span class="token operator" >!</span><span class="token operator" >==</span> <span class="token operator" >-</span><span class="token number" >1</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+    <span class="token punctuation" >}</span>
+<span class="token punctuation" >}</span>
+
+<span class="token comment" spellcheck="true">/* Prevent the value of 'price' for record 'fancyCar' to be set to less than 60000
+ * This is a bit tricky since there are two ways to set a record's data
+ *
+ * ACTIONS.PATCH is used if only a path within the record should be changed
+ * message.data for PATCH is an array with [ recordName, version, path, value ]
+ * PLEASE NOTE! values for patch operations start with an extra character that
+ * helps deepstream to identify their type later on. To ignore them, just use 
+ * message.data[3].substr(1)
+ *
+ * ACTIONS.UPDATE is used to set the entire record's data.
+ * message.data for UPDATE is an array with [ recordName, version, data ]
+ */</span>
+canPerformAction<span class="token punctuation" >:</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> username<span class="token punctuation" >,</span> message<span class="token punctuation" >,</span> callback <span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
+   <span class="token comment" spellcheck="true"> // Allow every non-record message
+</span>    <span class="token keyword" >if</span><span class="token punctuation" >(</span> 
+        message<span class="token punctuation" >.</span>topic <span class="token operator" >===</span> deepstream<span class="token punctuation" >.</span>constants<span class="token punctuation" >.</span>TOPIC<span class="token punctuation" >.</span>RECORD <span class="token operator" >&amp;&amp;</span>
+        message<span class="token punctuation" >.</span>data<span class="token punctuation" >[</span> <span class="token number" >0</span> <span class="token punctuation" >]</span> <span class="token operator" >===</span> <span class="token string" >'fancyCar'</span> <span class="token operator" >&amp;&amp;</span> <span class="token punctuation" >(</span> 
+            message<span class="token punctuation" >.</span>action <span class="token operator" >===</span> deepstream<span class="token punctuation" >.</span>constants<span class="token punctuation" >.</span>ACTIONS<span class="token punctuation" >.</span>PATCH <span class="token operator" >||</span> 
+            message<span class="token punctuation" >.</span>action <span class="token operator" >===</span> deepstream<span class="token punctuation" >.</span>constants<span class="token punctuation" >.</span>ACTIONS<span class="token punctuation" >.</span>UPDATE
+        <span class="token punctuation" >)</span>
+    <span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
+        <span class="token keyword" >if</span><span class="token punctuation" >(</span> message<span class="token punctuation" >.</span>action <span class="token operator" >===</span> deepstream<span class="token punctuation" >.</span>constants<span class="token punctuation" >.</span>ACTIONS<span class="token punctuation" >.</span>PATCH <span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
+            <span class="token keyword" >var</span> price <span class="token operator" >=</span> <span class="token function" >parseInt<span class="token punctuation" >(</span></span> message<span class="token punctuation" >.</span>data<span class="token punctuation" >[</span> <span class="token number" >3</span> <span class="token punctuation" >]</span><span class="token punctuation" >.</span><span class="token function" >substr<span class="token punctuation" >(</span></span> <span class="token number" >1</span> <span class="token punctuation" >)</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+        <span class="token punctuation" >}</span> <span class="token keyword" >else</span> <span class="token punctuation" >{</span>
+            <span class="token keyword" >var</span> price <span class="token operator" >=</span> message<span class="token punctuation" >.</span>data<span class="token punctuation" >[</span> <span class="token number" >2</span> <span class="token punctuation" >]</span><span class="token punctuation" >.</span>price<span class="token punctuation" >;</span>
+        <span class="token punctuation" >}</span>
+
+        <span class="token keyword" >if</span><span class="token punctuation" >(</span> <span class="token function" >isNaN<span class="token punctuation" >(</span></span> price <span class="token punctuation" >)</span> <span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
+            <span class="token function" >callback<span class="token punctuation" >(</span></span> <span class="token string" >'price is not a number'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+        <span class="token punctuation" >}</span> <span class="token keyword" >else</span> <span class="token punctuation" >{</span>
+            <span class="token function" >callback<span class="token punctuation" >(</span></span> <span class="token keyword" >null</span><span class="token punctuation" >,</span> price <span class="token operator" >>=</span> <span class="token number" >60000</span> <span class="token punctuation" >)</span>
+        <span class="token punctuation" >}</span>
+    <span class="token punctuation" >}</span> <span class="token keyword" >else</span> <span class="token punctuation" >{</span>
+        <span class="token function" >callback<span class="token punctuation" >(</span></span> <span class="token keyword" >null</span><span class="token punctuation" >,</span> <span class="token keyword" >true</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+    <span class="token punctuation" >}</span>
+<span class="token punctuation" >}</span>
+</code></pre>
+				
+				<h3>Comments and Questions</h3>
+				<div id="disqusContainer">
+					<div id="disqus_thread"></div>
+					<script type="text/javascript">
+					    /* * * CONFIGURATION VARIABLES * * */
+					    var disqus_shortname = 'deepstreamio';
+					    
+					    /* * * DON'T EDIT BELOW THIS LINE * * */
+					    (function() {
+					        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+					        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+					        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+					    })();
+					</script>
+					<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="../assets/js/docs.js"></script>
+		<div id="footerPush"></div>
+	</div>
+	<div id="footer">
+		<div class="copyright">&copy;2014 Hoxton One Ltd. All rights reserved.</div>
+		<ul class="footerItems">
+			<li class="news">
+				<h4>GoldenLayout on...</h4>
+				<ul class="social">
+					<li class="twitter">
+						<a href="https://twitter.com/goldenlayout">Twitter</a>
+					</li>
+					<li class="github">
+						<a href="https://github.com/hoxton-one/golden-layout">Github</a>
+					</li>
+					<li class="bower">
+						<a href="http://bower.io/search/?q=golden-layout">Bower: golden-layout</a>
+					</li>
+				</ul>
+			</li>
+
+			<li class="contact">
+				<h4>Contact</h4>
+				<p>
+					Like to learn more?
+					<a href="mailto:info@golden-layout.com">info@golden-layout.com</a>
+				</p>
+				<p>
+					Support for licensees
+					<a href="mailto:support@golden-layout.com">support@golden-layout.com</a>
+				</p>
+				<p>
+					For technical questions please also check the comment section at the bottom of docs and tutorials
+				</p>
+			</li>
+
+			<li class="footerItem about">
+				<h4>About</h4>
+				<p>
+					GoldenLayout is developed by <b>Hoxton One Ltd.</b>, a small Company based in London's dodgy, yet glorious East.
+				</p>
+				<p>
+					<b>Registered Offices</b>:
+					Suite 7,
+					KD Tower,
+					Cotterells,
+					Hemel Hempstead,
+					Herts,
+					HP1 1FW
+				</p>
+				<p>Registered in England and Wales, Company Nr 09121068</p>
+			</li>
+		</ul>
+	</div>
+
+
+</body>
+</html>
