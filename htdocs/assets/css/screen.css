@@ -78,11 +78,15 @@ html, body{
 * NAVIGATION
 ****************************/
 #nav{
-	position: relative;
-	height: 30px;
-	margin-bottom: -30px;
-	z-index: 1;
-	overflow: hidden;
+  position: relative;
+  height: 60px;
+  background-color: #145068;
+  text-align: center;
+  border-style: solid;
+  border-width: 0px 0px 2px 0px;
+  border-color: #0C394B;
+  z-index: 1;
+  overflow: hidden;
 }
 
 #nav img{
@@ -90,40 +94,52 @@ html, body{
 }
 
 #nav.standalone{
-	margin-bottom: 0;
-	height: 40px;
+  height: 40px;
+  padding: 0px 200px 0px 0px;
 }
 
 #nav.standalone img{
-	display: block;
-	width: 100%;
-	height: 1187px;
 }
 
 #nav ul{
 	overflow: hidden;
-	position: absolute;
+	display: inline-block;
 	top: 0;
 	left: 0;
+	margin
 	z-index: 1;
 }
 
 #nav li{
 	opacity: 1;
 	float: left;
+	background-size: 4px;
+	margin: 0px 10px 0px 10px;
 	transition: opacity 300ms ease;
+	text-align: center;
 }
 
-#nav li.active,
+#nav li.active a{
+	color: #00CCFE;
+	border-style: solid;
+	padding: 14px;
+	border-width: 4px 0px 0px;
+	border-color: #00CCFE;
+}
+
 #nav li:hover{
-	opacity: 0.8;
+	opacity: 0.2;
+	color: red;
+	border-top: 4px;
+	border-color: #00CCFE;
 }
 
 #nav a{
-	padding-top: 11px;
-	padding-right: 40px;
+	padding: 18px 20px 10px 10px;
 	display: block;
-	font: 16px "Courier New", monospace;
+	font-size: 14px;
+  	font-family: 'Quicksand', sans-serif;
+  	font-weight: 500;
 	color: #fff;
 	text-decoration: none;
 }
