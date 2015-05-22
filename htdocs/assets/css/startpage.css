@@ -1,11 +1,144 @@
 body{
-  background-color: red
+  background-color: #333;
 }
+
+
+#segment-header{
+  text-align: center;
+  overflow: hidden;
+  color: #145068;
+  height: 376px;
+  background: url(../images/header-back.svg) repeat-x center top;
+}
+
+.header-logo{
+  background: url(../images/deepstream-logo.svg) no-repeat 109px 55px;
+  position: relative;
+  height: 376px;
+  width: 960px;
+  left: 50%;
+  margin-left: -460px;
+  color: white;
+}
+
+.header-text{
+  width: 500px;
+  height: 270px;
+  position: absolute;
+  margin: 73px 0px 0px 434px;
+}
+
+.header-strapline{
+  color: #22C9F1;
+  text-align: left;
+  margin: 0px 0px 0px 4px;
+  font-size: 18px;
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 400;
+  opacity: 1;
+}
+
+.header-bullets{
+  text-align: left;
+  color: #fff;
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 300;
+  font-size: 14px;
+  margin: 29px 0px 0px 0px;
+  opacity: 1;
+}
+
+.header-bullets li{
+  list-style-type: circle;
+
+}
+
+#segment-code{
+ background: #272822;
+ text-align: left;
+ color: #145068;
+ height: 270px;
+ box-shadow: inset 0px 5px 10px 0px rgba(0,0,0,0.75);
+
+}
+
+#segment-example-app{
+ background: #ffffff;
+ text-align: center;
+ color: #145068;
+ height: 676px;
+
+}
+
+.example-app{
+  background: url(../images/exmpl-app.svg) no-repeat center center;
+  height: 100%;
+  text-align: center;
+  color: white;
+}
+
+#segment-three-icons{
+ background: #C7D7DC;
+ text-align: center;
+ color: #145068;
+ height: 384px;
+
+}
+
+#three-icons {
+    width:1000px;
+    height:100%;
+    padding:0;
+    margin:0;
+    display: inline-flex;
+}
+
+.three-icons-label {
+  text-align: center;
+  color: #37505A;
+  padding: 310px 0px 0px 0px;
+  font-size: 23px;
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 500;
+}
+
+#left-records,
+#center-events,
+#right-rpcs{
+    margin: -60px 0px 0px 0px;
+    width:33.33333333%;
+    height:100%;
+}
+
+#left-records {
+    background: url(../images/icon-records.svg) no-repeat center center;
+}
+
+#center-events {
+    background: url(../images/icon-events.svg) no-repeat center center;
+}
+
+#right-rpcs {
+    background: url(../images/icon-RPCs.svg) no-repeat center center;
+}
+
+.records-text,
+.events-text,
+.rpcs-text{
+  width: 240px;
+  padding: 20px 0px 0px 40px;
+  font-size: 12px;
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 400;
+
+}
+
+
 
 .segment-label{
   position: relative;
   top: 55px;
-  right: 340px;
+  right: 400px;
   color: #22C9F1;
   font-size: 23px;
   font-family: 'Quicksand', sans-serif; font-weight: 400;
@@ -52,4 +185,48 @@ body{
 .diagram-label-5{
   top: 364px;
 }
+
+
+#segment-security{
+ background: #22C9F1 url(../images/decrtn-SecrPath.svg) no-repeat right;
+ text-align: center;
+ color: white;
+
+}
+
+#segment-security .lock{
+  background: url(../images/icon-padlock.svg) no-repeat left 37px;
+  width: 1048px;
+  height: 275px;
+  margin: 0 auto;
+  color: white;
+}
+
+.security-text{
+  font-family: 'Montserrat', sans-serif;
+  opacity: 1;
+  width: 430px;
+  text-align: left;
+  padding: 60px 335px 24px;
+
+}
+
+.security-bullets{
+  font-family: 'Quicksand', sans-serif; font-weight: 300;
+  font-size: 14px;
+  opacity: 1;
+  width: 430px;
+  text-align: left;
+  padding: 0px 355px;
+
+}
+
+.security-bullets li{
+  list-style-type: circle;
+
+}
+
+
+
+
 
