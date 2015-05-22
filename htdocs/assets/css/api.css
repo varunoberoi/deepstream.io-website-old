@@ -383,7 +383,16 @@ nav{
 	padding: 10px 5px;
 }
 
+#wrapper #content table.constants td:first-child{
+	width: 60%;
+}
+
 #wrapper #content .center{
 	margin: 0 auto;
 	display: block;
+}
+
+#wrapper .message-structure{
+	font: 16px "Courier New",monospace;
+	text-align: center;
 }

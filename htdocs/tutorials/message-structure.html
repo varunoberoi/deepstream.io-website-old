@@ -21,10 +21,9 @@
 
 	<link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Quicksand:300,400,700' rel='stylesheet' type='text/css'>
-	<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 
 </head>
-<body class="category_docs">
+<body class="category_tutorials">
 
 	<div id="outerWrapper">
 		<div class="topSection">
@@ -34,94 +33,92 @@
 			<div id="nav" class="standalone">
 				<img src="../assets/images/background-abstract.jpg" />
 				<ul>
-					<li  class="active"><a href="..">Home</a></li>
-					<li ><a href="../download">Downloads</a></li>
-					<li ><a href="../tutorials">Tutorials</a></li>
-					<li class="active"><a href="../docs">Documentation</a></li>
+					<li ><a href="..">START</a></li>
+					<li ><a href="../download">DOWNLOAD</a></li>
+					<li class="active"><a href="../tutorials">TUTORIALS</a></li>
+					<li ><a href="../docs">DOCS</a></li>
 				</ul>
 			</div>
 		</div>
 		<div id="wrapper" class="main">
 			<ul id="subnav">
-	<li class="head first">Server</li>
+	<li class="head first">General</li>
 	<li >
-		<a href="Deepstream.html">Deepstream</a>
+		<a href="getting-started.html">Getting started</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
 	<li >
-		<a href="Constants.html">Constants</a>
+		<a href="authentication.html">Authentication</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
-
-
-	<li class="head">JS Client</li>
 	<li >
-		<a href="Client.html">Client</a>
+		<a href="permissioning.html">Permissioning</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li class="head">Server</li>
+	<li >
+		<a href="connectors-and-deployment.html">Connectors and Deployment</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+	<li >
+		<a href="forex-price-provider.html">Building a Forex price provider</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+	<li >
+		<a href="adding-search.html">Adding search</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+	<li >
+		<a href="writing-storage-cache-connector.html">Writing storage and cache connectors</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+	<li >
+		<a href="writing-messaging-connector.html">Writing a messaging connector</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li class="head">Client</li>
+	<li >
+		<a href="node-js-client.html">Using the client in NodeJS</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
 
 	<li >
-		<a href="client_options.html">options</a>
+		<a href="records-events-rpcs.html">Records, Events and RPCs</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
 
 	<li >
-		<a href="connection_states.html">connectionStates</a>
+		<a href="simple-app-using-ko.html">Simple App using Knockout</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
 
 	<li >
-		<a href="client_errors.html">errors</a>
+		<a href="simple-app-using-angular.html">Simple App using Angular</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
 
-	<li >
-		<a href="event_emitter.html">EventEmitter</a>
-		<div class="isActiveIndicator orangeGradient"></div>
-	</li>
-
-	<li class="de-emphasized">Record</li>
-	<li >
-		<a href="client.record.html">client.record</a>
-		<div class="isActiveIndicator orangeGradient"></div>
-	</li>
-
-	<li >
-		<a href="record.html">Record</a>
-		<div class="isActiveIndicator orangeGradient"></div>
-	</li>
-
+	<li class="head">Internals</li>
 	<li class="active">
-		<a href="list.html">List</a>
-		<div class="isActiveIndicator orangeGradient"></div>
-			<ul class="overview">
-			</ul>
-	</li>
-
-	<li >
-		<a href="anonymous_record.html">Anonymous Record</a>
-		<div class="isActiveIndicator orangeGradient"></div>
-	</li>
-
-	<li class="de-emphasized">RPC</li>
-	<li >
-		<a href="client.rpc.html">client.rpc</a>
-		<div class="isActiveIndicator orangeGradient"></div>
-	</li>
-
-	<li >
-		<a href="rpc_response.html">RpcResponse</a>
-		<div class="isActiveIndicator orangeGradient"></div>
-	</li>
-
-	<li class="de-emphasized">Event</li>
-	<li >
-		<a href="client.event.html">client.event</a>
+		<a href="message-structure.html">Message Structure</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
 </ul>
 			<div id="content">
-				
+				<h1>Message Structure</h1><p>Deepstream messages are transmitted using a proprietary, minimal, string-based protocol. Every message follows the same structure:</p><div class="message-structure">
+&lt;topic&gt;|&lt;action&gt;|&lt;data[0]&gt;|...|&lt;data[n]&gt;+
+</div>
+
+<p>| and + are used in these examples as placeholders, messages are actually separated by invisible Ascii control characters (&quot;record separator&quot; (30) and &quot;group seperator&quot; (31))</p><p>Every message has a topic (e.g. RECORD, EVENT, AUTH etc.) and an action ( CREATE, DELETE, SUBSCRIBE etc.). For a full list of available topics and actions please see <a href="../docs/constants.html">docs/constants.html</a>.</p><h3>Example</h3><p>Here&#39;s an example: creating or reading a record <code>Lisa</code></p><pre><code>userLisa <span class="token operator" >=</span> ds<span class="token punctuation" >.</span>record<span class="token punctuation" >.</span><span class="token function" >getRecord<span class="token punctuation" >(</span></span> <span class="token string" >'Lisa'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+</code></pre><p>would prompt the client to send this message to the server</p><p><img src="../assets/images/message-structure-record-create.png" /></p><p>Messages always start with <code>topic</code> and <code>action</code>, but can contain an arbitrary amount of data fields afterwards.</p><p>Setting the value of a path within the record for example</p><pre><code>userLisa<span class="token punctuation" >.</span><span class="token keyword" >set</span><span class="token punctuation" >(</span> <span class="token string" >'lastname'</span><span class="token punctuation" >,</span> <span class="token string" >'Owen'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+</code></pre><p>would result in this outgoing message</p><p><img src="../assets/images/message-structure-record-patch.png" width="700"/></p><p>Please note the additional S before <code>Owen</code>. This indicates that the remaining part of the message should be treated as a string. Please find a list of (available types here)[../docs/constants.html#Data Types]</p><p>Both client and server use a message-parser to validate these messages and to convert them into objects looking like this:</p><pre><code><span class="token punctuation" >{</span>
+    raw<span class="token punctuation" >:</span> <span class="token string" >'R\u001fP\u001fLisa\u001f1\u001flastname\u001fSOwen'</span><span class="token punctuation" >,</span>
+    topic<span class="token punctuation" >:</span> <span class="token string" >'R'</span><span class="token punctuation" >,</span>
+    action<span class="token punctuation" >:</span> <span class="token string" >'P'</span><span class="token punctuation" >,</span>
+    data<span class="token punctuation" >:</span> <span class="token punctuation" >[</span> <span class="token string" >'Lisa'</span><span class="token punctuation" >,</span> <span class="token string" >'1'</span><span class="token punctuation" >,</span> <span class="token string" >'lastname'</span><span class="token punctuation" >,</span> <span class="token string" >'SOwen'</span> <span class="token punctuation" >]</span>
+<span class="token punctuation" >}</span>
+</code></pre>
 				
 				<h3>Comments and Questions</h3>
 				<div id="disqusContainer">

@@ -4,6 +4,17 @@
 		<a href="Deepstream.html">Deepstream</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
+	<li {{#if fileIs_constants}}class="active"{{/if}}>
+		<a href="Constants.html">Constants</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+		{{#if fileIs_constants}}
+			<ul class="overview">
+				{{#each subNav}}
+				<li><a href="#{{this}}">{{this}}</a></li>
+				{{/each}}
+			</ul>
+		{{/if}}
+	</li>
 
 
 	<li class="head">JS Client</li>
