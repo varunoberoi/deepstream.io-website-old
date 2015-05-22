@@ -1,6 +1,7 @@
 Allowing / denying individual actions
+==========================================
 
-Once the user is logged in, every interaction (creating, reading, writing records, events, rpcs etc.) goes trough `canPerformAction( username, message, callback )` with `username` being what ever was passed to `isValidUser`'s callback. 
+Once the user is logged in, every interaction (e.g. creating/reading/writing records, sending events, making rpcs etc.) goes trough `canPerformAction( username, message, callback )` with `username` being what ever was passed to the callback of the `isValidUser` method.
 
 It's now up to `canPerformAction` to decide whether that specific action can be performed for that specific user with that specific data. Here are some examples:
 

@@ -62,7 +62,7 @@
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
 	<li >
-		<a href="forex-price-provider.html">Building a Forex price provider</a>
+		<a href="data-provider.html">Building a data-provider</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
 	<li >
@@ -124,7 +124,7 @@ server<span class="token punctuation" >.</span><span class="token keyword" >set<
 // start the server
 </span>server<span class="token punctuation" >.</span><span class="token function" >start<span class="token punctuation" >(</span></span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
 </code></pre><p>run the file with node</p><pre><code>node start<span class="token punctuation" >.</span>js
-</code></pre><p>your console should now show this</p><p><img src="../assets/images/deepstream-started-console.png" /></p><h3>Client</h3><p>Install the javascript client via bower or npm</p><pre><code>bower install deepstream<span class="token punctuation" >.</span>io<span class="token operator" >-</span>client<span class="token operator" >-</span>js
+</code></pre><p>your console should now show this</p><p><img src="../assets/images/deepstream-started-console.png" /></p><h3>Client</h3><p>Install the javascript client via bower or npm or download it <a href="https://raw.githubusercontent.com/hoxton-one/deepstream.io-client-js/master/dist/deepstream.min.js">here</a></p><pre><code>bower install deepstream<span class="token punctuation" >.</span>io<span class="token operator" >-</span>client<span class="token operator" >-</span>js
 </code></pre><p>Create a simple webpage with a single text input field.</p><pre><code><span class="token operator" >&lt;</span><span class="token operator" >!</span>DOCTYPE html<span class="token operator" >></span>
 <span class="token operator" >&lt;</span>html<span class="token operator" >></span>
     <span class="token operator" >&lt;</span>head<span class="token operator" >></span>
@@ -178,8 +178,8 @@ should now look like this:</p><pre><code><span class="token operator" >&lt;</spa
     <span class="token operator" >&lt;</span><span class="token operator" >/</span>body<span class="token operator" >></span>
 <span class="token operator" >&lt;</span><span class="token operator" >/</span>html<span class="token operator" >></span>
 </code></pre><h3>Where to go from here?</h3><p>There are two options:</p><ul>
-<li><p>This tutorial only used records. Learn about deepstream&#39;s other concepts in the <a href="records-events-rpcs.html">Records, Events and RPCs tutorial</a></p></li>
-<li><p>In this tutorial, deepstream stored all data in memory. For persistance, deepstream can connect to a distributed cache (Redis, Memcached etc.) and to a database (RethinkDb, MongoDb etc). It can also connect to a message broker (AMQP, Redis) or directly via TCP to scale horizontally. Learn about this in the <a href="connectors-and-deployment.html">connectors and deployment tutorial</a>.</p></li>
+<li>This tutorial only used records. Learn about deepstream&#39;s other concepts in the <a href="records-events-rpcs.html">Records, Events and RPCs tutorial</a></li>
+<li>In this tutorial, deepstream stored all data in memory. For persistance, deepstream can connect to a distributed cache (Redis, Memcached etc.) and to a database (RethinkDb, MongoDb etc). It can also connect to a message broker (AMQP, Redis) or directly via TCP to scale horizontally. Learn about this in the <a href="connectors-and-deployment.html">connectors and deployment tutorial</a>.</li>
 </ul>
 
 				

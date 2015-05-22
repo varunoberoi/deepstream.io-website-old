@@ -62,7 +62,7 @@
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
 	<li >
-		<a href="forex-price-provider.html">Building a Forex price provider</a>
+		<a href="data-provider.html">Building a data-provider</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
 	<li >
@@ -108,7 +108,7 @@
 			<div id="content">
 				<h1>Authentication</h1><p>Deepstream&#39;s security and permission model is very powerful, yet really simple. In fact,
 here&#39;s all there is to it:</p><pre><code>server<span class="token punctuation" >.</span><span class="token keyword" >set</span><span class="token punctuation" >(</span> <span class="token string" >'permissionHandler'</span><span class="token punctuation" >,</span> <span class="token punctuation" >{</span>
-    isValidUser<span class="token punctuation" >:</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> handshakeData<span class="token punctuation" >,</span> authData<span class="token punctuation" >,</span> callback <span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
+    isValidUser<span class="token punctuation" >:</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> connectionData<span class="token punctuation" >,</span> authData<span class="token punctuation" >,</span> callback <span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
         <span class="token function" >callback<span class="token punctuation" >(</span></span> <span class="token keyword" >null</span><span class="token punctuation" >,</span> authData<span class="token punctuation" >.</span>username <span class="token operator" >||</span> <span class="token string" >'open'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
     <span class="token punctuation" >}</span><span class="token punctuation" >,</span>
 
@@ -128,13 +128,13 @@ a callback function. E.g.</p><pre><code>ds<span class="token punctuation" >.</sp
    <span class="token comment" spellcheck="true"> //...
 </span><span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
 </code></pre><p>This will call the permissionHandler&#39;s <code>isValidUser</code> method with three arguments:</p><ul>
-<li><code>handshakeData</code> is an object with connection information</li>
+<li><code>connectionData</code> is an object with connection information</li>
 <li><code>authData</code> is the object that the client send with <code>ds.login( authData )</code></li>
 <li><code>callback</code> is a function that expects the result of the login. It should be called with either <code>callback( null, username )</code> for successful logins or <code>callback( &#39;rejection reason&#39; )</code> for unsucessful ones.</li>
 </ul>
-<pre><code>isValidUser<span class="token punctuation" >:</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> handshakeData<span class="token punctuation" >,</span> authData<span class="token punctuation" >,</span> callback <span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
+<pre><code>isValidUser<span class="token punctuation" >:</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> connectionData<span class="token punctuation" >,</span> authData<span class="token punctuation" >,</span> callback <span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
     <span class="token comment" spellcheck="true">/* 
-     * handshakeData
+     * connectionData
      * {
      *     "remoteAddress": "::1",
      *     "headers": {
@@ -158,7 +158,7 @@ a callback function. E.g.</p><pre><code>ds<span class="token punctuation" >.</sp
      * }
      */</span>
 
-    <span class="token keyword" >if</span><span class="token punctuation" >(</span> authData<span class="token punctuation" >.</span>user <span class="token operator" >===</span> <span class="token string" >'LisaA'</span> <span class="token operator" >&amp;&amp;</span> password <span class="token operator" >===</span> <span class="token string" >'sesame'</span> <span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
+    <span class="token keyword" >if</span><span class="token punctuation" >(</span> authData<span class="token punctuation" >.</span>user <span class="token operator" >===</span> <span class="token string" >'LisaA'</span> <span class="token operator" >&amp;&amp;</span> authData<span class="token punctuation" >.</span>password <span class="token operator" >===</span> <span class="token string" >'sesame'</span> <span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
         <span class="token function" >callback<span class="token punctuation" >(</span></span> <span class="token keyword" >null</span><span class="token punctuation" >,</span> authData<span class="token punctuation" >.</span>user <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
     <span class="token punctuation" >}</span> <span class="token keyword" >else</span> <span class="token punctuation" >{</span>
         <span class="token function" >callback<span class="token punctuation" >(</span></span> <span class="token string" >'invalid credentials'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>

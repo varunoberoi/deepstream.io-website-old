@@ -34,7 +34,7 @@ your console should now show this
 
 ### Client
 
-Install the javascript client via bower or npm
+Install the javascript client via bower or npm or download it [here](https://raw.githubusercontent.com/hoxton-one/deepstream.io-client-js/master/dist/deepstream.min.js)
 
 	bower install deepstream.io-client-js
 
@@ -109,5 +109,4 @@ should now look like this:
 ### Where to go from here?
 There are two options:
 * This tutorial only used records. Learn about deepstream's other concepts in the [Records, Events and RPCs tutorial](records-events-rpcs.html)
-
 * In this tutorial, deepstream stored all data in memory. For persistance, deepstream can connect to a distributed cache (Redis, Memcached etc.) and to a database (RethinkDb, MongoDb etc). It can also connect to a message broker (AMQP, Redis) or directly via TCP to scale horizontally. Learn about this in the [connectors and deployment tutorial](connectors-and-deployment.html).
