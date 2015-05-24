@@ -18,8 +18,8 @@
 		<a href="connectors-and-deployment.html">Connectors and Deployment</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
-	<li {{#if fileIs_forex-price-provider}}class="active"{{/if}}>
-		<a href="forex-price-provider.html">Building a Forex price provider</a>
+	<li {{#if fileIs_data-provider}}class="active"{{/if}}>
+		<a href="data-provider.html">Building a data-provider</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
 	<li {{#if fileIs_adding-search}}class="active"{{/if}}>

@@ -21,6 +21,7 @@
 
 	<link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Quicksand:300,400,700' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 
 </head>
 <body class="category_tutorials">
@@ -33,10 +34,10 @@
 			<div id="nav" class="standalone">
 				<img src="../assets/images/background-abstract.jpg" />
 				<ul>
-					<li ><a href="..">START</a></li>
-					<li ><a href="../download">DOWNLOAD</a></li>
-					<li class="active"><a href="../tutorials">TUTORIALS</a></li>
-					<li ><a href="../docs">DOCS</a></li>
+					<li  class="active"><a href="..">Home</a></li>
+					<li ><a href="../download">Downloads</a></li>
+					<li class="active"><a href="../tutorials">Tutorials</a></li>
+					<li ><a href="../docs">Documentation</a></li>
 				</ul>
 			</div>
 		</div>
@@ -62,7 +63,7 @@
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
 	<li >
-		<a href="forex-price-provider.html">Building a Forex price provider</a>
+		<a href="data-provider.html">Building a data-provider</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
 	<li >
@@ -106,7 +107,21 @@
 	</li>
 </ul>
 			<div id="content">
-				<h1>Permissioning</h1><p>Deepstream allows for every operation (creating or reading records, sending events, making RPCs etc.) to be permissioned individually for every user. This happens in the permissionHandler&#39;s <code>canPerformAction()</code> method. Every message needs to pass through here before it is processed.</p><p><code>canPerformAction()</code> will be called with three arguments</p><ul>
+				<p>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</p><h1>Permissioning</h1><p>Deepstream allows for every operation (creating or reading records, sending events, making RPCs etc.) to be permissioned individually for every user. This happens in the permissionHandler&#39;s <code>canPerformAction()</code> method. Every message needs to pass through here before it is processed.</p><h1><code>canPerformAction()</code> will be called with three arguments</h1><h1>Allowing / denying individual actions</h1><p>Once the user is logged in, every interaction (e.g. creating/reading/writing records, sending events, making rpcs etc.) goes trough <code>canPerformAction( username, message, callback )</code> with <code>username</code> being what ever was passed to the callback of the <code>isValidUser</code> method.</p><blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>d156f3199e3d21da11b6299b85537f01b26346d0</p></blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+<ul>
 <li><code>username</code> is the username that was passed to the callback of <code>isValidUser()</code> (see the <a href="authentication.html">authentication tutorial</a> for details.)</li>
 <li><code>message</code> is a map with three fields: <code>topic</code>, <code>action</code> and <code>data</code></li>
 <li><code>callback</code> is a function that should be called with two arguments: error or null and (boolean) <code>isAllowed</code>, e.g. <code>callback( null, true );</code></li>

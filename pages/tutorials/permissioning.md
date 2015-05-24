@@ -1,8 +1,15 @@
+<<<<<<< HEAD
 Permissioning
 =========================
 Deepstream allows for every operation (creating or reading records, sending events, making RPCs etc.) to be permissioned individually for every user. This happens in the permissionHandler's `canPerformAction()` method. Every message needs to pass through here before it is processed.
 
 `canPerformAction()` will be called with three arguments
+=======
+Allowing / denying individual actions
+==========================================
+
+Once the user is logged in, every interaction (e.g. creating/reading/writing records, sending events, making rpcs etc.) goes trough `canPerformAction( username, message, callback )` with `username` being what ever was passed to the callback of the `isValidUser` method.
+>>>>>>> d156f3199e3d21da11b6299b85537f01b26346d0
 
 * `username` is the username that was passed to the callback of `isValidUser()` (see the [authentication tutorial](authentication.html) for details.)
 * `message` is a map with three fields: `topic`, `action` and `data`

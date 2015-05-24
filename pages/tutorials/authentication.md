@@ -4,7 +4,7 @@ Deepstream's security and permission model is very powerful, yet really simple. 
 here's all there is to it:
 
 	server.set( 'permissionHandler', {
-		isValidUser: function( handshakeData, authData, callback ) {
+		isValidUser: function( connectionData, authData, callback ) {
 			callback( null, authData.username || 'open' );
 		},
 
@@ -36,14 +36,14 @@ a callback function. E.g.
 
 This will call the permissionHandler's `isValidUser` method with three arguments:
 
-* `handshakeData` is an object with connection information
+* `connectionData` is an object with connection information
 * `authData` is the object that the client send with `ds.login( authData )`
 * `callback` is a function that expects the result of the login. It should be called with either `callback( null, username )` for successful logins or `callback( 'rejection reason' )` for unsucessful ones.
 
 
-	isValidUser: function( handshakeData, authData, callback ) {
+	isValidUser: function( connectionData, authData, callback ) {
 		/* 
-		 * handshakeData
+		 * connectionData
 		 * {
 		 *     "remoteAddress": "::1",
 		 *     "headers": {
@@ -67,7 +67,7 @@ This will call the permissionHandler's `isValidUser` method with three arguments
 		 * }
 		 */
 
-		if( authData.user === 'LisaA' && password === 'sesame' ) {
+		if( authData.user === 'LisaA' && authData.password === 'sesame' ) {
 			callback( null, authData.user );
 		} else {
 			callback( 'invalid credentials' );
