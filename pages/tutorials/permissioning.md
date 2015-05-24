@@ -1,30 +1,56 @@
-Allowing / denying individual actions
+Permissioning
+=========================
+Deepstream allows for every operation (creating or reading records, sending events, making RPCs etc.) to be permissioned individually for every user. This happens in the permissionHandler's `canPerformAction()` method. Every message needs to pass through here before it is processed.
 
-Once the user is logged in, every interaction (creating, reading, writing records, events, rpcs etc.) goes trough `canPerformAction( username, message, callback )` with `username` being what ever was passed to `isValidUser`'s callback. 
+`canPerformAction()` will be called with three arguments
 
-It's now up to `canPerformAction` to decide whether that specific action can be performed for that specific user with that specific data. Here are some examples:
+* `username` is the username that was passed to the callback of `isValidUser()` (see the [authentication tutorial](authentication.html) for details.)
+* `message` is a map with three fields: `topic`, `action` and `data`
+* `callback` is a function that should be called with two arguments: error or null and (boolean) `isAllowed`, e.g. `callback( null, true );`
+
+### Messages
+Permissions are based on incoming messages. Every incoming message will be parsed and validated for syntactical correctness, but won't be processed  until after it is permitted. Parsed messages look like this:
+
+	{ 
+		raw: 'R\u001fCR\u001fcurrencies',
+		topic: 'R',
+		action: 'CR',
+		data: [ 'currencies' ]
+	}
+
+* `topic` is a constant that defines what the message relates to, e.g. `RECORD`, `EVENT`, `RPC`, `AUTH` etc. Please find a full list of topics [here](../docs/Constants.html#Topic)
+* `action` is a constant that defines what should happen to the topic, e.g. 'CREATE_OR_READ', 'SUBSCRIBE', 'DELETE' etc. Please find a full list of topics [here](../docs/Constants.html#Actions)
+* `data` is an array of values that relate to the action. The number and order of these values depends on the action they relate to. For every record-related message the first value in the data array is always the record name
+
+If you'd like to learn more about deepstream's message structure, have a look at the [message structure page](message-structure.html)
+
+### Applying permissions
+Based on the username and the incoming message you can now allow or deny operations. Here are some examples:
+
+To allow everything, just always pass true to the callback. This is also what the default permissionHandler does.
 
 	//Allow everything
 	canPerformAction: function( username, message, callback ) {
 		callback( null, true );
 	}
 
-	//Prevent LisaA from deleting records
+To prevent user `LisaA` from deleting any records, do the following
+
 	canPerformAction: function( username, message, callback ) {
 		var isAllowed = (
 			username === 'LisaA' && 
-			message.topic === deepstream.constants.TOPIC.RECORD &&
-			message.action === deepstream.constants.ACTIONS.DELETE
+			message.topic === server.constants.TOPIC.RECORD &&
+			message.action === server.constants.ACTIONS.DELETE
 		);
 
 		callback( null, isAllowed );
 	}
 
-	// Create private records by forcing the record name to contain
-	// the name of the logged in user
+Sometimes it is useful to create records that can only be created, read or manipulated by a specific user. To do this, simply enfore the name of the logged in user as part of the recordname:
+
 	canPerformAction: function( username, message, callback ) {
-		// Allow every non-record message
-		if( message.topic !== deepstream.constants.TOPIC.RECORD ) {
+		// Allow every non record-related message
+		if( message.topic !== server.constants.TOPIC.RECORD ) {
 			callback( null, true );
 		}
 		else {
@@ -33,7 +59,16 @@ It's now up to `canPerformAction` to decide whether that specific action can be 
 		}
 	}
 
-	/* Prevent the value of 'price' for record 'fancyCar' to be set to less than 60000
+In the next example we'll prevent the value of 'price' for record 'fancyCar' to be set to less than 60000. Performing checks for specific record values can be a bit tricky for two reasons:
+
+Record data can be set in two different ways, depending on if the user called set the entire record, using `record.set( value )` or just a path within it, using `record.set( path, value )`. `record.set( value )` triggers an `UPDATE` operation and the `data` array will contain [ recordName, version, JSON-encoded-record ].
+
+
+
+
+
+
+	/* Prevent 
 	 * This is a bit tricky since there are two ways to set a record's data
 	 *
 	 * ACTIONS.PATCH is used if only a path within the record should be changed
