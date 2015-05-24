@@ -110,7 +110,7 @@ var createTargetFile = function( root, stats, next ) {
 	};
 
 	contextVars[ 'pageIs_' + folder ] = true;
-	contextVars[ 'fileIs_' + page ] = true;
+	contextVars[ 'fileIs_' + page.replace( '.', '_' ) ] = true;
 
 	var data = {
 		srcFilePath: srcFilePath,

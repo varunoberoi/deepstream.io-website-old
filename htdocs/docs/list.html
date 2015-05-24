@@ -95,6 +95,19 @@
 		<a href="list.html">List</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 			<ul class="overview">
+				<li><a href="#List">List</a></li>
+				<li><a href="#Properties">Properties</a></li>
+				<li><a href="#Events">Events</a></li>
+				<li><a href="#whenReady( callback )">whenReady( callback )</a></li>
+				<li><a href="#isEmpty()">isEmpty()</a></li>
+				<li><a href="#getEntries()">getEntries()</a></li>
+				<li><a href="#setEntries( entries )">setEntries( entries )</a></li>
+				<li><a href="#addEntry( entry )">addEntry( entry )</a></li>
+				<li><a href="#removeEntry( entry )">removeEntry( entry )</a></li>
+				<li><a href="#subscribe( callback, triggerNow )">subscribe( callback, triggerNow )</a></li>
+				<li><a href="#unsubscribe( callback )">unsubscribe( callback )</a></li>
+				<li><a href="#discard()">discard()</a></li>
+				<li><a href="#delete()">delete()</a></li>
 			</ul>
 	</li>
 
@@ -121,7 +134,64 @@
 	</li>
 </ul>
 			<div id="content">
-				
+				<div class="section"><h2><a name="List">List</a></h2><p>Lists are arrays of record names. Similar to records, lists can be manipulated and observed. Lists are created and retrieved using <code>client.record.get( &amp;lt;name&amp;gt; );</code>, e.g.</p><pre><code><span class="token keyword" >var</span> list <span class="token operator" >=</span> client<span class="token punctuation" >.</span>record<span class="token punctuation" >.</span><span class="token function" >getList<span class="token punctuation" >(</span></span> <span class="token string" >'users'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+</code></pre><p>Please see <a href="client.record.html#getList( name )">getList( name );</a> for details.</p></div><div class="section"><h2><a name="Properties">Properties</a></h2><table class="mini">
+<tbody>
+
+<tr>
+<td>name</td>
+<td>String</td>
+<td>The name of the list, as specified when calling <code>client.record.getList( &amp;lt;name&amp;gt; );</code></td>
+</tr>
+
+<tr>
+<td>usages</td>
+<td>Number</td>
+<td>The number of times <code>client.record.getList()</code> has been called for this record throughout the application</td>
+</tr>
+
+<tr>
+<td>isReady</td>
+<td>Boolean</td>
+<td>True once the list has received its current data and emitted the <code>&#39;ready&#39;</code> event</td>
+</tr>
+
+</tbody>
+</table>
+
+</div><div class="section"><h2><a name="Events">Events</a></h2><table class="mini">
+<tbody>
+
+<tr>
+<td>ready</td>
+<td>Emitted once the list has received its current data from the server.</td>
+</tr>
+
+<tr>
+<td>delete</td>
+<td>Emitted when the list was deleted, whether by this client or by another.</td>
+</tr>
+
+<tr>
+<td>discard</td>
+<td>Emitted once the list was discarded.</td>
+</tr>
+
+<tr>
+<td>error</td>
+<td>Emitted if the list encounters an error. The error message is passed to the event callback.</td>
+</tr>
+
+</tbody>
+</table>
+
+</div><div class="section"><h2><a name="whenReady( callback )">whenReady( callback )</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">callback</td><td class="type">Function</td><td class="optional">false</td><td class="default">-</td><td class="description">A function that will be invoked as soon as the list is ready.</td></tr></tbody></table><p>Convenience method that executes <code>callback</code> straight away if the list is ready or registers it as a callback for the <code>&#39;ready&#39;</code> event.</p></div><div class="section"><h2><a name="isEmpty()">isEmpty()</a></h2><p>Returns <code>false</code> if the list has entries or <code>true</code> if it doesn&#39;t.</p></div><div class="section"><h2><a name="getEntries()">getEntries()</a></h2><p>Returns the current contents of the list.</p></div><div class="section"><h2><a name="setEntries( entries )">setEntries( entries )</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">entries</td><td class="type">Array</td><td class="optional">false</td><td class="default">-</td><td class="description">An array of record names</td></tr></tbody></table><p>Sets the contents of the list to the provided array of record names. To add or remove specific entries use <code>addEntry()</code> or <code>removeEntry()</code> respectively</p></div><div class="section"><h2><a name="addEntry( entry )">addEntry( entry )</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">entry</td><td class="type">String</td><td class="optional">false</td><td class="default">-</td><td class="description">A record name that should be added to the list</td></tr></tbody></table><p>Adds a new record name to the list.</p></div><div class="section"><h2><a name="removeEntry( entry )">removeEntry( entry )</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">entry</td><td class="type">String</td><td class="optional">false</td><td class="default">-</td><td class="description">A record name that should be removed from the list</td></tr></tbody></table><p>Removes an entry from the list. <code>removeEntry</code> will not throw any error if the entry doesn&#39;t exist.</p></div><div class="section"><h2><a name="subscribe( callback, triggerNow )">subscribe( callback, triggerNow )</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">callback</td><td class="type">Function</td><td class="optional">false</td><td class="default">-</td><td class="description">A callback function that should be called whenever the value changes</td></tr><tr><td class="argument">triggerNow</td><td class="type">Boolean</td><td class="optional">true</td><td class="default">-</td><td class="description">If true, the callback function will be called immediatly with the current value.</td></tr></tbody></table><p>Subscribe registers a function that will be invoked whenever the list&#39;s contents changes.</p><p>Optionally one can also pass <code>true</code> to execute the callback function straight away with the list&#39;s current entries.</p></div><div class="section"><h2><a name="unsubscribe( callback )">unsubscribe( callback )</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">callback</td><td class="type">Function</td><td class="optional">false</td><td class="default">-</td><td class="description">The previously registered callback function</td></tr></tbody></table><p>Removes a subscription that was previously made using <code>list.subscribe()</code></p><p>Please Note: unsubscribe is purely a client side operation. Use <code>discard()</code> to notify the server
+that the app is no longer interested in this list.</p></div><div class="section"><h2><a name="discard()">discard()</a></h2><p>Removes all change listeners and notifies the server that the client is
+no longer interested in updates for this list.</p><div class="info">
+It is important to make sure that <code>discard()</code> is called for any list that&#39;s no longer needed. If you only remove the listeners using <code>unsubscribe()</code> the server won&#39;t be notified and will continue to send updates to the client.
+</div>
+
+</div><div class="section"><h2><a name="delete()">delete()</a></h2><p>Deletes the list on the server. This action deletes the list for all users and is irreversible.</p><p></div></p>
 				
 				<h3>Comments and Questions</h3>
 				<div id="disqusContainer">
