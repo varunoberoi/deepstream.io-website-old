@@ -93,18 +93,32 @@
 	</li>
 
 	<li class="de-emphasized">RPC</li>
-	<li {{#if fileIs_client.rpc}}class="active"{{/if}}>
+	<li {{#if fileIs_client_rpc}}class="active"{{/if}}>
 		<a href="client.rpc.html">client.rpc</a>
 		<div class="isActiveIndicator orangeGradient"></div>
+		{{#if fileIs_client_rpc}}
+			<ul class="overview">
+				{{#each subNav}}
+				<li><a href="#{{this}}">{{this}}</a></li>
+				{{/each}}
+			</ul>
+		{{/if}}
 	</li>
 
 	<li {{#if fileIs_rpc_response}}class="active"{{/if}}>
 		<a href="rpc_response.html">RpcResponse</a>
 		<div class="isActiveIndicator orangeGradient"></div>
+		{{#if fileIs_rpc_response}}
+			<ul class="overview">
+				{{#each subNav}}
+				<li><a href="#{{this}}">{{this}}</a></li>
+				{{/each}}
+			</ul>
+		{{/if}}
 	</li>
 
 	<li class="de-emphasized">Event</li>
-	<li {{#if fileIs_client.event}}class="active"{{/if}}>
+	<li {{#if fileIs_client_event}}class="active"{{/if}}>
 		<a href="client.event.html">client.event</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>

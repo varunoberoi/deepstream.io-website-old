@@ -3,7 +3,7 @@ client.record.getRecord( name )
 argument: name
 type: String
 optional: false
-desc: The name / primaryKey for the record.
+desc: The name / primaryKey of the record.
 
 Retrieves or creates a [Record](Record.html) with the given name. Records are persistant datastructures
 that clients can manipulate and observe.
@@ -23,7 +23,7 @@ client.record.getList( name )
 argument: name
 type: String
 optional: false
-desc: The name / primaryKey for the record.
+desc: The name / primaryKey of the record.
 
 Retrieves or creates a [List](List.html) with the given name. Lists are arrays of recordNames that clients
 can manipulate and observe.
@@ -32,37 +32,24 @@ can manipulate and observe.
 
 	beatlesAlbums.whenReady(function(){
 
+		beatlesAlbums.getEntries();
 		/*
-		 * Returns
+		 * Returns e.g.
 		 * [
 		 *		"album/i9l0z34v-109vblpqddy", 
 		 *		"album/i9l0z3v4-ibrbp139rbr", 
 		 *		"album/i9l0z4d8-1w0p8xnk1sy" 
 		 *	]
 		 */
-		beatlesAlbums.getEntries();
 	});
 
 client.record.getAnonymousRecord()
 --------------------------------
-argument: name
-type: String
-optional: false
-desc: The name / primaryKey for the record.
-
-Returns an [AnonymousRecord](AnonymousRecord). 
+Returns an [AnonymousRecord](anonymous_record.html). 
 
 An AnonymousRecord is a record without a predefined name. It
-acts like a wrapper around an actual record that can
+acts as a wrapper around an actual record that can
 be swapped out for another one whilst keeping all bindings intact.
-
-Imagine a customer relationship management system with a list of users
-on the left and a user detail panel on the right. The user detail
-panel could use the anonymous record to set up its bindings. 
-
-Whenever a user is chosen from the list of existing users, the anonymous record's
-`setName()` method is called and the detail panel will update to
-show the selected user's details.
 
 	var bindInput = function( record, path, inputElement ) {
 		inputElement.on( 'change', function(){
@@ -90,30 +77,59 @@ show the selected user's details.
 
 client.record.listen( pattern, callback )
 --------------------------------
-argument: name
+argument: pattern
 type: String
 optional: false
 desc: A RegExp as a string
 
-argument: name
-type: String
+argument: callback
+type: Function
 optional: false
-desc: A function that will be called
+desc: A function that will be called whenever a match is found. Arguments are (String) match and (Boolean) isSubscribed
 
-Allows to listen for record subscriptions made by this or other clients. This
+Allows to listen for record subscriptions made by any client. This
 is usefull to create "active" data providers, e.g. providers that only provide
-data for a particular record if a user is actually interested in it
+data for records that users are actually interested in.
+
+Some things to note:
+
+* the listen callback will only be called once with subscribed = true for the first timea matching subscription is made and once with subscribed = false once all clients have unsubscribed from the record.
+
+* The callback will be called for all matching subscriptions that already exist at the time its registered.
+
+	var raceHorseRecords = {};
 
 	client.record.listen( 'raceHorse/.*', function( match, isSubscribed ) {
 		/*
-		 * match === 'raceHorse/fast-betty'
-		 * isSubscribed === true
-		 *
-		 * Provide updates for fast-betty here
+		 * match = 'raceHorse/fast-betty'
+		 * isSubscribed = true
 		 */
+		var horseName = match.split( '/' )[ 1 ],
+			updateRecord = function( data ){
+				raceHorseRecords[ match ].set( data );
+			};
+		
+		if( isSubscribed ) {
+			raceHorseRecords[ match ] = client.record.getRecord( match );
+
+			// assuming we have a raceHorseDataProvider class
+			raceHorseDataProvider.subscribe( horseName, updateRecord );
+		} else {
+			raceHorseRecords[ match ].discard();
+			delete raceHorseRecords[ match ];
+			raceHorseDataProvider.unsubscribe( horseName, updateRecord );
+		}
 	});
 
+	// This function will now be called whenever a client requests a record
+	// with a matching name, e.g.
 	client.record.getRecord( 'raceHorse/fast-betty' );
 
 client.record.unlisten( pattern )
 --------------------------------
+argument: pattern
+type: String
+optional: false
+desc: A RegExp as a string
+
+Removes a listener that was previously registered using <a href="#client.record.listen( pattern, callback )">listen()</a>.

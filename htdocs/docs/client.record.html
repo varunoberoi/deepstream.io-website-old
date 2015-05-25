@@ -126,7 +126,7 @@
 	</li>
 </ul>
 			<div id="content">
-				<div class="section"><h2><a name="client.record.getRecord( name )">client.record.getRecord( name )</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">name</td><td class="type">String</td><td class="optional">false</td><td class="default">-</td><td class="description">The name / primaryKey for the record.</td></tr></tbody></table><p>Retrieves or creates a <a href="Record.html">Record</a> with the given name. Records are persistant datastructures
+				<div class="section"><h2><a name="client.record.getRecord( name )">client.record.getRecord( name )</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">name</td><td class="type">String</td><td class="optional">false</td><td class="default">-</td><td class="description">The name / primaryKey of the record.</td></tr></tbody></table><p>Retrieves or creates a <a href="Record.html">Record</a> with the given name. Records are persistant datastructures
 that clients can manipulate and observe.</p><pre><code><span class="token comment" spellcheck="true">// clientA
 </span><span class="token keyword" >var</span> user <span class="token operator" >=</span> client<span class="token punctuation" >.</span>record<span class="token punctuation" >.</span><span class="token function" >getRecord<span class="token punctuation" >(</span></span> <span class="token string" >'user/14'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
 
@@ -136,28 +136,24 @@ user<span class="token punctuation" >.</span><span class="token function" >subsc
 <span class="token comment" spellcheck="true">
 // clientB
 </span>client<span class="token punctuation" >.</span>record<span class="token punctuation" >.</span><span class="token function" >getRecord<span class="token punctuation" >(</span></span> <span class="token string" >'user/14'</span> <span class="token punctuation" >)</span><span class="token punctuation" >.</span><span class="token keyword" >set</span><span class="token punctuation" >(</span> <span class="token string" >'age'</span><span class="token punctuation" >,</span> <span class="token number" >30</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-</code></pre></div><div class="section"><h2><a name="client.record.getList( name )">client.record.getList( name )</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">name</td><td class="type">String</td><td class="optional">false</td><td class="default">-</td><td class="description">The name / primaryKey for the record.</td></tr></tbody></table><p>Retrieves or creates a <a href="List.html">List</a> with the given name. Lists are arrays of recordNames that clients
+</code></pre></div><div class="section"><h2><a name="client.record.getList( name )">client.record.getList( name )</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">name</td><td class="type">String</td><td class="optional">false</td><td class="default">-</td><td class="description">The name / primaryKey of the record.</td></tr></tbody></table><p>Retrieves or creates a <a href="List.html">List</a> with the given name. Lists are arrays of recordNames that clients
 can manipulate and observe.</p><pre><code><span class="token keyword" >var</span> beatlesAlbums <span class="token operator" >=</span> client<span class="token punctuation" >.</span>record<span class="token punctuation" >.</span><span class="token function" >getList<span class="token punctuation" >(</span></span> <span class="token string" >'beatlesAlbums'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
 
 beatlesAlbums<span class="token punctuation" >.</span><span class="token function" >whenReady<span class="token punctuation" >(</span></span><span class="token keyword" >function</span><span class="token punctuation" >(</span><span class="token punctuation" >)</span><span class="token punctuation" >{</span>
 
+    beatlesAlbums<span class="token punctuation" >.</span><span class="token function" >getEntries<span class="token punctuation" >(</span></span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
     <span class="token comment" spellcheck="true">/*
-     * Returns
+     * Returns e.g.
      * [
      *        "album/i9l0z34v-109vblpqddy", 
      *        "album/i9l0z3v4-ibrbp139rbr", 
      *        "album/i9l0z4d8-1w0p8xnk1sy" 
      *    ]
      */</span>
-    beatlesAlbums<span class="token punctuation" >.</span><span class="token function" >getEntries<span class="token punctuation" >(</span></span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
 <span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-</code></pre></div><div class="section"><h2><a name="client.record.getAnonymousRecord()">client.record.getAnonymousRecord()</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">name</td><td class="type">String</td><td class="optional">false</td><td class="default">-</td><td class="description">The name / primaryKey for the record.</td></tr></tbody></table><p>Returns an <a href="AnonymousRecord">AnonymousRecord</a>.</p><p>An AnonymousRecord is a record without a predefined name. It
-acts like a wrapper around an actual record that can
-be swapped out for another one whilst keeping all bindings intact.</p><p>Imagine a customer relationship management system with a list of users
-on the left and a user detail panel on the right. The user detail
-panel could use the anonymous record to set up its bindings.</p><p>Whenever a user is chosen from the list of existing users, the anonymous record&#39;s
-<code>setName()</code> method is called and the detail panel will update to
-show the selected user&#39;s details.</p><pre><code><span class="token keyword" >var</span> bindInput <span class="token operator" >=</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> record<span class="token punctuation" >,</span> path<span class="token punctuation" >,</span> inputElement <span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
+</code></pre></div><div class="section"><h2><a name="client.record.getAnonymousRecord()">client.record.getAnonymousRecord()</a></h2><p>Returns an <a href="anonymous_record.html">AnonymousRecord</a>.</p><p>An AnonymousRecord is a record without a predefined name. It
+acts as a wrapper around an actual record that can
+be swapped out for another one whilst keeping all bindings intact.</p><pre><code><span class="token keyword" >var</span> bindInput <span class="token operator" >=</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> record<span class="token punctuation" >,</span> path<span class="token punctuation" >,</span> inputElement <span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
     inputElement<span class="token punctuation" >.</span><span class="token function" >on<span class="token punctuation" >(</span></span> <span class="token string" >'change'</span><span class="token punctuation" >,</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span><span class="token punctuation" >)</span><span class="token punctuation" >{</span>
         record<span class="token punctuation" >.</span><span class="token keyword" >set</span><span class="token punctuation" >(</span> path<span class="token punctuation" >,</span> inputElement<span class="token punctuation" >.</span><span class="token function" >val<span class="token punctuation" >(</span></span><span class="token punctuation" >)</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
     <span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
@@ -178,19 +174,34 @@ user <span class="token operator" >=</span> client<span class="token punctuation
  */</span>
 user<span class="token punctuation" >.</span><span class="token function" >setName<span class="token punctuation" >(</span></span> <span class="token string" >'user/Anton'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
 user<span class="token punctuation" >.</span><span class="token function" >setName<span class="token punctuation" >(</span></span> <span class="token string" >'user/Wolfram'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-</code></pre></div><div class="section"><h2><a name="client.record.listen( pattern, callback )">client.record.listen( pattern, callback )</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">name</td><td class="type">String</td><td class="optional">false</td><td class="default">-</td><td class="description">A RegExp as a string</td></tr><tr><td class="argument">name</td><td class="type">String</td><td class="optional">false</td><td class="default">-</td><td class="description">A function that will be called</td></tr></tbody></table><p>Allows to listen for record subscriptions made by this or other clients. This
+</code></pre></div><div class="section"><h2><a name="client.record.listen( pattern, callback )">client.record.listen( pattern, callback )</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">pattern</td><td class="type">String</td><td class="optional">false</td><td class="default">-</td><td class="description">A RegExp as a string</td></tr><tr><td class="argument">callback</td><td class="type">Function</td><td class="optional">false</td><td class="default">-</td><td class="description">A function that will be called whenever a match is found. Arguments are (String) match and (Boolean) isSubscribed</td></tr></tbody></table><p>Allows to listen for record subscriptions made by any client. This
 is usefull to create &quot;active&quot; data providers, e.g. providers that only provide
-data for a particular record if a user is actually interested in it</p><pre><code>client<span class="token punctuation" >.</span>record<span class="token punctuation" >.</span><span class="token function" >listen<span class="token punctuation" >(</span></span> <span class="token string" >'raceHorse/.*'</span><span class="token punctuation" >,</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> match<span class="token punctuation" >,</span> isSubscribed <span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
-    <span class="token comment" spellcheck="true">/*
-     * match === 'raceHorse/fast-betty'
-     * isSubscribed === true
-     *
-     * Provide updates for fast-betty here
-     */</span>
-<span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+data for records that users are actually interested in.</p><p>Some things to note:</p><ul>
+<li><p>the listen callback will only be called once with subscribed = true for the first timea matching subscription is made and once with subscribed = false once all clients have unsubscribed from the record.</p></li>
+<li><p>The callback will be called for all matching subscriptions that already exist at the time its registered.</p><p>var raceHorseRecords = {};</p><p>client.record.listen( &#39;raceHorse/.*&#39;, function( match, isSubscribed ) {</p><pre><code>  <span class="token comment" spellcheck="true">/*
+   * match = 'raceHorse/fast-betty'
+   * isSubscribed = true
+   */</span>
+  <span class="token keyword" >var</span> horseName <span class="token operator" >=</span> match<span class="token punctuation" >.</span><span class="token function" >split<span class="token punctuation" >(</span></span> <span class="token string" >'/'</span> <span class="token punctuation" >)</span><span class="token punctuation" >[</span> <span class="token number" >1</span> <span class="token punctuation" >]</span><span class="token punctuation" >,</span>
+      updateRecord <span class="token operator" >=</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> data <span class="token punctuation" >)</span><span class="token punctuation" >{</span>
+          raceHorseRecords<span class="token punctuation" >[</span> match <span class="token punctuation" >]</span><span class="token punctuation" >.</span><span class="token keyword" >set</span><span class="token punctuation" >(</span> data <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+      <span class="token punctuation" >}</span><span class="token punctuation" >;</span>
 
-client<span class="token punctuation" >.</span>record<span class="token punctuation" >.</span><span class="token function" >getRecord<span class="token punctuation" >(</span></span> <span class="token string" >'raceHorse/fast-betty'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-</code></pre></div><div class="section"><h2><a name="client.record.unlisten( pattern )">client.record.unlisten( pattern )</a></h2>
+  <span class="token keyword" >if</span><span class="token punctuation" >(</span> isSubscribed <span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
+      raceHorseRecords<span class="token punctuation" >[</span> match <span class="token punctuation" >]</span> <span class="token operator" >=</span> client<span class="token punctuation" >.</span>record<span class="token punctuation" >.</span><span class="token function" >getRecord<span class="token punctuation" >(</span></span> match <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+
+     <span class="token comment" spellcheck="true"> // assuming we have a raceHorseDataProvider class
+</span>      raceHorseDataProvider<span class="token punctuation" >.</span><span class="token function" >subscribe<span class="token punctuation" >(</span></span> horseName<span class="token punctuation" >,</span> updateRecord <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+  <span class="token punctuation" >}</span> <span class="token keyword" >else</span> <span class="token punctuation" >{</span>
+      raceHorseRecords<span class="token punctuation" >[</span> match <span class="token punctuation" >]</span><span class="token punctuation" >.</span><span class="token function" >discard<span class="token punctuation" >(</span></span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+      <span class="token keyword" >delete</span> raceHorseRecords<span class="token punctuation" >[</span> match <span class="token punctuation" >]</span><span class="token punctuation" >;</span>
+      raceHorseDataProvider<span class="token punctuation" >.</span><span class="token function" >unsubscribe<span class="token punctuation" >(</span></span> horseName<span class="token punctuation" >,</span> updateRecord <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+  <span class="token punctuation" >}</span>
+</code></pre><p>});</p><p>// This function will now be called whenever a client requests a record
+  // with a matching name, e.g.
+  client.record.getRecord( &#39;raceHorse/fast-betty&#39; );</p></li>
+</ul>
+</div><div class="section"><h2><a name="client.record.unlisten( pattern )">client.record.unlisten( pattern )</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">pattern</td><td class="type">String</td><td class="optional">false</td><td class="default">-</td><td class="description">A RegExp as a string</td></tr></tbody></table><p>Removes a listener that was previously registered using <a href="#client.record.listen( pattern, callback )">listen()</a>.</p>
 				
 				<h3>Comments and Questions</h3>
 				<div id="disqusContainer">
