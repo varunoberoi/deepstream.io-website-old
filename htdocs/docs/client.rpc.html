@@ -10,14 +10,14 @@
 	<meta name="author" content="Wolfram Hempel" />
 	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 	<link rel="icon" href="/favicon.ico" type="image/x-icon">
-	<link rel="stylesheet" type="text/css" href="../../htdocs/assets/css/screen.css" />
-	<link rel="stylesheet" type="text/css" href="../../htdocs/assets/css/api.css" />
-	<link rel="stylesheet" type="text/css" href="../../htdocs/assets/css/syntaxhighlighter.css" />
+	<link rel="stylesheet" type="text/css" href="../assets/css/screen.css" />
+	<link rel="stylesheet" type="text/css" href="../assets/css/api.css" />
+	<link rel="stylesheet" type="text/css" href="../assets/css/syntaxhighlighter.css" />
 	<script type="text/javascript">
 	document.createElement( 'header' );
 	document.createElement( 'nav' );
 	</script>
-	<script type="text/javascript" src="../../htdocs/assets/js/jquery.js"></script>
+	<script type="text/javascript" src="../assets/js/jquery.js"></script>
 
 	<link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Quicksand:300,400,700' rel='stylesheet' type='text/css'>
@@ -33,7 +33,7 @@
 				<h1><a href="..">deepstream.io - a scalable server for realtime web apps</a></h1>
 			</div>  
 			<div id="nav" class="standalone">
-				<img src="../../htdocs/assets/images/background-abstract.jpg" />
+				<img src="../assets/images/background-abstract.jpg" />
 				<ul>
 					<li  class="active"><a href="..">Home</a></li>
 					<li ><a href="../download">Downloads</a></li>
@@ -145,7 +145,7 @@ numbers or implicitly JSON serialized objects will arrive in their respective fo
 </div><div class="section"><h2><a name="rpc.unprovide( name )">rpc.unprovide( name )</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">name</td><td class="type">String</td><td class="optional">false</td><td class="default">-</td><td class="description">The name of the RPC.</td></tr></tbody></table><p>De-registeres a client that was previously registered using <code>provide()</code></p></div><div class="section"><h2><a name="rpc.make( name, data, callback )">rpc.make( name, data, callback )</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">name</td><td class="type">String</td><td class="optional">false</td><td class="default">-</td><td class="description">The name of the RPC.</td></tr><tr><td class="argument">data</td><td class="type">Mixed</td><td class="optional">false</td><td class="default">-</td><td class="description">Any serialisable data. Values will arrive in the same format they&#39;ve been send (Strings, Numbers, Objects etc.)</td></tr><tr><td class="argument">callback</td><td class="type">Function</td><td class="optional">false</td><td class="default">-</td><td class="description">The callback function that receives the result. Will be called with two arguments: error or null and the response data</td></tr></tbody></table><p>Initiates a remote procedure call.</p><pre><code>client<span class="token punctuation" >.</span>rpc<span class="token punctuation" >.</span><span class="token function" >make<span class="token punctuation" >(</span></span> <span class="token string" >'search-products'</span><span class="token punctuation" >,</span> <span class="token string" >'coffeemug'</span><span class="token punctuation" >,</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> error<span class="token punctuation" >,</span> result <span class="token punctuation" >)</span><span class="token punctuation" >{</span>
 
 <span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-</code></pre>
+</code></pre><p></div></p>
 				
 				<h3>Comments and Questions</h3>
 				<div id="disqusContainer">
@@ -165,7 +165,7 @@ numbers or implicitly JSON serialized objects will arrive in their respective fo
 				</div>
 			</div>
 		</div>
-		<script type="text/javascript" src="../../htdocs/assets/js/docs.js"></script>
+		<script type="text/javascript" src="../assets/js/docs.js"></script>
 		<div id="footerPush"></div>
 	</div>
 	<div id="footer">

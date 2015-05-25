@@ -36,3 +36,5 @@ optional: false
 desc: The name of the actual record the anonymousRecord should use. Can be called multiple times.
 
 Sets the underlying record the anonymousRecord wraps around.
+
+</div>
