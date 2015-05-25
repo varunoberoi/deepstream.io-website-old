@@ -51,9 +51,16 @@
 	</li>
 
 	<li class="de-emphasized">Record</li>
-	<li {{#if fileIs_client.record}}class="active"{{/if}}>
+	<li {{#if fileIs_client_record}}class="active"{{/if}}>
 		<a href="client.record.html">client.record</a>
 		<div class="isActiveIndicator orangeGradient"></div>
+		{{#if fileIs_client_record}}
+			<ul class="overview">
+				{{#each subNav}}
+				<li><a href="#{{this}}">{{this}}</a></li>
+				{{/each}}
+			</ul>
+		{{/if}}
 	</li>
 
 	<li {{#if fileIs_record}}class="active"{{/if}}>
