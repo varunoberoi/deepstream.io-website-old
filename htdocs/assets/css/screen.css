@@ -147,17 +147,23 @@ html, body{
 /****************************
 * HEADER WITH LOGO
 ****************************/
-.orangeGradient{
-	background: #ef7d17; /* Old browsers */
+.small-logo{
+  background: url(../images/hoxton-one--small-logo.svg) no-repeat center center;
+  background-color: #145068;
+  height: 100%;
+  text-align: center;
+  color: white;
+
 }
 
 
 #header{
 	height: 140px;
 	width: 100%;
-	position: relative;
-	box-shadow: 0px 4px 13px 0px rgba(0,0,0,0.3);
-	z-index: 2;
+  	position: relative;
+  	border-style: solid;
+  	border-width: 0px 0px 2px 0px;
+  	border-color: #0C394B;
 }
 
 #header.micro{
@@ -267,8 +273,8 @@ html, body{
 	float: left;
 	width: 299px;
 	height: 100px;
-	padding: 0px 10px 0px 0px;
-	border-right: 1px solid #000;
+	padding: 10px 10px 0px 0px;
+
 }
 
 #footer ul.footerItems > li p{
