@@ -20,6 +20,7 @@
 	<link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Quicksand:300,400,700' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 
 </head>
 <body class="category_">
@@ -37,7 +38,7 @@
 		</div>
 		<div class="content main">
 			<link rel="stylesheet" type="text/css" href="../htdocs/assets/css/startpage.css" />
-
+<link rel="stylesheet" type="text/css" href="../htdocs/assets/css/syntaxhighlighter.css" />
 
 <div id="segment-header">
 	<div class="header-logo">
@@ -52,16 +53,43 @@
 				<li>Scales via clustering </li>
 				<li>Stores and syncs data in realtime </li>
 				<li>Open Source and free (MIT License)</li>
+				<div class="header-buttons">
+					<a class="first-btn" href=""><i class="fa fa-cloud-download"></i> &nbsp; Download</a>
+
+					<a class="second-btn" href=""><i class="fa fa-book"></i>  &nbsp; Quick Start Tutorial</a>
+				</div>	
 			</ul>
-		</div>	
+		</div>
 	</div>
 </div>
 
 <div id="segment-code">
 	<div class="codes">
 		<div class="code-left">
+		<pre><code><span class="token comment" spellcheck="true">// Server<br><br>
+</span><span class="token keyword">var</span> DeepstreamServer <span class="token operator">=</span> <span class="token function">require<span class="token punctuation">(</span></span> <span class="token string">'deepstream.io'</span> <span class="token punctuation">)</span><span class="token punctuation">,</span>
+    server <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">DeepstreamServer</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+server<span class="token punctuation">.</span><span class="token keyword">set</span><span class="token punctuation">(</span> <span class="token string">'host'</span><span class="token punctuation">,</span> <span class="token string">'localhost'</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
+server<span class="token punctuation">.</span><span class="token keyword">set</span><span class="token punctuation">(</span> <span class="token string">'port'</span><span class="token punctuation">,</span> <span class="token number">6020</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
+<br />
+server<span class="token punctuation">.</span><span class="token function">start<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		</div>
+		<div class="code-seperator">
 		</div>
 		<div class="code-right">
+		<span class="token comment" spellcheck="true">
+// Browser / Node Client <br><br>
+</span><span class="token keyword">var</span> ds <span class="token operator">=</span> <span class="token function">deepstream<span class="token punctuation">(</span></span> <span class="token string">'localhost:6020'</span> <span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">login<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">,</span><br />
+&nbsp;&nbsp;&nbsp;&nbsp;record <span class="token operator">=</span> ds<span class="token punctuation">.</span>record<span class="token punctuation">.</span><span class="token function">getRecord<span class="token punctuation">(</span></span> <span class="token string">'stock/hxto'</span> <span class="token punctuation">)</span><span class="token punctuation">;</span><br />
+
+<br />
+record<span class="token punctuation">.</span><span class="token keyword">get</span><span class="token punctuation">(</span> <span class="token string">'name'</span> <span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true"> // Hoxton One</span><br />
+record<span class="token punctuation">.</span><span class="token keyword">set</span><span class="token punctuation">(</span> <span class="token string">'employees[1].firstname'</span><span class="token punctuation">,</span> <span class="token string">'Zack'</span> <span class="token punctuation">)</span><span class="token punctuation">;</span><br />
+record<span class="token punctuation">.</span><span class="token function">subscribe<span class="token punctuation">(</span></span> <span class="token string">'price'</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span> price <span class="token punctuation">)</span><span class="token punctuation">{</span> <span class="token comment" spellcheck="true">/***/</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br />
+<br />
+ds<span class="token punctuation">.</span>event<span class="token punctuation">.</span><span class="token function">emit<span class="token punctuation">(</span></span> <span class="token string">'chat/14'</span><span class="token punctuation">,</span> <span class="token punctuation">{</span><br />&nbsp;&nbsp;&nbsp;&nbsp;sender<span class="token punctuation">:</span> <span class="token string">'Wolfram'</span><span class="token punctuation">,</span><br />&nbsp;&nbsp;&nbsp;&nbsp;data<span class="token punctuation">:</span> <span class="token string">'hey'</span><br /><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
 		</div>
 	</div>
 </div>
@@ -148,53 +176,47 @@
 		<div id="footerPush"></div>
 	</div>
 	<div id="footer">
-		<div class="copyright">&copy;2014 Hoxton One Ltd. All rights reserved.</div>
 		<ul class="footerItems">
-			<li class="news">
-				<h4>GoldenLayout on...</h4>
-				<ul class="social">
-					<li class="twitter">
-						<a href="https://twitter.com/goldenlayout">Twitter</a>
-					</li>
-					<li class="github">
-						<a href="https://github.com/hoxton-one/golden-layout">Github</a>
-					</li>
-					<li class="bower">
-						<a href="http://bower.io/search/?q=golden-layout">Bower: golden-layout</a>
-					</li>
-				</ul>
-			</li>
-
-			<li class="contact">
-				<h4>Contact</h4>
+			<li class="footer-left">
+				<h4>Contact us</h4>
 				<p>
-					Like to learn more?
-					<a href="mailto:info@golden-layout.com">info@golden-layout.com</a>
+					<b>deepstream.io </b>is developed by Hoxton One Ltd. <br>
+					a small Company based in London's dodgy, yet glorious East. <br><br>
 				</p>
 				<p>
-					Support for licensees
-					<a href="mailto:support@golden-layout.com">support@golden-layout.com</a>
-				</p>
-				<p>
-					For technical questions please also check the comment section at the bottom of docs and tutorials
-				</p>
-			</li>
-
-			<li class="footerItem about">
-				<h4>About</h4>
-				<p>
-					GoldenLayout is developed by <b>Hoxton One Ltd.</b>, a small Company based in London's dodgy, yet glorious East.
-				</p>
-				<p>
-					<b>Registered Offices</b>:
-					Suite 7,
-					KD Tower,
-					Cotterells,
-					Hemel Hempstead,
-					Herts,
-					HP1 1FW
+					Email us <a href="mailto:info@hoxton-one.com">info@hoxton-one.com</a>.<br><br>
+					
 				</p>
 				<p>Registered in England and Wales, Company Nr 09121068</p>
+			</li>
+
+			
+			<li class="footer-middle">
+				<p>
+				Handcrafted
+				</p>
+
+				<div class="footer-hoxton-one">
+				</div>
+			</li>
+
+			<li class="footer-right">
+				<ul class="social">
+					<li class="twitter">
+					<br><br>
+						<a href="https://twitter.com/goldenlayout">
+							<i class="fa fa-twitter"></i>  Twitter
+						</a>
+					</li>
+					<li class="github">
+						<a href="https://github.com/hoxton-one/golden-layout">
+							<i class="fa fa-github"></i>  Github
+						</a>
+					</li>
+				</ul>
+				<div class="copyright">
+					&copy;2015 Hoxton One Ltd. All rights reserved.
+				</div>
 			</li>
 		</ul>
 	</div>

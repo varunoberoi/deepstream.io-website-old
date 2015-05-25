@@ -2,6 +2,9 @@ body{
   background-color: #333;
 }
 
+/****************************
+* HEADER
+****************************/
 
 #segment-header{
   text-align: center;
@@ -44,6 +47,7 @@ body{
   font-family: 'Quicksand', sans-serif;
   font-weight: 300;
   font-size: 14px;
+  line-height: 20px;
   margin: 29px 0px 0px 0px;
   opacity: 1;
 }
@@ -53,35 +57,110 @@ body{
 
 }
 
+.header-buttons{
+  padding: 30px 0px 0px 0px;
+  margin: 0px 0px 0px -20px;
+  width: 100%;
+  height: 100px;
+}
+
+.first-btn,
+.second-btn
+ {
+  display: inline-block;
+  -webkit-border-radius: 4;
+  -moz-border-radius: 4;
+  border-radius: 4px;
+  -webkit-box-shadow: 0px 2px 3px rgba(0,0,0,0.5);
+  -moz-box-shadow: 0px 2px 3px rgba(0,0,0,0.5);
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  color: #ffffff;
+  font-size: 12px;
+  background: #28A1C3;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+  border-style: solid;
+  border-color: #027291;
+  border-width: 0px 0px 3px 0px;
+  position: relative;
+  top: 0px;
+  margin: 0px 0px 0px 10px;
+  transition: all 100ms ease;
+}
+
+.second-btn,
+.second-btn:hover{
+    background: #145068;
+    border-color: #0E4054;   
+ }
+
+.first-btn:hover,
+.second-btn:hover {
+  background: #3cb0fd;
+  text-decoration: none;
+  top: 4px;
+  border-width: 0px 0px 0px 0px;
+  -webkit-box-shadow: 0px 2px 3px rgba(0,0,0,0.01);
+  -moz-box-shadow: 0px 2px 3px rgba(0,0,0,0.01);
+
+}
+
+
+
+
+/****************************
+* CODE SAMPLES
+****************************/
+
 #segment-code{
  background: #272822;
  text-align: left;
- color: #145068;
+ color: #fff;
  height: 270px;
- box-shadow: inset 0px 5px 10px 0px rgba(0,0,0,0.75);
+ box-shadow: inset 0px 5px 10px 0px rgba(0,0,0,0.3);
 
 }
 
 .codes{
-  width: 1000px;
+  width: 1200px;
   height: 100%;
   margin: auto;
 }
 
 .code-left{
   width: 494px;
-  height: 100%;
+  height: 240px;
   display: inline-block;
+  float: left;
+  padding: 30px 0px 0px 105px;
 }
-
-.code-right{
+/*
+.code-seperator{
   border: black;
   border-style: solid;
   border-width: 0px 0px 0px 4px;
-  width: 480px;
+  width: 4px;
   height: 100%;
   display: inline-block;
 }
+*/
+
+
+.code-right{
+  width: 444px;
+  height: 240px;
+  display: inline-block;
+  float: left;
+  padding: 30px 0px 0px 80px;
+  border-style: solid;
+  border-color: black;
+  border-width: 0px 0px 0px 4px;
+}
+
+/****************************
+* EXAMPLE APP
+****************************/
 
 #segment-example-app{
  background: #ffffff;
@@ -97,6 +176,10 @@ body{
   text-align: center;
   color: white;
 }
+
+/****************************
+* 3 LARGE ICONS
+****************************/
 
 #segment-three-icons{
  background: #C7D7DC;
@@ -154,7 +237,9 @@ body{
 
 }
 
-
+/****************************
+* DIAGRAM
+****************************/
 
 .segment-label{
   position: relative;
@@ -207,6 +292,9 @@ body{
   top: 364px;
 }
 
+/****************************
+* SECURITY
+****************************/
 
 #segment-security{
  background: #22C9F1 url(../images/decrtn-SecrPath.svg) no-repeat right;
