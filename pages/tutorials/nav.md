@@ -51,6 +51,11 @@
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
 
+	<li {{#if fileIs_simple-app-using-react}}class="active"{{/if}}>
+		<a href="simple-app-using-react.html">Simple App using React</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
 	<li {{#if fileIs_simple-app-using-angular}}class="active"{{/if}}>
 		<a href="simple-app-using-angular.html">Simple App using Angular</a>
 		<div class="isActiveIndicator orangeGradient"></div>
