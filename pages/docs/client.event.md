@@ -10,7 +10,7 @@ Events provide a simple way of sending messages betweem clients. Deepstream's ev
 	// client b
 	client.event.emit( 'news/politics', { headline: '...', content: '...' });
 
-	
+
 subscribe( event, callback );
 -----------------------------
 argument: event
@@ -23,7 +23,7 @@ type: Function
 optional: false
 desc: A function that will be called whenever the event is emitted
 
-Subscribe to an event emitted by this or any of the other clients
+Subscribe to an event emitted by this or any of the other clients.
 
 unsubscribe( event, callback );
 -----------------------------
@@ -37,7 +37,7 @@ type: Function
 optional: true
 desc: the callback that was previously registered with subscribe. If the callback is omitted, all listeners for the event will be removed
 
-Unsubscribes from an event that was previosly registered with `subscribe()`
+Unsubscribes from an event that was previosly registered with `subscribe()`.
 
 event.emit( event, data );
 ------------------------------

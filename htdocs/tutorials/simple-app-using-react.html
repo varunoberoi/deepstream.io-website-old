@@ -63,7 +63,7 @@
 		<a href="connectors-and-deployment.html">Connectors and Deployment</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
-	<li class="active">
+	<li >
 		<a href="data-provider.html">Building a data-provider</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
@@ -96,7 +96,7 @@
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
 
-	<li >
+	<li class="active">
 		<a href="simple-app-using-react.html">Simple App using React</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
@@ -114,7 +114,19 @@
 </ul>
 
 			<div id="content">
-				<h1>Building a Data-Provider</h1><p>Let&#39;s build a data provider for foreign exchange (FX) rates. Why FX? Because it&#39;s a great example of data that is dynamically created when a client requests it and therefor let&#39;s us use deepstream&#39;s <code>listen</code> feature.</p><p>FX rates are usually stored as &lt;currency&gt; against Dollar. So if a client wants out how many Euro&#39;s we&#39;d get for a Pound sterling, we would need to look up how many dollars we get for a pound</p>
+				<p>An example application using <a href="https://facebook.github.io/react/">React</a> can be found at <a href="https://github.com/hoxton-one/ds-demo-simple-app-react">demo-react</a>.</p><p>Integration with react is done within the <strong><em>componentDidMount</em></strong> and
+<strong><em>componentWillUnmount</em></strong> methods.</p><p>Example:</p><pre><code>componentDidMount<span class="token punctuation" >:</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span><span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
+    <span class="token keyword" >this</span><span class="token punctuation" >.</span>record <span class="token operator" >=</span> ds<span class="token punctuation" >.</span>record<span class="token punctuation" >.</span><span class="token function" >getRecord<span class="token punctuation" >(</span></span> <span class="token keyword" >this</span><span class="token punctuation" >.</span>props<span class="token punctuation" >.</span>recordName <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+    <span class="token keyword" >this</span><span class="token punctuation" >.</span>record<span class="token punctuation" >.</span><span class="token function" >subscribe<span class="token punctuation" >(</span></span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> data <span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
+        <span class="token keyword" >this</span><span class="token punctuation" >.</span><span class="token function" >setState<span class="token punctuation" >(</span></span> data <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+    <span class="token punctuation" >}</span><span class="token punctuation" >.</span><span class="token function" >bind<span class="token punctuation" >(</span></span> <span class="token keyword" >this</span> <span class="token punctuation" >)</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+<span class="token punctuation" >}</span>
+</code></pre><p>This allows it to subscribe to a subject and call <strong><em>setState</em></strong> whenever an
+update is received.</p><pre><code>componentWillUnmount<span class="token punctuation" >:</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span><span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
+    <span class="token keyword" >this</span><span class="token punctuation" >.</span>record<span class="token punctuation" >.</span><span class="token function" >unsubscribe<span class="token punctuation" >(</span></span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+<span class="token punctuation" >}</span>
+</code></pre><p>This allows the subscription to be terminated to avoid any memory leaks after
+the object is no longer in the dom.</p>
 				
 				<h3>Comments and Questions</h3>
 				<div id="disqusContainer">

@@ -1,6 +1,6 @@
 List
 ---------------------------------
-Lists are arrays of record names. Similar to records, lists can be manipulated and observed. Lists are created and retrieved using `client.record.get( &lt;name&gt; );`, e.g.
+Lists are arrays of record names. Similar to records, lists can be manipulated and observed. Lists are created and retrieved using `client.record.get( 'name' );`, e.g.
 
 	var list = client.record.getList( 'users' );
 
@@ -15,7 +15,7 @@ Properties
 <tr>
 <td>name</td>
 <td>String</td>
-<td>The name of the list, as specified when calling `client.record.getList( &lt;name&gt; );`</td>
+<td>The name of the list, as specified when calling `client.record.getList( 'name' );`</td>
 </tr>
 
 <tr>
@@ -85,7 +85,7 @@ type: Array
 optional: false
 desc: An array of record names
 
-Sets the contents of the list to the provided array of record names. To add or remove specific entries use `addEntry()` or `removeEntry()` respectively 
+Sets the contents of the list to the provided array of record names. To add or remove specific entries use `addEntry()` or `removeEntry()` respectively
 
 addEntry( entry )
 ---------------------------------------------------
@@ -119,7 +119,7 @@ type: Boolean
 optional: true
 desc: If true, the callback function will be called immediatly with the current value.
 
-Subscribe registers a function that will be invoked whenever the list's contents changes. 
+Subscribe registers a function that will be invoked whenever the list's contents changes.
 
 Optionally one can also pass `true` to execute the callback function straight away with the list's current entries.
 

@@ -6,7 +6,7 @@ Connection States
 <td>CLOSED</td>
 <td>Connection state after the client has been closed, either as a result of calling `close()` or due to a disconnect
 	and multiple failed reconnection attempts.
-
+	<br/>
 	Please note: The initial state after the client was created is not 'CLOSED', but 'AWAITING_AUTHENTICATION'
 </td>
 </tr>

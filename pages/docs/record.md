@@ -1,10 +1,11 @@
 Record
 ----------------------------------
-Records are one of deepstream's core features. A Record is an arbitrary JSON data structure that can be created, retrieved, updated, deleted and listened to. Records are created and retrieved using `client.record.getRecord( &lt;name 
+Records are one of deepstream's core features. A Record is an arbitrary JSON data structure that can be created, retrieved, updated, deleted and listened to. Records are created and retrieved using
+`client.record.getRecord( 'name' );`
 
 	var record = client.record.getRecord( 'recordName' );
 
-Please see <a href="client.record.html#getRecord( name )">getRecord( name );</a> for details.
+Please see <a href="client.record.html#getRecord( name )">getRecord( 'name' );</a> for details.
 
 Properties
 ----------------------------------
@@ -14,7 +15,7 @@ Properties
 <tr>
 <td>name</td>
 <td>String</td>
-<td>The name of the record, as specified when calling `client.record.getRecord( &lt;name&gt; );`</td>
+<td>The name of the record, as specified when calling `client.record.getRecord( 'name' );`</td>
 </tr>
 
 <tr>
@@ -84,7 +85,7 @@ desc: A particular path within the JSON structure that should be retrieved.
 
 `get()` is used to return the record's data. If called without an argument it returns all the data. Alternatively you can call it with a path string to only retrieve a specific part. If this path can't be found, `get()` will return `undefined`.
 
-	
+
 	var record = client.record.getRecord( 'user/14' );
 
 	record.set({
@@ -101,7 +102,7 @@ desc: A particular path within the JSON structure that should be retrieved.
 
 
 
- 
+
 set( path, value )
 ---------------------------------------------------
 argument: path
@@ -160,7 +161,7 @@ Optionally one can also pass `true` to execute the callback function straight aw
 		// do stuff...
 	});
 
-	// Only subscribe to price changes and add true to run 
+	// Only subscribe to price changes and add true to run
 	// renderPrice straight away for the current price
 	renderPrice = function( price ) {
 		document.getElementById( 'price' ).innerHTML = price;
