@@ -11,7 +11,7 @@ Deepstream allows for every operation (creating or reading records, sending even
 ### Messages
 Permissions are based on incoming messages. Every incoming message will be parsed and validated for syntactical correctness, but won't be processed  until after it is permitted. Parsed messages look like this:
 
-	{ 
+	{
 		raw: 'R\u001fCR\u001fcurrencies',
 		topic: 'R',
 		action: 'CR',
@@ -42,7 +42,7 @@ To prevent user `LisaA` from deleting any records, do the following
 
 	canPerformAction: function( username, message, callback ) {
 		var isAllowed = (
-			username === 'LisaA' && 
+			username === 'LisaA' &&
 			message.topic === server.constants.TOPIC.RECORD &&
 			message.action === server.constants.ACTIONS.DELETE
 		);
@@ -51,7 +51,7 @@ To prevent user `LisaA` from deleting any records, do the following
 	}
 
 ### Private records
-Sometimes it is useful to create records that can only be created, read or manipulated by a specific user. To do this, simply enfore the name of the logged in user as part of the recordname:
+Sometimes it is useful to create records that can only be created, read or manipulated by a specific user. To do this, simply enforce the name of the logged in user as part of the recordname:
 
 	canPerformAction: function( username, message, callback ) {
 		// Allow every non record-related message
@@ -74,10 +74,10 @@ In the next example we'll prevent the value of 'price' for record 'fancyCar' fro
 
 	canPerformAction: function( username, message, callback ) {
 		// Allow every message that isn't a change to the fancy car record
-		if( 
+		if(
 			message.topic === deepstream.constants.TOPIC.RECORD &&
-			message.data[ 0 ] === 'fancyCar' && ( 
-				message.action === deepstream.constants.ACTIONS.PATCH || 
+			message.data[ 0 ] === 'fancyCar' && (
+				message.action === deepstream.constants.ACTIONS.PATCH ||
 				message.action === deepstream.constants.ACTIONS.UPDATE
 			)
 		) {
@@ -98,4 +98,3 @@ In the next example we'll prevent the value of 'price' for record 'fancyCar' fro
 	}
 
 ### Combined example: Allow only backend-data-providers to emit `news` events
-

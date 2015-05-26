@@ -4,7 +4,7 @@ Errors
 
 <tr>
 <td>CONNECTION_ERROR</td>
-<td>Either the Engine.io or TCP connection has encountered an error</td>
+<td>Either the Engine.io or TCP connection has encountered an error.</td>
 </tr>
 
 <tr>
@@ -14,7 +14,7 @@ Errors
 
 <tr>
 <td>MESSAGE_PARSE_ERROR</td>
-<td>The client has received a syntactically incorrect message</td>
+<td>The client has received a syntactically incorrect message.</td>
 </tr>
 
 <tr>
@@ -29,7 +29,7 @@ Errors
 
 <tr>
 <td>NOT_AUTHENTICATED</td>
-<td>Emitted if an operation is attempted before the client is authenticated (before `login()` has been called and a response was received.)</td>
+<td>Emitted if an operation is attempted before the client is authenticated (before `login()` has been called and a response was received).</td>
 </tr>
 
 <tr>
@@ -39,7 +39,7 @@ Errors
 
 <tr>
 <td>LISTENER_EXISTS</td>
-<td>Emitted when `ds.record.listen( pattern, callback )` is called more than once for the same pattern</td>
+<td>Emitted when `ds.record.listen( pattern, callback )` is called more than once for the same pattern.</td>
 </tr>
 
 <tr>

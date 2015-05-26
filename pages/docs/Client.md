@@ -38,7 +38,7 @@ desc: A function that will be called once the response to the authentication req
 
 Authenticates the client against the server. To learn more about how authentication works, please have a look at the [Authentication and Permissioning tutorial](../tutorials/authentication_and_permissioning.html).
 
-Callback will be called with three arguments: success (Boolean), errorEvent (String) and errorMessage (String) 
+Callback will be called with three arguments: success (Boolean), errorEvent (String) and errorMessage (String)
 
 	var deepstream = require( 'deepstream.io-client-js' );
 
@@ -61,7 +61,7 @@ Callback will be called with three arguments: success (Boolean), errorEvent (Str
 
 close()
 -----------------------------
-Closes the connection to the server. 
+Closes the connection to the server.
 
 	ds.on( 'connectionStateChanged', function( connectionState ){
 		// will be called with 'CLOSED' once the connection is successfully closed.
@@ -78,20 +78,4 @@ getUid()
 Returnes a unique id. The uid starts with a Base64 encoded timestamt to allow for semi-sequentual ordering and ends in a random string.
 
 	ds.getUid() // 'i9i6db5q-1xak1s2sfzk'
-
-
-record.getRecord
-record.getList
-record.getAnonymousRecord
-record.listen
-record.unlisten
-
-rpc.provide
-rpc.unprovide
-rpc.make
-
-event.subscribe
-event.unsubscribe
-event.emit
-
 </div>
