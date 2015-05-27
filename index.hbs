@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>GOLDEN LAYOUT - the ultimate javascript layout manager</title>
-	
+
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<meta name="keywords" content="deepstream, deepstream.io, streaming, realtime, server, socket" />
 	<meta name="description" content="deepstream.io - a scalable server for realtime web apps" />
@@ -39,14 +39,14 @@
 			<div id="header" class="small-logo {{#if isNotStart}}micro{{/if}}">
 				<h1><a href="{{link 'page' ''}}">deepstream.io - a scalable server for realtime web apps</a></h1>
 				{{!-- <a class="download" href="{{link 'page' 'download'}}">download</a> --}}
-			</div>  
+			</div>
 			{{/if}}
 			<div id="nav" {{#if isNotStart}}class="standalone"{{/if}}>
 				{{#if isNotStart}}
 				<img src="{{link 'asset' 'images/background-abstract.jpg'}}" />
 				{{/if}}
 				<ul>
-					<li {{#if pageIs_start}}class="active"{{/if}} class="active"><a href="{{link 'page' ''}}">Home</a></li>
+					<li {{#unless isNotStart}}class="active"{{/unless}}><a href="{{link 'page' ''}}">Home</a></li>
 					<li {{#if pageIs_download}}class="active"{{/if}}><a href="{{link 'page' 'download'}}">Downloads</a></li>
 					<li {{#if pageIs_tutorials}}class="active"{{/if}}><a href="{{link 'page' 'tutorials'}}">Tutorials</a></li>
 					<li {{#if pageIs_docs}}class="active"{{/if}}><a href="{{link 'page' 'docs'}}">Documentation</a></li>
@@ -58,14 +58,14 @@
 			{{nav}}
 			<div id="content">
 				{{pageContent}}
-				
+
 				<h3>Comments and Questions</h3>
 				<div id="disqusContainer">
 					<div id="disqus_thread"></div>
 					<script type="text/javascript">
 					    /* * * CONFIGURATION VARIABLES * * */
 					    var disqus_shortname = 'deepstreamio';
-					    
+
 					    /* * * DON'T EDIT BELOW THIS LINE * * */
 					    (function() {
 					        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
@@ -95,12 +95,12 @@
 				</p>
 				<p>
 					Email us <a href="mailto:info@hoxton-one.com">info@hoxton-one.com</a>.<br><br>
-					
+
 				</p>
 				<p>Registered in England and Wales, Company Nr 09121068</p>
 			</li>
 
-			
+
 			<li class="footer-middle">
 				<p>
 				Handcrafted by
