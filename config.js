@@ -5,6 +5,6 @@ module.exports = {
 	apiOutputDir: './htdocs/pages/docs',
 	apidocsInputFileExt: '.md',
 	apidocsOutputFileExt: '.html',
-	deploymentDir: '../../goldenlayout',
+	deploymentDir: '../deepstream.io-website-deploy/deepstream.io-website',
 	isDevelopment: true
 };
