@@ -1,7 +1,7 @@
 <ul id="subnav">
 	<li class="head first">Server</li>
 	<li {{#if fileIs_Deepstream}}class="active"{{/if}}>
-		<a href="Deepstream.html">Deepstream</a>
+		<a href="deepstream.html">Deepstream</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 		{{#if fileIs_Deepstream}}
 			<ul class="overview">
@@ -12,7 +12,7 @@
 		{{/if}}
 	</li>
 	<li {{#if fileIs_constants}}class="active"{{/if}}>
-		<a href="Constants.html">Constants</a>
+		<a href="constants.html">Constants</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 		{{#if fileIs_constants}}
 			<ul class="overview">
