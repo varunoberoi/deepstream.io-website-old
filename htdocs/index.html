@@ -52,9 +52,9 @@
 				<li>Works for browsers, backend &amp; mobile</li>
 				<li>Scales via clustering </li>
 				<li>Stores and syncs data in realtime </li>
-				<li>Open Source and free (MIT License)</li>
+				<li>Open Source and free <small>(MIT License)</small></li>
 				<div class="header-buttons">
-					<a class="first-btn" href=""><i class="fa fa-cloud-download"></i> &nbsp; Download</a>
+					<a class="first-btn" href=""><large> <i class="fa fa-cloud-download"></i></large> &nbsp; Download</a>
 
 					<a class="second-btn" href=""><i class="fa fa-book"></i>  &nbsp; Quick Start Tutorial</a>
 				</div>	
@@ -79,7 +79,7 @@ server<span class="token punctuation">.</span><span class="token function">start
 		</div>
 		<div class="code-right">
 		<span class="token comment" spellcheck="true">
-// Browser / Node Client <br><br>
+// Browser / Node Client <br><br><br>
 </span><span class="token keyword">var</span> ds <span class="token operator">=</span> <span class="token function">deepstream<span class="token punctuation">(</span></span> <span class="token string">'localhost:6020'</span> <span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">login<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">,</span><br />
 &nbsp;&nbsp;&nbsp;&nbsp;record <span class="token operator">=</span> ds<span class="token punctuation">.</span>record<span class="token punctuation">.</span><span class="token function">getRecord<span class="token punctuation">(</span></span> <span class="token string">'stock/hxto'</span> <span class="token punctuation">)</span><span class="token punctuation">;</span><br />
 
@@ -88,8 +88,7 @@ record<span class="token punctuation">.</span><span class="token keyword">get</s
 record<span class="token punctuation">.</span><span class="token keyword">set</span><span class="token punctuation">(</span> <span class="token string">'employees[1].firstname'</span><span class="token punctuation">,</span> <span class="token string">'Zack'</span> <span class="token punctuation">)</span><span class="token punctuation">;</span><br />
 record<span class="token punctuation">.</span><span class="token function">subscribe<span class="token punctuation">(</span></span> <span class="token string">'price'</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span> price <span class="token punctuation">)</span><span class="token punctuation">{</span> <span class="token comment" spellcheck="true">/***/</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br />
 <br />
-ds<span class="token punctuation">.</span>event<span class="token punctuation">.</span><span class="token function">emit<span class="token punctuation">(</span></span> <span class="token string">'chat/14'</span><span class="token punctuation">,</span> <span class="token punctuation">{</span><br />&nbsp;&nbsp;&nbsp;&nbsp;sender<span class="token punctuation">:</span> <span class="token string">'Wolfram'</span><span class="token punctuation">,</span><br />&nbsp;&nbsp;&nbsp;&nbsp;data<span class="token punctuation">:</span> <span class="token string">'hey'</span><br /><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-</code></pre>
+
 		</div>
 	</div>
 </div>
