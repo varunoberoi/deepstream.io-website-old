@@ -85,7 +85,7 @@ type: Array
 optional: false
 desc: An array of record names
 
-Sets the contents of the list to the provided array of record names. To add or remove specific entries use `addEntry()` or `removeEntry()` respectively
+Sets the contents of the list to the provided array of record names. To add or remove specific entries use `addEntry()` or `removeEntry()` respectively.
 
 addEntry( entry )
 ---------------------------------------------------
@@ -93,6 +93,11 @@ argument: entry
 type: String
 optional: false
 desc: A record name that should be added to the list
+
+argument: index
+type: Number
+optional: true
+desc: The index which the record should be inserted
 
 Adds a new record name to the list.
 
@@ -102,6 +107,11 @@ argument: entry
 type: String
 optional: false
 desc: A record name that should be removed from the list
+
+argument: index
+type: Number
+optional: true
+desc: The index at which the record should be removed. If not provided will remove all available records that match entry
 
 Removes an entry from the list. `removeEntry` will not throw any error if the entry doesn't exist.
 
@@ -117,7 +127,7 @@ desc: A callback function that should be called whenever the value changes
 argument: triggerNow
 type: Boolean
 optional: true
-desc: If true, the callback function will be called immediatly with the current value.
+desc: If true, the callback function will be called immediately with the current value.
 
 Subscribe registers a function that will be invoked whenever the list's contents changes.
 
