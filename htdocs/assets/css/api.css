@@ -303,6 +303,7 @@ nav{
 	border-left: 2px solid #00509a;
 	color:#00509a;
 	background:#c9e5ff;
+	margin: 16px 0;
 	font: 12px Arial, sans-serif;
 	padding: 5px;
 	font-weight: bold;
@@ -372,7 +373,6 @@ nav{
 
 #wrapper #content table.mini th{
 	font-weight: bold;
-	padding-bottom: 5px;
 }
 
 #wrapper #content table.mini tr:nth-child(odd) td{
@@ -381,6 +381,21 @@ nav{
 
 #wrapper #content table.mini td{
 	padding: 10px 5px;
+}
+
+#wrapper #content table.mini th{
+	background: #666;
+	color: #fff;
+	font-weight: bold;
+}
+
+#wrapper #content table.mini i{
+	margin: 0 3px 0 6px;
+	color: #fff;
+}
+
+#wrapper #content table.mini code{
+	font-family: "Courier New", monospace;
 }
 
 #wrapper #content table.constants td:first-child{
@@ -395,4 +410,37 @@ nav{
 #wrapper .message-structure{
 	font: 16px "Courier New",monospace;
 	text-align: center;
+}
+
+#wrapper a.mega{
+	display: block;
+	padding: 10px;
+	border-bottom: 1px solid #00509a;
+	background: #f6f6f6;
+	font-size: 20px;
+	text-align: center;
+	color: #333;
+	text-decoration: none;
+	margin: 16px 0;
+}
+
+#wrapper a.mega:hover{
+	background: #ddd;
+}
+
+#wrapper a.mega i{
+	margin-right: 15px;
+}
+
+.fa{
+	font-family: FontAwesome !important;
+}
+
+.img-container{
+	text-align: center;
+	margin: 16px 0;
+}
+
+table.space{
+	margin: 16px 0;
 }

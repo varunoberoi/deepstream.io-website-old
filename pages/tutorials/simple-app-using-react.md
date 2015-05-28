@@ -16,7 +16,7 @@ This allows it to subscribe to a subject and call ***setState*** whenever an
 update is received.
 
 	componentWillUnmount: function() {
-		this.record.unsubscribe();
+		this.record.discard();
 	}
 
 This allows the subscription to be terminated to avoid any memory leaks after
