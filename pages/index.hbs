@@ -56,14 +56,13 @@ record<span class="token punctuation">.</span><span class="token function">subsc
 
 <div id="segment-example-app">
 	<div class="example-app">
-		<video width="960" height="676" autoplay loop>
-  			<source src="assets/videos/exmple-app-retina.mp4" type="video/mp4">
- 			<source src="assets/videos/exmple-app-retina.ogg" type="video/ogg">
-				Your browser does not support the video tag.
-		</video>
 		<div class="segment-label">
 			Example App
-			</div>
+		</div>
+		<video id="examplevid" src="assets/videos/exmple-app-retina.mp4" preload width="960" height="676" controls autoplay loop="loop"></video>
+		<script type="text/javascript">
+		document.getElementById( 'examplevid' ).onerror = function(){ debugger; }
+		</script>
 	</div>
 </div>
 
