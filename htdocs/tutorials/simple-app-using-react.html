@@ -123,7 +123,7 @@
 <span class="token punctuation" >}</span>
 </code></pre><p>This allows it to subscribe to a subject and call <strong><em>setState</em></strong> whenever an
 update is received.</p><pre><code>componentWillUnmount<span class="token punctuation" >:</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span><span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
-    <span class="token keyword" >this</span><span class="token punctuation" >.</span>record<span class="token punctuation" >.</span><span class="token function" >unsubscribe<span class="token punctuation" >(</span></span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+    <span class="token keyword" >this</span><span class="token punctuation" >.</span>record<span class="token punctuation" >.</span><span class="token function" >discard<span class="token punctuation" >(</span></span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
 <span class="token punctuation" >}</span>
 </code></pre><p>This allows the subscription to be terminated to avoid any memory leaks after
 the object is no longer in the dom.</p>
