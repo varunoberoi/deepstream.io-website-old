@@ -89,14 +89,22 @@ body{
   transition: all 100ms ease;
 }
 
-.second-btn,
-.second-btn:hover{
-    background: #145068;
-    border-color: #0E4054;   
+.second-btn{
+  background: #145068;
+  border-color: #0E4054;   
  }
 
 .first-btn:hover,
-.second-btn:hover {
+.second-btn:hover{
+  background: #3cb0fd;
+  border-color: #017EA8;
+  -webkit-box-shadow: 0px 2px 12px rgba(0,0,0,0.7);
+  -moz-box-shadow: 0px 2px 12px rgba(0,0,0,0.7);
+
+ }
+
+.first-btn:active,
+.second-btn:active {
   background: #3cb0fd;
   text-decoration: none;
   top: 4px;
