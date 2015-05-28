@@ -1,4 +1,13 @@
-An example application using [React](https://facebook.github.io/react/) can be found at [demo-react](https://github.com/hoxton-one/ds-demo-simple-app-react).
+Example app using react
+===========================
+
+<a class="mega" href="https://github.com/hoxton-one/ds-demo-simple-app-ko"><i class="fa fa-github"></i>https://github.com/hoxton-one/ds-demo-simple-app-react</a>
+
+An example application using [React](https://facebook.github.io/react/) can be found at here:
+
+<div class="img-container">
+	<img class="tutorial" width="602" height="302" src="../assets/images/simple-app.png" alt="Simple App Screenshot" />
+</div>
 
 Integration with react is done within the ***componentDidMount*** and
 ***componentWillUnmount*** methods.

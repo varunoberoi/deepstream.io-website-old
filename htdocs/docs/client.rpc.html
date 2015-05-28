@@ -46,11 +46,11 @@
 			<ul id="subnav">
 	<li class="head first">Server</li>
 	<li >
-		<a href="Deepstream.html">Deepstream</a>
+		<a href="deepstream.html">Deepstream</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
 	<li >
-		<a href="Constants.html">Constants</a>
+		<a href="constants.html">Constants</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
 
@@ -125,6 +125,7 @@
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
 </ul>
+
 			<div id="content">
 				<div class="section"><h2><a name="Remote Procedure Calls (RPCs)">Remote Procedure Calls (RPCs)</a></h2><p>RPCs are deepstream&#39;s mechanism for request/response communication (think Ajax Request, but with load balancing). Deepstream clients can register as providers for RPCs using <code>provide</code>, e.g.</p><pre><code>client<span class="token punctuation" >.</span>rpc<span class="token punctuation" >.</span><span class="token function" >provide<span class="token punctuation" >(</span></span> <span class="token string" >'add-two-numbers'</span><span class="token punctuation" >,</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> data<span class="token punctuation" >,</span> response <span class="token punctuation" >)</span><span class="token punctuation" >{</span>
     response<span class="token punctuation" >.</span><span class="token function" >send<span class="token punctuation" >(</span></span> data<span class="token punctuation" >.</span>numberA <span class="token operator" >+</span> data<span class="token punctuation" >.</span>numberB <span class="token punctuation" >)</span><span class="token punctuation" >;</span>

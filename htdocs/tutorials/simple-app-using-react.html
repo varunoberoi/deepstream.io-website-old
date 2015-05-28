@@ -114,7 +114,11 @@
 </ul>
 
 			<div id="content">
-				<p>An example application using <a href="https://facebook.github.io/react/">React</a> can be found at <a href="https://github.com/hoxton-one/ds-demo-simple-app-react">demo-react</a>.</p><p>Integration with react is done within the <strong><em>componentDidMount</em></strong> and
+				<h1>Example app using react</h1><p><a class="mega" href="https://github.com/hoxton-one/ds-demo-simple-app-ko"><i class="fa fa-github"></i>https://github.com/hoxton-one/ds-demo-simple-app-react</a></p><p>An example application using <a href="https://facebook.github.io/react/">React</a> can be found at here:</p><div class="img-container">
+    <img class="tutorial" width="602" height="302" src="../assets/images/simple-app.png" alt="Simple App Screenshot" />
+</div>
+
+<p>Integration with react is done within the <strong><em>componentDidMount</em></strong> and
 <strong><em>componentWillUnmount</em></strong> methods.</p><p>Example:</p><pre><code>componentDidMount<span class="token punctuation" >:</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span><span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
     <span class="token keyword" >this</span><span class="token punctuation" >.</span>record <span class="token operator" >=</span> ds<span class="token punctuation" >.</span>record<span class="token punctuation" >.</span><span class="token function" >getRecord<span class="token punctuation" >(</span></span> <span class="token keyword" >this</span><span class="token punctuation" >.</span>props<span class="token punctuation" >.</span>recordName <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
     <span class="token keyword" >this</span><span class="token punctuation" >.</span>record<span class="token punctuation" >.</span><span class="token function" >subscribe<span class="token punctuation" >(</span></span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> data <span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
