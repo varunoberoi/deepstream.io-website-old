@@ -8,7 +8,8 @@ IronCache or Amazon's elastic cache
 Amazon's DynamoDB. They can also be used with relational databases, but deepstream's data-structures (blocks
 of JSON, identified by a key) lends itself very well to object/document based databases.
 
-<div class="info">Before writing your own storage or cache connector, have a quick look at the <a href="../downloads/">download section</a>. Maybe there already is an off-the-shelf one you can just pick up or use. <em>If you're happy with how you're connector turned out, please consider contributing it. To do so, just <a href="https://github.com/hoxton-one/deepstream.io/issues">raise an issue against deepstream.io</a></em></div> 
+<div class="hint-box fa fa-gears">
+	<p>Before writing your own storage or cache connector, have a quick look at the <a href="../downloads/">download section</a>. Maybe there already is an off-the-shelf one you can just pick up or use. <em>If you're happy with how you're connector turned out, please consider contributing it. To do so, just <a href="https://github.com/hoxton-one/deepstream.io/issues">raise an issue against deepstream.io</a></em></p></div> 
 
 To write a storage or cache connector, just clone or fork the cache-and-storage-connector-template below and fill in the blanks. To see if it works, update the `settings` variable on line 4 of the <a href="https://github.com/hoxton-one/deepstream.io-cache-and-storage-connector-template/blob/master/test/cache-connectorSpec.js">test file</a> and run the tests with `npm test`. Please note: The tests are very high level and only test the basic functionality. It might make sense to add additional tests that are specific for your connector.
 
@@ -38,17 +39,22 @@ So why have this distinction between cache and storage at all? Because they comp
 - Databases (storage) offer long-term storage of larger amounts of data and allow for more elaborate ways of querying.
   (full-text search, SQL etc.)
 
-Some considerations when implementing a cache/storage connector
+<div class="hint-box fa fa-lightbulb-o">
 
-- The `isReady` property starts as false. Once the connection to the cache / storage is established, emit a 'ready' event and set
-  it to true
-
-- Whenever a generic error occurs (e.g. an error that's not directly related to a get, set or delete operation, raise
-  an error event and send the error message as a parameter, e.g. this.emit( 'error', 'connection lost' ); )
-
-- whenever an error occurs as part of a get, set or delete operation, pass it to the callback as the first argument,
-  otherwise pass null
-
-- values for `set()` will be serializable JavaScript objects and are expected to be returned by `get()` as such. It's
-  therefor up to this class to handle serialisation / de-serialisation, e.g. as JSON or message-pack. Some
-  systems (e.g. MongoDB) however can also handle raw JSON directly
+	<h3>Some considerations when implementing a cache/storage connector</h3>
+	<ul>
+		<li>
+		The <code>isReady</code> property starts as <code>false</code>. Once the connection to the cache / database is established, emit a <code>'ready'</code> event and set <code>isReady</code> to <code>true</code>.
+		</li>
+		<li>
+		Whenever a generic error occurs (e.g. an error that's not directly related to a get, set or delete operation, raise an error event and send the error message as a parameter, e.g. this.emit( 'error', 'connection lost' ); )
+  		</li>
+  		<li>
+			whenever an error occurs as part of a get, set or delete operation, pass it to the callback as the first argument, otherwise pass null
+  		</li>
+  		<li>
+		values for <code>set()</code> will be serializable JavaScript objects and are expected to be returned by <code>get()</code> as such. It's
+  therefor up to this class to handle serialisation / de-serialisation, e.g. as JSON or message-pack. Some systems (e.g. MongoDB) however can also handle raw JSON directly
+  		</li>
+  	</ul>
+</div>
