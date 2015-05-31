@@ -22,8 +22,8 @@
 		<a href="data-provider.html">Building a data-provider</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
-	<li {{#if fileIs_adding-search}}class="active"{{/if}}>
-		<a href="adding-search.html">Adding search</a>
+	<li {{#if fileIs_searching-and-querying}}class="active"{{/if}}>
+		<a href="searching-and-querying.html">Searching & Querying</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
 	<li {{#if fileIs_writing-storage-cache-connector}}class="active"{{/if}}>
