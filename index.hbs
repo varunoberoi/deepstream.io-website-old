@@ -47,9 +47,9 @@
 				{{/if}}
 				<ul>
 					<li {{#unless isNotStart}}class="active"{{/unless}}><a href="{{link 'page' ''}}">Home</a></li>
-					<li {{#if pageIs_download}}class="active"{{/if}}><a href="{{link 'page' 'download'}}">Downloads</a></li>
-					<li {{#if pageIs_tutorials}}class="active"{{/if}}><a href="{{link 'page' 'tutorials'}}">Tutorials</a></li>
-					<li {{#if pageIs_docs}}class="active"{{/if}}><a href="{{link 'page' 'docs'}}">Documentation</a></li>
+					<li {{#if pageIs_download}}class="active"{{/if}}><a href="{{link 'page' 'download/'}}">Downloads</a></li>
+					<li {{#if pageIs_tutorials}}class="active"{{/if}}><a href="{{link 'page' 'tutorials/'}}">Tutorials</a></li>
+					<li {{#if pageIs_docs}}class="active"{{/if}}><a href="{{link 'page' 'docs/'}}">Documentation</a></li>
 				</ul>
 			</div>
 		</div>
@@ -59,6 +59,7 @@
 			<div id="content">
 				{{pageContent}}
 
+				{{!-- Since we're not 
 				<h3>Comments and Questions</h3>
 				<div id="disqusContainer">
 					<div id="disqus_thread"></div>
@@ -75,6 +76,7 @@
 					</script>
 					<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
 				</div>
+				going with discuss--}}
 			</div>
 		</div>
 		<script type="text/javascript" src="{{link 'asset' 'js/docs.js'}}"></script>
@@ -137,14 +139,13 @@
 		{{!--<script src="//localhost:5051/livereload.js"></script>--}}
 	{{else}}
 	<script>
-	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-	  ga('create', 'UA-53022077-1', 'auto');
-	  ga('send', 'pageview');
-
+		ga('create', 'UA-63583386-1', 'auto');
+		ga('send', 'pageview');
 	</script>
 	{{/if}}
 </body>
