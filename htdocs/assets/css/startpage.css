@@ -98,6 +98,7 @@ body{
 .second-btn:hover{
   background: #3cb0fd;
   border-color: #017EA8;
+  top: -2px;
   -webkit-box-shadow: 0px 2px 12px rgba(0,0,0,0.7);
   -moz-box-shadow: 0px 2px 12px rgba(0,0,0,0.7);
 
@@ -183,6 +184,7 @@ body{
   height: 100%;
   text-align: center;
   color: white;
+  overflow: hidden;
 }
 
 /****************************
@@ -190,19 +192,20 @@ body{
 ****************************/
 
 #segment-three-icons{
- background: #C7D7DC;
- text-align: center;
- color: #145068;
- height: 384px;
+  background: #C7D7DC;
+  text-align: center;
+  color: #145068;
+  height: 100%;
+  padding: 0px 0px 60px 0px;
 
 }
 
 #three-icons {
-    width:1000px;
-    height:100%;
-    padding:0;
-    margin:0;
-    display: inline-flex;
+  /* width: 1000px; */
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  display: inline-block;
 }
 
 .three-icons-label {
@@ -217,9 +220,10 @@ body{
 #left-records,
 #center-events,
 #right-rpcs{
-    margin: -60px 0px 0px 0px;
-    width:33.33333333%;
-    height:100%;
+  float: left;
+  margin: -60px 0px 0px 0px;
+  /* width: 33.33333333%; */
+  height: 100%;
 }
 
 #left-records {
