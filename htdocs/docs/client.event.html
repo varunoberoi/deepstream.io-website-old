@@ -10,14 +10,14 @@
 	<meta name="author" content="Wolfram Hempel" />
 	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 	<link rel="icon" href="/favicon.ico" type="image/x-icon">
-	<link rel="stylesheet" type="text/css" href="../../htdocs/assets/css/screen.css" />
-	<link rel="stylesheet" type="text/css" href="../../htdocs/assets/css/api.css" />
-	<link rel="stylesheet" type="text/css" href="../../htdocs/assets/css/syntaxhighlighter.css" />
+	<link rel="stylesheet" type="text/css" href="../assets/css/screen.css" />
+	<link rel="stylesheet" type="text/css" href="../assets/css/api.css" />
+	<link rel="stylesheet" type="text/css" href="../assets/css/syntaxhighlighter.css" />
 	<script type="text/javascript">
 	document.createElement( 'header' );
 	document.createElement( 'nav' );
 	</script>
-	<script type="text/javascript" src="../../htdocs/assets/js/jquery.js"></script>
+	<script type="text/javascript" src="../assets/js/jquery.js"></script>
 
 	<link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Quicksand:300,400,700' rel='stylesheet' type='text/css'>
@@ -33,12 +33,12 @@
 				<h1><a href="..">deepstream.io - a scalable server for realtime web apps</a></h1>
 			</div>
 			<div id="nav" class="standalone">
-				<img src="../../htdocs/assets/images/background-abstract.jpg" />
+				<img src="../assets/images/background-abstract.jpg" />
 				<ul>
 					<li ><a href="..">Home</a></li>
-					<li ><a href="../download">Downloads</a></li>
-					<li ><a href="../tutorials">Tutorials</a></li>
-					<li class="active"><a href="../docs">Documentation</a></li>
+					<li ><a href="../download/">Downloads</a></li>
+					<li ><a href="../tutorials/">Tutorials</a></li>
+					<li class="active"><a href="../docs/">Documentation</a></li>
 				</ul>
 			</div>
 		</div>
@@ -136,25 +136,9 @@
 </span>client<span class="token punctuation" >.</span>event<span class="token punctuation" >.</span><span class="token function" >emit<span class="token punctuation" >(</span></span> <span class="token string" >'news/politics'</span><span class="token punctuation" >,</span> <span class="token punctuation" >{</span> headline<span class="token punctuation" >:</span> <span class="token string" >'...'</span><span class="token punctuation" >,</span> content<span class="token punctuation" >:</span> <span class="token string" >'...'</span> <span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
 </code></pre></div><div class="section"><h2><a name="subscribe( event, callback );">subscribe( event, callback );</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">event</td><td class="type">String</td><td class="optional">false</td><td class="default">-</td><td class="description">an eventname</td></tr><tr><td class="argument">callback</td><td class="type">Function</td><td class="optional">false</td><td class="default">-</td><td class="description">A function that will be called whenever the event is emitted</td></tr></tbody></table><p>Subscribe to an event emitted by this or any of the other clients.</p></div><div class="section"><h2><a name="unsubscribe( event, callback );">unsubscribe( event, callback );</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">event</td><td class="type">String</td><td class="optional">false</td><td class="default">-</td><td class="description">an eventname</td></tr><tr><td class="argument">callback</td><td class="type">Function</td><td class="optional">true</td><td class="default">-</td><td class="description">the callback that was previously registered with subscribe. If the callback is omitted, all listeners for the event will be removed</td></tr></tbody></table><p>Unsubscribes from an event that was previosly registered with <code>subscribe()</code>.</p></div><div class="section"><h2><a name="event.emit( event, data );">event.emit( event, data );</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">event</td><td class="type">String</td><td class="optional">false</td><td class="default">-</td><td class="description">an eventname</td></tr><tr><td class="argument">data</td><td class="type">Mixed</td><td class="optional">true</td><td class="default">-</td><td class="description">Any serialisable data ( Objects, Strings, Numbers... ) that will be send with the event</td></tr></tbody></table><p>Sends an event to zero or more subscribed clients.</p><p></div></p>
 
-				<h3>Comments and Questions</h3>
-				<div id="disqusContainer">
-					<div id="disqus_thread"></div>
-					<script type="text/javascript">
-					    /* * * CONFIGURATION VARIABLES * * */
-					    var disqus_shortname = 'deepstreamio';
-
-					    /* * * DON'T EDIT BELOW THIS LINE * * */
-					    (function() {
-					        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-					        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-					        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-					    })();
-					</script>
-					<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-				</div>
 			</div>
 		</div>
-		<script type="text/javascript" src="../../htdocs/assets/js/docs.js"></script>
+		<script type="text/javascript" src="../assets/js/docs.js"></script>
 		<div id="footerPush"></div>
 	</div>
 	<div id="footer">
