@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>deepstream.io | A Scalable Server for Realtime Web Apps</title>
+
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="keywords" content="deepstream, deepstream.io, streaming, realtime, server, socket" />
+	<meta name="description" content="deepstream.io - a scalable server for realtime web apps" />
+	<meta name="author" content="Wolfram Hempel" />
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="stylesheet" type="text/css" href="../assets/css/screen.css" />
+	<link rel="stylesheet" type="text/css" href="../assets/css/api.css" />
+	<link rel="stylesheet" type="text/css" href="../assets/css/syntaxhighlighter.css" />
+	<script type="text/javascript">
+	document.createElement( 'header' );
+	document.createElement( 'nav' );
+	</script>
+	<script type="text/javascript" src="../assets/js/jquery.js"></script>
+
+	<link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Quicksand:300,400,700' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+</head>
+<body class="category_docs">
+
+	<div id="outerWrapper">
+		<div class="topSection">
+			<div id="header" class="small-logo micro">
+				<h1><a href="..">deepstream.io - a scalable server for realtime web apps</a></h1>
+			</div>
+			<div id="nav" class="standalone">
+				<img src="../assets/images/background-abstract.jpg" />
+				<ul>
+					<li ><a href="..">Home</a></li>
+					<li ><a href="../download/">Downloads</a></li>
+					<li ><a href="../tutorials/">Tutorials</a></li>
+					<li class="active"><a href="../docs/">Documentation</a></li>
+				</ul>
+			</div>
+		</div>
+		<div id="wrapper" class="main">
+			<ul id="subnav">
+	<li class="head first">Server</li>
+	<li >
+		<a href="deepstream.html">Deepstream</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+	<li >
+		<a href="constants.html">Constants</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+
+	<li class="head">JS Client</li>
+	<li >
+		<a href="Client.html">Client</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li >
+		<a href="client_options.html">options</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li >
+		<a href="connection_states.html">connectionStates</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li class="active">
+		<a href="client_errors.html">errors</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li >
+		<a href="event_emitter.html">EventEmitter</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li class="de-emphasized">Record</li>
+	<li >
+		<a href="client.record.html">client.record</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li >
+		<a href="record.html">Record</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li >
+		<a href="list.html">List</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li >
+		<a href="anonymous_record.html">Anonymous Record</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li class="de-emphasized">RPC</li>
+	<li >
+		<a href="client.rpc.html">client.rpc</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li >
+		<a href="rpc_response.html">RpcResponse</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li class="de-emphasized">Event</li>
+	<li >
+		<a href="client.event.html">client.event</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+</ul>
+
+			<div id="content">
+				<div class="section"><h2><a name="Errors">Errors</a></h2><table class="mini">
+
+<tr>
+<td>CONNECTION_ERROR</td>
+<td>Either the Engine.io or TCP connection has encountered an error.</td>
+</tr>
+
+<tr>
+<td>UNSOLICITED_MESSAGE</td>
+<td>A message was received that the client didn&#39;t expect, e.g. an update for a record that the client isn&#39;t subscribed to. This doesn&#39;t necessarily have to be an error, but can also be the result of messages crossing on the wire, e.g. when an outgoing record discard and an incoming message overlap.</td>
+</tr>
+
+<tr>
+<td>MESSAGE_PARSE_ERROR</td>
+<td>The client has received a syntactically incorrect message.</td>
+</tr>
+
+<tr>
+<td>IS_CLOSED</td>
+<td>Emitted when the client tries to authenticate against an already closed connection.</td>
+</tr>
+
+<tr>
+<td>VERSION_EXISTS</td>
+<td>The client has tried to update a record to a version that the server already has. This might happen if multiple clients try to update the same record at the same time. The best thing to do might be to wait a few milliseconds for the record update to come in and then try again. This error will also be emitted by the affected Record.</td>
+</tr>
+
+<tr>
+<td>NOT_AUTHENTICATED</td>
+<td>Emitted if an operation is attempted before the client is authenticated (before <code>login()</code> has been called and a response was received).</td>
+</tr>
+
+<tr>
+<td>ACK_TIMEOUT</td>
+<td>The acknowledgement response for a record subscription, event subscription or rpc call hasn&#39;t been received in time. This error is also emitted by the object that encountered it, e.g. the Record or Rpc.</td>
+</tr>
+
+<tr>
+<td>LISTENER_EXISTS</td>
+<td>Emitted when <code>ds.record.listen( pattern, callback )</code> is called more than once for the same pattern.</td>
+</tr>
+
+<tr>
+<td>NOT_LISTENING</td>
+<td>Emitted when <code>ds.record.unlisten( pattern )</code> is called for a pattern that no listener exists for.</td>
+</tr>
+
+<tr>
+<td>TOO_MANY_AUTH_ATTEMPTS</td>
+<td>Emitted when the client has made more invalid authentication attempts than the server accepts. This can be configured as <code>maxAuthAttempts</code> on the server.</td>
+</tr>
+
+</table>
+
+<p></div></p>
+
+			</div>
+		</div>
+		<script type="text/javascript" src="../assets/js/docs.js"></script>
+		<div id="footerPush"></div>
+	</div>
+	<div id="footer">
+		<ul class="footerItems">
+			<li class="footer-left">
+				<h4>Contact us</h4>
+				<p>
+					<b>deepstream.io </b>is developed by Hoxton One Ltd. <br>
+					a small Company based in London's dodgy, yet glorious East. <br><br>
+				</p>
+				<p>
+					Email us <a href="mailto:info@hoxton-one.com">info@hoxton-one.com</a>.<br><br>
+
+				</p>
+				<p>Registered in England and Wales, Company Nr 09121068</p>
+			</li>
+
+
+			<li class="footer-middle">
+				<p>
+				Handcrafted by
+				</p>
+
+				<div class="footer-hoxton-one">
+				</div>
+			</li>
+
+			<li class="footer-right">
+				<ul class="social">
+					<li class="twitter">
+					<br><br>
+						<a href="https://twitter.com/goldenlayout">
+							<i class="fa fa-twitter"></i>  Twitter
+						</a>
+					</li>
+					<li class="github">
+						<a href="https://github.com/hoxton-one/golden-layout">
+							<i class="fa fa-github"></i>  Github
+						</a>
+					</li>
+				</ul>
+				<div class="copyright">
+					&copy;2015 Hoxton One Ltd. All rights reserved.
+				</div>
+			</li>
+		</ul>
+	</div>
+
+
+	<script>
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+		ga('create', 'UA-63583386-1', 'auto');
+		ga('send', 'pageview');
+	</script>
+</body>
+</html>

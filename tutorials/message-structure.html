@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>deepstream.io | A Scalable Server for Realtime Web Apps</title>
+
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="keywords" content="deepstream, deepstream.io, streaming, realtime, server, socket" />
+	<meta name="description" content="deepstream.io - a scalable server for realtime web apps" />
+	<meta name="author" content="Wolfram Hempel" />
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="stylesheet" type="text/css" href="../assets/css/screen.css" />
+	<link rel="stylesheet" type="text/css" href="../assets/css/api.css" />
+	<link rel="stylesheet" type="text/css" href="../assets/css/syntaxhighlighter.css" />
+	<script type="text/javascript">
+	document.createElement( 'header' );
+	document.createElement( 'nav' );
+	</script>
+	<script type="text/javascript" src="../assets/js/jquery.js"></script>
+
+	<link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Quicksand:300,400,700' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+</head>
+<body class="category_tutorials">
+
+	<div id="outerWrapper">
+		<div class="topSection">
+			<div id="header" class="small-logo micro">
+				<h1><a href="..">deepstream.io - a scalable server for realtime web apps</a></h1>
+			</div>
+			<div id="nav" class="standalone">
+				<img src="../assets/images/background-abstract.jpg" />
+				<ul>
+					<li ><a href="..">Home</a></li>
+					<li ><a href="../download/">Downloads</a></li>
+					<li class="active"><a href="../tutorials/">Tutorials</a></li>
+					<li ><a href="../docs/">Documentation</a></li>
+				</ul>
+			</div>
+		</div>
+		<div id="wrapper" class="main">
+			<ul id="subnav">
+	
+	<li class="head first">General</li>
+	<li >
+		<a href="getting-started.html">Getting started</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+	<li >
+		<a href="authentication.html">Authentication</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+	<li >
+		<a href="permissioning.html">Permissioning</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li class="head">Server</li>
+	<li >
+		<a href="connectors-and-deployment.html">Connectors and Deployment</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+	<li >
+		<a href="data-provider.html">Building a data-provider</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+	<li >
+		<a href="searching-and-querying.html">Searching & Querying</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+	<li >
+		<a href="writing-storage-cache-connector.html">Writing storage and cache connectors</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+	<li >
+		<a href="writing-messaging-connector.html">Writing a messaging connector</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li class="head">Client</li>
+	<li >
+		<a href="node-js-client.html">Using the client in NodeJS</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li >
+		<a href="records-events-rpcs.html">Records, Events and RPCs</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li >
+		<a href="simple-app-using-ko.html">Simple App using Knockout</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li >
+		<a href="simple-app-using-react.html">Simple App using React</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li >
+		<a href="simple-app-using-angular.html">Simple App using Angular</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li class="head">Internals</li>
+	<li class="active">
+		<a href="message-structure.html">Message Structure</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+</ul>
+
+			<div id="content">
+				<h1>Message Structure</h1><p>Deepstream messages are transmitted using a proprietary, minimal, string-based protocol. Every message follows the same structure:</p><div class="message-structure">
+&lt;topic&gt;|&lt;action&gt;|&lt;data[0]&gt;|...|&lt;data[n]&gt;+
+</div>
+
+<p>| and + are used in these examples as placeholders, messages are actually separated by invisible Ascii control characters (&quot;record separator&quot; (30) and &quot;group seperator&quot; (31))</p><p>Every message has a topic (e.g. RECORD, EVENT, AUTH etc.) and an action ( CREATE, DELETE, SUBSCRIBE etc.). For a full list of available topics and actions please see <a href="../docs/constants.html">docs/constants.html</a>.</p><h3>Example</h3><p>Here&#39;s an example: creating or reading a record <code>Lisa</code></p><pre><code>userLisa <span class="token operator" >=</span> ds<span class="token punctuation" >.</span>record<span class="token punctuation" >.</span><span class="token function" >getRecord<span class="token punctuation" >(</span></span> <span class="token string" >'Lisa'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+</code></pre><p>would prompt the client to send this message to the server</p><p><img src="../assets/images/message-structure-record-create.png" /></p><p>Messages always start with <code>topic</code> and <code>action</code>, but can contain an arbitrary amount of data fields afterwards.</p><p>Setting the value of a path within the record for example</p><pre><code>userLisa<span class="token punctuation" >.</span><span class="token keyword" >set</span><span class="token punctuation" >(</span> <span class="token string" >'lastname'</span><span class="token punctuation" >,</span> <span class="token string" >'Owen'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+</code></pre><p>would result in this outgoing message</p><p><img src="../assets/images/message-structure-record-patch.png" width="700"/></p><p>Please note the additional S before <code>Owen</code>. This indicates that the remaining part of the message should be treated as a string. Please find a list of (available types here)[../docs/constants.html#Data Types]</p><p>Both client and server use a message-parser to validate these messages and to convert them into objects looking like this:</p><pre><code><span class="token punctuation" >{</span>
+    raw<span class="token punctuation" >:</span> <span class="token string" >'R\u001fP\u001fLisa\u001f1\u001flastname\u001fSOwen'</span><span class="token punctuation" >,</span>
+    topic<span class="token punctuation" >:</span> <span class="token string" >'R'</span><span class="token punctuation" >,</span>
+    action<span class="token punctuation" >:</span> <span class="token string" >'P'</span><span class="token punctuation" >,</span>
+    data<span class="token punctuation" >:</span> <span class="token punctuation" >[</span> <span class="token string" >'Lisa'</span><span class="token punctuation" >,</span> <span class="token string" >'1'</span><span class="token punctuation" >,</span> <span class="token string" >'lastname'</span><span class="token punctuation" >,</span> <span class="token string" >'SOwen'</span> <span class="token punctuation" >]</span>
+<span class="token punctuation" >}</span>
+</code></pre>
+
+			</div>
+		</div>
+		<script type="text/javascript" src="../assets/js/docs.js"></script>
+		<div id="footerPush"></div>
+	</div>
+	<div id="footer">
+		<ul class="footerItems">
+			<li class="footer-left">
+				<h4>Contact us</h4>
+				<p>
+					<b>deepstream.io </b>is developed by Hoxton One Ltd. <br>
+					a small Company based in London's dodgy, yet glorious East. <br><br>
+				</p>
+				<p>
+					Email us <a href="mailto:info@hoxton-one.com">info@hoxton-one.com</a>.<br><br>
+
+				</p>
+				<p>Registered in England and Wales, Company Nr 09121068</p>
+			</li>
+
+
+			<li class="footer-middle">
+				<p>
+				Handcrafted by
+				</p>
+
+				<div class="footer-hoxton-one">
+				</div>
+			</li>
+
+			<li class="footer-right">
+				<ul class="social">
+					<li class="twitter">
+					<br><br>
+						<a href="https://twitter.com/goldenlayout">
+							<i class="fa fa-twitter"></i>  Twitter
+						</a>
+					</li>
+					<li class="github">
+						<a href="https://github.com/hoxton-one/golden-layout">
+							<i class="fa fa-github"></i>  Github
+						</a>
+					</li>
+				</ul>
+				<div class="copyright">
+					&copy;2015 Hoxton One Ltd. All rights reserved.
+				</div>
+			</li>
+		</ul>
+	</div>
+
+
+	<script>
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+		ga('create', 'UA-63583386-1', 'auto');
+		ga('send', 'pageview');
+	</script>
+</body>
+</html>
