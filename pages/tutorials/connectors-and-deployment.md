@@ -42,7 +42,7 @@ In addition to a cache, deepstream can store records in a database. This happens
 deepstream instances can share updates with each other via a message-bus. This enables horizontal scalability and allows to cater for a large number of clients at the same time. Small clusters (e.g. 3-4 instances) can connect directly to each other via TCP using the [direct connector](../download/) whereas it makes sense for larger clusters to use a message broker or Pub-Sub system instead (e.g. AMQP, Redis or Apache Kafka.)
 
 ###Performance
-The most performance-critical path of deepstream’s architecture is the connection between it and its cache and messaging system. Both are constantly in use and any millisecond in network latency can lead to a noticeable decline in performance. It’s therefor recommendable to host deepstream and its cache and messaging system in close network proximity, e.g. within the same data centre, server or region.
+The most performance-critical path of deepstream’s architecture is the connection between it and its cache and messaging system. Both are constantly in use and any millisecond in network latency can lead to a noticeable decline in performance. It’s therefore recommendable to host deepstream and its cache and messaging system in close network proximity, e.g. within the same data centre, server or aws-region.
 
 ###What’s the simplest production-ready setup?
 Good question, simple answer: Redis and 2-3 deepstream instances. Redis provides a fast cache, persists its data to disk and offers a pub-sub mechanism that can be used for messaging. The whole setup would look like this:
