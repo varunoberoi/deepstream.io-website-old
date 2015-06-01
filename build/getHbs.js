@@ -26,21 +26,24 @@ hbs.registerHelper( 'issue', function( number ){
 	return new hbs.SafeString( html );
 });
 
-hbs.registerHelper( 'downloadItem', function( name, packageName, hasBower ){
+hbs.registerHelper( 'downloadItem', function( name, packageName, hasBower, icon ){
 	var html = '' +
-		'<li class="download-item" data-package="' + packageName + '">' +
-			'<h3>' + name + '</h3>' +
-			'<span class="pckg-name">' + packageName + '</span>' +
-			'<div class="img-container">' +
-				'<img src="http://placehold.it/180x180" width="180" height="180" />' +
-				'<span class="version">0.2.6</span>' +
-			'</div>' +
-			'<a class="npm" title="get from npm" href="https://www.npmjs.com/package/' + packageName + '"></a>';
+		'<li class="download-item ' + packageName.replace( '.', '_') + '" data-package="' + packageName + '">';
+
+		if( icon ) {
+			html += '<i class="fa fa-' + icon + '"></i>';
+		}
+
+		html +=	'<h3>' + name + '</h3>' +
+			'<code>' +
+				'<span class="pckg-name">' + packageName + '</span>: <span class="version">0.2.6</span>' +
+			'</code>' +
+			'<a class="npm label" title="get from npm" href="https://www.npmjs.com/package/' + packageName + '"><i></i><span>NPM</span></a>';
 		if( hasBower === true ) {
-			html += '<a class="bower" title="get from bower" href="http://bower.io/search/?q=' + packageName + '"></a>';
+			html += '<a class="bower label" title="get from bower" href="http://bower.io/search/?q=' + packageName + '"><i></i><span>Bower</span></a>';
 		}
 			
-		html +=	'<a class="github" title="see on github" href="https://github.com/hoxton-one/' + packageName + '"></a>' +
+		html +=	'<a class="github label" title="see on github" href="https://github.com/hoxton-one/' + packageName + '"><i></i><span>Github</span></a>' +
 		'</li>';
 
 	return new hbs.SafeString( html );

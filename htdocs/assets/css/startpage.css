@@ -126,7 +126,7 @@ body{
  background: #272822;
  text-align: left;
  color: #fff;
- height: 230px;
+ height: 280px;
  box-shadow: inset 0px 5px 10px 0px rgba(0,0,0,0.3);
 
 }
@@ -138,11 +138,11 @@ body{
 }
 
 .code-left{
-  width: 494px;
+  width: 464px;
   height: 200px;
   display: inline-block;
   float: left;
-  padding: 30px 0px 0px 105px;
+  padding: 50px 0px 0px 135px;
 }
 /*
 .code-seperator{
@@ -158,10 +158,10 @@ body{
 
 .code-right{
   width: 444px;
-  height: 200px;
+  height: 230px;
   display: inline-block;
   float: left;
-  padding: 30px 0px 0px 80px;
+  padding: 50px 0px 0px 80px;
   border-style: solid;
   border-color: black;
   border-width: 0px 0px 0px 4px;
@@ -170,24 +170,37 @@ body{
 /****************************
 * EXAMPLE APP
 ****************************/
-
 #segment-example-app .phone-top-wrapper{
   width: 1000px;
-  height: 62px;
-  margin: -62px auto 0;
+  height: 60px;
+  margin: -60px auto 0;
 }
+
+.segment-example-label{
+  position: relative;
+  text-align: left;
+  top: 89px;
+  left: 235px;
+  color: #AEAEAE;
+  font-size: 12px;
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 400;
+  opacity: 1;
+}
+
 #segment-example-app .phone-top{
   width: 325px;
   height: 62px;
   background: url(../images/phone-top.svg);
   position: relative;
   left: 648px;
+  top: 0px;
 }
 
 #segment-example-app{
  text-align: center;
  color: #145068;
- height: 622px;
+ height: 636px;
 }
 
 #segment-example-app-wrap{
@@ -195,7 +208,7 @@ body{
 }
 
 .example-app{
-  background: url(../images/exmpl-app.svg) no-repeat center center;
+  /*background: url(../images/exmpl-app.svg) no-repeat center center;*/
   height: 100%;
   text-align: center;
   color: white;
@@ -270,11 +283,12 @@ body{
 
 .segment-label{
   position: relative;
-  top: 55px;
-  right: 400px;
+  top: 71px;
+  right: 356px;
   color: #22C9F1;
   font-size: 23px;
-  font-family: 'Quicksand', sans-serif; font-weight: 400;
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 400;
   opacity: 1;
 
 }

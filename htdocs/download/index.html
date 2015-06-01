@@ -43,38 +43,49 @@
 		<div class="content main">
 			<link rel="stylesheet" type="text/css" href="../assets/css/downloads.css" />
 <div id="downloads">
-	<ul>
-		<li class="download-item" data-package="deepstream.io"><h3>server</h3><span class="pckg-name">deepstream.io</span><div class="img-container"><img src="http://placehold.it/180x180" width="180" height="180" /><span class="version">0.2.6</span></div><a class="npm" title="get from npm" href="https://www.npmjs.com/package/deepstream.io"></a><a class="github" title="see on github" href="https://github.com/hoxton-one/deepstream.io"></a></li>
-		<li class="download-item" data-package="deepstream.io-client-js"><h3>client</h3><span class="pckg-name">deepstream.io-client-js</span><div class="img-container"><img src="http://placehold.it/180x180" width="180" height="180" /><span class="version">0.2.6</span></div><a class="npm" title="get from npm" href="https://www.npmjs.com/package/deepstream.io-client-js"></a><a class="bower" title="get from bower" href="http://bower.io/search/?q=deepstream.io-client-js"></a><a class="github" title="see on github" href="https://github.com/hoxton-one/deepstream.io-client-js"></a></li>
-	</ul>
+	<div class="top">
+		<ul>
+			<li class="download-item deepstream_io" data-package="deepstream.io"><i class="fa fa-server"></i><h3>Server</h3><code><span class="pckg-name">deepstream.io</span>: <span class="version">0.2.6</span></code><a class="npm label" title="get from npm" href="https://www.npmjs.com/package/deepstream.io"><i></i><span>NPM</span></a><a class="github label" title="see on github" href="https://github.com/hoxton-one/deepstream.io"><i></i><span>Github</span></a></li>
+			<li class="download-item deepstream_io-client-js" data-package="deepstream.io-client-js"><i class="fa fa-plug"></i><h3>Client</h3><code><span class="pckg-name">deepstream.io-client-js</span>: <span class="version">0.2.6</span></code><a class="npm label" title="get from npm" href="https://www.npmjs.com/package/deepstream.io-client-js"><i></i><span>NPM</span></a><a class="bower label" title="get from bower" href="http://bower.io/search/?q=deepstream.io-client-js"><i></i><span>Bower</span></a><a class="github label" title="see on github" href="https://github.com/hoxton-one/deepstream.io-client-js"><i></i><span>Github</span></a></li>
+		</ul>
+	</div>
 
-	<h2>Cache Connectors</h2>
-	<p>Cache connectors enable deepstream to store data in a distributed cache for horizontal scalability and fast read- and write access</p>
-	<ul>
-		<li class="download-item" data-package="deepstream.io-cache-redis"><h3>redis cache connector</h3><span class="pckg-name">deepstream.io-cache-redis</span><div class="img-container"><img src="http://placehold.it/180x180" width="180" height="180" /><span class="version">0.2.6</span></div><a class="npm" title="get from npm" href="https://www.npmjs.com/package/deepstream.io-cache-redis"></a><a class="github" title="see on github" href="https://github.com/hoxton-one/deepstream.io-cache-redis"></a></li>
-		<li class="download-item" data-package="deepstream.io-cache-memcached"><h3>memcached cache connector</h3><span class="pckg-name">deepstream.io-cache-memcached</span><div class="img-container"><img src="http://placehold.it/180x180" width="180" height="180" /><span class="version">0.2.6</span></div><a class="npm" title="get from npm" href="https://www.npmjs.com/package/deepstream.io-cache-memcached"></a><a class="github" title="see on github" href="https://github.com/hoxton-one/deepstream.io-cache-memcached"></a></li>
-	</ul>
-
-	<h2>Storage Connectors</h2>
-	<p>Storage connectors enable deepstream to store data in a database. This allows to use the database's query capabilities and to persist data when deepstream is used with an in-memory only cache like Memcached. Storing data in a database happens outside of the critical path and doesn't affect update performance.</p>
-	<ul>
-		<li class="download-item" data-package="deepstream.io-storage-rethinkdb"><h3>rethinkdb storage connector</h3><span class="pckg-name">deepstream.io-storage-rethinkdb</span><div class="img-container"><img src="http://placehold.it/180x180" width="180" height="180" /><span class="version">0.2.6</span></div><a class="npm" title="get from npm" href="https://www.npmjs.com/package/deepstream.io-storage-rethinkdb"></a><a class="github" title="see on github" href="https://github.com/hoxton-one/deepstream.io-storage-rethinkdb"></a></li>
-		<li class="download-item" data-package="deepstream.io-storage-mongodb"><h3>mongoDb storage connector</h3><span class="pckg-name">deepstream.io-storage-mongodb</span><div class="img-container"><img src="http://placehold.it/180x180" width="180" height="180" /><span class="version">0.2.6</span></div><a class="npm" title="get from npm" href="https://www.npmjs.com/package/deepstream.io-storage-mongodb"></a><a class="github" title="see on github" href="https://github.com/hoxton-one/deepstream.io-storage-mongodb"></a></li>
-	</ul>
-
-	<h2>Message Connectors</h2>
-	<p>Message connectors enable multiple deepstream nodes to connect to the same message bus and to distribute updates amongst each other, allowing for horizontal scalability</p>
-	<ul>
-		<li class="download-item" data-package="deepstream.io-msg-direct"><h3>direct message connector</h3><span class="pckg-name">deepstream.io-msg-direct</span><div class="img-container"><img src="http://placehold.it/180x180" width="180" height="180" /><span class="version">0.2.6</span></div><a class="npm" title="get from npm" href="https://www.npmjs.com/package/deepstream.io-msg-direct"></a><a class="github" title="see on github" href="https://github.com/hoxton-one/deepstream.io-msg-direct"></a></li>
-		<li class="download-item" data-package="deepstream.io-msg-amqp"><h3>amqp message connector</h3><span class="pckg-name">deepstream.io-msg-amqp</span><div class="img-container"><img src="http://placehold.it/180x180" width="180" height="180" /><span class="version">0.2.6</span></div><a class="npm" title="get from npm" href="https://www.npmjs.com/package/deepstream.io-msg-amqp"></a><a class="github" title="see on github" href="https://github.com/hoxton-one/deepstream.io-msg-amqp"></a></li>
-		<li class="download-item" data-package="deepstream.io-msg-redis"><h3>redis message connector</h3><span class="pckg-name">deepstream.io-msg-redis</span><div class="img-container"><img src="http://placehold.it/180x180" width="180" height="180" /><span class="version">0.2.6</span></div><a class="npm" title="get from npm" href="https://www.npmjs.com/package/deepstream.io-msg-redis"></a><a class="github" title="see on github" href="https://github.com/hoxton-one/deepstream.io-msg-redis"></a></li>
-	</ul>
-
-	<h2>Other</h2>
-	<ul>
-		<li class="download-item" data-package="deepstream.io-tools-ko"><h3>KnockoutJs tools</h3><span class="pckg-name">deepstream.io-tools-ko</span><div class="img-container"><img src="http://placehold.it/180x180" width="180" height="180" /><span class="version">0.2.6</span></div><a class="npm" title="get from npm" href="https://www.npmjs.com/package/deepstream.io-tools-ko"></a><a class="github" title="see on github" href="https://github.com/hoxton-one/deepstream.io-tools-ko"></a></li>
-		<li class="download-item" data-package="deepstream.io-provider-search-rethinkdb"><h3>rethinkdb search provider</h3><span class="pckg-name">deepstream.io-provider-search-rethinkdb</span><div class="img-container"><img src="http://placehold.it/180x180" width="180" height="180" /><span class="version">0.2.6</span></div><a class="npm" title="get from npm" href="https://www.npmjs.com/package/deepstream.io-provider-search-rethinkdb"></a><a class="github" title="see on github" href="https://github.com/hoxton-one/deepstream.io-provider-search-rethinkdb"></a></li>
-	</ul>
+	<div class="section">
+		<h2><i class="fa fa-bolt"></i>Cache Connectors</h2>
+		<p>Cache connectors enable deepstream to store data in a distributed cache for horizontal scalability and fast read- and write access</p>
+		<ul>
+			<li class="download-item deepstream_io-cache-redis" data-package="deepstream.io-cache-redis"><i class="fa fa-[object Object]"></i><h3>redis cache connector</h3><code><span class="pckg-name">deepstream.io-cache-redis</span>: <span class="version">0.2.6</span></code><a class="npm label" title="get from npm" href="https://www.npmjs.com/package/deepstream.io-cache-redis"><i></i><span>NPM</span></a><a class="github label" title="see on github" href="https://github.com/hoxton-one/deepstream.io-cache-redis"><i></i><span>Github</span></a></li>
+			<li class="download-item deepstream_io-cache-memcached" data-package="deepstream.io-cache-memcached"><i class="fa fa-[object Object]"></i><h3>memcached cache connector</h3><code><span class="pckg-name">deepstream.io-cache-memcached</span>: <span class="version">0.2.6</span></code><a class="npm label" title="get from npm" href="https://www.npmjs.com/package/deepstream.io-cache-memcached"><i></i><span>NPM</span></a><a class="github label" title="see on github" href="https://github.com/hoxton-one/deepstream.io-cache-memcached"><i></i><span>Github</span></a></li>
+		</ul>
+	</div>
+	<hr />
+	<div class="section">
+		<h2><i class="fa fa-database"></i>Storage Connectors</h2>
+		<p>Storage connectors enable deepstream to store data in a database. This allows to use the database's query capabilities and to persist data when deepstream is used with an in-memory only cache like Memcached. Storing data in a database happens outside of the critical path and doesn't affect update performance.</p>
+		<ul>
+			<li class="download-item deepstream_io-storage-rethinkdb" data-package="deepstream.io-storage-rethinkdb"><i class="fa fa-[object Object]"></i><h3>rethinkdb storage connector</h3><code><span class="pckg-name">deepstream.io-storage-rethinkdb</span>: <span class="version">0.2.6</span></code><a class="npm label" title="get from npm" href="https://www.npmjs.com/package/deepstream.io-storage-rethinkdb"><i></i><span>NPM</span></a><a class="github label" title="see on github" href="https://github.com/hoxton-one/deepstream.io-storage-rethinkdb"><i></i><span>Github</span></a></li>
+			<li class="download-item deepstream_io-storage-mongodb" data-package="deepstream.io-storage-mongodb"><i class="fa fa-[object Object]"></i><h3>mongoDb storage connector</h3><code><span class="pckg-name">deepstream.io-storage-mongodb</span>: <span class="version">0.2.6</span></code><a class="npm label" title="get from npm" href="https://www.npmjs.com/package/deepstream.io-storage-mongodb"><i></i><span>NPM</span></a><a class="github label" title="see on github" href="https://github.com/hoxton-one/deepstream.io-storage-mongodb"><i></i><span>Github</span></a></li>
+		</ul>
+	</div>
+	<hr />
+	<div class="section">
+		<h2><i class="fa fa-comments"></i>Message Connectors</h2>
+		<p>Message connectors enable multiple deepstream nodes to connect to the same message bus and to distribute updates amongst each other, allowing for horizontal scalability</p>
+		<ul>
+			<li class="download-item deepstream_io-msg-direct" data-package="deepstream.io-msg-direct"><i class="fa fa-[object Object]"></i><h3>direct message connector</h3><code><span class="pckg-name">deepstream.io-msg-direct</span>: <span class="version">0.2.6</span></code><a class="npm label" title="get from npm" href="https://www.npmjs.com/package/deepstream.io-msg-direct"><i></i><span>NPM</span></a><a class="github label" title="see on github" href="https://github.com/hoxton-one/deepstream.io-msg-direct"><i></i><span>Github</span></a></li>
+			<li class="download-item deepstream_io-msg-amqp" data-package="deepstream.io-msg-amqp"><i class="fa fa-[object Object]"></i><h3>amqp message connector</h3><code><span class="pckg-name">deepstream.io-msg-amqp</span>: <span class="version">0.2.6</span></code><a class="npm label" title="get from npm" href="https://www.npmjs.com/package/deepstream.io-msg-amqp"><i></i><span>NPM</span></a><a class="github label" title="see on github" href="https://github.com/hoxton-one/deepstream.io-msg-amqp"><i></i><span>Github</span></a></li>
+			<li class="download-item deepstream_io-msg-redis" data-package="deepstream.io-msg-redis"><i class="fa fa-[object Object]"></i><h3>redis message connector</h3><code><span class="pckg-name">deepstream.io-msg-redis</span>: <span class="version">0.2.6</span></code><a class="npm label" title="get from npm" href="https://www.npmjs.com/package/deepstream.io-msg-redis"><i></i><span>NPM</span></a><a class="github label" title="see on github" href="https://github.com/hoxton-one/deepstream.io-msg-redis"><i></i><span>Github</span></a></li>
+		</ul>
+	</div>
+	<hr />
+	<div class="section">
+		<h2><i class="fa fa-briefcase"></i>Others</h2>
+		<p>Integration tools and pre-build providers</p>
+		<ul>
+			<li class="download-item deepstream_io-tools-ko" data-package="deepstream.io-tools-ko"><i class="fa fa-[object Object]"></i><h3>KnockoutJs tools</h3><code><span class="pckg-name">deepstream.io-tools-ko</span>: <span class="version">0.2.6</span></code><a class="npm label" title="get from npm" href="https://www.npmjs.com/package/deepstream.io-tools-ko"><i></i><span>NPM</span></a><a class="github label" title="see on github" href="https://github.com/hoxton-one/deepstream.io-tools-ko"><i></i><span>Github</span></a></li>
+			<li class="download-item deepstream_io-provider-search-rethinkdb" data-package="deepstream.io-provider-search-rethinkdb"><i class="fa fa-[object Object]"></i><h3>rethinkdb search provider</h3><code><span class="pckg-name">deepstream.io-provider-search-rethinkdb</span>: <span class="version">0.2.6</span></code><a class="npm label" title="get from npm" href="https://www.npmjs.com/package/deepstream.io-provider-search-rethinkdb"><i></i><span>NPM</span></a><a class="github label" title="see on github" href="https://github.com/hoxton-one/deepstream.io-provider-search-rethinkdb"><i></i><span>Github</span></a></li>
+		</ul>
+	</div>
 </div>
 <script type="text/javascript" src="../assets/js/downloads.js"></script>
 		</div>
