@@ -8,13 +8,13 @@ Deepstream uses a “storage connector” to connect to a database and write rec
 
 
 ###Using deepstream's RethinkDB realtime search provider
-At the time of writing (June 2015), [RethinkDB](http://rethinkdb.com/) is the only database that natively supports realtime queries. (If you know of another one, [please give us a nudge](mailto:info@hoxton-one.com)). Using it, we've build a provider that creates dynamically updating lists based on search criteria. 
+At the time of writing (June 2015), [RethinkDB](http://rethinkdb.com/) is the only database that natively supports realtime queries. (If you know of another one, [please give us a nudge](mailto:info@hoxton-one.com)). Using it, we've build a provider that creates dynamically updating lists based on search criteria.
 
 <a class="mega" href="https://github.com/hoxton-one/deepstream.io-provider-search-rethinkdb"><i class="fa fa-github"></i>deepstream.io-provider-search-rethinkdb</a>
 
 How does it work? Given you have a number of records like
 
-	ds.record.getRecord( 'book/i95ny80q-2bph9txxqxg' ).set({ 
+	ds.record.getRecord( 'book/i95ny80q-2bph9txxqxg' ).set({
 	    'title': 'Harry Potter and the goblet of fire',
 	    'price': 9.99
 	});
@@ -51,7 +51,7 @@ Most databases have a concept of a table or a collection. And most storage-provi
 	var rec = ds.record.getRecord( 'book/i95ny80q-2bph9txxqxg' );
 
 	//in a new collection called book
-	
+
 
 ***data structure***
 Records are not stored their raw format, but in the following structure
@@ -64,4 +64,4 @@ Records are not stored their raw format, but in the following structure
 
 
 ***use rpcs instead of lists***
-Searches are usually a single request-response operation, so it might make more sense to build provide them as RPC's, rather than lists.
+Searches are usually a single request-response operation, so it might make more sense to build providers for them as RPC's, rather than lists.
