@@ -283,7 +283,7 @@ nav{
 }
 
 #wrapper > #content ul, #wrapper > #content ul li{
-	list-style-type: none;
+	list-style-image: url(../images/bullet-point.png);
 	font:12px Arial, sans-serif;
 }
 
@@ -466,8 +466,9 @@ body .hint-box *{
 	border: none !important;
 }
 
-.hint-box li{
-	list-style-type: georgian;
+#wrapper #content .hint-box ul li{
+	list-style-type: none;
+	list-style-image: none;
 }
 
 .hint-box:before{

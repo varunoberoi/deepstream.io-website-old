@@ -1,4 +1,5 @@
 <ul id="subnav">
+	{{debug}}
 	<li class="head first">General</li>
 	<li {{#if fileIs_getting-started}}class="active"{{/if}}>
 		<a href="getting-started.html">Getting started</a>
