@@ -171,12 +171,27 @@ body{
 * EXAMPLE APP
 ****************************/
 
+#segment-example-app .phone-top-wrapper{
+  width: 1000px;
+  height: 62px;
+  margin: -62px auto 0;
+}
+#segment-example-app .phone-top{
+  width: 325px;
+  height: 62px;
+  background: url(../images/phone-top.svg);
+  position: relative;
+  left: 648px;
+}
+
 #segment-example-app{
- background: #ffffff;
  text-align: center;
  color: #145068;
- height: 676px;
+ height: 622px;
+}
 
+#segment-example-app-wrap{
+  background: #fff;
 }
 
 .example-app{
