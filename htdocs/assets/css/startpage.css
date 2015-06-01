@@ -170,12 +170,12 @@ body{
 /****************************
 * EXAMPLE APP
 ****************************/
-
 #segment-example-app .phone-top-wrapper{
   width: 1000px;
   height: 62px;
   margin: -62px auto 0;
 }
+
 #segment-example-app .phone-top{
   width: 325px;
   height: 62px;
