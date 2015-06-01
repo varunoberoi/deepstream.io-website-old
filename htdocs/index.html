@@ -20,7 +20,6 @@
 	<link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Quicksand:300,400,700' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
-	<link href='http://fonts.googleapis.com/css?family=Roboto+Condensed' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 
 </head>
@@ -89,26 +88,20 @@ record<span class="token punctuation">.</span><span class="token keyword">get</s
 record<span class="token punctuation">.</span><span class="token keyword">set</span><span class="token punctuation">(</span> <span class="token string">'employees[1].firstname'</span><span class="token punctuation">,</span> <span class="token string">'Zack'</span> <span class="token punctuation">)</span><span class="token punctuation">;</span><br />
 record<span class="token punctuation">.</span><span class="token function">subscribe<span class="token punctuation">(</span></span> <span class="token string">'price'</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span> price <span class="token punctuation">)</span><span class="token punctuation">{</span> <span class="token comment" spellcheck="true">/***/</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br />
 <br />
-</code>
-</pre>
 
-		</div>	
-	</div>	
+		</div>
+	</div>
 </div>
 
-
 <div id="segment-example-app">
-	<div class="phone-top">
-	</div>
-	<div id="segment-example-app-wrap">
-		<div class="example-app">
-			<div class="segment-label">
-				Build Real-time Apps
-			</div>
-
-			<video id="examplevid" src="assets/videos/exmple-app-retina.mp4" preload width="960" height="676" autoplay loop="loop" style="margin: -144px 0px 0px 0px;" >
-			</video>
+	<div class="example-app">
+		<div class="segment-label">
+			Example App
 		</div>
+		<video id="examplevid" src="assets/videos/exmple-app-retina.mp4" preload width="960" height="676" autoplay loop="loop"></video>
+		<script type="text/javascript">
+		document.getElementById( 'examplevid' ).onerror = function(){ debugger; }
+		</script>
 	</div>
 </div>
 
