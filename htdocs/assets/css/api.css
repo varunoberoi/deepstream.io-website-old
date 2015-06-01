@@ -292,7 +292,7 @@ nav{
  	padding-bottom: 5px;
  }
 
- #wrapper > #content code{
+ #wrapper > #content code:not(pre code){
 	color: #444;
 	background-color: #f3f3f3;
 	font-family: "Courier New", monospace !important;
