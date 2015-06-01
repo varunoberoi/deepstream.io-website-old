@@ -197,6 +197,7 @@ nav{
 
 #wrapper > #content p{
 	margin: 7px 0;
+	line-height: 20px;
 }
 
 #wrapper > #content h2{
@@ -282,7 +283,7 @@ nav{
 }
 
 #wrapper > #content ul, #wrapper > #content ul li{
-	list-style-type: disc;
+	list-style-type: none;
 	font:12px Arial, sans-serif;
 }
 
@@ -291,8 +292,10 @@ nav{
  	padding-bottom: 5px;
  }
 
- #wrapper > #content code{
- 	color: #f92672;
+ #wrapper > #content code:not(pre code){
+	color: #444;
+	background-color: #f3f3f3;
+	font-family: "Courier New", monospace !important;
  }
 
 #wrapper > #content pre code{
@@ -415,13 +418,15 @@ nav{
 #wrapper a.mega{
 	display: block;
 	padding: 10px;
-	border-bottom: 1px solid #00509a;
 	background: #f6f6f6;
 	font-size: 20px;
 	text-align: center;
 	color: #333;
 	text-decoration: none;
 	margin: 16px 0;
+	box-shadow: 1px 1px 7px 1px rgba( 0,0,0, 0.1);
+	border-bottom: 1px solid #ddd;
+	border-right: 1px solid #ddd;
 }
 
 #wrapper a.mega:hover{
@@ -443,4 +448,39 @@ nav{
 
 table.space{
 	margin: 16px 0;
+}
+
+.hint-box{
+	padding: 0 16px 16px 38px;
+	background: #f0f9fc;
+	overflow: hidden;
+}
+
+body .hint-box,
+body .hint-box *{
+	color: #145068;
+	font-family: Arial, sans-serif;
+}
+
+.hint-box h3{
+	border: none !important;
+}
+
+.hint-box li{
+	list-style-type: georgian;
+}
+
+.hint-box:before{
+	font-size: 70px;
+	float:left;
+	color: #cae4ed;
+	position: relative;
+	left: -20px;
+	top: 10px;
+	font-family: FontAwesome !important;
+}
+
+
+#content a{
+	color: #1999c3;
 }
