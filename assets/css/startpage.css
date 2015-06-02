@@ -171,7 +171,7 @@ body{
 * EXAMPLE APP
 ****************************/
 #segment-example-app .phone-top-wrapper{
-  width: 1000px;
+  width: 960px;
   height: 60px;
   margin: -60px auto 0;
 }
@@ -193,7 +193,7 @@ body{
   height: 62px;
   background: url(../images/phone-top.svg);
   position: relative;
-  left: 648px;
+  left: 628px;
   top: 0px;
 }
 
