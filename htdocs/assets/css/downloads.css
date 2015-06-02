@@ -117,9 +117,9 @@
 }
 
 #downloads .top ul{
-	width: 1015px;
-	margin: 0 auto;
-	padding-left: 35px;
+  width: 800px;
+  margin: 0 auto;
+  padding-left: 102px;
 }
 
 #downloads .top ul li{
@@ -148,13 +148,14 @@
 
 #downloads hr{
 	border: none;
-	border-bottom: 1px solid #ccc;
+	border-bottom: 1px solid #ddd;
 	margin: 40px 0 23px;
 }
 
 #downloads .section{
-	width: 980px;
-	margin: 20px auto;
+ 	width: 700px;
+  	margin: 40px auto;
+  	padding: 0 80px;
 }
 
 #downloads .section li{

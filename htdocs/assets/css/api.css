@@ -29,7 +29,7 @@ nav{
 
 #wrapper > #content{
 	margin-left: 190px;
-	width: 700px;
+	width: 650px;
 	float: left;
 }
 
@@ -191,13 +191,13 @@ nav{
 #wrapper > #content table.args *,
 #wrapper > #content p{
 	font-family: Arial, sans-serif;
-	font-size: 12px;
+	font-size: 13px;
 	color: #202020;
 }
 
 #wrapper > #content p{
-  margin: 20px 100px 20px 35px;
-  line-height: 16px;
+	margin: 16px 0;
+	line-height: 16px;
 }
 
 #wrapper > #content h2{
@@ -207,7 +207,6 @@ nav{
 	font-weight: normal;
 	padding-bottom: 5px;
 }
-
 
 #wrapper > #content h2:first-child{
 	margin-top: 0;
@@ -256,40 +255,35 @@ nav{
 }
 
 #wrapper > #content pre{
-  margin: 10px 0;
-  box-shadow-inset: 0 0 2px rgba( 0,0,0,0.4 );
-  box-shadow: inset 0 0 2px rgba( 0,0,0,0.9 );
-  display: block;
-  border-radius: 3px;
-  overflow-x: auto;
-  padding: 0.5em;
-  background: #272822;
-  color: #FFF;
+	margin: 10px 0;
+	box-shadow: 0 0 2px rgba( 0,0,0,0.4 );
+	display: block;
+	overflow-x: auto;
+	padding: 0.5em;
+	background: #23241f;
+	color: #FFF;
 }
 
 #wrapper > #content h1{
-  font-family: Kalinga;
-  font-size: 18px;
-  border-bottom: 1px solid #ccc;
-  padding-bottom: 8px;
-  margin: 10px 10px 10px 10px;
-  font-weight: normal;
+	font-family: Kalinga;
+	font-size: 16px;
+	border-bottom: 1px solid #ccc;
+	padding-bottom: 3px;
+	margin-bottom: 10px;
+	font-weight: normal;
 }
-
 #wrapper > #content h3{
-  font-family: Kalinga;
-  font-size: 14px;
-  border-bottom: 1px solid #ccc;
-  color: #145068;
-  margin: 0px 0px 0px 10px;
-  font-weight: bold;
-  padding: 40px 0px 0px 0px;
+	font-family: Kalinga;
+	font-size: 14px;
+	border-bottom: 1px solid #ccc;
+	margin-top: 45px;
+	font-weight: normal;
+	padding-bottom: 5px;
 }
 
 #wrapper > #content ul, #wrapper > #content ul li{
 	list-style-image: url(../images/bullet-hx.png);
 	font:12px Arial, sans-serif;
-	margin: 0px 0px 0px 5px;
 }
 
  #wrapper > #content ul li{
@@ -324,7 +318,7 @@ nav{
 
 .category_tutorials #wrapper > #content {
 	background: #fff;
-	padding: 10px;
+	padding: 40px;
 }
 /** category_tutorials **/
 
@@ -421,19 +415,19 @@ nav{
 }
 
 #wrapper a.mega{
-  font-family: 'Montserrat', Arial;
-  display: block;
-  padding: 10px;
-  background: #f6f6f6;
-  font-size: 18px;
-  text-align: center;
-  color: #145068;
-  text-decoration: none;
-  margin: 16px 0;
-  box-shadow: 0px 1px 2px 0px rgba( 0,0,0, 0.1);
-  border-radius: 3px 3px 3px 3px;
-  border: solid #ccc 1px;
-  border-bottom: 2px solid #ccc;
+	font-family: 'Montserrat', Arial;
+	display: block;
+	padding: 10px;
+	background: #f6f6f6;
+	font-size: 18px;
+	text-align: center;
+	color: #145068;
+	text-decoration: none;
+	margin: 16px 0;
+	box-shadow: 0px 1px 2px 0px rgba( 0,0,0, 0.1);
+	border-radius: 3px 3px 3px 3px;
+	border: solid #ccc 1px;
+	border-bottom: 2px solid #ccc;
 }
 
 #wrapper a.mega:hover{
@@ -458,10 +452,9 @@ table.space{
 }
 
 .hint-box{
-  padding: 0 55px 26px 38px;
-  background: #f0f9fc;
-  margin: 0px 30px 0px 10px;
-  overflow: hidden;
+	padding: 0 16px 16px 38px;
+	background: #f0f9fc;
+	overflow: hidden;
 }
 
 body .hint-box,
@@ -472,6 +465,8 @@ body .hint-box *{
 
 .hint-box h3{
 	border: none !important;
+	margin-top: 0;
+	font-weight: bold;
 }
 
 #wrapper #content .hint-box ul li{
