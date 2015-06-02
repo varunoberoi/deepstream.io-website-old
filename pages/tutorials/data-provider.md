@@ -191,7 +191,7 @@ and view streaming prices!
       A client can still try to override a records contents if he is not permissioned.
       This will result in inconsistencies between the value in the clients local cache (as they can
       modify everything locally on their machine) and the server, which will deny the update
-      from being applied to Deepstream.
+      from being applied to deepstream.
 		</li>
   	</ul>
 </div>
