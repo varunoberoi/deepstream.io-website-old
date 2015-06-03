@@ -270,11 +270,9 @@ body{
 .events-text,
 .rpcs-text{
   width: 240px;
-  padding: 20px 0px 0px 40px;
   font-size: 12px;
   font-family: 'Quicksand', sans-serif;
   font-weight: 400;
-
 }
 
 /****************************
