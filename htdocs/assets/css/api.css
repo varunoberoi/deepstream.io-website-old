@@ -190,14 +190,15 @@ nav{
 #wrapper > #content h2,
 #wrapper > #content table.args *,
 #wrapper > #content p{
-	font-family: Arial, sans-serif;
-	font-size: 13px;
-	color: #202020;
+  font-family: Roboto Light, sans-serif;
+  font-size: 15px;
+  color: #202020;
+  font-weight: 100;
 }
 
 #wrapper > #content p{
 	margin: 16px 0;
-	line-height: 16px;
+	line-height: 21px;
 }
 
 #wrapper > #content h2{
@@ -265,25 +266,25 @@ nav{
 }
 
 #wrapper > #content h1{
-	font-family: Kalinga;
-	font-size: 16px;
-	border-bottom: 1px solid #ccc;
-	padding-bottom: 3px;
-	margin-bottom: 10px;
-	font-weight: normal;
+  font-family: Kalinga;
+  font-size: 20px;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 3px;
+  margin-bottom: 10px;
+  font-weight: bold;
 }
 #wrapper > #content h3{
-	font-family: Kalinga;
-	font-size: 14px;
-	border-bottom: 1px solid #ccc;
-	margin-top: 45px;
-	font-weight: normal;
-	padding-bottom: 5px;
+  font-family: Kalinga;
+  font-size: 18px;
+  border-bottom: 1px solid #ccc;
+  margin-top: 45px;
+  font-weight: bold;
 }
 
 #wrapper > #content ul, #wrapper > #content ul li{
-	list-style-image: url(../images/bullet-hx.png);
-	font:12px Arial, sans-serif;
+  list-style-image: url(../images/bullet-hx.png);
+  font: 14px Roboto-light, sans-serif;
+  line-height: 20px;
 }
 
  #wrapper > #content ul li{
