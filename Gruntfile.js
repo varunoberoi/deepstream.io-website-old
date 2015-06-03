@@ -104,33 +104,6 @@ module.exports = function(grunt) {
 		] , this.async() );
 	});
 
-	grunt.registerTask('setVersionsOnConfig', function(){
-		CONFIG.versions = versions;
-		CONFIG.latest = versions[ 0 ];
-	});
-
-	grunt.registerTask('readVersions', function(){
-		versions = JSON.parse( require( 'fs' ).readFileSync( 'versions.json', { encoding: 'utf8' } ) );
-	});
-
-	grunt.registerTask('logVersions', function(){
-		for( var i = 0; i < versions.length; i++ ) {
-			console.log( versions[ i ].tag + ' (' + versions[ i ].date + ')' );
-		}
-	});
-
-	grunt.registerTask('writeVersion', function(){
-		var now = new Date();
-		var today = now.getDate() + '.' + ( now.getMonth() + 1 ) + '.' + now.getFullYear();
-
-		versions.unshift({
-			tag: grunt.option( 'tag' ),
-			date: today
-		});
-
-		versions = require( 'fs' ).writeFileSync( 'versions.json', JSON.stringify( versions ) );
-	});
-
 	grunt.registerTask('setConfig', function() {
 		CONFIG.isDevelopment = false;
 		CONFIG.baseUrl = '/';
@@ -156,10 +129,6 @@ module.exports = function(grunt) {
 	});
 
 	grunt.registerTask('release', [
-		'update-gl',
-		'readVersions',
-		'checkVersion',
-		'writeVersion',
 		'copy:release',
 		'compress', 
 		'clean:latest',
@@ -167,9 +136,7 @@ module.exports = function(grunt) {
 		'build'
 	]);
 
-	grunt.registerTask( 'show-versions', [ 'readVersions', 'logVersions' ] );
-	grunt.registerTask('update-gl', ['copy:glAssets']);
-	grunt.registerTask('build', [ 'clean:htdocs', 'readVersions', 'setVersionsOnConfig', 'buildPages' ] );
+	grunt.registerTask('build', [ 'clean:htdocs', 'buildPages' ] );
 	grunt.registerTask('deploy', [ 'setConfig', 'build', 'copy:toplevelfiles', 'clean:deployDir','copy:htdocs' ]);
 	grunt.registerTask('default', [ 'build', 'watch' ] );
 };
