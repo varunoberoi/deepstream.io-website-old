@@ -49,6 +49,11 @@ hbs.registerHelper( 'downloadItem', function( name, packageName, hasBower, icon 
 	return new hbs.SafeString( html );
 });
 
+hbs.registerHelper( 'debug', function(){
+	var val = JSON.stringify( this, null, '    ' );
+	return new hbs.SafeString( '<pre>' + val + '</pre>' );
+});
+
 module.exports = hbs;
 
 module.exports.cwd = null;
