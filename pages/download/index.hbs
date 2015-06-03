@@ -13,6 +13,9 @@
 		<ul>
 			{{downloadItem "redis cache connector" "deepstream.io-cache-redis" false}}
 			{{downloadItem "memcached cache connector" "deepstream.io-cache-memcached" false}}
+			<li class="write-your-own">
+				Can’t find a connector for your cache of choice? <a href="tutorials/writing-storage-cache-connector.html">Read a tutorial on how to write your own.</a>
+			</li>
 		</ul>
 	</div>
 	<hr />
@@ -21,7 +24,10 @@
 		<p>Storage connectors enable deepstream to store data in a database. This allows to use the database's query capabilities and to persist data when deepstream is used with an in-memory only cache like Memcached. Storing data in a database happens outside of the critical path and doesn't affect update performance.</p>
 		<ul>
 			{{downloadItem "rethinkdb storage connector" "deepstream.io-storage-rethinkdb" false}}
-			{{downloadItem "mongoDb storage connector" "deepstream.io-storage-mongodb" false}}
+			{{downloadItem "mongodb storage connector" "deepstream.io-storage-mongodb" false}}
+			<li class="write-your-own">
+				Can’t find a connector for your database of choice? <a href="tutorials/writing-storage-cache-connector.html">Read a tutorial on how to write your own.</a>
+			</li>
 		</ul>
 	</div>
 	<hr />
@@ -32,6 +38,9 @@
 			{{downloadItem "direct message connector" "deepstream.io-msg-direct" false}}
 			{{downloadItem "amqp message connector" "deepstream.io-msg-amqp" false}}
 			{{downloadItem "redis message connector" "deepstream.io-msg-redis" false}}
+			<li class="write-your-own">
+				Can’t find a connector for your messaging system of choice? <a href="tutorials/writing-messaging-connector.html">Read a tutorial on how to write your own.</a>
+			</li>
 		</ul>
 	</div>
 	<hr />
