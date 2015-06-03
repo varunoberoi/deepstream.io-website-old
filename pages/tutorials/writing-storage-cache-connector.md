@@ -9,7 +9,7 @@ Amazon's DynamoDB. They can also be used with relational databases, but deepstre
 of JSON, identified by a key) lends itself very well to object/document based databases.
 
 <div class="hint-box fa fa-gears">
-	<p>Before writing your own storage or cache connector, have a quick look at the <a href="../downloads/">download section</a>. Maybe there already is an off-the-shelf one you can just pick up or use. <em>If you're happy with how you're connector turned out, please consider contributing it. To do so, just <a href="https://github.com/hoxton-one/deepstream.io/issues">raise an issue against deepstream.io</a></em></p></div> 
+	<p>Before writing your own storage or cache connector, have a quick look at the <a href="../downloads/">download section</a>. Maybe there already is an off-the-shelf one you can just pick up or use. <em>If you're happy with how you're connector turned out, please consider contributing it. To do so, just <a href="https://github.com/hoxton-one/deepstream.io/issues">raise an issue against deepstream.io</a></em></p></div>
 
 To write a storage or cache connector, just clone or fork the cache-and-storage-connector-template below and fill in the blanks. To see if it works, update the `settings` variable on line 4 of the <a href="https://github.com/hoxton-one/deepstream.io-cache-and-storage-connector-template/blob/master/test/cache-connectorSpec.js">test file</a> and run the tests with `npm test`. Please note: The tests are very high level and only test the basic functionality. It might make sense to add additional tests that are specific for your connector.
 
@@ -19,7 +19,7 @@ Both cache and storage connectors expose the same interface and offer similar fu
 yet their role is a little bit different.
 
 Deepstream servers don't hold any data themselves. This allows the individual servers to remain
-stateless and to go down / fail over without causing any data-loss, but it also allows for 
+stateless and to go down / fail over without causing any data-loss, but it also allows for
 the data to be distributed across multiple nodes.
 
 Whenever deepstream has to store something, its written to the cache in a blocking fashion, but written to
@@ -47,7 +47,7 @@ So why have this distinction between cache and storage at all? Because they comp
 		The <code>isReady</code> property starts as <code>false</code>. Once the connection to the cache / database is established, emit a <code>'ready'</code> event and set <code>isReady</code> to <code>true</code>.
 		</li>
 		<li>
-		Whenever a generic error occurs (e.g. an error that's not directly related to a get, set or delete operation, raise an error event and send the error message as a parameter, e.g. this.emit( 'error', 'connection lost' ); )
+		Whenever a generic error occurs (e.g. an error that's not directly related to a get, set or delete operation, raise an error event and send the error message as a parameter, e.g. this.emit( 'error', 'connection lost' );
   		</li>
   		<li>
 			whenever an error occurs as part of a get, set or delete operation, pass it to the callback as the first argument, otherwise pass null

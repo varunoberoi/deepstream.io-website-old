@@ -118,11 +118,11 @@
 IronCache or Amazon&#39;s elastic cache</p><p><strong><em>Storage connectors</em></strong> are classes that connect deepstream to a database, e.g. MongoDB, CouchDB, Cassandra or
 Amazon&#39;s DynamoDB. They can also be used with relational databases, but deepstream&#39;s data-structures (blocks
 of JSON, identified by a key) lends itself very well to object/document based databases.</p><div class="hint-box fa fa-gears">
-    <p>Before writing your own storage or cache connector, have a quick look at the <a href="../downloads/">download section</a>. Maybe there already is an off-the-shelf one you can just pick up or use. <em>If you&#39;re happy with how you&#39;re connector turned out, please consider contributing it. To do so, just <a href="https://github.com/hoxton-one/deepstream.io/issues">raise an issue against deepstream.io</a></em></p></div> 
+    <p>Before writing your own storage or cache connector, have a quick look at the <a href="../downloads/">download section</a>. Maybe there already is an off-the-shelf one you can just pick up or use. <em>If you&#39;re happy with how you&#39;re connector turned out, please consider contributing it. To do so, just <a href="https://github.com/hoxton-one/deepstream.io/issues">raise an issue against deepstream.io</a></em></p></div>
 
 <p>To write a storage or cache connector, just clone or fork the cache-and-storage-connector-template below and fill in the blanks. To see if it works, update the <code>settings</code> variable on line 4 of the <a href="https://github.com/hoxton-one/deepstream.io-cache-and-storage-connector-template/blob/master/test/cache-connectorSpec.js">test file</a> and run the tests with <code>npm test</code>. Please note: The tests are very high level and only test the basic functionality. It might make sense to add additional tests that are specific for your connector.</p><p><a class="mega" href="https://github.com/hoxton-one/deepstream.io-cache-and-storage-connector-template"><i class="fa fa-github"></i>fork or copy the cache-and-storage-connector-template</a></p><p>Both cache and storage connectors expose the same interface and offer similar functionality,
 yet their role is a little bit different.</p><p>Deepstream servers don&#39;t hold any data themselves. This allows the individual servers to remain
-stateless and to go down / fail over without causing any data-loss, but it also allows for 
+stateless and to go down / fail over without causing any data-loss, but it also allows for
 the data to be distributed across multiple nodes.</p><p>Whenever deepstream has to store something, its written to the cache in a blocking fashion, but written to
 storage in a non blocking way. (Well, its NodeJS, so it&#39;s not really &#39;blocking&#39;, but the next callback for
 this particular update won&#39;t be processed until the cache operation is complete)</p><p>Similarly, whenever an entry needs to be retrieved, deepstream looks for it in the cache first and in storage
@@ -142,7 +142,7 @@ all data is lost when the process exists. Caches also usually don&#39;t offer su
         The <code>isReady</code> property starts as <code>false</code>. Once the connection to the cache / database is established, emit a <code>&#39;ready&#39;</code> event and set <code>isReady</code> to <code>true</code>.
         </li>
         <li>
-        Whenever a generic error occurs (e.g. an error that&#39;s not directly related to a get, set or delete operation, raise an error event and send the error message as a parameter, e.g. this.emit( &#39;error&#39;, &#39;connection lost&#39; ); )
+        Whenever a generic error occurs (e.g. an error that&#39;s not directly related to a get, set or delete operation, raise an error event and send the error message as a parameter, e.g. this.emit( &#39;error&#39;, &#39;connection lost&#39; );
           </li>
           <li>
             whenever an error occurs as part of a get, set or delete operation, pass it to the callback as the first argument, otherwise pass null
@@ -153,6 +153,7 @@ all data is lost when the process exists. Caches also usually don&#39;t offer su
           </li>
       </ul>
 </div>
+
 
 			</div>
 		</div>

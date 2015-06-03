@@ -24,9 +24,8 @@ An anonymous record can be created using `client.record.getAnonymousRecord()` (s
 		selectedUser.setName( $(this).data( 'username' ) );
 	});
 
-<div class="info">
-	An anonymous record has all the methods, events and properties of a normal <a href="record.html">record</a> plus a <code>setName()</code> method.
-</div>
+<div class="hint-box fa fa-gears">
+	<p>An anonymous record has all the methods, events and properties of a normal <a href="record.html">record</a> plus a <code>setName()</code> method.</p></div>
 
 setName( recordName )
 ---------------------------------------------------

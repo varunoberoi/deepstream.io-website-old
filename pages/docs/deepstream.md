@@ -93,7 +93,7 @@ desc: The value that should be used
 
 	/**
 	* A class that exposes a isValidUser and canPerformAction method. Please see
-	* *https://github.com/hoxton-one/deepstream.io/blob/master/src/default-plugins/open-permission-handler.js
+	* [open-permission-handler.js](https://github.com/hoxton-one/deepstream.io/blob/master/src/default-plugins/open-permission-handler.js)
 	* for the implementation of the (default) open permission handler
 	*
 	* @type PermissionHandler
@@ -103,7 +103,7 @@ desc: The value that should be used
 
 	/**
 	* A logger, defaults to the STDOUT / STDERROR logger
-	* see https://github.com/hoxton-one/deepstream.io/blob/master/src/default-plugins/std-out-logger.js
+	* [std-out-logger.js](https://github.com/hoxton-one/deepstream.io/blob/master/src/default-plugins/std-out-logger.js)
 	* for implementation
 	*
 	* @type Logger
@@ -112,8 +112,8 @@ desc: The value that should be used
 	server.set( 'Logger', new FileLogger() );
 
 	/**
-	* MessageConnectors connect deepstream to a message bus (e.g. AMQP, Redis, Kafka)
-	* thus allowing for clustering.
+	* MessageConnectors connect deepstream to a message bus
+	* (e.g. AMQP, Redis, Kafka) thus allowing for clustering.
 	*
 	* See the "Connectors" section above for details
 	*
@@ -126,8 +126,8 @@ desc: The value that should be used
 	}));
 
 	/**
-	* Cache connector connect deepstream to a (distributed) cache (e.g. Redis, Memcached)
-	* for temporary data-storage.
+	* Cache connector connect deepstream to a (distributed) cache
+	* (e.g. Redis, Memcached)for temporary data-storage.
 	*
 	* See the "Connectors" section above for details
 	*
@@ -165,7 +165,8 @@ desc: The value that should be used
 	server.set( 'maxAuthAttempts', Infinity );
 
 	/**
-	* Whether the data provided for invalid auth attempts should be sent to the logger.
+	* Whether the data provided for invalid auth attempts should be sent to the
+	* logger.
 	*
 	* @type Boolean
 	* @default true
@@ -173,11 +174,11 @@ desc: The value that should be used
 	server.set( 'logInvalidAuthData', false );
 
 	/**
-	* The time (in milliseconds) that deepstream allows for RPC providers to respond to
-	* queries. (When deepstream is asked to execute a RPC that it doesn't have any cached
-	* providers for it sends out a query message, asking all connected instances if they
-	* can provide this RPC. This is the timeout that determines how long deepstream will
-	* wait for their response).
+	* The time (in milliseconds) that deepstream allows for RPC providers to
+	* respond to queries. (When deepstream is asked to execute a RPC that it doesn't
+	* have any cached providers for it sends out a query message, asking all
+	* connected instances if they can provide this RPC. This is the timeout that
+	* determines how long deepstream will wait for their response).
 	*
 	* This is different from rpcAckTimeout
 	*
@@ -196,7 +197,8 @@ desc: The value that should be used
 	server.set( 'rpcAckTimeout', 200 );
 
 	/**
-	* The time (in milliseconds) that deepstream allows for RPC providers to send a response.
+	* The time (in milliseconds) that deepstream allows for RPC providers to send
+	* a response.
 	*
 	* @type Number
 	* @default 10000
@@ -212,8 +214,8 @@ desc: The value that should be used
 	server.set( 'rpcProviderCacheTime', 120000 );
 
 	/**
-	* The time (in milliseconds) that deepstream allows for data to be retrieved from the
-	* cache.
+	* The time (in milliseconds) that deepstream allows for data to be retrieved
+	* from the cache.
 	*
 	* @type Number
 	* @default 1000
@@ -221,8 +223,8 @@ desc: The value that should be used
 	server.set( 'cacheRetrievalTimeout', 200 );
 
 	/**
-	* The time (in milliseconds) that deepstream allows for data to be retrieved from the
-	* database.
+	* The time (in milliseconds) that deepstream allows for data to be retrieved
+	* from the database.
 	*
 	* @type Number
 	* @default 2000
