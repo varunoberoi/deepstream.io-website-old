@@ -175,3 +175,18 @@
 	position: absolute;
 	left: -28px;
 }
+
+#downloads .write-your-own{
+	color: #145068;
+	background: #f0f9fc;
+	padding: 3px;
+}
+#downloads .write-your-own i{
+	color: #cae4ed;
+}
+
+
+#downloads .write-your-own a{
+	display: inline;
+	color: #145068;
+}
