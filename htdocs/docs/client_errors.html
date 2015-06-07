@@ -25,7 +25,7 @@
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 
 </head>
-<body class="category_tutorials">
+<body class="category_docs">
 
 	<div id="outerWrapper">
 		<div class="topSection">
@@ -37,98 +37,144 @@
 				<ul>
 					<li ><a href="..">Home</a></li>
 					<li ><a href="../download/">Downloads</a></li>
-					<li class="active"><a href="../tutorials/getting-started.html">Tutorials</a></li>
-					<li ><a href="../docs/deepstream.html">Documentation</a></li>
+					<li ><a href="../tutorials/getting-started.html">Tutorials</a></li>
+					<li class="active"><a href="../docs/deepstream.html">Documentation</a></li>
 				</ul>
 			</div>
 		</div>
 		<div id="wrapper" class="main">
 			<ul id="subnav">
-	<li class="head first">General</li>
+	<li class="head first">Server</li>
 	<li >
-		<a href="getting-started.html">Getting started</a>
+		<a href="deepstream.html">Deepstream</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
 	<li >
-		<a href="authentication.html">Authentication</a>
-		<div class="isActiveIndicator orangeGradient"></div>
-	</li>
-	<li >
-		<a href="permissioning.html">Permissioning</a>
+		<a href="constants.html">Constants</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
 
-	<li class="head">Server</li>
+
+	<li class="head">JS Client</li>
 	<li >
-		<a href="connectors-and-deployment.html">Connectors and Deployment</a>
+		<a href="Client.html">Client</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
+
 	<li >
-		<a href="data-provider.html">Building a data-provider</a>
+		<a href="client_options.html">options</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
+
 	<li >
-		<a href="searching-and-querying.html">Searching & Querying</a>
+		<a href="connection_states.html">connectionStates</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
-	<li >
-		<a href="writing-storage-cache-connector.html">Writing storage and cache connectors</a>
-		<div class="isActiveIndicator orangeGradient"></div>
-	</li>
+
 	<li class="active">
-		<a href="writing-messaging-connector.html">Writing a messaging connector</a>
-		<div class="isActiveIndicator orangeGradient"></div>
-	</li>
-
-	<li class="head">Client</li>
-	<li >
-		<a href="node-js-client.html">Using the client in NodeJS</a>
+		<a href="client_errors.html">errors</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
 
 	<li >
-		<a href="records-events-rpcs.html">Records, Events and RPCs</a>
+		<a href="event_emitter.html">EventEmitter</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li class="de-emphasized">Record</li>
+	<li >
+		<a href="client.record.html">client.record</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
 
 	<li >
-		<a href="simple-app-using-ko.html">Simple App using Knockout</a>
+		<a href="record.html">Record</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
 
 	<li >
-		<a href="simple-app-using-react.html">Simple App using React</a>
+		<a href="list.html">List</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
 
 	<li >
-		<a href="simple-app-using-angular.html">Simple App using Angular</a>
+		<a href="anonymous_record.html">Anonymous Record</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
 
-	<li class="head">Internals</li>
+	<li class="de-emphasized">RPC</li>
 	<li >
-		<a href="message-structure.html">Message Structure</a>
+		<a href="client.rpc.html">client.rpc</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li >
+		<a href="rpc_response.html">RpcResponse</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li class="de-emphasized">Event</li>
+	<li >
+		<a href="client.event.html">client.event</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
 </ul>
 
 			<div id="content">
-				<h1>Writing a message connector</h1><p>Deepstream nodes can work together in clusters – which requires them to communicate with each other. This can happen directly <a href="">via TCP</a> or  through a messaging system, e.g. an AMQP broker, Apache Kafka or Redis’ pub sub mechanism.
-Messaging is based on a publish-subscribe pattern. Any node can broadcast a message to a topic that zero or more subscribers listen to.</p><div class="hint-box fa fa-gears">
-    <p>Before writing your own message connector, have a quick look at the <a href="../downloads/">download section</a>. Maybe there already is an off-the-shelf one you can just pick up and use. <em>If you&#39;re happy with how you&#39;re connector turned out, please consider contributing it. To do so, just <a href="https://github.com/hoxton-one/deepstream.io/issues">raise an issue against deepstream.io</a></em></p></div>
+				<div class="section"><h2><a name="Errors">Errors</a></h2><table class="mini">
 
-<p>To write a message connector, just clone or fork the message-connector-template below and fill in the blanks. To see if it works, update the <a href="https://github.com/hoxton-one/deepstream.io-msg-connector-template/blob/master/test/connection-data.js">connection data file</a> and run the tests with <code>npm test</code>. Please note: The tests are fairly high level and only test the basic functionality. It might make sense to add additional tests that are specific for your connector.</p><p><a class="mega" href="https://github.com/hoxton-one/deepstream.io-msg-connector-template"><i class="fa fa-github"></i>fork or copy the msg-connector-template</a></p><div class="section"><h2><a name="Some things worth taking into account when building a new message connector">Some things worth taking into account when building a new message connector</a></h2><ul>
-<li><p>Deepstream only uses four topics (RECORD, RPC, EVENT plus a private topic),
-but will send and receive large numbers of messages on each of them. If this leads to performance problems
-it might make sense for the message connector to do some custom sub-routing, e.g. based on record namespaces etc.</p></li>
-<li><p>Messages are passed to the <code>publish()</code> method as javascript objects and are expected to be returned
-by the receiver as such. So its up to the message connector to serialize and deserialize them, e.g. as JSON or MsgPack</p></li>
-<li><p>The message connector acts as both publisher and subscriber for each topic. It should however not receive its
-own messages. Some messaging middleware supports this, but for others it might be necessary to add an unique
-sender-id to outgoing messages and filter out incoming messages that have the same id</p></li>
-<li><p>Messaging is the backbone of deepstream&#39;s scaling / clustering capabilites. So this needs to be reliable... and fast!</p></li>
-</ul>
+<tr>
+<td>CONNECTION_ERROR</td>
+<td>Either the Engine.io or TCP connection has encountered an error.</td>
+</tr>
+
+<tr>
+<td>UNSOLICITED_MESSAGE</td>
+<td>A message was received that the client didn&#39;t expect, e.g. an update for a record that the client isn&#39;t subscribed to. This doesn&#39;t necessarily have to be an error, but can also be the result of messages crossing on the wire, e.g. when an outgoing record discard and an incoming message overlap.</td>
+</tr>
+
+<tr>
+<td>MESSAGE_PARSE_ERROR</td>
+<td>The client has received a syntactically incorrect message.</td>
+</tr>
+
+<tr>
+<td>IS_CLOSED</td>
+<td>Emitted when the client tries to authenticate against an already closed connection.</td>
+</tr>
+
+<tr>
+<td>VERSION_EXISTS</td>
+<td>The client has tried to update a record to a version that the server already has. This might happen if multiple clients try to update the same record at the same time. The best thing to do might be to wait a few milliseconds for the record update to come in and then try again. This error will also be emitted by the affected Record.</td>
+</tr>
+
+<tr>
+<td>NOT_AUTHENTICATED</td>
+<td>Emitted if an operation is attempted before the client is authenticated (before <code>login()</code> has been called and a response was received).</td>
+</tr>
+
+<tr>
+<td>ACK_TIMEOUT</td>
+<td>The acknowledgement response for a record subscription, event subscription or rpc call hasn&#39;t been received in time. This error is also emitted by the object that encountered it, e.g. the Record or Rpc.</td>
+</tr>
+
+<tr>
+<td>LISTENER_EXISTS</td>
+<td>Emitted when <code>ds.record.listen( pattern, callback )</code> is called more than once for the same pattern.</td>
+</tr>
+
+<tr>
+<td>NOT_LISTENING</td>
+<td>Emitted when <code>ds.record.unlisten( pattern )</code> is called for a pattern that no listener exists for.</td>
+</tr>
+
+<tr>
+<td>TOO_MANY_AUTH_ATTEMPTS</td>
+<td>Emitted when the client has made more invalid authentication attempts than the server accepts. This can be configured as <code>maxAuthAttempts</code> on the server.</td>
+</tr>
+
+</table>
+
 <p></div></p>
 
 			</div>

@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>deepstream.io | A Scalable Server for Realtime Web Apps</title>
+
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="keywords" content="deepstream, deepstream.io, streaming, realtime, server, socket" />
+	<meta name="description" content="deepstream.io - a scalable server for realtime web apps" />
+	<meta name="author" content="Wolfram Hempel" />
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="stylesheet" type="text/css" href="../assets/css/screen.css" />
+	<link rel="stylesheet" type="text/css" href="../assets/css/api.css" />
+	<link rel="stylesheet" type="text/css" href="../assets/css/syntaxhighlighter.css" />
+	<script type="text/javascript">
+	document.createElement( 'header' );
+	document.createElement( 'nav' );
+	</script>
+	<script type="text/javascript" src="../assets/js/jquery.js"></script>
+
+	<link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Quicksand:300,400,700' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+</head>
+<body class="category_docs">
+
+	<div id="outerWrapper">
+		<div class="topSection">
+			<div id="header" class="small-logo micro">
+				<h1><a href="..">deepstream.io - a scalable server for realtime web apps</a></h1>
+			</div>
+			<div id="nav" class="standalone">
+				<img src="../assets/images/background-abstract.jpg" />
+				<ul>
+					<li ><a href="..">Home</a></li>
+					<li ><a href="../download/">Downloads</a></li>
+					<li ><a href="../tutorials/getting-started.html">Tutorials</a></li>
+					<li class="active"><a href="../docs/deepstream.html">Documentation</a></li>
+				</ul>
+			</div>
+		</div>
+		<div id="wrapper" class="main">
+			<ul id="subnav">
+	<li class="head first">Server</li>
+	<li >
+		<a href="deepstream.html">Deepstream</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+	<li >
+		<a href="constants.html">Constants</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+
+	<li class="head">JS Client</li>
+	<li >
+		<a href="Client.html">Client</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li >
+		<a href="client_options.html">options</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li >
+		<a href="connection_states.html">connectionStates</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li >
+		<a href="client_errors.html">errors</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li >
+		<a href="event_emitter.html">EventEmitter</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li class="de-emphasized">Record</li>
+	<li >
+		<a href="client.record.html">client.record</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li >
+		<a href="record.html">Record</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li >
+		<a href="list.html">List</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li >
+		<a href="anonymous_record.html">Anonymous Record</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li class="de-emphasized">RPC</li>
+	<li class="active">
+		<a href="client.rpc.html">client.rpc</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+			<ul class="overview">
+				<li><a href="#Remote Procedure Calls (RPCs)">Remote Procedure Calls (RPCs)</a></li>
+				<li><a href="#rpc.provide( name, callback )">rpc.provide( name, callback )</a></li>
+				<li><a href="#rpc.unprovide( name )">rpc.unprovide( name )</a></li>
+				<li><a href="#rpc.make( name, data, callback )">rpc.make( name, data, callback )</a></li>
+			</ul>
+	</li>
+
+	<li >
+		<a href="rpc_response.html">RpcResponse</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li class="de-emphasized">Event</li>
+	<li >
+		<a href="client.event.html">client.event</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+</ul>
+
+			<div id="content">
+				<div class="section"><h2><a name="Remote Procedure Calls (RPCs)">Remote Procedure Calls (RPCs)</a></h2><p>RPCs are deepstream&#39;s mechanism for request/response communication (think Ajax Request, but with load balancing). Deepstream clients can register as providers for RPCs using <code>provide</code>, e.g.</p><pre><code>client<span class="token punctuation" >.</span>rpc<span class="token punctuation" >.</span><span class="token function" >provide<span class="token punctuation" >(</span></span> <span class="token string" >'add-two-numbers'</span><span class="token punctuation" >,</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> data<span class="token punctuation" >,</span> response <span class="token punctuation" >)</span><span class="token punctuation" >{</span>
+    response<span class="token punctuation" >.</span><span class="token function" >send<span class="token punctuation" >(</span></span> data<span class="token punctuation" >.</span>numberA <span class="token operator" >+</span> data<span class="token punctuation" >.</span>numberB <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+<span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+</code></pre><p>Now a client can make a request that will be routed to the provider using <code>make</code>, e.g.</p><pre><code><span class="token keyword" >var</span> data <span class="token operator" >=</span> <span class="token punctuation" >{</span>
+    numberA<span class="token punctuation" >:</span> <span class="token number" >3</span><span class="token punctuation" >,</span>
+    numberB<span class="token punctuation" >:</span> <span class="token number" >8</span>
+<span class="token punctuation" >}</span><span class="token punctuation" >;</span>
+
+client<span class="token punctuation" >.</span>rpc<span class="token punctuation" >.</span><span class="token function" >make<span class="token punctuation" >(</span></span> <span class="token string" >'add-two-numbers'</span><span class="token punctuation" >,</span> data<span class="token punctuation" >,</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> error<span class="token punctuation" >,</span> result <span class="token punctuation" >)</span><span class="token punctuation" >{</span>
+   <span class="token comment" spellcheck="true"> // error = null, result = 11
+</span><span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+</code></pre><p>If multiple providers register for the same RPC, deepstream will distribute the requests between them. It&#39;s also possible for providers to reject requests (e.g. because they&#39;re under heavy load) which will prompt deepstream to re-route the request to another available provider</p></div><div class="section"><h2><a name="rpc.provide( name, callback )">rpc.provide( name, callback )</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">name</td><td class="type">String</td><td class="optional">false</td><td class="default">-</td><td class="description">The name of the RPC. Each client can only register as a provider for an RPC name once.</td></tr><tr><td class="argument">callback</td><td class="type">Function</td><td class="optional">false</td><td class="default">-</td><td class="description">A function that handles incoming RPCs. Will be called with data and an <a href="rpc_response.html">RPC response object</a>.</td></tr></tbody></table><p>Registers <code>callback</code> as a handler for incoming RPCs.</p><p>Please note:</p><ul>
+<li>Only one callback per client can be registered for a RPC at a time</li>
+<li>Deepstream tries to deliver data in its original format. Data passed to client.rpc.make as a String will arrive as a String,
+numbers or implicitly JSON serialized objects will arrive in their respective format as well</li>
+</ul>
+</div><div class="section"><h2><a name="rpc.unprovide( name )">rpc.unprovide( name )</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">name</td><td class="type">String</td><td class="optional">false</td><td class="default">-</td><td class="description">The name of the RPC.</td></tr></tbody></table><p>De-registeres a client that was previously registered using <code>provide()</code></p></div><div class="section"><h2><a name="rpc.make( name, data, callback )">rpc.make( name, data, callback )</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">name</td><td class="type">String</td><td class="optional">false</td><td class="default">-</td><td class="description">The name of the RPC.</td></tr><tr><td class="argument">data</td><td class="type">Mixed</td><td class="optional">false</td><td class="default">-</td><td class="description">Any serialisable data. Values will arrive in the same format they&#39;ve been send (Strings, Numbers, Objects etc.)</td></tr><tr><td class="argument">callback</td><td class="type">Function</td><td class="optional">false</td><td class="default">-</td><td class="description">The callback function that receives the result. Will be called with two arguments: error or null and the response data</td></tr></tbody></table><p>Initiates a remote procedure call.</p><pre><code>client<span class="token punctuation" >.</span>rpc<span class="token punctuation" >.</span><span class="token function" >make<span class="token punctuation" >(</span></span> <span class="token string" >'search-products'</span><span class="token punctuation" >,</span> <span class="token string" >'coffeemug'</span><span class="token punctuation" >,</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> error<span class="token punctuation" >,</span> result <span class="token punctuation" >)</span><span class="token punctuation" >{</span>
+
+<span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+</code></pre><p></div></p>
+
+			</div>
+		</div>
+		<script type="text/javascript" src="../assets/js/docs.js"></script>
+		<div id="footerPush"></div>
+	</div>
+	<div id="footer">
+		<ul class="footerItems">
+			<li class="footer-left">
+				<h4>Contact us</h4>
+				<p>
+					<b>deepstream.io </b>is developed by Hoxton One Ltd. <br>
+					a small Company based in London's dodgy, yet glorious East. <br><br>
+				</p>
+				<p>
+					Email us <a href="mailto:info@hoxton-one.com">info@hoxton-one.com</a>.<br><br>
+
+				</p>
+				<p>Registered in England and Wales, Company Nr 09121068</p>
+			</li>
+
+
+			<a href="http://www.hoxton-one.com/" title="hoxton-one.com" class="footer-middle">
+				<p>
+				Handcrafted by
+				</p>
+
+				<div class="footer-hoxton-one">
+				</div>
+			</li>
+
+			<li class="footer-right">
+				<ul class="social">
+					<li class="twitter">
+						<a href="https://twitter.com/HoxtonOne">
+							<i class="fa fa-twitter"></i>  Twitter
+						</a>
+					</li>
+					<li class="github">
+						<a href="https://github.com/hoxton-one">
+							<i class="fa fa-github"></i>  Github
+						</a>
+					</li>
+				</ul>
+				<div class="copyright">
+					&copy;2015 Hoxton One Ltd. All rights reserved.
+				</div>
+			</li>
+		</ul>
+	</div>
+
+
+</body>
+</html>

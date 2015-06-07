@@ -43,7 +43,7 @@ For example:
 		} );
 	}
 
-<div class="info">
-		Since subscribe callbacks are called as soon as the record is updated (to maximize performance)
-		angular may already be in a digest cycle. If this case occurs the recommended solution is to use $timeout or to avoid triggering a new digest cycle if one is already in progress.
+<div class="hint-box fa fa-gears">
+	<p>		Since subscribe callbacks are called as soon as the record is updated (to maximize performance)
+			angular may already be in a digest cycle. If this case occurs the recommended solution is to use $timeout or to avoid triggering a new digest cycle if one is already in progress.</p>
 </div>

@@ -1,0 +1,381 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>deepstream.io | A Scalable Server for Realtime Web Apps</title>
+
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="keywords" content="deepstream, deepstream.io, streaming, realtime, server, socket" />
+	<meta name="description" content="deepstream.io - a scalable server for realtime web apps" />
+	<meta name="author" content="Wolfram Hempel" />
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="stylesheet" type="text/css" href="../assets/css/screen.css" />
+	<link rel="stylesheet" type="text/css" href="../assets/css/api.css" />
+	<link rel="stylesheet" type="text/css" href="../assets/css/syntaxhighlighter.css" />
+	<script type="text/javascript">
+	document.createElement( 'header' );
+	document.createElement( 'nav' );
+	</script>
+	<script type="text/javascript" src="../assets/js/jquery.js"></script>
+
+	<link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Quicksand:300,400,700' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+</head>
+<body class="category_docs">
+
+	<div id="outerWrapper">
+		<div class="topSection">
+			<div id="header" class="small-logo micro">
+				<h1><a href="..">deepstream.io - a scalable server for realtime web apps</a></h1>
+			</div>
+			<div id="nav" class="standalone">
+				<img src="../assets/images/background-abstract.jpg" />
+				<ul>
+					<li ><a href="..">Home</a></li>
+					<li ><a href="../download/">Downloads</a></li>
+					<li ><a href="../tutorials/getting-started.html">Tutorials</a></li>
+					<li class="active"><a href="../docs/deepstream.html">Documentation</a></li>
+				</ul>
+			</div>
+		</div>
+		<div id="wrapper" class="main">
+			<ul id="subnav">
+	<li class="head first">Server</li>
+	<li >
+		<a href="deepstream.html">Deepstream</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+	<li >
+		<a href="constants.html">Constants</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+
+	<li class="head">JS Client</li>
+	<li >
+		<a href="Client.html">Client</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li class="active">
+		<a href="client_options.html">options</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li >
+		<a href="connection_states.html">connectionStates</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li >
+		<a href="client_errors.html">errors</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li >
+		<a href="event_emitter.html">EventEmitter</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li class="de-emphasized">Record</li>
+	<li >
+		<a href="client.record.html">client.record</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li >
+		<a href="record.html">Record</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li >
+		<a href="list.html">List</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li >
+		<a href="anonymous_record.html">Anonymous Record</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li class="de-emphasized">RPC</li>
+	<li >
+		<a href="client.rpc.html">client.rpc</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li >
+		<a href="rpc_response.html">RpcResponse</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li class="de-emphasized">Event</li>
+	<li >
+		<a href="client.event.html">client.event</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+</ul>
+
+			<div id="content">
+				<div class="section"><h2><a name="Client Options">Client Options</a></h2><p><table class="mini"></p><p><thead></p><tr>
+<th>option</th>
+<th>type</th>
+<th>default</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="option">reconnectIntervalIncrement</td>
+<td class="type">Number</td>
+<td class="default">4000</td>
+<td class="description">
+Specifies the number of milliseconds by which the time until the next reconnection attempt will be incremented after every unsuccessful attempt.<br />E.g.for 1500: if the connection is lost,the client will attempt to reconnect immediately, if that fails it will try again after 1.5 seconds, if that fails it will try again after 3 seconds and so on...
+</td>
+</tr>
+
+<tr>
+<td class="option">maxReconnectAttempts</td>
+<td class="type">Number</td>
+<td class="default">5</td>
+<td class="description">
+The number of reconnection attempts until the client gives up and declares the connection closed.
+</td>
+</tr>
+
+<tr>
+<td class="option">rpcAckTimeout</td>
+<td class="type">Number</td>
+<td class="default">6000</td>
+<td class="description">
+The number of milliseconds after which a rpc will create an error if no Ack-message has been received.
+</td>
+</tr>
+
+<tr>
+<td class="option">rpcResponseTimeout</td>
+<td class="type">Number</td>
+<td class="default">10000</td>
+<td class="description">
+The number of milliseconds after which a rpc will create an error if no response-message has been received.
+</td>
+</tr>
+
+<tr>
+<td class="option">subscriptionTimeout</td>
+<td class="type">Number</td>
+<td class="default">2000</td>
+<td class="description">
+The number of milliseconds that can pass after providing/unproviding a RPC or subscribing/unsubscribing/listening to a record before an error is thrown.
+</td>
+</tr>
+
+<tr>
+<td class="option">maxMessagesPerPacket</td>
+<td class="type">Number</td>
+<td class="default">100</td>
+<td class="description">
+If the implementation tries to send a large number of messages at the same
+time, the deepstream client will try to split them into smaller packets and send
+these every &lt;timeBetweenSendingQueuedPackages&gt;ms.
+
+This parameter specifies the number of messages after which deepstream sends the
+packet and queues the remaining messages. Set to Infinity to turn the feature off.
+</td>
+</tr>
+
+<tr>
+<td class="option">timeBetweenSendingQueuedPackages</td>
+<td class="type">Number</td>
+<td class="default">16</td>
+<td class="description">
+Please see description for maxMessagesPerPacket. Sets the time in ms.
+</td>
+</tr>
+
+<tr>
+<td class="option">recordReadAckTimeout</td>
+<td class="type">Number</td>
+<td class="default">1000</td>
+<td class="description">
+The number of milliseconds from the moment client.record.getRecord() is called until an error is thrown since no ack message has been received.
+</td>
+</tr>
+
+<tr>
+<td class="option">recordReadTimeout</td>
+<td class="type">Number</td>
+<td class="default">3000</td>
+<td class="description">
+The number of milliseconds from the moment client.record.getRecord() is called until an error is thrown since no data has been received.
+</td>
+</tr>
+
+<tr>
+<td class="option">recordDeleteTimeout</td>
+<td class="type">Number</td>
+<td class="default">3000</td>
+<td class="description">
+The number of milliseconds from the moment record.delete() is called
+until an error is thrown since no delete ack message had been received. Please
+take into account that the deletion is only complete after the record has been
+deleted from both cache and storage.
+</td>
+</tr>
+
+<tr>
+<td class="option">upgrade</td>
+<td class="type">Boolean</td>
+<td class="default">true</td>
+<td class="description">
+Whether the client should try to upgrade the transport from long-polling to something better, e.g. WebSocket.
+</td>
+</tr>
+
+<tr>
+<td class="option">forceJSONP</td>
+<td class="type">Boolean</td>
+<td class="default">false</td>
+<td class="description">
+Forces JSONP for polling transport.
+</td>
+</tr>
+
+<tr>
+<td class="option">jsonp</td>
+<td class="type">Boolean</td>
+<td class="default">true</td>
+<td class="description">
+Determines whether to use JSONP when
+necessary for polling. If disabled (by settings to false)
+an error will be emitted (saying &quot;No transports available&quot;)
+if no other transports are available. If another transport
+is available for opening a connection (e.g. WebSocket)
+that transport will be used instead.
+</td>
+</tr>
+
+<tr>
+<td class="option">forceBase64</td>
+<td class="type">Boolean</td>
+<td class="default">false</td>
+<td class="description">
+Forces base 64 encoding for polling transport even when XHR2 responseType is available and WebSocket even if the used standard supports binary.
+</td>
+</tr>
+
+<tr>
+<td class="option">enablesXDR</td>
+<td class="type">Boolean</td>
+<td class="default">false</td>
+<td class="description">
+Enable Cross Domain Requests for IE8 to avoid loading the bar flashing click sounds. Default to false because Cross Domain Requests can&#39;t send cookies.
+</td>
+</tr>
+
+<tr>
+<td class="option">timestampRequests</td>
+<td class="type">Boolean</td>
+<td class="default">false</td>
+<td class="description">
+Whether to add the timestamp with each transport request. Note: this is ignored if the browser is IE or Android, in which case requests are always stamped.
+</td>
+</tr>
+
+<tr>
+<td class="option">timestampParam</td>
+<td class="type">String</td>
+<td class="default">&#39;t&#39;</td>
+<td class="description">
+The GET parameter key to use for the timestamp.
+</td>
+</tr>
+
+<tr>
+<td class="option">path</td>
+<td class="type">String</td>
+<td class="default">&#39;/engine.io&#39;</td>
+<td class="description">
+The path to connect to for engine.io connections.
+</td>
+</tr>
+
+<tr>
+<td class="option">transports</td>
+<td class="type">Array</td>
+<td class="default">[ &#39;polling&#39;, &#39;websocket&#39; ]</td>
+<td class="description">
+A list of transports to try (in order). Engine.io always  attempts to connect directly with the first one, provided the feature detection test for it passes.
+</td>
+</tr>
+
+<p><tr></p><p><td class="option">rememberUpgrade</td></p><p><td class="type">Boolean</td></p><p><td class="default">false</td></p><p><td class="description">
+If true and if the previous websocket connection to
+the server succeeded, the connection attempt will bypass the normal
+upgrade process and will initially try websocket. A connection
+attempt following a transport error will use the normal upgrade
+process. It is recommended you turn this on only when using
+SSL/TLS connections, or if you know that
+your network does not block websockets.
+</td>
+</tr>
+</tbody>
+</table></div></p>
+
+			</div>
+		</div>
+		<script type="text/javascript" src="../assets/js/docs.js"></script>
+		<div id="footerPush"></div>
+	</div>
+	<div id="footer">
+		<ul class="footerItems">
+			<li class="footer-left">
+				<h4>Contact us</h4>
+				<p>
+					<b>deepstream.io </b>is developed by Hoxton One Ltd. <br>
+					a small Company based in London's dodgy, yet glorious East. <br><br>
+				</p>
+				<p>
+					Email us <a href="mailto:info@hoxton-one.com">info@hoxton-one.com</a>.<br><br>
+
+				</p>
+				<p>Registered in England and Wales, Company Nr 09121068</p>
+			</li>
+
+
+			<a href="http://www.hoxton-one.com/" title="hoxton-one.com" class="footer-middle">
+				<p>
+				Handcrafted by
+				</p>
+
+				<div class="footer-hoxton-one">
+				</div>
+			</li>
+
+			<li class="footer-right">
+				<ul class="social">
+					<li class="twitter">
+						<a href="https://twitter.com/HoxtonOne">
+							<i class="fa fa-twitter"></i>  Twitter
+						</a>
+					</li>
+					<li class="github">
+						<a href="https://github.com/hoxton-one">
+							<i class="fa fa-github"></i>  Github
+						</a>
+					</li>
+				</ul>
+				<div class="copyright">
+					&copy;2015 Hoxton One Ltd. All rights reserved.
+				</div>
+			</li>
+		</ul>
+	</div>
+
+
+</body>
+</html>
