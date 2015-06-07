@@ -122,8 +122,9 @@ here&#39;s all there is to it:</p><pre><code>server<span class="token punctuatio
 
     canPerformAction<span class="token punctuation" >:</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> username<span class="token punctuation" >,</span> message<span class="token punctuation" >,</span> callback <span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
         <span class="token function" >callback<span class="token punctuation" >(</span></span> <span class="token keyword" >null</span><span class="token punctuation" >,</span> <span class="token keyword" >true</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-    <span class="token punctuation" >}</span>
-<span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+    <span class="token punctuation" >}</span><span class="token punctuation" >,</span>
+    onClientDisconnect<span class="token punctuation" >:</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> username <span class="token punctuation" >)</span><span class="token punctuation" >{</span><span class="token punctuation" >}</span><span class="token comment" spellcheck="true"> // this one is optional
+</span><span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
 </code></pre><p>Granted, this needs a bit of explanation: Permissions are managed by a &#39;permissionHandler&#39;, a
 class that can be registered with the server using the <code>set()</code> method. A permissionHandler exposes 
 two methods: <code>isValidUser</code> and <code>canPerformAction</code>.</p><p><code>isValidUser</code> is called whenever a client calls <code>login()</code>. Let&#39;s go through it step by step:</p><p>First, the client is created:</p><pre><code><span class="token keyword" >var</span> ds <span class="token operator" >=</span> <span class="token function" >deepstream<span class="token punctuation" >(</span></span> <span class="token string" >'localhost:6020'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>

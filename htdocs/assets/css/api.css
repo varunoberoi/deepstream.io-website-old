@@ -192,6 +192,10 @@ nav{
 	box-shadow: 0 0 2px rgba(0,0,0,0.3);
 }
 
+#wrapper > #content .section h2 a{
+	color: #202020;
+}
+
 #wrapper > #content h2,
 #wrapper > #content table.args *,
 #wrapper > #content p{
@@ -473,6 +477,11 @@ body .hint-box *{
 	border: none !important;
 	margin-top: 0;
 	font-weight: bold;
+}
+
+.hint-box code{
+	font-family: "Courier New", monospace;
+	background-color: #FFF;
 }
 
 #wrapper #content .hint-box ul li{

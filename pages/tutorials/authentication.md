@@ -10,7 +10,8 @@ here's all there is to it:
 
 		canPerformAction: function( username, message, callback ) {
 			callback( null, true );
-		}
+		},
+		onClientDisconnect: function( username ){} // this one is optional
 	});
 
 Granted, this needs a bit of explanation: Permissions are managed by a 'permissionHandler', a
