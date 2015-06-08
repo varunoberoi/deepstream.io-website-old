@@ -87,7 +87,12 @@
 	</li>
 
 	<li >
-		<a href="records-events-rpcs.html">Records, Events and RPCs</a>
+		<a href="records.html">Records</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+	
+	<li >
+		<a href="events-and-rpcs.html">Events & RPCs</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
 
@@ -122,8 +127,9 @@ here&#39;s all there is to it:</p><pre><code>server<span class="token punctuatio
 
     canPerformAction<span class="token punctuation" >:</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> username<span class="token punctuation" >,</span> message<span class="token punctuation" >,</span> callback <span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
         <span class="token function" >callback<span class="token punctuation" >(</span></span> <span class="token keyword" >null</span><span class="token punctuation" >,</span> <span class="token keyword" >true</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-    <span class="token punctuation" >}</span>
-<span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+    <span class="token punctuation" >}</span><span class="token punctuation" >,</span>
+    onClientDisconnect<span class="token punctuation" >:</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> username <span class="token punctuation" >)</span><span class="token punctuation" >{</span><span class="token punctuation" >}</span><span class="token comment" spellcheck="true"> // this one is optional
+</span><span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
 </code></pre><p>Granted, this needs a bit of explanation: Permissions are managed by a &#39;permissionHandler&#39;, a
 class that can be registered with the server using the <code>set()</code> method. A permissionHandler exposes 
 two methods: <code>isValidUser</code> and <code>canPerformAction</code>.</p><p><code>isValidUser</code> is called whenever a client calls <code>login()</code>. Let&#39;s go through it step by step:</p><p>First, the client is created:</p><pre><code><span class="token keyword" >var</span> ds <span class="token operator" >=</span> <span class="token function" >deepstream<span class="token punctuation" >(</span></span> <span class="token string" >'localhost:6020'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
@@ -195,7 +201,7 @@ a callback function. E.g.</p><pre><code>ds<span class="token punctuation" >.</sp
 			</li>
 
 
-			<li class="footer-middle">
+			<a href="http://www.hoxton-one.com/" title="hoxton-one.com" class="footer-middle">
 				<p>
 				Handcrafted by
 				</p>
@@ -207,13 +213,12 @@ a callback function. E.g.</p><pre><code>ds<span class="token punctuation" >.</sp
 			<li class="footer-right">
 				<ul class="social">
 					<li class="twitter">
-					<br><br>
-						<a href="https://twitter.com/goldenlayout">
+						<a href="https://twitter.com/HoxtonOne">
 							<i class="fa fa-twitter"></i>  Twitter
 						</a>
 					</li>
 					<li class="github">
-						<a href="https://github.com/hoxton-one/golden-layout">
+						<a href="https://github.com/hoxton-one">
 							<i class="fa fa-github"></i>  Github
 						</a>
 					</li>

@@ -270,7 +270,8 @@ html, body{
 	margin: 10px auto;
 }
 
-#footer ul.footerItems > li{
+#footer ul.footerItems > *{
+	display: block;
 	float: left;
 	width: 299px;
 	height: 100px;

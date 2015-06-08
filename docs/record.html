@@ -233,9 +233,8 @@ shoppingCart<span class="token punctuation" >.</span><span class="token function
 </code></pre></div><div class="section"><h2><a name="unsubscribe( path, callback )">unsubscribe( path, callback )</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">path</td><td class="type">String</td><td class="optional">true</td><td class="default">-</td><td class="description">The path that was previously used for subscribe</td></tr><tr><td class="argument">callback</td><td class="type">Function</td><td class="optional">false</td><td class="default">-</td><td class="description">The previously registered callback function</td></tr></tbody></table><p>Removes a subscription that was previously made using <code>record.subscribe()</code></p><p>Can be called with a path to remove the callback for this specific
 path or only with a callback which removes it from the generic subscriptions</p><p>Please Note: unsubscribe is purely a client side operation. Use <code>discard()</code> to notify the server
 that the app is no longer interested in this record.</p></div><div class="section"><h2><a name="discard()">discard()</a></h2><p>Removes all change listeners and notifies the server that the client is
-no longer interested in updates for this record.</p><div class="info">
-It is important to make sure that <code>discard()</code> is called for any record that&#39;s no longer needed. If you only remove the listeners using <code>unsubscribe()</code> the server won&#39;t be notified and will continue to send updates to the client.
-</div>
+no longer interested in updates for this record.</p><div class="hint-box fa fa-gears">
+    <p>It is important to make sure that <code>discard()</code> is called for any record that&#39;s no longer needed. If you only remove the listeners using <code>unsubscribe()</code> the server won&#39;t be notified and will continue to send updates to the client.</em></p></div>
 
 </div><div class="section"><h2><a name="delete()">delete()</a></h2><p>Deletes the record on the server. This action deletes the record for all users and is irreversible.</p><p></div></p>
 
@@ -260,7 +259,7 @@ It is important to make sure that <code>discard()</code> is called for any recor
 			</li>
 
 
-			<li class="footer-middle">
+			<a href="http://www.hoxton-one.com/" title="hoxton-one.com" class="footer-middle">
 				<p>
 				Handcrafted by
 				</p>
@@ -272,13 +271,12 @@ It is important to make sure that <code>discard()</code> is called for any recor
 			<li class="footer-right">
 				<ul class="social">
 					<li class="twitter">
-					<br><br>
-						<a href="https://twitter.com/goldenlayout">
+						<a href="https://twitter.com/HoxtonOne">
 							<i class="fa fa-twitter"></i>  Twitter
 						</a>
 					</li>
 					<li class="github">
-						<a href="https://github.com/hoxton-one/golden-layout">
+						<a href="https://github.com/hoxton-one">
 							<i class="fa fa-github"></i>  Github
 						</a>
 					</li>
