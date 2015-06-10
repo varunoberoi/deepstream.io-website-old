@@ -1,5 +1,5 @@
 {
-	"name": "golden-layout-website",
+	"name": "deepstream.io-website",
 	"version": "0.0.1",
 	"private": true,
 	"dependencies":{
@@ -10,7 +10,6 @@
 		"rimraf": "2.2.6",
 		"grunt-contrib-copy": "0.5.0",
 		"grunt-contrib-clean": "0.5.0",
-		"grunt-contrib-compress": "0.10.0",
 		"grunt-git": "0.2.11",
 		"marked": "0.3.2",
 		"highlight.js":"8.0.0",

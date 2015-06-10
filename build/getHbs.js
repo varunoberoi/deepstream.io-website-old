@@ -20,7 +20,7 @@ hbs.registerHelper( 'link', function( type, target ) {
 
 hbs.registerHelper( 'issue', function( number ){
 	var html = '<a class="githubIssue"'+
-			' href="https://github.com/hoxton-one/golden-layout/issues/'+ 
+			' href="https://github.com/hoxton-one/deepstream.io/issues/'+
 			number +'">#'+ number +'</a>';
 
 	return new hbs.SafeString( html );
@@ -42,7 +42,7 @@ hbs.registerHelper( 'downloadItem', function( name, packageName, hasBower, icon 
 		if( hasBower === true ) {
 			html += '<a class="bower label" title="get from bower" href="http://bower.io/search/?q=' + packageName + '"><i></i><span>Bower</span></a>';
 		}
-			
+
 		html +=	'<a class="github label" title="see on github" href="https://github.com/hoxton-one/' + packageName + '"><i></i><span>Github</span></a>' +
 		'</li>';
 
