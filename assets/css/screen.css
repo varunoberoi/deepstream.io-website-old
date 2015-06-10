@@ -174,7 +174,6 @@ html, body{
 #header h1{
 	width: 343px;
 	height: 60px;
-	background: url(../images/golden_layout_flat.png ) no-repeat center center;
 	position: absolute;
 	left: 49%;
 	margin-left: -172px;
@@ -188,7 +187,6 @@ html, body{
 	left: 0;
 	top: 0;
 	margin: 0;
-	background: url(../images/golden-layout-small.png ) no-repeat center;
 }
 
 #header.micro h1 a {
@@ -744,4 +742,3 @@ html, body{
 /**********************************
 * DOWNLOAD PAGE
 **********************************/
-
