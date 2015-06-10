@@ -96,5 +96,3 @@ In the next example we'll prevent the value of 'price' for record 'fancyCar' fro
 			callback( null, true );
 		}
 	}
-
-### Combined example: Allow only backend-data-providers to emit `news` events
