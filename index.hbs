@@ -42,9 +42,6 @@
 			</div>
 			{{/if}}
 			<div id="nav" {{#if isNotStart}}class="standalone"{{/if}}>
-				{{#if isNotStart}}
-				<img src="{{link 'asset' 'images/background-abstract.jpg'}}" />
-				{{/if}}
 				<ul>
 					<li {{#unless isNotStart}}class="active"{{/unless}}><a href="{{link 'page' ''}}">Home</a></li>
 					<li {{#if pageIs_download}}class="active"{{/if}}><a href="{{link 'page' 'download/'}}">Downloads</a></li>
@@ -59,7 +56,7 @@
 			<div id="content">
 				{{pageContent}}
 
-				{{!-- Since we're not 
+				{{!-- Since we're not
 				<h3>Comments and Questions</h3>
 				<div id="disqusContainer">
 					<div id="disqus_thread"></div>
@@ -93,7 +90,6 @@
 				<h4>Contact us</h4>
 				<p>
 					<b>deepstream.io </b>is developed by Hoxton One Ltd. <br>
-					a small Company based in London's dodgy, yet glorious East. <br><br>
 				</p>
 				<p>
 					Email us <a href="mailto:info@hoxton-one.com">info@hoxton-one.com</a>.<br><br>

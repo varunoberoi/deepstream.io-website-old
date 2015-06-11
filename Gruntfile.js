@@ -1,5 +1,4 @@
 var async = require( 'async' );
-var glRoot = '../../../dev/golden-layout';
 
 module.exports = function(grunt) {
 
@@ -34,16 +33,6 @@ module.exports = function(grunt) {
 			options: { livereload: 5051 },
 		},
 
-		compress: {
-			main:{
-				options: { archive: versionPath + '/GoldenLayout.zip' },
-				files:[
-					{expand: true, src: ['**'], cwd: versionPath }
-				]
-			}
-		},
-			
-
 		/**
 		 * Copy all assets and flattened pages
 		 *
@@ -60,27 +49,9 @@ module.exports = function(grunt) {
 					{expand: true, src: ['**'], cwd: './htdocs', dest: CONFIG.deploymentDir },
 				]
 			},
-			glAssets: {
-				files: [
-					{expand: true, src: ['**'], cwd: glRoot + '/dist/', dest: './htdocs/assets/js' },
-					{expand: true, src: [ 
-						'goldenlayout-base.css', 
-						'goldenlayout-dark-theme.css', 
-						'goldenlayout-light-theme.css', 
-						//'goldenlayout-translucent-theme.css' 
-					], cwd: glRoot + '/src/css/', dest: './htdocs/assets/css' },
-				]
-			},
 			release: {
 				files: [
-					{expand: true, src: ['**'], cwd: glRoot + '/dist/', dest: versionPath + '/js' },
-					{expand: true, src: [ 'LICENSE-CC-NC-4.0.md', 'LICENSE-GPL-3.0.md' ], cwd: './htdocs/assets/license', dest: versionPath },
-					{expand: true, src: [ 
-						'goldenlayout-base.css', 
-						'goldenlayout-dark-theme.css', 
-						'goldenlayout-light-theme.css', 
-						//'goldenlayout-translucent-theme.css' 
-					], cwd: glRoot + '/src/css/', dest: versionPath + '/css' },
+					{expand: true, src: [ 'LICENSE-CC-NC-4.0.md', 'LICENSE-GPL-3.0.md' ], cwd: './htdocs/assets/license', dest: versionPath }
 				]
 			},
 			latest:{
@@ -89,14 +60,13 @@ module.exports = function(grunt) {
 				]
 			}
 		}
-		
+
 	});
 
 
 	grunt.loadNpmTasks('grunt-contrib-clean');
 	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-contrib-watch');
-	grunt.loadNpmTasks('grunt-contrib-compress');
 
 	grunt.registerTask('buildPages', function() {
 		async.parallel([
@@ -130,7 +100,6 @@ module.exports = function(grunt) {
 
 	grunt.registerTask('release', [
 		'copy:release',
-		'compress', 
 		'clean:latest',
 		'copy:latest',
 		'build'

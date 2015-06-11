@@ -1,9 +1,10 @@
-An example application using [angularjs](https://angularjs.org/) can be found at [demo-ng](https://github.com/hoxton-one/ds-demo-simple-app-ng).
+Building a simple app with deepstream and angular
+=====================================================
 
-deepstream can be created as a service to allow it to login before the controller
-is created.
+Angulars services and powerful inline html bindings allows you to integrate easily
+with deepstream.
 
-For example:
+To conenct to deepstream you can connect initialise it within a service:
 
 	angular.service( 'deepstream', function() {
 		var client = deepstream( 'localhost:6020' )
@@ -11,39 +12,47 @@ For example:
 		return client;
 	})
 
-Angulars powerful inline html bindings allow you to directly read data from your deepstream record.
-
-For example:
+One way bindings on record data can be done purely via html:
 
 	<span ng-bind="user.get('firstname')"></span>
 
-Or if using ***Object.defineProperty()*** you can use define a property on
-the controller to allow two way mappings with a field within your record.
+Or if doing two way bindings you can use ***Object.defineProperty()*** to allow
+value changes on the scope to directly update the associated record.
 
-For example:
+	service( 'bindFields', function(){
+		return function getField( $scope, record, names ) {
+			angular.forEach( names, function( name ){
+				Object.defineProperty( $scope, name, {
+					get: function() {
+						return record.get( name );
+					},
+					set: function( newValue ) {
+						if( newValue === undefined ) {
+							return;
+						}
+						record.set( name, newValue );
+					}
+				});
+			});
 
-	this.firstname = getField( this, 'firstname' );
-	function getField( record, name ) {
-		var self = this;
-		Object.defineProperty( self, name, {
-			get: function() {
-				return self.record.get( name );
-			},
-			set: function( newValue ) {
-				if( newValue === undefined ) {
-					return;
+			record.subscribe(function() {
+				if( !$scope.$$phase ) {
+					$scope.$apply();
 				}
-				self.record.set( name, newValue );
-			}
-		} );
-		record.subscribe( name, function() {
-			if( !$scope.$$phase ) {
-				$scope.$apply();
-			}
-		} );
-	}
+			});
+		};
+	})
 
 <div class="hint-box fa fa-gears">
 	<p>		Since subscribe callbacks are called as soon as the record is updated (to maximize performance)
 			angular may already be in a digest cycle. If this case occurs the recommended solution is to use $timeout or to avoid triggering a new digest cycle if one is already in progress.</p>
 </div>
+
+###Example App
+<div class="img-container">
+	<img class="tutorial" width="602" height="302" src="../assets/images/simple-app.png" alt="Simple App Screenshot" />
+</div>
+
+Please find an example application using deepstream and angular here:
+
+<a class="mega" href="https://github.com/hoxton-one/ds-demo-simple-app-ng"><i class="fa fa-github"></i>https://github.com/hoxton-one/ds-demo-simple-app-ng</a>

@@ -23,7 +23,7 @@ nav{
 	float: left;
 	padding: 0;
 	margin-top: 18px;
-	position: fixed;
+	position: absolute;
 	overflow-x: visible;
 	overflow-y: auto;
 }

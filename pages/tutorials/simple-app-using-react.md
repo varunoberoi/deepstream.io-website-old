@@ -1,13 +1,5 @@
-Example app using react
-===========================
-
-<a class="mega" href="https://github.com/hoxton-one/ds-demo-simple-app-ko"><i class="fa fa-github"></i>https://github.com/hoxton-one/ds-demo-simple-app-react</a>
-
-An example application using [React](https://facebook.github.io/react/) can be found at here:
-
-<div class="img-container">
-	<img class="tutorial" width="602" height="302" src="../assets/images/simple-app.png" alt="Simple App Screenshot" />
-</div>
+Building a simple app with deepstream and react
+=====================================================
 
 Integration with react is done within the ***componentDidMount*** and
 ***componentWillUnmount*** methods.
@@ -30,3 +22,13 @@ update is received.
 
 This allows the subscription to be terminated to avoid any memory leaks after
 the object is no longer in the dom.
+
+###Example App
+
+<div class="img-container">
+	<img class="tutorial" width="602" height="302" src="../assets/images/simple-app.png" alt="Simple App Screenshot" />
+</div>
+
+An example application using [React](https://facebook.github.io/react/) can be found at here:
+
+<a class="mega" href="https://github.com/hoxton-one/ds-demo-simple-app-ko"><i class="fa fa-github"></i>https://github.com/hoxton-one/ds-demo-simple-app-react</a>

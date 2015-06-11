@@ -33,7 +33,6 @@
 				<h1><a href="..">deepstream.io - a scalable server for realtime web apps</a></h1>
 			</div>
 			<div id="nav" class="standalone">
-				<img src="../assets/images/background-abstract.jpg" />
 				<ul>
 					<li ><a href="..">Home</a></li>
 					<li ><a href="../download/">Downloads</a></li>
@@ -119,39 +118,47 @@
 </ul>
 
 			<div id="content">
-				<p>An example application using <a href="https://angularjs.org/">angularjs</a> can be found at <a href="https://github.com/hoxton-one/ds-demo-simple-app-ng">demo-ng</a>.</p><p>deepstream can be created as a service to allow it to login before the controller
-is created.</p><p>For example:</p><pre><code>angular<span class="token punctuation" >.</span><span class="token function" >service<span class="token punctuation" >(</span></span> <span class="token string" >'deepstream'</span><span class="token punctuation" >,</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span><span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
+				<h1>Building a simple app with deepstream and angular</h1><p>Angulars services and powerful inline html bindings allows you to integrate easily
+with deepstream.</p><p>To conenct to deepstream you can connect initialise it within a service:</p><pre><code>angular<span class="token punctuation" >.</span><span class="token function" >service<span class="token punctuation" >(</span></span> <span class="token string" >'deepstream'</span><span class="token punctuation" >,</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span><span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
     <span class="token keyword" >var</span> client <span class="token operator" >=</span> <span class="token function" >deepstream<span class="token punctuation" >(</span></span> <span class="token string" >'localhost:6020'</span> <span class="token punctuation" >)</span>
     client<span class="token punctuation" >.</span><span class="token function" >login<span class="token punctuation" >(</span></span><span class="token punctuation" >{</span> username<span class="token punctuation" >:</span> <span class="token string" >'ds-simple-input-'</span> <span class="token operator" >+</span> client<span class="token punctuation" >.</span><span class="token function" >getUid<span class="token punctuation" >(</span></span><span class="token punctuation" >)</span> <span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
     <span class="token keyword" >return</span> client<span class="token punctuation" >;</span>
 <span class="token punctuation" >}</span><span class="token punctuation" >)</span>
-</code></pre><p>Angulars powerful inline html bindings allow you to directly read data from your deepstream record.</p><p>For example:</p><pre><code><span class="token operator" >&lt;</span>span ng<span class="token operator" >-</span>bind<span class="token operator" >=</span><span class="token string" >"user.get('firstname')"</span><span class="token operator" >></span><span class="token operator" >&lt;</span><span class="token operator" >/</span>span<span class="token operator" >></span>
-</code></pre><p>Or if using <strong><em>Object.defineProperty()</em></strong> you can use define a property on
-the controller to allow two way mappings with a field within your record.</p><p>For example:</p><pre><code><span class="token keyword" >this</span><span class="token punctuation" >.</span>firstname <span class="token operator" >=</span> <span class="token function" >getField<span class="token punctuation" >(</span></span> <span class="token keyword" >this</span><span class="token punctuation" >,</span> <span class="token string" >'firstname'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-<span class="token keyword" >function</span> <span class="token function" >getField<span class="token punctuation" >(</span></span> record<span class="token punctuation" >,</span> name <span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
-    <span class="token keyword" >var</span> self <span class="token operator" >=</span> <span class="token keyword" >this</span><span class="token punctuation" >;</span>
-    Object<span class="token punctuation" >.</span><span class="token function" >defineProperty<span class="token punctuation" >(</span></span> self<span class="token punctuation" >,</span> name<span class="token punctuation" >,</span> <span class="token punctuation" >{</span>
-        <span class="token keyword" >get</span><span class="token punctuation" >:</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span><span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
-            <span class="token keyword" >return</span> self<span class="token punctuation" >.</span>record<span class="token punctuation" >.</span><span class="token keyword" >get</span><span class="token punctuation" >(</span> name <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-        <span class="token punctuation" >}</span><span class="token punctuation" >,</span>
-        <span class="token keyword" >set</span><span class="token punctuation" >:</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> newValue <span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
-            <span class="token keyword" >if</span><span class="token punctuation" >(</span> newValue <span class="token operator" >===</span> undefined <span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
-                <span class="token keyword" >return</span><span class="token punctuation" >;</span>
+</code></pre><p>One way bindings on record data can be done purely via html:</p><pre><code><span class="token operator" >&lt;</span>span ng<span class="token operator" >-</span>bind<span class="token operator" >=</span><span class="token string" >"user.get('firstname')"</span><span class="token operator" >></span><span class="token operator" >&lt;</span><span class="token operator" >/</span>span<span class="token operator" >></span>
+</code></pre><p>Or if doing two way bindings you can use <strong><em>Object.defineProperty()</em></strong> to allow
+value changes on the scope to directly update the associated record.</p><pre><code><span class="token function" >service<span class="token punctuation" >(</span></span> <span class="token string" >'bindFields'</span><span class="token punctuation" >,</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span><span class="token punctuation" >)</span><span class="token punctuation" >{</span>
+    <span class="token keyword" >return</span> <span class="token keyword" >function</span> <span class="token function" >getField<span class="token punctuation" >(</span></span> $scope<span class="token punctuation" >,</span> record<span class="token punctuation" >,</span> names <span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
+        angular<span class="token punctuation" >.</span><span class="token function" >forEach<span class="token punctuation" >(</span></span> names<span class="token punctuation" >,</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> name <span class="token punctuation" >)</span><span class="token punctuation" >{</span>
+            Object<span class="token punctuation" >.</span><span class="token function" >defineProperty<span class="token punctuation" >(</span></span> $scope<span class="token punctuation" >,</span> name<span class="token punctuation" >,</span> <span class="token punctuation" >{</span>
+                <span class="token keyword" >get</span><span class="token punctuation" >:</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span><span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
+                    <span class="token keyword" >return</span> record<span class="token punctuation" >.</span><span class="token keyword" >get</span><span class="token punctuation" >(</span> name <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+                <span class="token punctuation" >}</span><span class="token punctuation" >,</span>
+                <span class="token keyword" >set</span><span class="token punctuation" >:</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> newValue <span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
+                    <span class="token keyword" >if</span><span class="token punctuation" >(</span> newValue <span class="token operator" >===</span> undefined <span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
+                        <span class="token keyword" >return</span><span class="token punctuation" >;</span>
+                    <span class="token punctuation" >}</span>
+                    record<span class="token punctuation" >.</span><span class="token keyword" >set</span><span class="token punctuation" >(</span> name<span class="token punctuation" >,</span> newValue <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+                <span class="token punctuation" >}</span>
+            <span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+        <span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+
+        record<span class="token punctuation" >.</span><span class="token function" >subscribe<span class="token punctuation" >(</span></span><span class="token keyword" >function</span><span class="token punctuation" >(</span><span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
+            <span class="token keyword" >if</span><span class="token punctuation" >(</span> <span class="token operator" >!</span>$scope<span class="token punctuation" >.</span>$$phase <span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
+                $scope<span class="token punctuation" >.</span>$<span class="token function" >apply<span class="token punctuation" >(</span></span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
             <span class="token punctuation" >}</span>
-            self<span class="token punctuation" >.</span>record<span class="token punctuation" >.</span><span class="token keyword" >set</span><span class="token punctuation" >(</span> name<span class="token punctuation" >,</span> newValue <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-        <span class="token punctuation" >}</span>
-    <span class="token punctuation" >}</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-    record<span class="token punctuation" >.</span><span class="token function" >subscribe<span class="token punctuation" >(</span></span> name<span class="token punctuation" >,</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span><span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
-        <span class="token keyword" >if</span><span class="token punctuation" >(</span> <span class="token operator" >!</span>$scope<span class="token punctuation" >.</span>$$phase <span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
-            $scope<span class="token punctuation" >.</span>$<span class="token function" >apply<span class="token punctuation" >(</span></span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-        <span class="token punctuation" >}</span>
-    <span class="token punctuation" >}</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-<span class="token punctuation" >}</span>
+        <span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+    <span class="token punctuation" >}</span><span class="token punctuation" >;</span>
+<span class="token punctuation" >}</span><span class="token punctuation" >)</span>
 </code></pre><div class="hint-box fa fa-gears">
     <p>        Since subscribe callbacks are called as soon as the record is updated (to maximize performance)
             angular may already be in a digest cycle. If this case occurs the recommended solution is to use $timeout or to avoid triggering a new digest cycle if one is already in progress.</p>
 </div>
 
+<h3>Example App</h3><div class="img-container">
+    <img class="tutorial" width="602" height="302" src="../assets/images/simple-app.png" alt="Simple App Screenshot" />
+</div>
+
+<p>Please find an example application using deepstream and angular here:</p><p><a class="mega" href="https://github.com/hoxton-one/ds-demo-simple-app-ng"><i class="fa fa-github"></i>https://github.com/hoxton-one/ds-demo-simple-app-ng</a></p>
 
 			</div>
 		</div>
@@ -164,7 +171,6 @@ the controller to allow two way mappings with a field within your record.</p><p>
 				<h4>Contact us</h4>
 				<p>
 					<b>deepstream.io </b>is developed by Hoxton One Ltd. <br>
-					a small Company based in London's dodgy, yet glorious East. <br><br>
 				</p>
 				<p>
 					Email us <a href="mailto:info@hoxton-one.com">info@hoxton-one.com</a>.<br><br>
