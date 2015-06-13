@@ -36,7 +36,7 @@ type: Function
 optional: true
 desc: A function that will be called once the response to the authentication request is received.
 
-Authenticates the client against the server. To learn more about how authentication works, please have a look at the [Authentication and Permissioning tutorial](../tutorials/authentication_and_permissioning.html).
+Authenticates the client against the server. To learn more about how authentication works, please have a look at the [Authentication](../tutorials/authentication.html) and [Permissioning](../tutorials/permissioning.html) tutorials.
 
 Callback will be called with three arguments: success (Boolean), errorEvent (String) and errorMessage (String)
 
