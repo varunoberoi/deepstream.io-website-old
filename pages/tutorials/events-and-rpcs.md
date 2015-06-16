@@ -19,7 +19,7 @@ Remote Procedure Calls allow for Request-Reponse communication. If multiple clie
 rpc, deepstream will distribute requests evently between them.
 
 	//register as a provider for a rpc
-	ds.rpc.provide( 'addTwoNumbers', function( data, respone ){
+	ds.rpc.provide( 'addTwoNumbers', function( data, response ){
 		
 		//you can now either send a response
 		response.send( data.numA + data.numB );
