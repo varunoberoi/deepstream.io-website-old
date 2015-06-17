@@ -26,7 +26,7 @@
 
 	<li class="head">JS Client</li>
 	<li {{#if fileIs_Client}}class="active"{{/if}}>
-		<a href="Client.html">Client</a>
+		<a href="client.html">Client</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 		{{#if fileIs_Client}}
 			<ul class="overview">
