@@ -309,10 +309,6 @@ Actions
          <td>CR</td>
       </tr>
       <tr>
-         <td>ACTIONS.RPC</td>
-         <td>RPC</td>
-      </tr>
-      <tr>
          <td>ACTIONS.EVENT</td>
          <td>EVT</td>
       </tr>
