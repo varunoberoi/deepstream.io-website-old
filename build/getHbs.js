@@ -36,7 +36,7 @@ hbs.registerHelper( 'downloadItem', function( name, packageName, hasBower, icon 
 
 		html +=	'<h3>' + name + '</h3>' +
 			'<code>' +
-				'<span class="pckg-name">' + packageName + '</span>: <span class="version">0.2.6</span>' +
+				'<span class="pckg-name">' + packageName + '</span>: <span class="version">-</span>' +
 			'</code>' +
 			'<a class="npm label" title="get from npm" href="https://www.npmjs.com/package/' + packageName + '"><i></i><span>NPM</span></a>';
 		if( hasBower === true ) {
