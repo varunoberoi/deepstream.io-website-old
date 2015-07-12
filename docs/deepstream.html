@@ -146,6 +146,22 @@ server<span class="token punctuation" >.</span><span class="token keyword" >set<
 server<span class="token punctuation" >.</span><span class="token keyword" >set</span><span class="token punctuation" >(</span> <span class="token string" >'showLogo'</span><span class="token punctuation" >,</span> <span class="token keyword" >false</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
 
 <span class="token comment" spellcheck="true">/**
+* The public key to use if using ssl
+* Must have an associated sslKey set
+*
+* @type String
+*/</span>
+server<span class="token punctuation" >.</span><span class="token keyword" >set</span><span class="token punctuation" >(</span> <span class="token string" >'sslCert'</span><span class="token punctuation" >,</span> fs<span class="token punctuation" >.</span><span class="token function" >readFileSync<span class="token punctuation" >(</span></span> <span class="token string" >'./keys/cert.pem'</span><span class="token punctuation" >,</span> <span class="token string" >'utf8'</span> <span class="token punctuation" >)</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+
+<span class="token comment" spellcheck="true">/**
+* The private key to use if using ssl
+* Must have an associated sslCert set
+*
+* @type String
+*/</span>
+server<span class="token punctuation" >.</span><span class="token keyword" >set</span><span class="token punctuation" >(</span> <span class="token string" >'sslKey'</span><span class="token punctuation" >,</span> fs<span class="token punctuation" >.</span><span class="token function" >readFileSync<span class="token punctuation" >(</span></span> <span class="token string" >'./keys/key.pem'</span><span class="token punctuation" >,</span> <span class="token string" >'utf8'</span> <span class="token punctuation" >)</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+
+<span class="token comment" spellcheck="true">/**
 * The host that deepstream listens on for incoming connections from browsers
 *
 * @type String
