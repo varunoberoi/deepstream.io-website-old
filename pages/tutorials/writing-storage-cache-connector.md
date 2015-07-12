@@ -9,7 +9,7 @@ Amazon's DynamoDB. They can also be used with relational databases, but deepstre
 of JSON, identified by a key) lends itself very well to object/document based databases.
 
 <div class="hint-box fa fa-gears">
-	<p>Before writing your own storage or cache connector, have a quick look at the <a href="../downloads/">download section</a>. Maybe there already is an off-the-shelf one you can just pick up or use. <em>If you're happy with how you're connector turned out, please consider contributing it. To do so, just <a href="https://github.com/hoxton-one/deepstream.io/issues">raise an issue against deepstream.io</a></em></p></div>
+	<p>Before writing your own storage or cache connector, have a quick look at the <a href="../download/">download section</a>. Maybe there already is an off-the-shelf one you can just pick up or use. <em>If you're happy with how you're connector turned out, please consider contributing it. To do so, just <a href="https://github.com/hoxton-one/deepstream.io/issues">raise an issue against deepstream.io</a></em></p></div>
 
 To write a storage or cache connector, just clone or fork the cache-and-storage-connector-template below and fill in the blanks. To see if it works, update the `settings` variable on line 4 of the <a href="https://github.com/hoxton-one/deepstream.io-cache-and-storage-connector-template/blob/master/test/cache-connectorSpec.js">test file</a> and run the tests with `npm test`. Please note: The tests are very high level and only test the basic functionality. It might make sense to add additional tests that are specific for your connector.
 
