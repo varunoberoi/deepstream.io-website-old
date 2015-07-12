@@ -1,14 +1,23 @@
-$( '.download-item' ).each(function(){
-	var element = $( this ),
-		versionElement = element.find( '.version' ),
-		pckg = element.data( 'package' ),
-		url = 'https://api.github.com/repos/hoxton-one/' + pckg + '/releases/latest';
+(function(){
+	var packages = [],
+		versionElements = {};
 
-	versionElement.addClass( 'loading' );
-
-	$.getJSON( url, function( data ){
-		versionElement
-			.removeClass( 'loading' )
-			.html( data.tag_name );
+	$( '.download-item' ).each(function(){
+		var element = $( this ),
+			versionElement = element.find( '.version' ),
+			pckg = element.data( 'package' );
+			
+		packages.push( pckg );
+		versionElements[ pckg ] = versionElement;
+		versionElement.addClass( 'loading' );
 	});
-});
+
+	$.post('https://protected-peak-4681.herokuapp.com/', {packets: packages }, function( result ){ 
+	    result = JSON.parse( result );
+
+	    for( var pckg in versionElements ) {
+	    	versionElements[ pckg ].html( result[ pckg ] );
+	    	versionElements[ pckg ].removeClass( 'loading' );
+	    }
+	});
+})();
