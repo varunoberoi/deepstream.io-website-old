@@ -18,8 +18,8 @@ Permissions are based on incoming messages. Every incoming message will be parse
 		data: [ 'currencies' ]
 	}
 
-* `topic` is a constant that defines what the message relates to, e.g. `RECORD`, `EVENT`, `RPC`, `AUTH` etc. Please find a full list of topics [here](../docs/Constants.html#Topic)
-* `action` is a constant that defines what should happen to the topic, e.g. 'CREATE_OR_READ', 'SUBSCRIBE', 'DELETE' etc. Please find a full list of actions [here](../docs/Constants.html#Actions)
+* `topic` is a constant that defines what the message relates to, e.g. `RECORD`, `EVENT`, `RPC`, `AUTH` etc. Please find a full list of topics [here](../docs/constants.html#Topic)
+* `action` is a constant that defines what should happen to the topic, e.g. 'CREATE_OR_READ', 'SUBSCRIBE', 'DELETE' etc. Please find a full list of actions [here](../docs/constants.html#Actions)
 * `data` is an array of values that relate to the action. The number and order of these values depends on the action they relate to. For every record-related message the first value in the data array is always the record name
 
 If you'd like to learn more about deepstream's message structure, have a look at the [message structure page](message-structure.html)
