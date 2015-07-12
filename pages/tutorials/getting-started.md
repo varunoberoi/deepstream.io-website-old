@@ -110,3 +110,21 @@ should now look like this:
 There are two options:
 * This tutorial only used records. Learn about deepstream's other concepts in the [Records, Events and RPCs tutorial](records-events-rpcs.html)
 * In this tutorial, deepstream stored all data in memory. For persistance, deepstream can connect to a distributed cache (Redis, Memcached etc.) and to a database (RethinkDb, MongoDb etc). It can also connect to a message broker (AMQP, Redis) or directly via TCP to scale horizontally. Learn about this in the [connectors and deployment tutorial](connectors-and-deployment.html).
+
+<br/>
+
+<div class="hint-box fa fa-gears">
+	<h3>deepstream & HTTPS</h3>
+	<ul>
+		<li>
+			To run deepstream.io over HTTPS all you have to do is provide
+			the server with an <em>sslCert</em> and <em>sslKey</em> option.
+		</li>
+		<li>
+			<code>
+				server.set('sslCert', fs.readFileSync( './keys/cert.pem', 'utf8' ));
+				server.set('sslKey',  fs.readFileSync( './keys/key.pem', 'utf8' ));
+			</code>
+		</li>
+  	</ul>
+</div>

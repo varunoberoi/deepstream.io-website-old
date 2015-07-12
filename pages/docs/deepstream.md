@@ -60,6 +60,22 @@ desc: The value that should be used
 	server.set( 'showLogo', false );
 
 	/**
+	* The public key to use if using ssl
+	* Must have an associated sslKey set
+	*
+	* @type String
+	*/
+	server.set( 'sslCert', fs.readFileSync( './keys/cert.pem', 'utf8' ) );
+
+	/**
+	* The private key to use if using ssl
+	* Must have an associated sslCert set
+	*
+	* @type String
+	*/
+	server.set( 'sslKey', fs.readFileSync( './keys/key.pem', 'utf8' ) );
+
+	/**
 	* The host that deepstream listens on for incoming connections from browsers
 	*
 	* @type String
