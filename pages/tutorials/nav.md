@@ -45,7 +45,12 @@
 		<a href="records.html">Records</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
-	
+
+	<li {{#if fileIs_records}}class="active"{{/if}}>
+		<a href="lists.html">Lists</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
 	<li {{#if fileIs_events-and-rpcs}}class="active"{{/if}}>
 		<a href="events-and-rpcs.html">Events & RPCs</a>
 		<div class="isActiveIndicator orangeGradient"></div>
