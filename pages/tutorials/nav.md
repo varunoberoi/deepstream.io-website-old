@@ -26,6 +26,10 @@
 		<a href="searching-and-querying.html">Searching & Querying</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
+	<li {{#if fileIs_transforming-data}}class="active"{{/if}}>
+		<a href="transforming-data.html">Transforming Data</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
 	<li {{#if fileIs_writing-storage-cache-connector}}class="active"{{/if}}>
 		<a href="writing-storage-cache-connector.html">Writing storage and cache connectors</a>
 		<div class="isActiveIndicator orangeGradient"></div>
