@@ -118,6 +118,18 @@ desc: The value that should be used
 	server.set( 'PermissionHandler', new LdapPermissionHandler() );
 
 	/**
+	 * Transforms data before it leaves the server. See http://deepstream.io/tutorials/transforming-data.html for details
+	 *
+	 * @type Array
+	 * @default null
+	 */
+	server.set( 'dataTransforms', [{
+		topic: C.TOPIC.RPC,
+		action: C.ACTIONS.REQUEST,
+		transform: function( data, metaData ) {}
+	}]);
+
+	/**
 	* A logger, defaults to the STDOUT / STDERROR logger
 	* [std-out-logger.js](https://github.com/hoxton-one/deepstream.io/blob/master/src/default-plugins/std-out-logger.js)
 	* for implementation

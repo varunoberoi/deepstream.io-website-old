@@ -204,6 +204,18 @@ server<span class="token punctuation" >.</span><span class="token keyword" >set<
 server<span class="token punctuation" >.</span><span class="token keyword" >set</span><span class="token punctuation" >(</span> <span class="token string" >'PermissionHandler'</span><span class="token punctuation" >,</span> <span class="token keyword" >new</span> <span class="token class-name" >LdapPermissionHandler</span><span class="token punctuation" >(</span><span class="token punctuation" >)</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
 
 <span class="token comment" spellcheck="true">/**
+ * Transforms data before it leaves the server. See http://deepstream.io/tutorials/transforming-data.html for details
+ *
+ * @type Array
+ * @default null
+ */</span>
+server<span class="token punctuation" >.</span><span class="token keyword" >set</span><span class="token punctuation" >(</span> <span class="token string" >'dataTransforms'</span><span class="token punctuation" >,</span> <span class="token punctuation" >[</span><span class="token punctuation" >{</span>
+    topic<span class="token punctuation" >:</span> C<span class="token punctuation" >.</span>TOPIC<span class="token punctuation" >.</span>RPC<span class="token punctuation" >,</span>
+    action<span class="token punctuation" >:</span> C<span class="token punctuation" >.</span>ACTIONS<span class="token punctuation" >.</span>REQUEST<span class="token punctuation" >,</span>
+    transform<span class="token punctuation" >:</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> data<span class="token punctuation" >,</span> metaData <span class="token punctuation" >)</span> <span class="token punctuation" >{</span><span class="token punctuation" >}</span>
+<span class="token punctuation" >}</span><span class="token punctuation" >]</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+
+<span class="token comment" spellcheck="true">/**
 * A logger, defaults to the STDOUT / STDERROR logger
 * [std-out-logger.js](https://github.com/hoxton-one/deepstream.io/blob/master/src/default-plugins/std-out-logger.js)
 * for implementation
