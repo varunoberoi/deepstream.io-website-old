@@ -25,7 +25,7 @@
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 
 </head>
-<body class="category_tutorials">
+<body class="category_info">
 
 	<div id="outerWrapper">
 		<div class="topSection">
@@ -36,96 +36,67 @@
 				<ul>
 					<li ><a href="..">Home</a></li>
 					<li ><a href="../download/">Downloads</a></li>
-					<li class="active"><a href="../tutorials/getting-started.html">Tutorials</a></li>
+					<li ><a href="../tutorials/getting-started.html">Tutorials</a></li>
 					<li ><a href="../docs/deepstream.html">Documentation</a></li>
-					<li ><a href="../info/">Info</a></li>
+					<li class="active"><a href="../info/">Info</a></li>
 				</ul>
 			</div>
 		</div>
 		<div id="wrapper" class="main">
 			<ul id="subnav">
-	<li class="head first">General</li>
+	<li class="head first">Performance</li>
 	<li >
-		<a href="getting-started.html">Getting started</a>
+		<a href="performance-overview.html">Overview</a>
 		<div class="isActiveIndicator orangeGradient"></div>
-	</li>
+	</li>	
 	<li >
-		<a href="authentication.html">Authentication</a>
+		<a href="single-deepstream-performance.html">Single deepstream</a>
 		<div class="isActiveIndicator orangeGradient"></div>
-	</li>
-	<li >
-		<a href="permissioning.html">Permissioning</a>
-		<div class="isActiveIndicator orangeGradient"></div>
-	</li>
-
-	<li class="head">Server</li>
-	<li >
-		<a href="connectors-and-deployment.html">Connectors and Deployment</a>
-		<div class="isActiveIndicator orangeGradient"></div>
-	</li>
-	<li >
-		<a href="data-provider.html">Building a data-provider</a>
-		<div class="isActiveIndicator orangeGradient"></div>
-	</li>
-	<li >
-		<a href="searching-and-querying.html">Searching & Querying</a>
-		<div class="isActiveIndicator orangeGradient"></div>
-	</li>
-	<li >
-		<a href="transforming-data.html">Transforming Data</a>
-		<div class="isActiveIndicator orangeGradient"></div>
-	</li>
-	<li >
-		<a href="writing-storage-cache-connector.html">Writing storage and cache connectors</a>
-		<div class="isActiveIndicator orangeGradient"></div>
-	</li>
-	<li >
-		<a href="writing-messaging-connector.html">Writing a messaging connector</a>
-		<div class="isActiveIndicator orangeGradient"></div>
-	</li>
-
-	<li class="head">Client</li>
-	<li >
-		<a href="node-js-client.html">Using the client in NodeJS</a>
-		<div class="isActiveIndicator orangeGradient"></div>
-	</li>
-
-	<li >
-		<a href="records.html">Records</a>
-		<div class="isActiveIndicator orangeGradient"></div>
-	</li>
-	
-	<li >
-		<a href="events-and-rpcs.html">Events & RPCs</a>
-		<div class="isActiveIndicator orangeGradient"></div>
-	</li>
-
-	<li >
-		<a href="simple-app-using-ko.html">Simple App using Knockout</a>
-		<div class="isActiveIndicator orangeGradient"></div>
-	</li>
-
-	<li >
-		<a href="simple-app-using-react.html">Simple App using React</a>
-		<div class="isActiveIndicator orangeGradient"></div>
-	</li>
-
-	<li >
-		<a href="simple-app-using-angular.html">Simple App using Angular</a>
-		<div class="isActiveIndicator orangeGradient"></div>
-	</li>
-
-	<li class="head">Internals</li>
-	<li >
-		<a href="message-structure.html">Message Structure</a>
+	</li>	
+	<li class="active">
+		<a href="cluster-deepstream-performance.html">Deepstream Cluster</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
 </ul>
 
 			<div id="content">
-				<script type="text/javascript">
-	document.location.href = 'getting-started.html'
-</script>
+				<h1>Deepstream Cluster</h1><p>The goal of this test is to see how well deepstream scales when run against multiple instances</p><h3>Test Setup</h3><p>An amazon c4.2xlarge instance was used to run a cluster of 3 deepstreams. 
+Reddis was used as the message bus to allow communication between them.
+750 client pairs were launched (via 6 amazon micro instances) with an average messaging rate of 25ms per message.
+Each client was randomly assigned a deepstream node to connect to.</p><table class="mini">
+    <thead>
+        <tr>
+            <th>Option</th>
+            <th>Value</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>deepstream node</td>
+            <td>c4.2xlarge</td>
+        </tr>
+        <tr>
+            <td>deepstream instances</td>
+            <td>3</td>
+        </tr>
+        <tr>
+            <td>client pairs</td>
+            <td>750</td>
+        </tr>
+        <tr>
+            <td>message frequency</td>
+            <td>25ms</td>
+        </tr>
+    </tbody>
+</table>
+
+<h3>Latency</h3><p>Average latency ( calculated via nodes in the same data center ) was 1ms</p><div class="img-container">
+    <img class="tutorial" width="602" height="302" src="../assets/images/performance/three-ds-latency.png" alt="Cluster deepstream latency" />
+</div>
+
+<h3>CPU</h3><p>CPU reached an average of 70% on all three processes to deal with approximately 20,000 messages a second</p><div class="img-container">
+    <img class="tutorial" width="602" height="302" src="../assets/images/performance/three-ds-cpu.png" alt="Cluster deepstream cpu" />
+</div>
+
 
 			</div>
 		</div>

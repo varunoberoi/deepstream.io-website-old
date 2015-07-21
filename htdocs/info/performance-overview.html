@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>deepstream.io | A Scalable Server for Realtime Web Apps</title>
+
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="keywords" content="deepstream, deepstream.io, streaming, realtime, server, socket" />
+	<meta name="description" content="deepstream.io - a scalable server for realtime web apps" />
+	<meta name="author" content="Wolfram Hempel" />
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="stylesheet" type="text/css" href="../assets/css/screen.css" />
+	<link rel="stylesheet" type="text/css" href="../assets/css/api.css" />
+	<link rel="stylesheet" type="text/css" href="../assets/css/syntaxhighlighter.css" />
+	<script type="text/javascript">
+	document.createElement( 'header' );
+	document.createElement( 'nav' );
+	</script>
+	<script type="text/javascript" src="../assets/js/jquery.js"></script>
+
+	<link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Quicksand:300,400,700' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+</head>
+<body class="category_info">
+
+	<div id="outerWrapper">
+		<div class="topSection">
+			<div id="header" class="small-logo micro">
+				<h1><a href="..">deepstream.io - a scalable server for realtime web apps</a></h1>
+			</div>
+			<div id="nav" class="standalone">
+				<ul>
+					<li ><a href="..">Home</a></li>
+					<li ><a href="../download/">Downloads</a></li>
+					<li ><a href="../tutorials/getting-started.html">Tutorials</a></li>
+					<li ><a href="../docs/deepstream.html">Documentation</a></li>
+					<li class="active"><a href="../info/">Info</a></li>
+				</ul>
+			</div>
+		</div>
+		<div id="wrapper" class="main">
+			<ul id="subnav">
+	<li class="head first">Performance</li>
+	<li class="active">
+		<a href="performance-overview.html">Overview</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>	
+	<li >
+		<a href="single-deepstream-performance.html">Single deepstream</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>	
+	<li >
+		<a href="cluster-deepstream-performance.html">Deepstream Cluster</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+</ul>
+
+			<div id="content">
+				<h1>Performance Overview</h1><p>Performance tests are a vital part of quality assurance before deploying systems to production.</p><h3>It reduces risk by:</h3><ul>
+<li>understanding how the system reacts under an expected load </li>
+<li>ensuring the system can sustain the expected load for long periods of time</li>
+<li>understanding how the system will react when reaching its full capacity</li>
+<li>understanding how the system will react  when put under extreme load for a short period of time</li>
+</ul>
+<h3>What type of tests can take these into account?</h3><ul>
+<li>load tests
+  Make sure that the system works as expected under a set conditions. This covers <em>CPU</em> and <em>message latency</em> and its output can be used to determine what kind of deployment structure would suit you best. </li>
+<li>soak tests
+  Run tests for a long period of time with slightly higher traffic. This covers <em>memory</em> and <em>message latency</em> and is used to ensure the system can run in production for long periods of time without reducing performance or crashing.</li>
+<li>stress tests
+  Push the system into critical usage of CPU and/or network usage and/or Memory and determine how it reacts.</li>
+<li>spike tests
+  Generating large amounts of clients or traffic in a very small amount of time and ensuring that the system does not fail.</li>
+</ul>
+<h3>How can you improve results?</h3><p>deepstream is designed to be a distributed system. This means you can run multiple instances to allow your system to scale horizontally. If you compare the results of <a href="./single-deepstream-performance.html">a single deepstream instance</a> to <a href="./cluster-deepstream-performance.html">a cluster with three instances</a> you can see that capacity has scaled accordingly.</p><h3>How can we run these scenarios?</h3><p>deepstream has a <a href="https://github.com/hoxton-one/deepstream.io-performance">performance test harness</a> that allows users to quickly spin up deepstream servers or client pairs.</p><p>Clients are created in pairs to allow them to send messages back and forth on a unique record in order to calculate latency and keep track of updates.
+They are responsible of incrementing a count in turn ( even and odd ) until the desired number of messages for the test case is reached.</p><p><a class="mega" href="https://github.com/hoxton-one/deepstream.io-performance"><i class="fa fa-github"></i>https://github.com/hoxton-one/deepstream.io-performance</a></p><p>Using a combination of the following variables you can adjust the test harness to either run very high throughput, high concurrency or long duration tests.</p><table class="mini">
+    <thead>
+        <tr>
+            <th>Enviroment Variable</th>
+            <th>Example Value</th>
+            <th>Description</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>DEEPSTREAMS</td>
+            <td>6021,7021</td>
+            <td>The deepstream ports to create or connect to ( via tcp )</td>
+        </tr>
+        <tr>
+            <td>HOST</td>
+            <td>localhost</td>
+            <td>The deepstream host to connect to</td>
+        </tr>
+        <tr>
+            <td>SERVER_SPAWNING_SPEED</td>
+            <td>1000</td>
+            <td>The speed to spawn servers ( in ms )</td>
+        </tr>
+        <tr>
+            <td>TEST_TIME</td>
+            <td>100000</td>
+            <td>The time for server to run ( in ms )</td>
+        </tr>
+        <tr>
+            <td>LOG_LEVEL</td>
+            <td>3</td>
+            <td>The server log level</td>
+        </tr>
+        <tr>
+            <td>CLIENT_PAIRS</td>
+            <td>125</td>
+            <td>Amount of client pairs to create</td>
+        </tr>
+        <tr>
+            <td>MESSAGE_FREQUENCY</td>
+            <td>25</td>
+            <td>How often to send messages ( in ms )</td>
+        </tr><br>        <tr>
+            <td>MESSAGE_LIMIT</td>
+            <td>5000</td>
+            <td>Limit of messages per pair</td>
+        </tr><br>        <tr>
+            <td>CLIENT_SPAWNING_SPEED</td>
+            <td>100</td>
+            <td>Speed of generating clients ( in ms )</td>
+        </tr><br>        <tr>
+            <td>LOG_LATENCY</td>
+            <td>true</td>
+            <td>Print client latency ( requires CALCULATE_LATENCY to be true ) </td>
+        </tr>
+        <tr>
+            <td>CALCULATE_LATENCY</td>
+            <td>true</td>
+            <td>Store client latency during test</td>
+        </tr>
+    </tbody>
+</table>
+
+<p></div></p>
+
+			</div>
+		</div>
+		<script type="text/javascript" src="../assets/js/docs.js"></script>
+		<div id="footerPush"></div>
+	</div>
+	<div id="footer">
+		<ul class="footerItems">
+			<li class="footer-left">
+				<h4>Contact us</h4>
+				<p>
+					<b>deepstream.io </b>is developed by Hoxton One Ltd. <br>
+				</p>
+				<p>
+					Email us <a href="mailto:info@hoxton-one.com">info@hoxton-one.com</a>.<br><br>
+
+				</p>
+				<p>Registered in England and Wales, Company Nr 09121068</p>
+			</li>
+
+
+			<a href="http://www.hoxton-one.com/" title="hoxton-one.com" class="footer-middle">
+				<p>
+				Handcrafted by
+				</p>
+
+				<div class="footer-hoxton-one">
+				</div>
+			</li>
+
+			<li class="footer-right">
+				<ul class="social">
+					<li class="twitter">
+						<a href="https://twitter.com/HoxtonOne">
+							<i class="fa fa-twitter"></i>  Twitter
+						</a>
+					</li>
+					<li class="github">
+						<a href="https://github.com/hoxton-one">
+							<i class="fa fa-github"></i>  Github
+						</a>
+					</li>
+					<li class="stack-overflow">
+						<a href="http://stackoverflow.com/questions/tagged/deepstream.io">
+							<i class="fa fa-stack-overflow"></i>  Stack Overflow
+						</a>
+					</li>
+				</ul>
+				<div class="copyright">
+					&copy;2015 Hoxton One Ltd. All rights reserved.
+				</div>
+			</li>
+		</ul>
+	</div>
+
+
+</body>
+</html>
