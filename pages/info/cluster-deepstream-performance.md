@@ -6,7 +6,7 @@ The goal of this test is to see how well deepstream scales when run against mult
 
 An amazon c4.2xlarge instance was used to run a cluster of 3 deepstreams. 
 Reddis was used as the message bus to allow communication between them.
-750 client pairs were launched (via 6 amazon micro instances) with an average messaging rate of 25ms per message.
+750 client pairs were launched via 6 amazon micro instances with an average messaging rate of 25ms.
 Each client was randomly assigned a deepstream node to connect to.
 
 <table class="mini">

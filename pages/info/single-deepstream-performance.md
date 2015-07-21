@@ -5,7 +5,7 @@ The goal of this test is to see how many messages deepstream can could process e
 ###Test Setup
 
 An amazon c4.large instance was used to run deepstream.
-250 client pairs were launched (via 2 amazon micro instances) with an average messaging rate of 25ms per message.
+250 client pairs were launched via 2 amazon micro instances with an average messaging rate of 25ms.
 
 <table class="mini">
 	<thead>
@@ -43,7 +43,7 @@ Average latency ( calculated via nodes in the same data center ) was 2ms
 
 ###CPU
 
-CPU reached an average of 80% with 6,000 messages a second
+CPU reached an average of 80% with approximately 6,000 messages a second
 
 <div class="img-container">
 	<img class="tutorial" width="602" height="302" src="../assets/images/performance/one-ds-cpu.png" alt="Single deepstream cpu" />
