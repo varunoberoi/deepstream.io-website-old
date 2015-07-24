@@ -12,11 +12,11 @@ Events work just like a common event-emitter, but distributed across all connect
 	ds.event.emit( 'someEvent', 'someData' );
 
 	//unsubscribe from an event
-	ds.event.subscribe( 'someEvent' );
+	ds.event.unsubscribe( 'someEvent' );
 
 ###RPCs
 Remote Procedure Calls allow for Request-Reponse communication. If multiple clients are able to provide the same
-rpc, deepstream will distribute requests evently between them.
+rpc, deepstream will distribute requests evenly between them.
 
 	//register as a provider for a rpc
 	ds.rpc.provide( 'addTwoNumbers', function( data, response ){
