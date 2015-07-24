@@ -50,7 +50,7 @@
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
 
-	<li {{#if fileIs_records}}class="active"{{/if}}>
+	<li {{#if fileIs_lists}}class="active"{{/if}}>
 		<a href="lists.html">Lists</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
