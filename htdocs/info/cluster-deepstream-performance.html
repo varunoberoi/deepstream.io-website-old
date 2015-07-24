@@ -62,7 +62,7 @@
 			<div id="content">
 				<h1>Deepstream Cluster</h1><p>The goal of this test is to see how well deepstream scales when run against multiple instances</p><h3>Test Setup</h3><p>An amazon c4.2xlarge instance was used to run a cluster of 3 deepstreams. 
 Reddis was used as the message bus to allow communication between them.
-750 client pairs were launched (via 6 amazon micro instances) with an average messaging rate of 25ms per message.
+750 client pairs were launched via 6 amazon micro instances with an average messaging rate of 25ms.
 Each client was randomly assigned a deepstream node to connect to.</p><table class="mini">
     <thead>
         <tr>
@@ -89,7 +89,7 @@ Each client was randomly assigned a deepstream node to connect to.</p><table cla
     </tbody>
 </table>
 
-<h3>Latency</h3><p>Average latency ( calculated via nodes in the same data center ) was 1ms</p><div class="img-container">
+<h3>Latency</h3><p>Average latency was 1ms ( machines being within same data centre )</p><div class="img-container">
     <img class="tutorial" width="602" height="302" src="../assets/images/performance/three-ds-latency.png" alt="Cluster deepstream latency" />
 </div>
 

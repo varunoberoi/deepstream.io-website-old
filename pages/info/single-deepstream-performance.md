@@ -35,7 +35,7 @@ An amazon c4.large instance was used to run deepstream.
 
 ###Latency
 
-Average latency ( calculated via nodes in the same data center ) was 2ms
+Average latency was 2ms ( machines being within same data centre )
 
 <div class="img-container">
 	<img class="tutorial" width="602" height="302" src="../assets/images/performance/one-ds-latency.png" alt="Single deepstream latency" />

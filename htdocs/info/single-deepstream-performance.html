@@ -61,7 +61,7 @@
 
 			<div id="content">
 				<h1>Single Deepstream</h1><p>The goal of this test is to see how many messages deepstream can could process each second and if latency is affected under high traffic</p><h3>Test Setup</h3><p>An amazon c4.large instance was used to run deepstream.
-250 client pairs were launched (via 2 amazon micro instances) with an average messaging rate of 25ms per message.</p><table class="mini">
+250 client pairs were launched via 2 amazon micro instances with an average messaging rate of 25ms.</p><table class="mini">
     <thead>
         <tr>
             <th>Option</th>
@@ -87,11 +87,11 @@
     </tbody>
 </table>
 
-<h3>Latency</h3><p>Average latency ( calculated via nodes in the same data center ) was 2ms</p><div class="img-container">
+<h3>Latency</h3><p>Average latency was 2ms ( machines being within same data centre )</p><div class="img-container">
     <img class="tutorial" width="602" height="302" src="../assets/images/performance/one-ds-latency.png" alt="Single deepstream latency" />
 </div>
 
-<h3>CPU</h3><p>CPU reached an average of 80% with 6,000 messages a second</p><div class="img-container">
+<h3>CPU</h3><p>CPU reached an average of 80% with approximately 6,000 messages a second</p><div class="img-container">
     <img class="tutorial" width="602" height="302" src="../assets/images/performance/one-ds-cpu.png" alt="Single deepstream cpu" />
 </div>
 

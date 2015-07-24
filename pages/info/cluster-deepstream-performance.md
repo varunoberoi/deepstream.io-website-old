@@ -37,7 +37,7 @@ Each client was randomly assigned a deepstream node to connect to.
 
 ###Latency
 
-Average latency ( calculated via nodes in the same data center ) was 1ms
+Average latency was 1ms ( machines being within same data centre )
 
 <div class="img-container">
 	<img class="tutorial" width="602" height="302" src="../assets/images/performance/three-ds-latency.png" alt="Cluster deepstream latency" />
