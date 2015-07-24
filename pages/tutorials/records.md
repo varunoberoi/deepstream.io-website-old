@@ -75,9 +75,9 @@ If your system has to support multiple users or groups that are not allowed to a
 			var recB = ds.record.getRecord( 'stones-albums' );
 		}
 	});
-	
+
 **Server**
-	
+
 	//Permission Handler
 	var users = {
 		'paul':  { pass: 'abc', group: 'beatles' },
@@ -105,7 +105,11 @@ If your system has to support multiple users or groups that are not allowed to a
 
 
 ###Lists & Anonymous Records
-Deepstream has two other concepts that extend records: Lists and Anonymous Records. Lists are arrays of record names that come with a number of helper-methods like `addEntry` or `removeEntry`. An Anonymous Record is a record without a predefined name. It
+Deepstream has two other concepts that extend records: <a href="lists.html">Lists</a> and Anonymous Records.
+
+<a href="lists.html">Lists</a> are arrays of record names that come with a number of helper-methods like `addEntry` or `removeEntry`. 
+
+An Anonymous Record is a record without a predefined name. It
 acts as a wrapper around an actual record that can be swapped out for another one whilst keeping all bindings intact.
 
 ###listening for record subscriptions made by other clients
