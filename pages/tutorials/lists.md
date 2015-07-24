@@ -1,6 +1,7 @@
 Lists
 ==============================
-[Lists](../docs/list.html) provide a way to subscribe to a list of [Records](../docs/record.html). A list will provide you an array of records, which you can subscribe to separately.
+[Lists](../docs/list.html) provide a way to manage a group of [Records](../docs/record.html). A list is an array of record names
+that can be manipulated and observed.
 
 	//creating or retrieving a list is the same
 	var pupils = ds.record.getList( 'pupils' );
@@ -26,40 +27,37 @@ Lists
 
 	//But be aware, if your record exists already
 	//it needs a brief moment to receive its data
-	pupils.whenReady(function(){
-		alert( 'Pupils: ' + pupils.getEntries() );
+	pupils.whenReady( function(){
+		console.log( 'Pupils', pupils.getEntries() );
 	});
 
 	//So a typical workflow to print all the data
 	//from a list would be as follows
-	function onRecordReady() {
-		alert( 'Pupil data: ' + JSON.stringify( pupil.get() ) );
-	}
-
-	function onListReady() {
-		pupils.getEntries().forEach(function( id ) {
+	pupils.whenReady( function onListReady() {
+		pupils.getEntries().forEach( function( id ) {
 			var pupil = ds.record.getRecord( id );
-			pupil.whenReady( onRecordReady );
+			pupil.whenReady( function(){
+				console.log( pupil.get() );
+			});
 		})
-	}
-
-	pupils.whenReady( onListReady );
+	});
 
 	//The subscribe feature can be used to be updated
 	//whenever the list changes
-	var pupilAlerter = function( pupils ) {
-			alert( 'List of pupils is now : ' + pupils.getEntries() );
-	}
-	pupils.subscribe( pupilAlerter );
+	var onPupilChange = function( pupils ) {
+		console.log( 'List of pupils is now', pupils.getEntries() );
+	};
+
+	pupils.subscribe( onPupilChange );
 
 	//You can remove subscriptions by unsubscribing, but please be aware 
 	//that this only unsubscribes locally, updates will continue to be sent from the server
-	pupils.unsubscribe( pupilAlerter );
+	pupils.unsubscribe( onPupilChange );
 
 	//Once you are no longer interested in receiving
 	//updates for this list, call discard, which will
 	//stop the server from sending any updates
 	pupils.discard();
 
-	//Or delete the record entirely
+	//Or delete the list entirely
 	pupils.delete();
