@@ -50,34 +50,36 @@
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>	
 	<li >
-		<a href="single-deepstream-performance.html">Single deepstream</a>
+		<a href="performance-single-node-vs-cluster.html">Single Node vs Cluster</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>	
-	<li >
-		<a href="cluster-deepstream-performance.html">Deepstream Cluster</a>
-		<div class="isActiveIndicator orangeGradient"></div>
-	</li>
 </ul>
 
 			<div id="content">
-				<h1>Performance Overview</h1><p>Performance tests are a vital part of quality assurance before deploying systems to production.</p><h3>It reduces risk by:</h3><ul>
+				<h1>Performance Overview</h1><p>Realtime web applications have a wide range of performance requirements. Apps with a focus on collaboration need to be able to sync changes between large numbers of clients, financial platforms must fan out prices with ultra-low latency and apps with a focus on communication require comparable up- and down-stream times.</p><p>To ensure deepstream can cater for all these use cases, we are regularly conducting performance tests and benchmarks.</p><p>In doing so, we have three main goals. We want to:</p><ul>
+<li>quantify deepstream’s performance to help choose the right hardware and deployment strategy</li>
+<li>develop a suite of benchmarks that create reproducible results to help detect any decline in performance early on</li>
+<li>make it easier to compare deepstream against other realtime servers to help you choose the right tool for your performance requirements</li>
+</ul>
+<p>Please note: The following tests are non-conclusive and will be improved and extended as development progresses. If you have a particular performance test scenario in mind or noticed a bottleneck within deepstream, please write to us at <a href="mailto:info@hoxton-one.com">info@hoxton-one.com</a>.</p><h3>Performance tests reduces risk by:</h3><ul>
 <li>understanding how the system reacts under an expected load </li>
 <li>ensuring the system can sustain the expected load for long periods of time</li>
 <li>understanding how the system will react when reaching its full capacity</li>
 <li>understanding how the system will react  when put under extreme load for a short period of time</li>
 </ul>
 <h3>What type of tests can take these into account?</h3><ul>
-<li>load tests
+<li>load tests<br />
   Make sure that the system works as expected under a set conditions. This covers <em>CPU</em> and <em>message latency</em> and its output can be used to determine what kind of deployment structure would suit you best. </li>
-<li>soak tests
+<li>soak tests<br />
   Run tests for a long period of time with slightly higher traffic. This covers <em>memory</em> and <em>message latency</em> and is used to ensure the system can run in production for long periods of time without reducing performance or crashing.</li>
-<li>stress tests
+<li>stress tests<br />
   Push the system into critical usage of CPU and/or network usage and/or Memory and determine how it reacts.</li>
-<li>spike tests
+<li>spike tests<br />
   Generating large amounts of clients or traffic in a very small amount of time and ensuring that the system does not fail.</li>
 </ul>
-<h3>How can you improve results?</h3><p>deepstream is designed to be a distributed system. This means you can run multiple instances to allow your system to scale horizontally. If you compare the results of <a href="./single-deepstream-performance.html">a single deepstream instance</a> to <a href="./cluster-deepstream-performance.html">a cluster with three instances</a> you can see that capacity has scaled accordingly.</p><h3>How can we run these scenarios?</h3><p>deepstream has a <a href="https://github.com/hoxton-one/deepstream.io-performance">performance test harness</a> that allows users to quickly spin up deepstream servers or client pairs.</p><p>Clients are created in pairs to allow them to send messages back and forth on a unique record in order to calculate latency and keep track of updates.
-They are responsible of incrementing a count in turn ( even and odd ) until the desired number of messages for the test case is reached.</p><p><a class="mega" href="https://github.com/hoxton-one/deepstream.io-performance"><i class="fa fa-github"></i>https://github.com/hoxton-one/deepstream.io-performance</a></p><p>Using a combination of the following variables you can adjust the test harness to either run very high throughput, high concurrency or long duration tests.</p><table class="mini">
+<h3>How can you improve results?</h3><p>About deepstream’s performance
+Deepstream is designed as a distributed system. Individual nodes can multiplex updates amongst each other. This means that it’s possible to keep message latency and throughput rates steady whilst catering for an ever increasing number of simultaneously connected clients – simply by spinning up additional deepstream nodes as needed.</p><p>To put this statement into numbers, please see the performance test results for <a href="./performance-single-node-vs-cluster.html">a single node in comparison to a three instance cluster</a>.</p><h3>How to run the tests yourself</h3><p>When running these tests, we&#39;re using a <a href="https://github.com/hoxton-one/deepstream.io-performance">performance test harness that&#39;s available on github</a>. It makes it easy to quickly spin up large numbers of deepstream servers and clients.</p><p>Clients are created in pairs that send messages back and forth on a unique record in order to calculate latency and keep track of updates.
+Each client increments the same field of a record in turns ( even and odd ) until the configured number of messages for the test case is reached.</p><p>Using a combination of the following environment variables you can adjust the test harness to either run high throughput, high concurrency or long duration tests.</p><table class="mini">
     <thead>
         <tr>
             <th>Enviroment Variable</th>
@@ -98,7 +100,7 @@ They are responsible of incrementing a count in turn ( even and odd ) until the 
         <tr>
             <td>SERVER_SPAWNING_SPEED</td>
             <td>1000</td>
-            <td>The speed to spawn servers ( in ms )</td>
+            <td>The interval at which servers are spawned ( in ms )</td>
         </tr>
         <tr>
             <td>TEST_TIME</td>

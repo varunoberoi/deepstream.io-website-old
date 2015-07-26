@@ -1,9 +1,20 @@
 Performance Overview
 ============================
 
-Performance tests are a vital part of quality assurance before deploying systems to production.
+Realtime web applications have a wide range of performance requirements. Apps with a focus on collaboration need to be able to sync changes between large numbers of clients, financial platforms must fan out prices with ultra-low latency and apps with a focus on communication require comparable up- and down-stream times.
 
-###It reduces risk by:
+To ensure deepstream can cater for all these use cases, we are regularly conducting performance tests and benchmarks.
+
+In doing so, we have three main goals. We want to:
+
+* quantify deepstream’s performance to help choose the right hardware and deployment strategy
+* develop a suite of benchmarks that create reproducible results to help detect any decline in performance early on
+* make it easier to compare deepstream against other realtime servers to help you choose the right tool for your performance requirements
+
+Please note: The following tests are non-conclusive and will be improved and extended as development progresses. If you have a particular performance test scenario in mind or noticed a bottleneck within deepstream, please write to us at [info@hoxton-one.com](mailto:info@hoxton-one.com).
+
+
+###Performance tests reduces risk by:
 
 * understanding how the system reacts under an expected load 
 * ensuring the system can sustain the expected load for long periods of time
@@ -12,30 +23,30 @@ Performance tests are a vital part of quality assurance before deploying systems
 
 ###What type of tests can take these into account?
 
-* load tests
+* load tests<br />
 	Make sure that the system works as expected under a set conditions. This covers *CPU* and *message latency* and its output can be used to determine what kind of deployment structure would suit you best. 
-* soak tests
+* soak tests<br />
 	Run tests for a long period of time with slightly higher traffic. This covers *memory* and *message latency* and is used to ensure the system can run in production for long periods of time without reducing performance or crashing.
-* stress tests
+* stress tests<br />
 	Push the system into critical usage of CPU and/or network usage and/or Memory and determine how it reacts.
-* spike tests
+* spike tests<br />
 	Generating large amounts of clients or traffic in a very small amount of time and ensuring that the system does not fail.
 
 ###How can you improve results?
 
-deepstream is designed to be a distributed system. This means you can run multiple instances to allow your system to scale horizontally. If you compare the results of [a single deepstream instance](./single-deepstream-performance.html) to [a cluster with three instances](./cluster-deepstream-performance.html) you can see that capacity has scaled accordingly.
+About deepstream’s performance
+Deepstream is designed as a distributed system. Individual nodes can multiplex updates amongst each other. This means that it’s possible to keep message latency and throughput rates steady whilst catering for an ever increasing number of simultaneously connected clients – simply by spinning up additional deepstream nodes as needed.
 
-###How can we run these scenarios?
+To put this statement into numbers, please see the performance test results for [a single node in comparison to a three instance cluster](./performance-single-node-vs-cluster.html).
 
-deepstream has a [performance test harness](https://github.com/hoxton-one/deepstream.io-performance) that allows users to quickly spin up deepstream servers or client pairs.
+###How to run the tests yourself
 
-Clients are created in pairs to allow them to send messages back and forth on a unique record in order to calculate latency and keep track of updates.
-They are responsible of incrementing a count in turn ( even and odd ) until the desired number of messages for the test case is reached.
+When running these tests, we're using a [performance test harness that's available on github](https://github.com/hoxton-one/deepstream.io-performance). It makes it easy to quickly spin up large numbers of deepstream servers and clients.
 
-<a class="mega" href="https://github.com/hoxton-one/deepstream.io-performance"><i class="fa fa-github"></i>https://github.com/hoxton-one/deepstream.io-performance</a>
+Clients are created in pairs that send messages back and forth on a unique record in order to calculate latency and keep track of updates.
+Each client increments the same field of a record in turns ( even and odd ) until the configured number of messages for the test case is reached.
 
-Using a combination of the following variables you can adjust the test harness to either run very high throughput, high concurrency or long duration tests.   
-
+Using a combination of the following environment variables you can adjust the test harness to either run high throughput, high concurrency or long duration tests.
 <table class="mini">
 	<thead>
 		<tr>
@@ -57,7 +68,7 @@ Using a combination of the following variables you can adjust the test harness t
 		<tr>
 			<td>SERVER_SPAWNING_SPEED</td>
 			<td>1000</td>
-			<td>The speed to spawn servers ( in ms )</td>
+			<td>The interval at which servers are spawned ( in ms )</td>
 		</tr>
 		<tr>
 			<td>TEST_TIME</td>

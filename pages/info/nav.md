@@ -4,12 +4,8 @@
 		<a href="performance-overview.html">Overview</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>	
-	<li {{#if fileIs_single-deepstream-performance}}class="active"{{/if}}>
-		<a href="single-deepstream-performance.html">Single deepstream</a>
+	<li {{#if fileIs_performance-single-node-vs-cluster}}class="active"{{/if}}>
+		<a href="performance-single-node-vs-cluster.html">Single Node vs Cluster</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>	
-	<li {{#if fileIs_cluster-deepstream-performance}}class="active"{{/if}}>
-		<a href="cluster-deepstream-performance.html">Deepstream Cluster</a>
-		<div class="isActiveIndicator orangeGradient"></div>
-	</li>
 </ul>
