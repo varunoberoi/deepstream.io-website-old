@@ -35,8 +35,8 @@ All tests were run on Amazon Web Services EC2 instances within the same region, 
 		</tr>
 		<tr>
 			<td>message frequency per client</td>
-			<td>25ms</td>
-			<td>25ms</td>
+			<td>~25ms</td>
+			<td>~25ms</td>
 		</tr>
 		<tr>
 			<td>duration of full load</td>
@@ -54,7 +54,7 @@ All tests were run on Amazon Web Services EC2 instances within the same region, 
 ### Single Deepstream Node
 
 **Latency Distribution**<br />
-Average latency was 2ms ( machines being within same data centre )
+Average latency was 2.065ms ( machines being within same data centre )
 <div class="img-container">
 	<img class="tutorial" width="602" height="302" src="../assets/images/performance/one-ds-latency.png" alt="Single deepstream latency" />
 </div>
@@ -68,7 +68,7 @@ CPU reached an average of 80% with approximately 10,000 messages a second
 ###Three deepstream node cluster
 
 **Latency Distribution**<br />
-Average latency was 1ms ( machines being within same data centre )
+Average latency was 0.999ms ( machines being within same data centre )
 <div class="img-container">
 	<img class="tutorial" width="602" height="302" src="../assets/images/performance/three-ds-latency.png" alt="Cluster deepstream latency" />
 </div>
