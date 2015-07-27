@@ -326,7 +326,7 @@ nav{
 	display: block;
 }
 
-.category_tutorials #wrapper > #content {
+.category_tutorials #wrapper > #content, .category_info #wrapper > #content  {
 	background: #fff;
 	padding: 40px;
 }
