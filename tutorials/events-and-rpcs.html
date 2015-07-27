@@ -38,6 +38,7 @@
 					<li ><a href="../download/">Downloads</a></li>
 					<li class="active"><a href="../tutorials/getting-started.html">Tutorials</a></li>
 					<li ><a href="../docs/deepstream.html">Documentation</a></li>
+					<li ><a href="../info/">Info</a></li>
 				</ul>
 			</div>
 		</div>
@@ -93,7 +94,12 @@
 		<a href="records.html">Records</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
-	
+
+	<li >
+		<a href="lists.html">Lists</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
 	<li class="active">
 		<a href="events-and-rpcs.html">Events & RPCs</a>
 		<div class="isActiveIndicator orangeGradient"></div>
@@ -129,9 +135,9 @@
 </span>ds<span class="token punctuation" >.</span>event<span class="token punctuation" >.</span><span class="token function" >emit<span class="token punctuation" >(</span></span> <span class="token string" >'someEvent'</span><span class="token punctuation" >,</span> <span class="token string" >'someData'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
 <span class="token comment" spellcheck="true">
 //unsubscribe from an event
-</span>ds<span class="token punctuation" >.</span>event<span class="token punctuation" >.</span><span class="token function" >subscribe<span class="token punctuation" >(</span></span> <span class="token string" >'someEvent'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+</span>ds<span class="token punctuation" >.</span>event<span class="token punctuation" >.</span><span class="token function" >unsubscribe<span class="token punctuation" >(</span></span> <span class="token string" >'someEvent'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
 </code></pre><h3>RPCs</h3><p>Remote Procedure Calls allow for Request-Reponse communication. If multiple clients are able to provide the same
-rpc, deepstream will distribute requests evently between them.</p><pre><code><span class="token comment" spellcheck="true">//register as a provider for a rpc
+rpc, deepstream will distribute requests evenly between them.</p><pre><code><span class="token comment" spellcheck="true">//register as a provider for a rpc
 </span>ds<span class="token punctuation" >.</span>rpc<span class="token punctuation" >.</span><span class="token function" >provide<span class="token punctuation" >(</span></span> <span class="token string" >'addTwoNumbers'</span><span class="token punctuation" >,</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> data<span class="token punctuation" >,</span> response <span class="token punctuation" >)</span><span class="token punctuation" >{</span>
 
    <span class="token comment" spellcheck="true"> //you can now either send a response

@@ -38,6 +38,7 @@
 					<li ><a href="../download/">Downloads</a></li>
 					<li class="active"><a href="../tutorials/getting-started.html">Tutorials</a></li>
 					<li ><a href="../docs/deepstream.html">Documentation</a></li>
+					<li ><a href="../info/">Info</a></li>
 				</ul>
 			</div>
 		</div>
@@ -93,7 +94,12 @@
 		<a href="records.html">Records</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
-	
+
+	<li >
+		<a href="lists.html">Lists</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
 	<li >
 		<a href="events-and-rpcs.html">Events & RPCs</a>
 		<div class="isActiveIndicator orangeGradient"></div>
@@ -203,7 +209,7 @@ server<span class="token punctuation" >.</span><span class="token keyword" >set<
         <span class="token function" >callback<span class="token punctuation" >(</span></span> <span class="token keyword" >null</span><span class="token punctuation" >,</span> requestedGroup <span class="token operator" >===</span> actualGroup <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
     <span class="token punctuation" >}</span>
 <span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-</code></pre><h3>Lists &amp; Anonymous Records</h3><p>Deepstream has two other concepts that extend records: Lists and Anonymous Records. Lists are arrays of record names that come with a number of helper-methods like <code>addEntry</code> or <code>removeEntry</code>. An Anonymous Record is a record without a predefined name. It
+</code></pre><h3>Lists &amp; Anonymous Records</h3><p>Deepstream has two other concepts that extend records: <a href="lists.html">Lists</a> and Anonymous Records.</p><p><a href="lists.html">Lists</a> are arrays of record names that come with a number of helper-methods like <code>addEntry</code> or <code>removeEntry</code>.</p><p>An Anonymous Record is a record without a predefined name. It
 acts as a wrapper around an actual record that can be swapped out for another one whilst keeping all bindings intact.</p><h3>listening for record subscriptions made by other clients</h3><p>deepstream allows you to register a callback function that will be notified whenever clients subscribe to a record for the first time. This is useful to create dynamic data providers that provide record content only on request.</p><pre><code><span class="token comment" spellcheck="true">//Browser Client
 </span>ds<span class="token punctuation" >.</span>record<span class="token punctuation" >.</span><span class="token function" >getRecord<span class="token punctuation" >(</span></span> <span class="token string" >'stock/HXTO'</span> <span class="token punctuation" >)</span>
     <span class="token punctuation" >.</span><span class="token function" >subscribe<span class="token punctuation" >(</span></span><span class="token string" >'ask-price'</span><span class="token punctuation" >,</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> askPrice <span class="token punctuation" >)</span><span class="token punctuation" >{</span>

@@ -25,7 +25,7 @@
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 
 </head>
-<body class="category_docs">
+<body class="category_info">
 
 	<div id="outerWrapper">
 		<div class="topSection">
@@ -37,128 +37,28 @@
 					<li ><a href="..">Home</a></li>
 					<li ><a href="../download/">Downloads</a></li>
 					<li ><a href="../tutorials/getting-started.html">Tutorials</a></li>
-					<li class="active"><a href="../docs/deepstream.html">Documentation</a></li>
-					<li ><a href="../info/">Info</a></li>
+					<li ><a href="../docs/deepstream.html">Documentation</a></li>
+					<li class="active"><a href="../info/">Info</a></li>
 				</ul>
 			</div>
 		</div>
 		<div id="wrapper" class="main">
 			<ul id="subnav">
-	<li class="head first">Server</li>
+	<li class="head first">Performance</li>
 	<li >
-		<a href="deepstream.html">Deepstream</a>
+		<a href="performance-overview.html">Overview</a>
 		<div class="isActiveIndicator orangeGradient"></div>
-	</li>
+	</li>	
 	<li >
-		<a href="constants.html">Constants</a>
+		<a href="performance-single-node-vs-cluster.html">Single Node vs Cluster</a>
 		<div class="isActiveIndicator orangeGradient"></div>
-	</li>
-
-
-	<li class="head">JS Client</li>
-	<li >
-		<a href="client.html">Client</a>
-		<div class="isActiveIndicator orangeGradient"></div>
-	</li>
-
-	<li >
-		<a href="client_options.html">options</a>
-		<div class="isActiveIndicator orangeGradient"></div>
-	</li>
-
-	<li class="active">
-		<a href="connection_states.html">connectionStates</a>
-		<div class="isActiveIndicator orangeGradient"></div>
-	</li>
-
-	<li >
-		<a href="client_errors.html">errors</a>
-		<div class="isActiveIndicator orangeGradient"></div>
-	</li>
-
-	<li >
-		<a href="event_emitter.html">EventEmitter</a>
-		<div class="isActiveIndicator orangeGradient"></div>
-	</li>
-
-	<li class="de-emphasized">Record</li>
-	<li >
-		<a href="client.record.html">client.record</a>
-		<div class="isActiveIndicator orangeGradient"></div>
-	</li>
-
-	<li >
-		<a href="record.html">Record</a>
-		<div class="isActiveIndicator orangeGradient"></div>
-	</li>
-
-	<li >
-		<a href="list.html">List</a>
-		<div class="isActiveIndicator orangeGradient"></div>
-	</li>
-
-	<li >
-		<a href="anonymous_record.html">Anonymous Record</a>
-		<div class="isActiveIndicator orangeGradient"></div>
-	</li>
-
-	<li class="de-emphasized">RPC</li>
-	<li >
-		<a href="client.rpc.html">client.rpc</a>
-		<div class="isActiveIndicator orangeGradient"></div>
-	</li>
-
-	<li >
-		<a href="rpc_response.html">RpcResponse</a>
-		<div class="isActiveIndicator orangeGradient"></div>
-	</li>
-
-	<li class="de-emphasized">Event</li>
-	<li >
-		<a href="client.event.html">client.event</a>
-		<div class="isActiveIndicator orangeGradient"></div>
-	</li>
+	</li>	
 </ul>
 
 			<div id="content">
-				<div class="section"><h2><a name="Connection States">Connection States</a></h2><table class="mini">
-
-<tr>
-<td>CLOSED</td>
-<td>Connection state after the client has been closed, either as a result of calling <code>close()</code> or due to a disconnect
-    and multiple failed reconnection attempts.
-    <br/>
-    Please note: The initial state after the client was created is not &#39;CLOSED&#39;, but &#39;AWAITING_AUTHENTICATION&#39;
-</td>
-</tr>
-
-<tr>
-<td>AWAITING_AUTHENTICATION</td>
-<td>State after the client was created, but before <code>login()</code> was called.</td>
-</tr>
-
-<tr>
-<td>AUTHENTICATING</td>
-<td>State after the <code>login()</code> was called, but before the response was received.</td>
-</tr>
-
-<tr>
-<td>OPEN</td>
-<td>State after a successful login.</td>
-</tr>
-
-<tr>
-<td>ERROR</td>
-<td>State after a unrecoverable connection error occured.</td>
-</tr>
-
-<tr>
-<td>RECONNECTING</td>
-<td>State while the client is trying to reconnect.</td>
-</tr>
-
-</table>
-
+				<script type="text/javascript">
+	document.location.href = 'performance-overview.html'
+</script>
 
 			</div>
 		</div>
