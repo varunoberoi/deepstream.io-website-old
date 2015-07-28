@@ -1,3 +1,7 @@
+{
+	"title": "Message Structure",
+	"description": "An overview over deepstreams internal message structure"
+}
 Message Structure
 ========================================
 Deepstream messages are transmitted using a proprietary, minimal, string-based protocol. Every message follows the same structure:

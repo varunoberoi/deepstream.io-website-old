@@ -1,3 +1,7 @@
+{
+	"title": "connection state documentation",
+	"description": "a list of all possible connection states"
+}
 Connection States
 -----------------------------
 <table class="mini">

@@ -1,3 +1,7 @@
+{
+	"title": "Events and RPCs",
+	"description": "a quick overview over deepstream's event and rpc features"
+}
 Events & RPCs
 ====================================
 In addition to records, deepstream provides means of messaging and request-response communication: events and rpcs.

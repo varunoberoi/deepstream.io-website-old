@@ -1,3 +1,7 @@
+{
+	"title": "RPC response documentation",
+	"description": "API docs for deepstream's RPC response object"
+}
 RpcResponse
 -----------------------
 RpcResponse objects are passed to rpc `provide` callbacks. They allow to explicitely acknowledge, complete or reject requests 

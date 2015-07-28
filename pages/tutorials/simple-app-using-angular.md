@@ -1,3 +1,7 @@
+{
+	"title": "Simple app using AngularJS",
+	"description": "Learn how to build a simple address manager using deepstream and AngularJS"
+}
 Building a simple app with deepstream and angular
 =====================================================
 

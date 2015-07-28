@@ -1,3 +1,7 @@
+{
+	"title": "Authentication tutorial",
+	"description": "learn how to authenticate clients against deepstream servers"
+}
 Authentication
 ======================================
 Deepstream's security and permission model is very powerful, yet really simple. In fact,

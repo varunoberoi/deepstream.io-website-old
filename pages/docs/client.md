@@ -1,3 +1,7 @@
+{
+	"title": "javascript client API documentation",
+	"description": "the API docs for the deepstream javascript client"
+}
 deepstream( url, options )
 ------------------------------
 argument: url

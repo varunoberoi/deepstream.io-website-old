@@ -1,3 +1,7 @@
+{
+	"title": "Simple app using React",
+	"description": "Learn how to build a simple address manager using deepstream and Facebook's ReactJS"
+}
 Building a simple app with deepstream and react
 =====================================================
 

@@ -1,3 +1,7 @@
+{
+	"title": "RPC API documentation",
+	"description": "the API docs for Remote Procedure Calls, deepstream's request-response mechanism"
+}
 Remote Procedure Calls (RPCs)
 -----------------------------
 RPCs are deepstream's mechanism for request/response communication (think Ajax Request, but with load balancing). Deepstream clients can register as providers for RPCs using `provide`, e.g.

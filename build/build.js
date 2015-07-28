@@ -156,6 +156,38 @@ var readFile = function( srcFilePath, next ) {
 var buildFile = function( fileExtension, data, fileContent, next ) {
 	hbs.cwd = path.dirname( data.targetFilePath );
 	hbs.outputDir = data.outputDir;
+	// defaults
+	data.contextVars.title = 'A Scalable Server for Realtime Web Apps';
+	data.contextVars.description = 'a node.js realtime server';
+	if( fileExtension === 'md' ) {
+		var metaDataEnd = fileContent.indexOf( '}' ),
+			metaData;
+
+		if( metaDataEnd === -1 ) {
+			throw new Error( 'Missing meta-data section for ' + data.targetFilePath );
+		}
+
+		try{
+			metaData = JSON.parse( fileContent.substr( 0, metaDataEnd + 1 ) );
+		} catch( e ) {
+			console.log( fileContent.substr( 0, metaDataEnd + 1 ) );
+			console.log( e );
+			throw new Error( 'Can\'t parse meta-data for ' + data.targetFilePath );
+		}
+
+		if( !metaData.title ) {
+			throw new Error( 'Missing title for ' + data.targetFilePath );
+		}
+
+		if( !metaData.description ) {
+			throw new Error( 'Missing description for ' + data.targetFilePath );
+		}
+
+		data.contextVars.title = metaData.title;
+		data.contextVars.description = metaData.description;
+		fileContent = fileContent.substr( metaDataEnd + 1 ).trim();
+	}
+
 
 	fileBuilder[ fileExtension ].build( fileContent, data, function( error, innerHtml ){
 		if( data.contextVars.hasNav ) {

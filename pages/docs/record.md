@@ -1,3 +1,7 @@
+{
+	"title": "record API documentation",
+	"description": "the API docs for deepstream Records"
+}
 Record
 ----------------------------------
 Records are one of deepstream's core features. A Record is an arbitrary JSON data structure that can be created, retrieved, updated, deleted and listened to. Records are created and retrieved using

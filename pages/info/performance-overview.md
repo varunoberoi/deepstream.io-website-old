@@ -1,3 +1,7 @@
+{
+	"title": "Performance testing overview",
+	"description": "An introduction to how we conduct perfomance testing for deepstream"
+}
 Performance Overview
 ============================
 

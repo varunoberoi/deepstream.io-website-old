@@ -1,3 +1,7 @@
+{
+	"title": "Performance: Single Node vs Three Instance Cluster",
+	"description": "A summary of our performance tests for deepstrean as a single node vs a cluster"
+}
 Performance: Single Node vs Three Instance Cluster
 ======================================
 This test aims to verify horizontal scalability by establishing message latency and cpu consumption under high traffic for a single deepstream node in comparison to a cluster of three nodes.

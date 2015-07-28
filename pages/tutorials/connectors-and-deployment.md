@@ -1,3 +1,7 @@
+{
+	"title": "Connectors and Deployment tutorial",
+	"description": "learn how deepstream connects to caches, databases and messaging systems"
+}
 Connectors and Deployment
 ===============================
 
