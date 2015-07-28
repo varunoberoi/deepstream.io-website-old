@@ -1,3 +1,7 @@
+{
+	"title": "Records tutorial",
+	"description": "learn about records, deepstream's observable data structures"
+}
 Records
 ==============================
 [Records](docs/record.html) are arbitrary JSON structures that can be manipulated and subscribed to. Every change to a record is synced accross all subscribed clients

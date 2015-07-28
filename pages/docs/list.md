@@ -1,3 +1,7 @@
+{
+	"title": "List API documentation",
+	"description": "API docs for deepstream's list object, a manageable collection of record names"
+}
 List
 ---------------------------------
 Lists are arrays of record names. Similar to records, lists can be manipulated and observed. Lists are created and retrieved using `client.record.get( 'name' );`, e.g.

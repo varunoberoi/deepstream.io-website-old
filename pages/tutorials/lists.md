@@ -1,3 +1,7 @@
+{
+	"title": "Lists tutorial",
+	"description": "learn how to use deepstream's list feature to manage collections of records"
+}
 Lists
 ==============================
 [Lists](../docs/list.html) provide a way to manage a group of [Records](../docs/record.html). A list is an array of record names

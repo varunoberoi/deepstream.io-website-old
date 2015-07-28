@@ -1,3 +1,7 @@
+{
+	"title": "Transforming outgoing data",
+	"description": "Learn how to use transform functions to manipulate data before it leaves the server"
+}
 Transforming outgoing data
 ======================================
 Deepstream allows to manipulate data before it leaves the server. This can be useful for a number of usecases 

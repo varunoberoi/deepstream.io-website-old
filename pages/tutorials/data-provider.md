@@ -1,3 +1,7 @@
+{
+  "title": "Data-Provider tutorial",
+  "description": "learn how to build backend services that interact with deepstream"
+}
 Building a Data-Provider
 ===========================================
 

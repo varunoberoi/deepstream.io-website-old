@@ -1,3 +1,7 @@
+{
+	"title": "client options",
+	"description": "the options that the deepstream javascript client can be initialized with"
+}
 Client Options
 ---------------------------------
 

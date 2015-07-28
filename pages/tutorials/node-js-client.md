@@ -1,3 +1,7 @@
+{
+	"title": "How to use the deepstream client in NodeJS",
+	"description": "Learn how deepstream's javascript client can be used in NodeJS"
+}
 Using the deepstream client in NodeJs
 ==============================================
 <img class="center" src="../assets/images/nodejs.png" alt="Node Js logo" />

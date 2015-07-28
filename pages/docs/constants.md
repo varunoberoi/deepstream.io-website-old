@@ -1,3 +1,7 @@
+{
+   "title": "constants documentation",
+   "description": "a list of all constants deepstream uses"
+}
 Constants
 ----------------------------------
 Constants are used throughout deepstream. They can be accessed from the outside via the server instance 

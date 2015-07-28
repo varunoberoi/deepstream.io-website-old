@@ -1,3 +1,7 @@
+{
+	"title": "EventEmitter documentation",
+	"description": "API docs for deepstream's event emitter"
+}
 EventEmitter
 -----------------------
 The deepstream-client uses [component-emitter](https://www.npmjs.com/package/component-emitter) as an event-emitter which in turn implements a subset of the [NodeJS EventEmitter API](https://nodejs.org/api/events.html).

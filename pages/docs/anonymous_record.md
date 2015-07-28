@@ -1,3 +1,7 @@
+{
+	"title": "anonymous record documentation",
+	"description": "learn how to use anonymous records to switch context without having to renew bindings"
+}
 Anonymous Record
 ----------------------------------
 

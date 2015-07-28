@@ -1,3 +1,7 @@
+{
+	"title": "Simple app using KnockoutJs",
+	"description": "Learn how to build a simple address manager using deepstream and KnockoutJs"
+}
 Building a simple app with deepstream and knockout js
 =====================================================
 [KnockoutJs](http://knockoutjs.com/) works well with deepstream. Its two way bindings, atomic updates and overall speed make it a great fit for realtime applications. So well in fact, that we developed a tool that makes using it even easier.

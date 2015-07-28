@@ -1,3 +1,7 @@
+{
+	"title": "Searching and Querying",
+	"description": "Learn how to add search functionality to deepstream"
+}
 Searching & Querying
 ====================================
 

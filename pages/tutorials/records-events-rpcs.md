@@ -1,3 +1,7 @@
+{
+	"title": "Records, Events and RPCs",
+	"description": "a short overview over deepstream's core concepts"
+}
 Records, Events & RPCs
 ==============================
 Deepstream provides three core concepts: Records, Events and RPCs. Records are arbitrary JSON structures that can be manipulated and subscribed to, Events work like a normal event-emitter, but distributed across connected clients and RPCs(Remote Procedure Calls) allow for request-response communication, comparable to http requests.

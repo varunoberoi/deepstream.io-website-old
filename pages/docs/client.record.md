@@ -1,3 +1,7 @@
+{
+	"title": "Record API documentation",
+	"description": "the API docs for deepstream records"
+}
 client.record.getRecord( name )
 --------------------------------
 argument: name

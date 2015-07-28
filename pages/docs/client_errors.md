@@ -1,3 +1,7 @@
+{
+	"title": "runtime error documentation",
+	"description": "the API docs for deepstream's runtime errors"
+}
 Errors
 ---------------------------------
 <table class="mini">

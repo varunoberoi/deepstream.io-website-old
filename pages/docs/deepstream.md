@@ -1,3 +1,7 @@
+{
+	"title": "deepstream server documentation",
+	"description": "API docs for new Deepstream();"
+}
 Constructor
 ------------------------------
 The constructor takes no arguments.

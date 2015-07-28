@@ -1,3 +1,7 @@
+{
+	"title": "event API documentation",
+	"description": "understand events, deepstream's many to many broadcasting mechanism"
+}
 Events
 -------------------------
 Events provide a simple way of sending messages betweem clients. Deepstream's event mechanism basically works like an EventEmitter that's distributed across clients.

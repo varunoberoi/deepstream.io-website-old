@@ -1,3 +1,7 @@
+{
+	"title": "Writing a message connector",
+	"description": "Learn how to integrate deepstream with a messaging system of your choice"
+}
 Writing a message connector
 =====================================
 Deepstream nodes can work together in clusters – which requires them to communicate with each other. This can happen directly [via TCP]() or  through a messaging system, e.g. an AMQP broker, Apache Kafka or Redis’ pub sub mechanism.

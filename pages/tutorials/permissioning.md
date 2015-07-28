@@ -1,3 +1,7 @@
+{
+	"title": "Permissioning tutorial",
+	"description": "Learn how to allow or deny individual actions within deepstream"
+}
 Permissioning
 =========================
 Deepstream allows for every operation (creating or reading records, sending events, making RPCs etc.) to be permissioned individually for every user. This happens in the permissionHandler's `canPerformAction()` method. Every message needs to pass through here before it is processed.

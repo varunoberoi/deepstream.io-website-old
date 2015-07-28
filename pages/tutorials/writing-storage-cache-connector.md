@@ -1,3 +1,7 @@
+{
+	"title": "Writing storage and cache connectors",
+	"description": "Learn how to integrate deepstream with a cache or database of your choice"
+}
 Writing storage and cache connectors
 ========================================
 

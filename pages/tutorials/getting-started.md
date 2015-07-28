@@ -1,3 +1,7 @@
+{
+	"title": "Getting started",
+	"description": "learn how to get up and running with deepstream"
+}
 Getting started
 ====================================
 Learn how to 
