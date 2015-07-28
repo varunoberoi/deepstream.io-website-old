@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>deepstream.io | Performance: Single Node vs Three Instance Cluster</title>
+	<title>deepstream.io | Deepstream Server release notes</title>
 
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<meta name="keywords" content="deepstream, deepstream.io, streaming, realtime, server, socket" />
-	<meta name="description" content="A summary of our performance tests for deepstrean as a single node vs a cluster" />
+	<meta name="description" content="Keep track of the changes to the deepstream server" />
 	<meta name="author" content="Wolfram Hempel" />
 	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 	<link rel="icon" href="/favicon.ico" type="image/x-icon">
@@ -49,80 +49,21 @@
 		<a href="performance-overview.html">Overview</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>	
-	<li class="active">
+	<li >
 		<a href="performance-single-node-vs-cluster.html">Single Node vs Cluster</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>	
 </ul>
 
 			<div id="content">
-				<h1>Performance: Single Node vs Three Instance Cluster</h1><p>This test aims to verify horizontal scalability by establishing message latency and cpu consumption under high traffic for a single deepstream node in comparison to a cluster of three nodes.</p><h3>Test Setup</h3><p>All tests were run on Amazon Web Services EC2 instances within the same region, running AWS Linux. For the cluster tests, Redis was used as a message bus.</p><table class="mini">
-    <thead>
-        <tr>
-            <th>&nbsp;</th>
-            <th>Single Node</th>
-            <th>Cluster</th>
-    </thead>
-    <tbody>
-        <tr>
-            <td>machine for deepstream servers</td>
-            <td>1 EC2 c4.large</td>
-            <td>1 EC2 c4.2xlarge</td>
-        </tr>
-        <tr>
-            <td>deepstream servers</td>
-            <td>1</td>
-            <td>3</td>
-        </tr>
-        <tr>
-            <td>client pairs</td>
-            <td>250</td>
-            <td>750</td>
-        </tr>
-        <tr>
-            <td>ec2 t2.micro instances clients were distributed across</td>
-            <td>2</td>
-            <td>6</td>
-        </tr>
-        <tr>
-            <td>message frequency per client</td>
-            <td>~25ms</td>
-            <td>~25ms</td>
-        </tr>
-        <tr>
-            <td>duration of full load</td>
-            <td>~3 min</td>
-            <td>~12 min</td>
-        </tr>
-        <tr>
-            <td>messages per second</td>
-            <td>~10,000</td>
-            <td>~30,000</td>
-        </tr>
-    </tbody>
-</table>
+				<p>Deepstream.io server releases</p><ul>
+<li><strong>0.2.10</strong> <em>(19.4.2015)</em> Initial Public Release<ul>
+<li>Issue a</li>
+<li>Issue b</li>
+</ul>
+</li>
+</ul>
 
-<h3>Single Deepstream Node</h3><p><strong>Latency Distribution</strong><br />
-Average latency was 2.065ms ( machines being within same data centre )</p><div class="img-container">
-    <img class="tutorial" width="602" height="302" src="../assets/images/performance/one-ds-latency.png" alt="Single deepstream latency" />
-</div>
-
-<p><strong>CPU usage</strong><br />
-CPU reached an average of 80% with approximately 10,000 messages a second</p><div class="img-container">
-    <img class="tutorial" width="602" height="302" src="../assets/images/performance/one-ds-cpu.png" alt="Single deepstream cpu" />
-</div>
-
-<h3>Three deepstream node cluster</h3><p><strong>Latency Distribution</strong><br />
-Average latency was 0.999ms ( machines being within same data centre )</p><div class="img-container">
-    <img class="tutorial" width="602" height="302" src="../assets/images/performance/three-ds-latency.png" alt="Cluster deepstream latency" />
-</div>
-
-<p><strong>CPU usage</strong><br />
-CPU reached an average of 70% on all three processes to deal with approximately 30,000 messages a second</p><div class="img-container">
-    <img class="tutorial" width="602" height="302" src="../assets/images/performance/three-ds-cpu.png" alt="Cluster deepstream cpu" />
-</div>
-
-<p></div></p>
 
 			</div>
 		</div>
