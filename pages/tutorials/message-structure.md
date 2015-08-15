@@ -28,7 +28,7 @@ Messages always start with `topic` and `action`, but can contain an arbitrary am
 
 Setting the value of a path within the record for example
 
-	userLisa.set( 'lastname', 'Smith' );
+	userLisa.set( 'lastname', 'Owen' );
 
 would result in this outgoing message
 
@@ -42,5 +42,7 @@ Both client and server use a message-parser to validate these messages and to co
 		raw: 'R\u001fP\u001fuser/Lisa\u001f1\u001flastname\u001fSOwen',
 		topic: 'R',
 		action: 'P',
-		data: [ 'user/Lisa', '1', 'lastname', 'SSmith' ]
+		data: [ 'user/Lisa', '1', 'lastname', 'SOwen' ]
 	}
+
+The actual conversion of `SOwen` into `Owen` happens further down the line by the part of the application that handles this specific message and knows which fields contain typed data.
