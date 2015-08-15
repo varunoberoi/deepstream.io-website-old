@@ -8,7 +8,7 @@
 		<a href="performance-single-node-vs-cluster.html">Single Node vs Cluster</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
-
+{{!--
 	<li class="head first">Release Notes</li>
 	<li {{#if fileIs_server-release-notes}}class="active"{{/if}}>
 		<a href="server-release-notes.html">Server</a>
@@ -21,5 +21,5 @@
 	<li {{#if fileIs_other-release-notes}}class="active"{{/if}}>
 		<a href="other-release-notes.html">Other</a>
 		<div class="isActiveIndicator orangeGradient"></div>
-	</li>	
+	</li>	--}}
 </ul>
