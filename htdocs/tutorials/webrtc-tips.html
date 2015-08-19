@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>deepstream.io | runtime error documentation</title>
+	<title>deepstream.io | WebRTC Tips</title>
 
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<meta name="keywords" content="deepstream, deepstream.io, streaming, realtime, server, socket" />
-	<meta name="description" content="the API docs for deepstream&#x27;s runtime errors" />
+	<meta name="description" content="General tips and implementation advice for working with WebRTC" />
 	<meta name="author" content="Wolfram Hempel" />
 	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 	<link rel="icon" href="/favicon.ico" type="image/x-icon">
@@ -25,7 +25,7 @@
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 
 </head>
-<body class="category_docs">
+<body class="category_tutorials">
 
 	<div id="outerWrapper">
 		<div class="topSection">
@@ -36,156 +36,99 @@
 				<ul>
 					<li ><a href="..">Home</a></li>
 					<li ><a href="../download/">Downloads</a></li>
-					<li ><a href="../tutorials/getting-started.html">Tutorials</a></li>
-					<li class="active"><a href="../docs/deepstream.html">Documentation</a></li>
+					<li class="active"><a href="../tutorials/getting-started.html">Tutorials</a></li>
+					<li ><a href="../docs/deepstream.html">Documentation</a></li>
 					<li ><a href="../info/">Info</a></li>
 				</ul>
 			</div>
 		</div>
 		<div id="wrapper" class="main">
 			<ul id="subnav">
-	<li class="head first">Server</li>
+	<li class="head first">General</li>
 	<li >
-		<a href="deepstream.html">Deepstream</a>
+		<a href="getting-started.html">Getting started</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
 	<li >
-		<a href="constants.html">Constants</a>
+		<a href="authentication.html">Authentication</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
-
-
-	<li class="head">JS Client</li>
 	<li >
-		<a href="client.html">Client</a>
+		<a href="permissioning.html">Permissioning</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
 
+	<li class="head">Server</li>
 	<li >
-		<a href="client_options.html">options</a>
+		<a href="connectors-and-deployment.html">Connectors and Deployment</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
-
 	<li >
-		<a href="connection_states.html">connectionStates</a>
+		<a href="data-provider.html">Building a data-provider</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
-
-	<li class="active">
-		<a href="client_errors.html">errors</a>
-		<div class="isActiveIndicator orangeGradient"></div>
-	</li>
-
 	<li >
-		<a href="event_emitter.html">EventEmitter</a>
+		<a href="searching-and-querying.html">Searching & Querying</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+	<li >
+		<a href="transforming-data.html">Transforming Data</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+	<li >
+		<a href="writing-storage-cache-connector.html">Writing storage and cache connectors</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+	<li >
+		<a href="writing-messaging-connector.html">Writing a messaging connector</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
 
-	<li class="de-emphasized">Record</li>
+	<li class="head">Client</li>
 	<li >
-		<a href="client.record.html">client.record</a>
-		<div class="isActiveIndicator orangeGradient"></div>
-	</li>
-
-	<li >
-		<a href="record.html">Record</a>
+		<a href="node-js-client.html">Using the client in NodeJS</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
 
 	<li >
-		<a href="list.html">List</a>
+		<a href="records.html">Records</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
 
 	<li >
-		<a href="anonymous_record.html">Anonymous Record</a>
-		<div class="isActiveIndicator orangeGradient"></div>
-	</li>
-
-	<li class="de-emphasized">RPC</li>
-	<li >
-		<a href="client.rpc.html">client.rpc</a>
+		<a href="lists.html">Lists</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
 
 	<li >
-		<a href="rpc_response.html">RpcResponse</a>
+		<a href="events-and-rpcs.html">Events & RPCs</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
 
-	<li class="de-emphasized">Event</li>
 	<li >
-		<a href="client.event.html">client.event</a>
+		<a href="simple-app-using-ko.html">Simple App using Knockout</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
 
-	<li class="de-emphasized">WebRTC</li>
 	<li >
-		<a href="client.webrtc.html">client.webrtc</a>
+		<a href="simple-app-using-react.html">Simple App using React</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
+
 	<li >
-		<a href="webrtc_call.html">WebRTC Call</a>
+		<a href="simple-app-using-angular.html">Simple App using Angular</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li class="head">Internals</li>
+	<li >
+		<a href="message-structure.html">Message Structure</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
 </ul>
 
 			<div id="content">
-				<div class="section"><h2><a name="Errors">Errors</a></h2><table class="mini">
-
-<tr>
-<td>CONNECTION_ERROR</td>
-<td>Either the Engine.io or TCP connection has encountered an error.</td>
-</tr>
-
-<tr>
-<td>UNSOLICITED_MESSAGE</td>
-<td>A message was received that the client didn&#39;t expect, e.g. an update for a record that the client isn&#39;t subscribed to. This doesn&#39;t necessarily have to be an error, but can also be the result of messages crossing on the wire, e.g. when an outgoing record discard and an incoming message overlap.</td>
-</tr>
-
-<tr>
-<td>MESSAGE_PARSE_ERROR</td>
-<td>The client has received a syntactically incorrect message.</td>
-</tr>
-
-<tr>
-<td>IS_CLOSED</td>
-<td>Emitted when the client tries to authenticate against an already closed connection.</td>
-</tr>
-
-<tr>
-<td>VERSION_EXISTS</td>
-<td>The client has tried to update a record to a version that the server already has. This might happen if multiple clients try to update the same record at the same time. The best thing to do might be to wait a few milliseconds for the record update to come in and then try again. This error will also be emitted by the affected Record.</td>
-</tr>
-
-<tr>
-<td>NOT_AUTHENTICATED</td>
-<td>Emitted if an operation is attempted before the client is authenticated (before <code>login()</code> has been called and a response was received).</td>
-</tr>
-
-<tr>
-<td>ACK_TIMEOUT</td>
-<td>The acknowledgement response for a record subscription, event subscription or rpc call hasn&#39;t been received in time. This error is also emitted by the object that encountered it, e.g. the Record or Rpc.</td>
-</tr>
-
-<tr>
-<td>LISTENER_EXISTS</td>
-<td>Emitted when <code>ds.record.listen( pattern, callback )</code> is called more than once for the same pattern.</td>
-</tr>
-
-<tr>
-<td>NOT_LISTENING</td>
-<td>Emitted when <code>ds.record.unlisten( pattern )</code> is called for a pattern that no listener exists for.</td>
-</tr>
-
-<tr>
-<td>TOO_MANY_AUTH_ATTEMPTS</td>
-<td>Emitted when the client has made more invalid authentication attempts than the server accepts. This can be configured as <code>maxAuthAttempts</code> on the server.</td>
-</tr>
-
-</table>
-
-<p></div></p>
+				<h3>How to show a stream on a video tag</h3><p>autoplay</p>
 
 			</div>
 		</div>

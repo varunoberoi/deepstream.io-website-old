@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>deepstream.io | WebRTC Api documentation</title>
+
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="keywords" content="deepstream, deepstream.io, streaming, realtime, server, socket" />
+	<meta name="description" content="Web Real Time Communication with deepstream.io" />
+	<meta name="author" content="Wolfram Hempel" />
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="stylesheet" type="text/css" href="../assets/css/screen.css" />
+	<link rel="stylesheet" type="text/css" href="../assets/css/api.css" />
+	<link rel="stylesheet" type="text/css" href="../assets/css/syntaxhighlighter.css" />
+	<script type="text/javascript">
+	document.createElement( 'header' );
+	document.createElement( 'nav' );
+	</script>
+	<script type="text/javascript" src="../assets/js/jquery.js"></script>
+
+	<link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Quicksand:300,400,700' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+</head>
+<body class="category_docs">
+
+	<div id="outerWrapper">
+		<div class="topSection">
+			<div id="header" class="small-logo micro">
+				<h1><a href="..">deepstream.io - a scalable server for realtime web apps</a></h1>
+			</div>
+			<div id="nav" class="standalone">
+				<ul>
+					<li ><a href="..">Home</a></li>
+					<li ><a href="../download/">Downloads</a></li>
+					<li ><a href="../tutorials/getting-started.html">Tutorials</a></li>
+					<li class="active"><a href="../docs/deepstream.html">Documentation</a></li>
+					<li ><a href="../info/">Info</a></li>
+				</ul>
+			</div>
+		</div>
+		<div id="wrapper" class="main">
+			<ul id="subnav">
+	<li class="head first">Server</li>
+	<li >
+		<a href="deepstream.html">Deepstream</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+	<li >
+		<a href="constants.html">Constants</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+
+	<li class="head">JS Client</li>
+	<li >
+		<a href="client.html">Client</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li >
+		<a href="client_options.html">options</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li >
+		<a href="connection_states.html">connectionStates</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li >
+		<a href="client_errors.html">errors</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li >
+		<a href="event_emitter.html">EventEmitter</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li class="de-emphasized">Record</li>
+	<li >
+		<a href="client.record.html">client.record</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li >
+		<a href="record.html">Record</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li >
+		<a href="list.html">List</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li >
+		<a href="anonymous_record.html">Anonymous Record</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li class="de-emphasized">RPC</li>
+	<li >
+		<a href="client.rpc.html">client.rpc</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li >
+		<a href="rpc_response.html">RpcResponse</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li class="de-emphasized">Event</li>
+	<li >
+		<a href="client.event.html">client.event</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li class="de-emphasized">WebRTC</li>
+	<li class="active">
+		<a href="client.webrtc.html">client.webrtc</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+			<ul class="overview">
+				<li><a href="#client.webrtc.registerCallee( calleeName, onCallFn )">client.webrtc.registerCallee( calleeName, onCallFn )</a></li>
+				<li><a href="#client.webrtc.unregisterCallee( calleeName )">client.webrtc.unregisterCallee( calleeName )</a></li>
+				<li><a href="#client.webrtc.makeCall( calleeName, metaData, localStream ) ">client.webrtc.makeCall( calleeName, metaData, localStream ) </a></li>
+				<li><a href="#client.webrtc.listenForCallees( callback )">client.webrtc.listenForCallees( callback )</a></li>
+				<li><a href="#client.webrtc.unlistenForCallees()">client.webrtc.unlistenForCallees()</a></li>
+			</ul>
+	</li>
+	<li >
+		<a href="webrtc_call.html">WebRTC Call</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+</ul>
+
+			<div id="content">
+				<div class="section"><h2><a name="client.webrtc.registerCallee( calleeName, onCallFn )">client.webrtc.registerCallee( calleeName, onCallFn )</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">calleeName</td><td class="type">String</td><td class="optional">false</td><td class="default">-</td><td class="description">the name of the callee</td></tr><tr><td class="argument">onCallFn</td><td class="type">Function</td><td class="optional">false</td><td class="default">-</td><td class="description">a function that will be invoked for incoming calls with a <a href="webrtc_call.html">WebRTCCall</a> and metaData.</td></tr></tbody></table><p>Register a callable endpoint (an entry in a phonebook) that other clients can call using <code>makeCall</code>. A client can register multiple callees, however, every callee can only be registered once.</p><pre><code>ds<span class="token punctuation" >.</span>webrtc<span class="token punctuation" >.</span><span class="token function" >registerCallee<span class="token punctuation" >(</span></span> <span class="token string" >'Peter Venkman'</span><span class="token punctuation" >,</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> call<span class="token punctuation" >,</span> metaData <span class="token punctuation" >)</span><span class="token punctuation" >{</span>
+    <span class="token keyword" >if</span><span class="token punctuation" >(</span> metaData<span class="token punctuation" >.</span>callerName <span class="token operator" >===</span> <span class="token string" >'Walter Peck'</span> <span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
+        call<span class="token punctuation" >.</span><span class="token function" >decline<span class="token punctuation" >(</span></span> <span class="token string" >'Nope, not interested.'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+    <span class="token punctuation" >}</span> <span class="token keyword" >else</span> <span class="token punctuation" >{</span>
+        <span class="token function" >getUserMedia<span class="token punctuation" >(</span></span><span class="token punctuation" >{</span> video<span class="token punctuation" >:</span> <span class="token keyword" >true</span><span class="token punctuation" >,</span> audio<span class="token punctuation" >:</span> <span class="token keyword" >true</span> <span class="token punctuation" >}</span><span class="token punctuation" >,</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> localStream <span class="token punctuation" >)</span><span class="token punctuation" >{</span>
+            call<span class="token punctuation" >.</span><span class="token function" >accept<span class="token punctuation" >(</span></span> localStream <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+        <span class="token punctuation" >}</span><span class="token punctuation" >,</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> error <span class="token punctuation" >)</span><span class="token punctuation" >{</span>
+            <span class="token keyword" >throw</span> error<span class="token punctuation" >;</span>
+        <span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+    <span class="token punctuation" >}</span>
+
+    call<span class="token punctuation" >.</span><span class="token function" >on<span class="token punctuation" >(</span></span> <span class="token string" >'established'</span><span class="token punctuation" >,</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> remoteStream <span class="token punctuation" >)</span><span class="token punctuation" >{</span>
+        myVideo<span class="token punctuation" >.</span>src <span class="token operator" >=</span> URL<span class="token punctuation" >.</span><span class="token function" >createObjectURL<span class="token punctuation" >(</span></span> remoteStream <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+    <span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+<span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+</code></pre></div><div class="section"><h2><a name="client.webrtc.unregisterCallee( calleeName )">client.webrtc.unregisterCallee( calleeName )</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">calleeName</td><td class="type">String</td><td class="optional">false</td><td class="default">-</td><td class="description">the name of the previously registered callee</td></tr></tbody></table><p>Un-register a callee that was previously registered using <code>client.webrtc.registerCallee</code></p></div><div class="section"><h2><a name="client.webrtc.makeCall( calleeName, metaData, localStream ) ">client.webrtc.makeCall( calleeName, metaData, localStream ) </a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">calleeName</td><td class="type">String</td><td class="optional">false</td><td class="default">-</td><td class="description">the name of a callee that another client registered</td></tr><tr><td class="argument">metaData</td><td class="type">Mixed</td><td class="optional">true</td><td class="default">-</td><td class="description">Arbitrary data that&#39;s send to the callee to help identify the caller and decide whether to accept or decline the call</td></tr><tr><td class="argument">localStream</td><td class="type">MediaStream</td><td class="optional">false</td><td class="default">-</td><td class="description">An instance of a <a href="https://developer.mozilla.org/en/docs/Web/API/MediaStream">HTML5 MediaStream</a></td></tr></tbody></table><p>Establishes a call with <code>calleeName</code> and returns an instance of <a href="webrtc_call.html">WebRTCCall</a></p><pre><code><span class="token function" >getUserMedia<span class="token punctuation" >(</span></span><span class="token punctuation" >{</span> video<span class="token punctuation" >:</span> <span class="token keyword" >true</span><span class="token punctuation" >,</span> audio<span class="token punctuation" >:</span> <span class="token keyword" >true</span> <span class="token punctuation" >}</span><span class="token punctuation" >,</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> localStream <span class="token punctuation" >)</span><span class="token punctuation" >{</span>
+    <span class="token keyword" >var</span> metaData <span class="token operator" >=</span> <span class="token punctuation" >{</span> callerName<span class="token punctuation" >:</span> <span class="token string" >'Raymond Stantz'</span> <span class="token punctuation" >}</span><span class="token punctuation" >;</span>
+    <span class="token keyword" >var</span> call <span class="token operator" >=</span> ds<span class="token punctuation" >.</span>webrtc<span class="token punctuation" >.</span><span class="token function" >makeCall<span class="token punctuation" >(</span></span> <span class="token string" >'Peter Venkman'</span><span class="token punctuation" >,</span> metaData<span class="token punctuation" >,</span> localStream <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+
+    call<span class="token punctuation" >.</span><span class="token function" >on<span class="token punctuation" >(</span></span> <span class="token string" >'established'</span><span class="token punctuation" >,</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> remoteStream <span class="token punctuation" >)</span><span class="token punctuation" >{</span>
+        myVideo<span class="token punctuation" >.</span>src <span class="token operator" >=</span> URL<span class="token punctuation" >.</span><span class="token function" >createObjectURL<span class="token punctuation" >(</span></span> remoteStream <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+    <span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+
+    call<span class="token punctuation" >.</span><span class="token function" >on<span class="token punctuation" >(</span></span> <span class="token string" >'declined'</span><span class="token punctuation" >,</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> reason <span class="token punctuation" >)</span><span class="token punctuation" >{</span>
+        console<span class="token punctuation" >.</span><span class="token function" >log<span class="token punctuation" >(</span></span> <span class="token string" >'Call declined because of '</span> <span class="token operator" >+</span> reason <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+    <span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+<span class="token punctuation" >}</span><span class="token punctuation" >,</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> error <span class="token punctuation" >)</span><span class="token punctuation" >{</span>
+    <span class="token keyword" >throw</span> error<span class="token punctuation" >;</span>
+<span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+</code></pre></div><div class="section"><h2><a name="client.webrtc.listenForCallees( callback )">client.webrtc.listenForCallees( callback )</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">callback</td><td class="type">Function</td><td class="optional">false</td><td class="default">-</td><td class="description">a callback that will be invoked with a list of callees</td></tr></tbody></table><p>Listen for changes to the list of registered callees. Callback will be invoked initially with the full list
+of currently registered calleeNames and from thereon with an updated list of callees for every change. Only one calleeListener can be registered per client (but its easy to multiplex updates from there, e.g. by using an event emitter.)</p><pre><code>client<span class="token punctuation" >.</span>webrtc<span class="token punctuation" >.</span><span class="token function" >listenForCallees<span class="token punctuation" >(</span></span><span class="token keyword" >function</span><span class="token punctuation" >(</span> calleeNames <span class="token punctuation" >)</span><span class="token punctuation" >{</span>
+    <span class="token comment" spellcheck="true">/*
+     * calleeNames = [
+     *    'Peter Venkman', 
+     *    'Raymond Stantz', 
+     *    'Egon Spengler', 
+     *    'Winston Zeddmore'
+     * ]
+     */</span>
+    $scope<span class="token punctuation" >.</span>callees <span class="token operator" >=</span> calleeNames<span class="token punctuation" >;</span>
+    $scope<span class="token punctuation" >.</span>$<span class="token function" >apply<span class="token punctuation" >(</span></span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+<span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+</code></pre></div><div class="section"><h2><a name="client.webrtc.unlistenForCallees()">client.webrtc.unlistenForCallees()</a></h2><p>Informs deepstream that the client is no longer interested in callee updates
+</div></p>
+
+			</div>
+		</div>
+		<script type="text/javascript" src="../assets/js/docs.js"></script>
+		<div id="footerPush"></div>
+	</div>
+	<div id="footer">
+		<ul class="footerItems">
+			<li class="footer-left">
+				<h4>Contact us</h4>
+				<p>
+					<b>deepstream.io </b>is developed by Hoxton One Ltd. <br>
+				</p>
+				<p>
+					Email us <a href="mailto:info@hoxton-one.com">info@hoxton-one.com</a>.<br><br>
+
+				</p>
+				<p>Registered in England and Wales, Company Nr 09121068</p>
+			</li>
+
+
+			<a href="http://www.hoxton-one.com/" title="hoxton-one.com" class="footer-middle">
+				<p>
+				Handcrafted by
+				</p>
+
+				<div class="footer-hoxton-one">
+				</div>
+			</li>
+
+			<li class="footer-right">
+				<ul class="social">
+					<li class="twitter">
+						<a href="https://twitter.com/HoxtonOne">
+							<i class="fa fa-twitter"></i>  Twitter
+						</a>
+					</li>
+					<li class="github">
+						<a href="https://github.com/hoxton-one">
+							<i class="fa fa-github"></i>  Github
+						</a>
+					</li>
+					<li class="stack-overflow">
+						<a href="http://stackoverflow.com/questions/tagged/deepstream.io">
+							<i class="fa fa-stack-overflow"></i>  Stack Overflow
+						</a>
+					</li>
+				</ul>
+				<div class="copyright">
+					&copy;2015 Hoxton One Ltd. All rights reserved.
+				</div>
+			</li>
+		</ul>
+	</div>
+
+
+</body>
+</html>

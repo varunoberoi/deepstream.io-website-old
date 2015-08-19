@@ -1,0 +1,41 @@
+/**********************
+* Two examples
+**********************/
+.two-examples{
+	overflow: hidden;
+	width: 650px;
+}
+
+.two-examples a{
+	display: block;
+	float: left;
+	cursor: pointer;
+	width: 325px;
+	text-align: center;
+	text-decoration: none;
+	background: #fff;
+	padding: 10px 0;
+	transition: background 300ms ease;
+}
+
+.two-examples a:hover{
+	background: #eee;
+}
+
+.two-examples img{
+	margin-bottom: 10px;
+	display: inline-block;
+}
+
+.two-examples label{
+	display: block;
+	text-align: center;
+	font-family: "Roboto Light", sans-serif;
+	color: #202020;
+	text-decoration: none;
+	font-size: 12px;
+}
+
+/**********************
+* Demo
+**********************/

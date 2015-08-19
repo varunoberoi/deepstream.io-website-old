@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>deepstream.io | Video-Chat with deepstream and webrtc</title>
+
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="keywords" content="deepstream, deepstream.io, streaming, realtime, server, socket" />
+	<meta name="description" content="An introduction and live example into deepstream&#x27;s WebRTC functionality" />
+	<meta name="author" content="Wolfram Hempel" />
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="stylesheet" type="text/css" href="../assets/css/screen.css" />
+	<link rel="stylesheet" type="text/css" href="../assets/css/api.css" />
+	<link rel="stylesheet" type="text/css" href="../assets/css/syntaxhighlighter.css" />
+	<script type="text/javascript">
+	document.createElement( 'header' );
+	document.createElement( 'nav' );
+	</script>
+	<script type="text/javascript" src="../assets/js/jquery.js"></script>
+
+	<link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Quicksand:300,400,700' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+</head>
+<body class="category_tutorials">
+
+	<div id="outerWrapper">
+		<div class="topSection">
+			<div id="header" class="small-logo micro">
+				<h1><a href="..">deepstream.io - a scalable server for realtime web apps</a></h1>
+			</div>
+			<div id="nav" class="standalone">
+				<ul>
+					<li ><a href="..">Home</a></li>
+					<li ><a href="../download/">Downloads</a></li>
+					<li class="active"><a href="../tutorials/getting-started.html">Tutorials</a></li>
+					<li ><a href="../docs/deepstream.html">Documentation</a></li>
+					<li ><a href="../info/">Info</a></li>
+				</ul>
+			</div>
+		</div>
+		<div id="wrapper" class="main">
+			<ul id="subnav">
+	<li class="head first">General</li>
+	<li >
+		<a href="getting-started.html">Getting started</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+	<li >
+		<a href="authentication.html">Authentication</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+	<li >
+		<a href="permissioning.html">Permissioning</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li class="head">Server</li>
+	<li >
+		<a href="connectors-and-deployment.html">Connectors and Deployment</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+	<li >
+		<a href="data-provider.html">Building a data-provider</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+	<li >
+		<a href="searching-and-querying.html">Searching & Querying</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+	<li >
+		<a href="transforming-data.html">Transforming Data</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+	<li >
+		<a href="writing-storage-cache-connector.html">Writing storage and cache connectors</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+	<li >
+		<a href="writing-messaging-connector.html">Writing a messaging connector</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li class="head">Client</li>
+	<li >
+		<a href="node-js-client.html">Using the client in NodeJS</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li >
+		<a href="records.html">Records</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li >
+		<a href="lists.html">Lists</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li >
+		<a href="events-and-rpcs.html">Events & RPCs</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li >
+		<a href="simple-app-using-ko.html">Simple App using Knockout</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li >
+		<a href="simple-app-using-react.html">Simple App using React</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li >
+		<a href="simple-app-using-angular.html">Simple App using Angular</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li class="head">Internals</li>
+	<li >
+		<a href="message-structure.html">Message Structure</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+</ul>
+
+			<div id="content">
+				<p><link href="../assets/css/webrtc.css" type="text/css" rel="stylesheet" /></p><h1>Video-Chat with Deepstream and WebRTC</h1><h3>How is this different from other WebRTC libraries?</h3><p>Deepstream&#39;s WebRTC implementation is on a very high level. It abstracts all implementation and connectivity details away and instead offers just two concepts: A phonebook and a call. Combined with other deepstream features such as permissioning, records or data-transformation this</p><h3>Demo</h3><p>WebRTC example</p><h3>How does it work?</h3><p>Clients can register themselves as callees</p><pre><code>ds<span class="token punctuation" >.</span>webrtc<span class="token punctuation" >.</span><span class="token function" >registerCallee<span class="token punctuation" >(</span></span> <span class="token string" >'Peter Venkman'</span><span class="token punctuation" >,</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> call<span class="token punctuation" >,</span> metaData <span class="token punctuation" >)</span><span class="token punctuation" >{</span>
+    <span class="token keyword" >if</span><span class="token punctuation" >(</span> metaData<span class="token punctuation" >.</span>callerName <span class="token operator" >===</span> <span class="token string" >'Walter Peck'</span> <span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
+        call<span class="token punctuation" >.</span><span class="token function" >decline<span class="token punctuation" >(</span></span> <span class="token string" >'Nope, not interested.'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+    <span class="token punctuation" >}</span> <span class="token keyword" >else</span> <span class="token punctuation" >{</span>
+        call<span class="token punctuation" >.</span><span class="token function" >accept<span class="token punctuation" >(</span></span> localStream <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+    <span class="token punctuation" >}</span>
+
+    call<span class="token punctuation" >.</span><span class="token function" >on<span class="token punctuation" >(</span></span> <span class="token string" >'established'</span><span class="token punctuation" >,</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> remoteStream <span class="token punctuation" >)</span><span class="token punctuation" >{</span>
+        myVideo<span class="token punctuation" >.</span>src <span class="token operator" >=</span> URL<span class="token punctuation" >.</span><span class="token function" >createObjectURL<span class="token punctuation" >(</span></span> remoteStream <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+    <span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+<span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+</code></pre><p>Other clients can subscribe to updates to the list of callees</p><pre><code>ds<span class="token punctuation" >.</span>webrtc<span class="token punctuation" >.</span><span class="token function" >listenForCallees<span class="token punctuation" >(</span></span><span class="token keyword" >function</span><span class="token punctuation" >(</span> callees <span class="token punctuation" >)</span><span class="token punctuation" >{</span>
+   <span class="token comment" spellcheck="true"> // render list of callees
+</span><span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+</code></pre><p>and call each other</p><pre><code><span class="token keyword" >var</span> metaData <span class="token operator" >=</span> <span class="token punctuation" >{</span> callerName<span class="token punctuation" >:</span> <span class="token string" >'Raymond Stantz'</span> <span class="token punctuation" >}</span><span class="token punctuation" >;</span>
+<span class="token keyword" >var</span> call <span class="token operator" >=</span> ds<span class="token punctuation" >.</span>webrtc<span class="token punctuation" >.</span><span class="token function" >makeCall<span class="token punctuation" >(</span></span> <span class="token string" >'Peter Venkman'</span><span class="token punctuation" >,</span> metaData<span class="token punctuation" >,</span> localStream <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+
+call<span class="token punctuation" >.</span><span class="token function" >on<span class="token punctuation" >(</span></span> <span class="token string" >'established'</span><span class="token punctuation" >,</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> remoteStream <span class="token punctuation" >)</span><span class="token punctuation" >{</span>
+    myVideo<span class="token punctuation" >.</span>src <span class="token operator" >=</span> URL<span class="token punctuation" >.</span><span class="token function" >createObjectURL<span class="token punctuation" >(</span></span> remoteStream <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+<span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+
+call<span class="token punctuation" >.</span><span class="token function" >on<span class="token punctuation" >(</span></span> <span class="token string" >'declined'</span><span class="token punctuation" >,</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> reason <span class="token punctuation" >)</span><span class="token punctuation" >{</span>
+    console<span class="token punctuation" >.</span><span class="token function" >log<span class="token punctuation" >(</span></span> <span class="token string" >'Call declined because of '</span> <span class="token operator" >+</span> reason <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+<span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+</code></pre><h3>Try it out</h3><p>Please find the documentation <a href="../docs/webrtc.html">here</a> and have a look at our examples.</p><div class="two-examples">
+    <a href="#">
+        <img width="200" height="125" alt="WebRTC simple example" src="../assets/images/webrtc-simple-example.png" />
+        <label>Simple Example</label>
+    </a>
+    <a href="#">
+        <img width="200" height="125" alt="WebRTC complex example" src="../assets/images/webrtc-complex-example.png" />
+        <label>Callees and States</label>
+    </a>
+</div>
+
+<p>If you haven&#39;t used deepstream before, it might be worth having a quick look at the <a href="getting-started.html">getting started tutorial</a>.</p>
+
+			</div>
+		</div>
+		<script type="text/javascript" src="../assets/js/docs.js"></script>
+		<div id="footerPush"></div>
+	</div>
+	<div id="footer">
+		<ul class="footerItems">
+			<li class="footer-left">
+				<h4>Contact us</h4>
+				<p>
+					<b>deepstream.io </b>is developed by Hoxton One Ltd. <br>
+				</p>
+				<p>
+					Email us <a href="mailto:info@hoxton-one.com">info@hoxton-one.com</a>.<br><br>
+
+				</p>
+				<p>Registered in England and Wales, Company Nr 09121068</p>
+			</li>
+
+
+			<a href="http://www.hoxton-one.com/" title="hoxton-one.com" class="footer-middle">
+				<p>
+				Handcrafted by
+				</p>
+
+				<div class="footer-hoxton-one">
+				</div>
+			</li>
+
+			<li class="footer-right">
+				<ul class="social">
+					<li class="twitter">
+						<a href="https://twitter.com/HoxtonOne">
+							<i class="fa fa-twitter"></i>  Twitter
+						</a>
+					</li>
+					<li class="github">
+						<a href="https://github.com/hoxton-one">
+							<i class="fa fa-github"></i>  Github
+						</a>
+					</li>
+					<li class="stack-overflow">
+						<a href="http://stackoverflow.com/questions/tagged/deepstream.io">
+							<i class="fa fa-stack-overflow"></i>  Stack Overflow
+						</a>
+					</li>
+				</ul>
+				<div class="copyright">
+					&copy;2015 Hoxton One Ltd. All rights reserved.
+				</div>
+			</li>
+		</ul>
+	</div>
+
+
+</body>
+</html>
