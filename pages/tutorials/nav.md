@@ -75,6 +75,16 @@
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
 
+	<li {{#if fileIs_webrtc}}class="active"{{/if}}>
+		<a href="webrtc.html">WebRTC</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li {{#if fileIs_webrtc-tips}}class="active"{{/if}}>
+		<a href="webrtc-tips.html">WebRTC Tips</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
 	<li class="head">Internals</li>
 	<li {{#if fileIs_message-structure}}class="active"{{/if}}>
 		<a href="message-structure.html">Message Structure</a>

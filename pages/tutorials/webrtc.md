@@ -6,10 +6,12 @@
 <link href="../assets/css/webrtc.css" type="text/css" rel="stylesheet" />
 Video-Chat with Deepstream and WebRTC
 ==========================================
+Web Real Time Communication is a great standard that makes it possible to establish video, audio and data-streams directly between two browsers. 
+But, there’s a catch: WebRTC requires you to dive deeply into the mechanics of connection establishment, exchange offers, answers and ICE candidates - and you still need a server to establish the call.
 
+We’ve baked all this directly into deepstream and boiled it down to two concepts: A realtime phonebook that clients can register with and subscribe to – and the ability to call anyone in it.
 
-###How is this different from other WebRTC libraries?
-Deepstream's WebRTC implementation is on a very high level. It abstracts all implementation and connectivity details away and instead offers just two concepts: A phonebook and a call. Combined with other deepstream features such as permissioning, records or data-transformation this 
+Combine this with other deepstream features such as permissioning, records or data-transforms and you can build an amazing realtime app without worrying too much about implementation details.
 
 ###Demo
 WebRTC example
@@ -53,14 +55,14 @@ and call each other
 Please find the documentation [here](../docs/webrtc.html) and have a look at our examples.
 
 <div class="two-examples">
-	<a href="#">
+	<a href="https://github.com/hoxton-one/ds-demo-webtrc/tree/master/simple-example">
 		<img width="200" height="125" alt="WebRTC simple example" src="../assets/images/webrtc-simple-example.png" />
 		<label>Simple Example</label>
 	</a>
-	<a href="#">
+	<a href="https://github.com/hoxton-one/ds-demo-webtrc/tree/master/complex-example">
 		<img width="200" height="125" alt="WebRTC complex example" src="../assets/images/webrtc-complex-example.png" />
-		<label>Callees and States</label>
+		<label>More feature-rich example</label>
 	</a>
 </div>
 
-If you haven't used deepstream before, it might be worth having a quick look at the [getting started tutorial](getting-started.html).
+If you haven't used deepstream before, it might be worth trying the [getting started tutorial](getting-started.html).
