@@ -4,6 +4,9 @@
 }
 
 <link href="../assets/css/webrtc.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="https://rawgit.com/webrtc/adapter/master/adapter.js"></script>
+<script type="text/javascript" src="https://rawgit.com/hoxton-one/deepstream.io-client-js/webrtc/dist/deepstream.min.js"></script>
+<script type="text/javascript" src="../assets/js/webrtc.js"></script>
 Video-Chat with Deepstream and WebRTC
 ==========================================
 Web Real Time Communication is a great standard that makes it possible to establish video, audio and data-streams directly between two browsers. 
@@ -14,7 +17,51 @@ We’ve baked all this directly into deepstream and boiled it down to two concep
 Combine this with other deepstream features such as permissioning, records or data-transforms and you can build an amazing realtime app without worrying too much about implementation details.
 
 ###Demo
-WebRTC example
+<div class="webrtc-example">
+	<div class="welcome-screen">
+		<div class="header">
+			<span class="title">
+				Connect to 8<br/>Random People
+			</span>
+		</div>
+		<span class="tshirt"></span>
+		<div class="body">
+			<span class="disclaimer">
+				<i class="fa fa-eye highlight"></i>
+				<span class="highlight">Disclaimer:</span>
+				<span class="disclaimer-text">You are about to video chat with other deepstream enthusiats... so please be nice and wear a shirt, or at the very least some clothes :)</span>
+			</span>
+			<span class="btn btn-start" onclick="start();">
+				<span>OK I get it</span>
+			</span>
+			<div class="note">
+				<span class="asterix">*</span>
+				<span>also we are totally not responsible for anything</span>
+			</div>
+		</div>
+	</div>
+	<div class="conference">
+		<video class="videofeed remotevideo" autoplay></video>
+		<video class="videofeed remotevideo" autoplay></video>
+		<video class="videofeed remotevideo" autoplay></video>
+		<video class="videofeed remotevideo" autoplay></video>
+		<video class="videofeed remotevideo" autoplay></video>
+		<video class="videofeed remotevideo" autoplay></video>
+		<video class="videofeed remotevideo" autoplay></video>
+		<video class="videofeed localvideo" muted autoplay></video>
+		<video class="videofeed remotevideo" autoplay></video> 
+	</div>
+	<div class="buttons">
+			<span class="btn change-room" onclick="changeRoom();">
+				<i class="fa fa-share"></i>
+				<i class="fa fa-spinner fa-spin"></i>
+				<span>Change Room</span>
+			</span>
+			<span class="btn" onclick="stopApp();">
+				<span>Exit</span>
+			</span>
+	</div>
+</div>
 
 ###How does it work?
 

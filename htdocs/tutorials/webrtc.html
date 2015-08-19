@@ -120,6 +120,16 @@
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
 
+	<li class="active">
+		<a href="webrtc.html">WebRTC</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li >
+		<a href="webrtc-tips.html">WebRTC Tips</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
 	<li class="head">Internals</li>
 	<li >
 		<a href="message-structure.html">Message Structure</a>
@@ -128,7 +138,54 @@
 </ul>
 
 			<div id="content">
-				<p><link href="../assets/css/webrtc.css" type="text/css" rel="stylesheet" /></p><h1>Video-Chat with Deepstream and WebRTC</h1><h3>How is this different from other WebRTC libraries?</h3><p>Deepstream&#39;s WebRTC implementation is on a very high level. It abstracts all implementation and connectivity details away and instead offers just two concepts: A phonebook and a call. Combined with other deepstream features such as permissioning, records or data-transformation this</p><h3>Demo</h3><p>WebRTC example</p><h3>How does it work?</h3><p>Clients can register themselves as callees</p><pre><code>ds<span class="token punctuation" >.</span>webrtc<span class="token punctuation" >.</span><span class="token function" >registerCallee<span class="token punctuation" >(</span></span> <span class="token string" >'Peter Venkman'</span><span class="token punctuation" >,</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> call<span class="token punctuation" >,</span> metaData <span class="token punctuation" >)</span><span class="token punctuation" >{</span>
+				<p><link href="../assets/css/webrtc.css" type="text/css" rel="stylesheet" /></p><p><script type="text/javascript" src="https://rawgit.com/webrtc/adapter/master/adapter.js"></script></p><p><script type="text/javascript" src="https://rawgit.com/hoxton-one/deepstream.io-client-js/webrtc/dist/deepstream.min.js"></script></p><p><script type="text/javascript" src="../assets/js/webrtc.js"></script></p><h1>Video-Chat with Deepstream and WebRTC</h1><p>Web Real Time Communication is a great standard that makes it possible to establish video, audio and data-streams directly between two browsers. 
+But, there’s a catch: WebRTC requires you to dive deeply into the mechanics of connection establishment, exchange offers, answers and ICE candidates - and you still need a server to establish the call.</p><p>We’ve baked all this directly into deepstream and boiled it down to two concepts: A realtime phonebook that clients can register with and subscribe to – and the ability to call anyone in it.</p><p>Combine this with other deepstream features such as permissioning, records or data-transforms and you can build an amazing realtime app without worrying too much about implementation details.</p><h3>Demo</h3><div class="webrtc-example">
+    <div class="welcome-screen">
+        <div class="header">
+            <span class="title">
+                Connect to 8<br/>Random People
+            </span>
+        </div>
+        <span class="tshirt"></span>
+        <div class="body">
+            <span class="disclaimer">
+                <i class="fa fa-eye highlight"></i>
+                <span class="highlight">Disclaimer:</span>
+                <span class="disclaimer-text">You are about to video chat with other deepstream enthusiats... so please be nice and wear a shirt, or at the very least some clothes :)</span>
+            </span>
+            <span class="btn btn-start" onclick="start();">
+                <span>OK I get it</span>
+            </span>
+            <div class="note">
+                <span class="asterix">*</span>
+                <span>also we are totally not responsible for anything</span>
+            </div>
+        </div>
+    </div>
+    <div class="conference">
+        <video class="videofeed remotevideo" autoplay></video>
+        <video class="videofeed remotevideo" autoplay></video>
+        <video class="videofeed remotevideo" autoplay></video>
+        <video class="videofeed remotevideo" autoplay></video>
+        <video class="videofeed remotevideo" autoplay></video>
+        <video class="videofeed remotevideo" autoplay></video>
+        <video class="videofeed remotevideo" autoplay></video>
+        <video class="videofeed localvideo" muted autoplay></video>
+        <video class="videofeed remotevideo" autoplay></video> 
+    </div>
+    <div class="buttons">
+            <span class="btn change-room" onclick="changeRoom();">
+                <i class="fa fa-share"></i>
+                <i class="fa fa-spinner fa-spin"></i>
+                <span>Change Room</span>
+            </span>
+            <span class="btn" onclick="stopApp();">
+                <span>Exit</span>
+            </span>
+    </div>
+</div>
+
+<h3>How does it work?</h3><p>Clients can register themselves as callees</p><pre><code>ds<span class="token punctuation" >.</span>webrtc<span class="token punctuation" >.</span><span class="token function" >registerCallee<span class="token punctuation" >(</span></span> <span class="token string" >'Peter Venkman'</span><span class="token punctuation" >,</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> call<span class="token punctuation" >,</span> metaData <span class="token punctuation" >)</span><span class="token punctuation" >{</span>
     <span class="token keyword" >if</span><span class="token punctuation" >(</span> metaData<span class="token punctuation" >.</span>callerName <span class="token operator" >===</span> <span class="token string" >'Walter Peck'</span> <span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
         call<span class="token punctuation" >.</span><span class="token function" >decline<span class="token punctuation" >(</span></span> <span class="token string" >'Nope, not interested.'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
     <span class="token punctuation" >}</span> <span class="token keyword" >else</span> <span class="token punctuation" >{</span>
@@ -153,17 +210,17 @@ call<span class="token punctuation" >.</span><span class="token function" >on<sp
     console<span class="token punctuation" >.</span><span class="token function" >log<span class="token punctuation" >(</span></span> <span class="token string" >'Call declined because of '</span> <span class="token operator" >+</span> reason <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
 <span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
 </code></pre><h3>Try it out</h3><p>Please find the documentation <a href="../docs/webrtc.html">here</a> and have a look at our examples.</p><div class="two-examples">
-    <a href="#">
+    <a href="https://github.com/hoxton-one/ds-demo-webtrc/tree/master/simple-example">
         <img width="200" height="125" alt="WebRTC simple example" src="../assets/images/webrtc-simple-example.png" />
         <label>Simple Example</label>
     </a>
-    <a href="#">
+    <a href="https://github.com/hoxton-one/ds-demo-webtrc/tree/master/complex-example">
         <img width="200" height="125" alt="WebRTC complex example" src="../assets/images/webrtc-complex-example.png" />
-        <label>Callees and States</label>
+        <label>More feature-rich example</label>
     </a>
 </div>
 
-<p>If you haven&#39;t used deepstream before, it might be worth having a quick look at the <a href="getting-started.html">getting started tutorial</a>.</p>
+<p>If you haven&#39;t used deepstream before, it might be worth trying the <a href="getting-started.html">getting started tutorial</a>.</p>
 
 			</div>
 		</div>

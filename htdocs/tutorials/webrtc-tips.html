@@ -120,6 +120,16 @@
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
 
+	<li >
+		<a href="webrtc.html">WebRTC</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li class="active">
+		<a href="webrtc-tips.html">WebRTC Tips</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
 	<li class="head">Internals</li>
 	<li >
 		<a href="message-structure.html">Message Structure</a>
@@ -128,7 +138,11 @@
 </ul>
 
 			<div id="content">
-				<h3>How to show a stream on a video tag</h3><p>autoplay</p>
+				<h1>WebRTC implementation tips</h1><p>A collection of things we found useful when working with WebRTC</p><h3>Use the WebRTC adapter</h3><p>Deepstream expects a standard-compliant WebRTC API – which is almost here. To bridge implementation differences and ensure backwards compatibility in the meantime, the WebRTC initiative offers an <a href="https://github.com/webrtc/adapter">adapter script</a> which we highly recommend using for now.</p><h3>Don’t forget to tell your video to play</h3><p>HTML 5 videos don’t play by default, so don’t forget to either add an <code>autoplay</code> attribute</p><pre><code><span class="token operator" >&lt;</span>video id<span class="token operator" >=</span><span class="token string" >"localVideo"</span> autoplay<span class="token operator" >></span><span class="token operator" >&lt;</span><span class="token operator" >/</span>video<span class="token operator" >></span>
+</code></pre><p>or call <code>play()</code> after attaching a stream</p><pre><code>video <span class="token operator" >=</span> document<span class="token punctuation" >.</span><span class="token function" >getElementById<span class="token punctuation" >(</span></span> id <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+video<span class="token punctuation" >.</span>src <span class="token operator" >=</span> URL<span class="token punctuation" >.</span><span class="token function" >createObjectURL<span class="token punctuation" >(</span></span> stream <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+video<span class="token punctuation" >.</span><span class="token function" >play<span class="token punctuation" >(</span></span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+</code></pre><h3>Mute audio below threshold</h3>
 
 			</div>
 		</div>
