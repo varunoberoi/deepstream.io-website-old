@@ -5,7 +5,7 @@
 
 <link href="../assets/css/webrtc.css" type="text/css" rel="stylesheet" />
 <script type="text/javascript" src="https://rawgit.com/webrtc/adapter/master/adapter.js"></script>
-<script type="text/javascript" src="https://rawgit.com/hoxton-one/deepstream.io-client-js/webrtc/dist/deepstream.min.js"></script>
+<script type="text/javascript" src="https://rawgit.com/hoxton-one/deepstream.io-client-js/master/dist/deepstream.min.js"></script>
 <script type="text/javascript" src="../assets/js/webrtc.js"></script>
 Video-Chat with Deepstream and WebRTC
 ==========================================
