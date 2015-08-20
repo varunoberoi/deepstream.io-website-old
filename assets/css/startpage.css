@@ -218,55 +218,63 @@ body{
 * 3 LARGE ICONS
 ****************************/
 
-#segment-icons{
+#segment-three-icons{
   background: #C7D7DC;
   text-align: center;
   color: #145068;
+  height: 100%;
+  padding: 0px 0px 60px 0px;
+
 }
 
-#icons {
+#three-icons {
   /* width: 1000px; */
+  height: 100%;
   padding: 0;
   margin: 0;
   display: inline-block;
-  overflow: hidden;
 }
 
-.icons-label {
+.three-icons-label {
   text-align: center;
   color: #37505A;
+  padding: 310px 0px 0px 0px;
   font-size: 23px;
   font-family: 'Quicksand', sans-serif;
   font-weight: 500;
-  margin: 10px 0;
 }
 
-#icons > div{
+#left-records,
+#center-events,
+#right-rpcs{
   float: left;
-  width: 250px;
+  margin: -60px 0px 0px 0px;
+  /* width: 33.33333333%; */
   height: 100%;
-  margin: 70px 0;
 }
 
-/*
-#events {
+#left-records {
+    background: url(../images/icon-records.svg) no-repeat center center;
+}
+
+#center-events {
     background: url(../images/icon-events.svg) no-repeat center center;
 }
 
-#rpcs {
+#right-rpcs {
     background: url(../images/icon-RPCs.svg) no-repeat center center;
 }
 
-#webrtc {
-    background: url(../images/icon-WebRTC.svg) no-repeat center center;
-}*/
-
-#icons .text{
-  text-align: center;
-  margin: 15px 0;
+.records-text,
+.events-text,
+.rpcs-text{
+  width: 240px;
+  padding: 20px 0px 0px 0;
+  margin: 0 20px;
   font-size: 14px;
   font-family: 'Quicksand', sans-serif;
   font-weight: 400;
+
 }
 
 /****************************
