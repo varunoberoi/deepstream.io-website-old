@@ -16,8 +16,29 @@ HTML 5 videos don’t play by default, so don’t forget to either add an `autop
 
 or call `play()` after attaching a stream
 	
-	video = document.getElementById( id );
+	video = document.getElementById( 'localVideo' );
 	video.src = URL.createObjectURL( stream );
 	video.play();
 
-### Mute audio below threshold
+### Mute your own audio
+When you request a video and audio stream (`getUserMedia({ video: true, audio: true })`) and play it on a video tag, chances are that you end up with a nasty echo / feedback loop. To avoid this, mute your own audio-track by adding a muted attribute
+
+	<video id="localVideo" muted></video>
+
+or mute the video in code
+
+	video = document.getElementById( 'localVideo' );
+	video.muted = true;
+
+### Specify a resolution for multi-user chats
+If you are building an application that allows multiple users to chat with each other at the same time, you might want to limit the resolution for each participants video - otherwise your connection can't keep up with the amount of data its receiving.
+
+To do this, use the constrains object that you pass to getUserMedia, e.g.
+
+	getUserMedia({
+        audio: true,
+        video: {
+            width: 160,
+            height: 120
+        }
+    });

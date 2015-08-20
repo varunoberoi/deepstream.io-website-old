@@ -13,7 +13,7 @@ function start() {
     var calls = [];
     var addressBook = [];
 
-    navigator.getUserMedia( {
+    getUserMedia( {
             audio: true,
             video: {
                 width: 160,
