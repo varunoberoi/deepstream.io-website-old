@@ -13,7 +13,12 @@ function start() {
     var calls = [];
     var addressBook = [];
 
-    getUserMedia( {
+    if( !navigator.getUserMedia ) {    
+        showError( 'Your browser doesn\'t support WebRTC :(' );    
+        return;
+    }
+    
+    navigator.getUserMedia( {
             audio: true,
             video: {
                 width: 160,
@@ -26,13 +31,17 @@ function start() {
             startApp();
         },
         function( err ) {
-            $( '.error-screen .msg b' ).html( err.name );
-            $('.error-screen' ).fadeIn( 500 );
-            setTimeout(function(){
-                $('.error-screen' ).fadeOut( 500 );
-            }, 2000 );
+            showError( err.name );
         }
     );
+
+    function showError( msg ) {
+        $( '.error-screen .msg b' ).html( msg );
+        $('.error-screen' ).fadeIn( 500 );
+        setTimeout(function(){
+            $('.error-screen' ).fadeOut( 500 );
+        }, 2000 );
+    }
 
     function onCallRecieved( call, metaData ) {
         call.on( 'established', onCallEstablished.bind( null, call, metaData ) );
@@ -42,7 +51,7 @@ function start() {
 
     function onCallEstablished( call, metaData, stream ) {
         var remotevid = document.querySelector( '.remotevideo:not(.active)' );
-        remotevid.src = window.URL.createObjectURL( event.stream );
+        remotevid.src = window.URL.createObjectURL( stream );
         remotevid.classList.add( 'active' );
 
         call.on( 'ended', function() {
