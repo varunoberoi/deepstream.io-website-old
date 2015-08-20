@@ -112,7 +112,7 @@ should now look like this:
 
 ### Where to go from here?
 There are two options:
-* This tutorial only used records. Learn about deepstream's other concepts in the [Records, Events and RPCs tutorial](records-events-rpcs.html)
+* This tutorial only used records. Learn about deepstream's other concepts in the [Events & RPC Tutorial](events-and-rpcs.html) or find out about deepstream's support for [WebRTC](webrtc.html)
 * In this tutorial, deepstream stored all data in memory. For persistance, deepstream can connect to a distributed cache (Redis, Memcached etc.) and to a database (RethinkDb, MongoDb etc). It can also connect to a message broker (AMQP, Redis) or directly via TCP to scale horizontally. Learn about this in the [connectors and deployment tutorial](connectors-and-deployment.html).
 
 <br/>

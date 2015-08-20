@@ -82,6 +82,7 @@ nav{
 
 #wrapper > #subnav li.active .isActiveIndicator{
 	display: block;
+	background-color: #00CCFE;
 }
 
 #wrapper > #subnav li a:hover{
@@ -96,7 +97,7 @@ nav{
 }
 
 #wrapper > #subnav li.active a{
-	color: #145068;
+	color: #00CCFE;
 }
 
 #wrapper > #subnav li .overview{

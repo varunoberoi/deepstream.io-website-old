@@ -158,7 +158,7 @@ var buildFile = function( fileExtension, data, fileContent, next ) {
 	hbs.outputDir = data.outputDir;
 	// defaults
 	data.contextVars.title = 'A Scalable Server for Realtime Web Apps';
-	data.contextVars.description = 'a node.js realtime server';
+	data.contextVars.description = 'a node.js realtime server, supporting data-sync, RPCs, events and WebRTC';
 	if( fileExtension === 'md' ) {
 		var metaDataEnd = fileContent.indexOf( '}' ),
 			metaData;
