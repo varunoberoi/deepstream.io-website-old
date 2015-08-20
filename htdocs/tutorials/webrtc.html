@@ -140,6 +140,12 @@
 			<div id="content">
 				<p><link href="../assets/css/webrtc.css" type="text/css" rel="stylesheet" /></p><p><script type="text/javascript" src="https://rawgit.com/webrtc/adapter/master/adapter.js"></script></p><p><script type="text/javascript" src="https://rawgit.com/hoxton-one/deepstream.io-client-js/webrtc/dist/deepstream.min.js"></script></p><p><script type="text/javascript" src="../assets/js/webrtc.js"></script></p><h1>Video-Chat with Deepstream and WebRTC</h1><p>Web Real Time Communication is a great standard that makes it possible to establish video, audio and data-streams directly between two browsers. 
 But, there’s a catch: WebRTC requires you to dive deeply into the mechanics of connection establishment, exchange offers, answers and ICE candidates - and you still need a server to establish the call.</p><p>We’ve baked all this directly into deepstream and boiled it down to two concepts: A realtime phonebook that clients can register with and subscribe to – and the ability to call anyone in it.</p><p>Combine this with other deepstream features such as permissioning, records or data-transforms and you can build an amazing realtime app without worrying too much about implementation details.</p><h3>Demo</h3><div class="webrtc-example">
+    <div class="error-screen">
+        <div class="inner">
+            <div class="fa fa-warning"></div>
+            <div class="msg">An error occured: <b>DeviceNotFoundError</b></div>
+        </div>
+    </div>
     <div class="welcome-screen">
         <div class="header">
             <span class="title">
@@ -151,7 +157,7 @@ But, there’s a catch: WebRTC requires you to dive deeply into the mechanics of
             <span class="disclaimer">
                 <i class="fa fa-eye highlight"></i>
                 <span class="highlight">Disclaimer:</span>
-                <span class="disclaimer-text">You are about to video chat with other deepstream enthusiats... so please be nice and wear a shirt, or at the very least some clothes :)</span>
+                <span class="disclaimer-text">You are about to video chat with other deepstream enthusiasts... so please be nice – and put a shirt on!</span>
             </span>
             <span class="btn btn-start" onclick="start();">
                 <span>OK I get it</span>
@@ -209,7 +215,7 @@ call<span class="token punctuation" >.</span><span class="token function" >on<sp
 call<span class="token punctuation" >.</span><span class="token function" >on<span class="token punctuation" >(</span></span> <span class="token string" >'declined'</span><span class="token punctuation" >,</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> reason <span class="token punctuation" >)</span><span class="token punctuation" >{</span>
     console<span class="token punctuation" >.</span><span class="token function" >log<span class="token punctuation" >(</span></span> <span class="token string" >'Call declined because of '</span> <span class="token operator" >+</span> reason <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
 <span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-</code></pre><h3>Try it out</h3><p>Please find the documentation <a href="../docs/webrtc.html">here</a> and have a look at our examples.</p><div class="two-examples">
+</code></pre><h3>Try it out</h3><p>Please find the documentation <a href="../docs/client.webrtc.html">here</a> and have a look at our examples.</p><div class="two-examples">
     <a href="https://github.com/hoxton-one/ds-demo-webtrc/tree/master/simple-example">
         <img width="200" height="125" alt="WebRTC simple example" src="../assets/images/webrtc-simple-example.png" />
         <label>Simple Example</label>

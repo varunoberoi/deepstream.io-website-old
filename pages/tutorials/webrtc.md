@@ -105,7 +105,7 @@ and call each other
 	});
 
 ###Try it out
-Please find the documentation [here](../docs/webrtc.html) and have a look at our examples.
+Please find the documentation [here](../docs/client.webrtc.html) and have a look at our examples.
 
 <div class="two-examples">
 	<a href="https://github.com/hoxton-one/ds-demo-webtrc/tree/master/simple-example">
