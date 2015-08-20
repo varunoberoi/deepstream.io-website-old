@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>deepstream.io | Writing a message connector</title>
+	<title>deepstream.io | WebRTC Tips</title>
 
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<meta name="keywords" content="deepstream, deepstream.io, streaming, realtime, server, socket" />
-	<meta name="description" content="Learn how to integrate deepstream with a messaging system of your choice" />
+	<meta name="description" content="General tips and implementation advice for working with WebRTC" />
 	<meta name="author" content="Wolfram Hempel" />
 	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 	<link rel="icon" href="/favicon.ico" type="image/x-icon">
@@ -79,7 +79,7 @@
 		<a href="writing-storage-cache-connector.html">Writing storage and cache connectors</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
-	<li class="active">
+	<li >
 		<a href="writing-messaging-connector.html">Writing a messaging connector</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
@@ -125,7 +125,7 @@
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
 
-	<li >
+	<li class="active">
 		<a href="webrtc-tips.html">WebRTC Tips</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
@@ -138,22 +138,21 @@
 </ul>
 
 			<div id="content">
-				<h1>Writing a message connector</h1><p>Deepstream nodes can work together in clusters – which requires them to communicate with each other. This can happen directly <a href="">via TCP</a> or  through a messaging system, e.g. an AMQP broker, Apache Kafka or Redis’ pub sub mechanism.
-Messaging is based on a publish-subscribe pattern. Any node can broadcast a message to a topic that zero or more subscribers listen to.</p><div class="hint-box fa fa-gears">
-    <p>Before writing your own message connector, have a quick look at the <a href="../download/">download section</a>. Maybe there already is an off-the-shelf one you can just pick up and use. <em>If you&#39;re happy with how you&#39;re connector turned out, please consider contributing it. To do so, just <a href="https://github.com/hoxton-one/deepstream.io/issues">raise an issue against deepstream.io</a></em></p></div>
-
-<p>To write a message connector, just clone or fork the message-connector-template below and fill in the blanks. To see if it works, update the <a href="https://github.com/hoxton-one/deepstream.io-msg-connector-template/blob/master/test/connection-data.js">connection data file</a> and run the tests with <code>npm test</code>. Please note: The tests are fairly high level and only test the basic functionality. It might make sense to add additional tests that are specific for your connector.</p><p><a class="mega" href="https://github.com/hoxton-one/deepstream.io-msg-connector-template"><i class="fa fa-github"></i>fork or copy the msg-connector-template</a></p><div class="section"><h2><a name="Some things worth taking into account when building a new message connector">Some things worth taking into account when building a new message connector</a></h2><ul>
-<li><p>Deepstream only uses four topics (RECORD, RPC, EVENT plus a private topic),
-but will send and receive large numbers of messages on each of them. If this leads to performance problems
-it might make sense for the message connector to do some custom sub-routing, e.g. based on record namespaces etc.</p></li>
-<li><p>Messages are passed to the <code>publish()</code> method as javascript objects and are expected to be returned
-by the receiver as such. So its up to the message connector to serialize and deserialize them, e.g. as JSON or MsgPack</p></li>
-<li><p>The message connector acts as both publisher and subscriber for each topic. It should however not receive its
-own messages. Some messaging middleware supports this, but for others it might be necessary to add an unique
-sender-id to outgoing messages and filter out incoming messages that have the same id</p></li>
-<li><p>Messaging is the backbone of deepstream&#39;s scaling / clustering capabilites. So this needs to be reliable... and fast!</p></li>
-</ul>
-<p></div></p>
+				<h1>WebRTC implementation tips</h1><p>A collection of things we found useful when working with WebRTC</p><h3>Use the WebRTC adapter</h3><p>Deepstream expects a standard-compliant WebRTC API – which is almost here. To bridge implementation differences and ensure backwards compatibility in the meantime, the WebRTC initiative offers an <a href="https://github.com/webrtc/adapter">adapter script</a> which we highly recommend using for now.</p><h3>Don’t forget to tell your video to play</h3><p>HTML 5 videos don’t play by default, so don’t forget to either add an <code>autoplay</code> attribute</p><pre><code><span class="token operator" >&lt;</span>video id<span class="token operator" >=</span><span class="token string" >"localVideo"</span> autoplay<span class="token operator" >></span><span class="token operator" >&lt;</span><span class="token operator" >/</span>video<span class="token operator" >></span>
+</code></pre><p>or call <code>play()</code> after attaching a stream</p><pre><code>video <span class="token operator" >=</span> document<span class="token punctuation" >.</span><span class="token function" >getElementById<span class="token punctuation" >(</span></span> <span class="token string" >'localVideo'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+video<span class="token punctuation" >.</span>src <span class="token operator" >=</span> URL<span class="token punctuation" >.</span><span class="token function" >createObjectURL<span class="token punctuation" >(</span></span> stream <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+video<span class="token punctuation" >.</span><span class="token function" >play<span class="token punctuation" >(</span></span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+</code></pre><h3>Mute your own audio</h3><p>When you request a video and audio stream (<code>getUserMedia({ video: true, audio: true })</code>) and play it on a video tag, chances are that you end up with a nasty echo / feedback loop. To avoid this, mute your own audio-track by adding a muted attribute</p><pre><code><span class="token operator" >&lt;</span>video id<span class="token operator" >=</span><span class="token string" >"localVideo"</span> muted<span class="token operator" >></span><span class="token operator" >&lt;</span><span class="token operator" >/</span>video<span class="token operator" >></span>
+</code></pre><p>or mute the video in code</p><pre><code>video <span class="token operator" >=</span> document<span class="token punctuation" >.</span><span class="token function" >getElementById<span class="token punctuation" >(</span></span> <span class="token string" >'localVideo'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+video<span class="token punctuation" >.</span>muted <span class="token operator" >=</span> <span class="token keyword" >true</span><span class="token punctuation" >;</span>
+</code></pre><h3>Specify a resolution for multi-user chats</h3><p>If you are building an application that allows multiple users to chat with each other at the same time, you might want to limit the resolution for each participants video - otherwise your connection can&#39;t keep up with the amount of data its receiving.</p><p>To do this, use the constrains object that you pass to getUserMedia, e.g.</p><pre><code><span class="token function" >getUserMedia<span class="token punctuation" >(</span></span><span class="token punctuation" >{</span>
+    audio<span class="token punctuation" >:</span> <span class="token keyword" >true</span><span class="token punctuation" >,</span>
+    video<span class="token punctuation" >:</span> <span class="token punctuation" >{</span>
+        width<span class="token punctuation" >:</span> <span class="token number" >160</span><span class="token punctuation" >,</span>
+        height<span class="token punctuation" >:</span> <span class="token number" >120</span>
+    <span class="token punctuation" >}</span>
+<span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+</code></pre>
 
 			</div>
 		</div>
