@@ -18,6 +18,12 @@ Combine this with other deepstream features such as permissioning, records or da
 
 ###Demo
 <div class="webrtc-example">
+	<div class="error-screen">
+		<div class="inner">
+			<div class="fa fa-warning"></div>
+			<div class="msg">An error occured: <b>DeviceNotFoundError</b></div>
+		</div>
+	</div>
 	<div class="welcome-screen">
 		<div class="header">
 			<span class="title">
@@ -29,7 +35,7 @@ Combine this with other deepstream features such as permissioning, records or da
 			<span class="disclaimer">
 				<i class="fa fa-eye highlight"></i>
 				<span class="highlight">Disclaimer:</span>
-				<span class="disclaimer-text">You are about to video chat with other deepstream enthusiats... so please be nice and wear a shirt, or at the very least some clothes :)</span>
+				<span class="disclaimer-text">You are about to video chat with other deepstream enthusiasts... so please be nice – and put a shirt on!</span>
 			</span>
 			<span class="btn btn-start" onclick="start();">
 				<span>OK I get it</span>

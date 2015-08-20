@@ -26,7 +26,11 @@ function start() {
             startApp();
         },
         function( err ) {
-            console.log( "The following error occured: " + err.name );
+            $( '.error-screen .msg b' ).html( err.name );
+            $('.error-screen' ).fadeIn( 500 );
+            setTimeout(function(){
+                $('.error-screen' ).fadeOut( 500 );
+            }, 2000 );
         }
     );
 

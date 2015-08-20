@@ -46,6 +46,41 @@
 	position: relative;
 }
 
+.error-screen{
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	background: rgba( 255,255,255,0.7);
+	left: 0;
+	top: 0;
+	z-index: 9;
+	display: none;
+}
+
+.error-screen .inner{
+	width: 280px;
+	margin: 200px 150px;
+	border: 1px solid crimson;
+	background: #fff;
+	padding: 10px;
+	box-shadow: 1px 26px 80px 1px rgba(0,0,0,0.4), 0px 0px 6px 1px rgba(0,0,0,0.3);
+}
+
+.error-screen .inner *{
+	color: crimson;
+}
+
+.error-screen .inner .fa{
+	font-size: 32px;
+    margin: 0 20px;
+    float: left;
+}
+
+.error-screen .inner .msg, .error-screen .inner .msg *{
+	font-family: "Roboto Light", sans-serif;
+	font-size: 14px;
+}
+
 .welcome-screen {
     box-shadow: 1px 26px 80px 1px rgba(0,0,0,0.4), 0px 0px 6px 1px rgba(0,0,0,0.3);
 	position: absolute;
