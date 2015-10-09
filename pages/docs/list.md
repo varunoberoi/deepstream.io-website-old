@@ -43,8 +43,23 @@ Events
 <tbody>
 
 <tr>
-<td>ready</td>
+<td width="20%">ready</td>
 <td>Emitted once the list has received its current data from the server.</td>
+</tr>
+
+<tr>
+<td>entry-added</td>
+<td>Emitted whenever a new entry is added to the list. Passes the entry and its position within the list to the callback.</td>
+</tr>
+
+<tr>
+<td>entry-moved</td>
+<td>Emitted whenever an entry is moved within the list. Passes the entry and its new position within the list to the callback.</td>
+</tr>
+
+<tr>
+<td>entry-removed</td>
+<td>Emitted whenever an entry is removed from the list. Passes the entry and its last position within the list to the callback.</td>
 </tr>
 
 <tr>
