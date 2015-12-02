@@ -197,7 +197,7 @@ desc: The value that should be used
 	* Any record whose name matches the specified RegExp will be read / written
 	* directly to cache
 	*
-	* @type Strin
+	* @type RegExp
 	* @default null
 	*/
 	server.set( 'storageExclusion', /^dont-store\/*./ );
