@@ -188,6 +188,21 @@ desc: The value that should be used
 	}));
 
 	/**
+	* A regular expression that determines which records won't be
+	* stored in the database.
+	*
+	* This is useful to improve performance for fast-updating records
+	* that don't need to be stored in the long-term, e.g. stock prices
+	*
+	* Any record whose name matches the specified RegExp will be read / written
+	* directly to cache
+	*
+	* @type Strin
+	* @default null
+	*/
+	server.set( 'storageExclusion', /^dont-store\/*./ );
+
+	/**
 	* Number of times a client can try to authenticate with invalid credentials
 	* before its connection is closed.
 	*
