@@ -58,11 +58,11 @@ Combine this with other deepstream features such as permissioning, records or da
 		<video class="videofeed remotevideo" autoplay></video> 
 	</div>
 	<div class="buttons">
-			<span class="btn change-room" onclick="changeRoom();">
+			<!--<span class="btn change-room" onclick="changeRoom();">
 				<i class="fa fa-share"></i>
 				<i class="fa fa-spinner fa-spin"></i>
 				<span>Change Room</span>
-			</span>
+			</span> -->
 			<span class="btn" onclick="stopApp();">
 				<span>Exit</span>
 			</span>
