@@ -38,7 +38,8 @@
 					<li ><a href="../download/">Downloads</a></li>
 					<li ><a href="../tutorials/getting-started.html">Tutorials</a></li>
 					<li class="active"><a href="../docs/deepstream.html">Documentation</a></li>
-					<li ><a href="../info/">Info</a></li>
+					<li ><a href="../info/">Info</a></li>					
+					<li ><a href="../blog/">Blog</a></li>
 				</ul>
 			</div>
 		</div>
@@ -145,7 +146,6 @@
 // client b
 </span>client<span class="token punctuation" >.</span>event<span class="token punctuation" >.</span><span class="token function" >emit<span class="token punctuation" >(</span></span> <span class="token string" >'news/politics'</span><span class="token punctuation" >,</span> <span class="token punctuation" >{</span> headline<span class="token punctuation" >:</span> <span class="token string" >'...'</span><span class="token punctuation" >,</span> content<span class="token punctuation" >:</span> <span class="token string" >'...'</span> <span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
 </code></pre></div><div class="section"><h2><a name="subscribe( event, callback );">subscribe( event, callback );</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">event</td><td class="type">String</td><td class="optional">false</td><td class="default">-</td><td class="description">an eventname</td></tr><tr><td class="argument">callback</td><td class="type">Function</td><td class="optional">false</td><td class="default">-</td><td class="description">A function that will be called whenever the event is emitted</td></tr></tbody></table><p>Subscribe to an event emitted by this or any of the other clients.</p></div><div class="section"><h2><a name="unsubscribe( event, callback );">unsubscribe( event, callback );</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">event</td><td class="type">String</td><td class="optional">false</td><td class="default">-</td><td class="description">an eventname</td></tr><tr><td class="argument">callback</td><td class="type">Function</td><td class="optional">true</td><td class="default">-</td><td class="description">the callback that was previously registered with subscribe. If the callback is omitted, all listeners for the event will be removed</td></tr></tbody></table><p>Unsubscribes from an event that was previosly registered with <code>subscribe()</code>.</p></div><div class="section"><h2><a name="event.emit( event, data );">event.emit( event, data );</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">event</td><td class="type">String</td><td class="optional">false</td><td class="default">-</td><td class="description">an eventname</td></tr><tr><td class="argument">data</td><td class="type">Mixed</td><td class="optional">true</td><td class="default">-</td><td class="description">Any serialisable data ( Objects, Strings, Numbers... ) that will be send with the event</td></tr></tbody></table><p>Sends an event to zero or more subscribed clients.</p><p></div></p>
-
 			</div>
 		</div>
 		<script type="text/javascript" src="../assets/js/docs.js"></script>
@@ -178,7 +178,7 @@
 			<li class="footer-right">
 				<ul class="social">
 					<li class="twitter">
-						<a href="https://twitter.com/HoxtonOne">
+						<a href="https://twitter.com/deepstreamIO">
 							<i class="fa fa-twitter"></i>  Twitter
 						</a>
 					</li>
