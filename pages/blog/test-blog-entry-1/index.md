@@ -1,7 +1,7 @@
 {
 	"title": "First Test Entry",
 	"dateISO": "20151203",
-	"author": "Jamal Susan",
+	"author": "yasserf",
     "thumbnail": "thumbnail.jpg"
 }
 

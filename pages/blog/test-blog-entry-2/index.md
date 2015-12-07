@@ -1,7 +1,7 @@
 {
 	"title": "Second Test Entry",
 	"dateISO": "20151204",
-	"author": "Bob Mostafa",
+	"author": "yasserf",
     "thumbnail": "thumbnail.jpg"
 }
 

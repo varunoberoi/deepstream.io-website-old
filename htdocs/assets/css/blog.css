@@ -103,18 +103,12 @@
 	content: "";
 }
 
-.user-image {
-	position: absolute;
-	top: 0;
-	left: 0;
+.author-gravatar {
+	border-radius: 100%;
+	width: 75px;
 }
 
-.user-name {
-	display: block;
-}
-
-.user-bio {
-	display: block;
+.author-bio {
 	max-width: 440px;
 }
 

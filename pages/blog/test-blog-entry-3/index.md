@@ -1,7 +1,7 @@
 {
 	"title": "Third Test Entry",
 	"dateISO": "20151205",
-	"author": "Sam Poney",
+	"author": "yasserf",
     "thumbnail": "thumbnail.jpg"
 }
 

@@ -6,6 +6,8 @@ var fse = require( 'fs-extra' );
 var hbs = require( './getHbs.js' );
 var fileOptions = { encoding: 'utf8' };
 
+var authors = require( '../authors.json' );
+
 var inputDir =  path.join( __dirname, '../pages/blog' );
 var outputDir = path.join( __dirname, '../htdocs/blog' );
 
@@ -131,6 +133,11 @@ var buildBlogPost = function( data, fileContent, next ) {
 		throw new Error( 'Missing meta data for blog entry (title|dateISO|author|thumbnail) ' + data.targetFilePath );
 	}
 
+	if( !authors[ metaData.author] ) {
+		throw new Error( 'Author needs to be declared in author.json file ' + metaData.author );	
+	}
+
+
 	fileBuilder.md.build( fileContent, data, function( error, innerHtml ) {
 
 		pageContent = new hbs.SafeString( innerHtml );
@@ -143,7 +150,7 @@ var buildBlogPost = function( data, fileContent, next ) {
 		data.contextVars.dateISO = metaData.dateISO;
 		data.contextVars.date = moment( metaData.dateISO, 'YYYYMMDD' ).format( 'MMMM Do YYYY' );
 		data.contextVars.title = metaData.title;
-		data.contextVars.author =  metaData.author;
+		data.contextVars.author =  authors[ metaData.author];
 		data.contextVars.blogPath =  data.contextVars.category + '/';
 		data.contextVars.thumbnail = data.contextVars.blogPath + metaData.thumbnail;
 		data.contextVars.pageContent = pageContent;
