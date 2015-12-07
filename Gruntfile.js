@@ -29,7 +29,7 @@ module.exports = function(grunt) {
 
 		watch: {
 			tasks: ['build'],
-			files: [ './index.hbs', './pages/**', './htdocs/assets/**' ],
+			files: [ './index.hbs', './pages/**', './partials/*', './htdocs/assets/**' ],
 			options: { livereload: 5051 },
 		},
 
@@ -74,6 +74,12 @@ module.exports = function(grunt) {
 		] , this.async() );
 	});
 
+	grunt.registerTask('buildBlog', function() {
+			async.parallel([
+			require( './build/buildBlog' ).action
+		] , this.async() );
+	});
+
 	grunt.registerTask('setConfig', function() {
 		CONFIG.isDevelopment = false;
 		CONFIG.baseUrl = '/';
@@ -105,7 +111,7 @@ module.exports = function(grunt) {
 		'build'
 	]);
 
-	grunt.registerTask('build', [ 'clean:htdocs', 'buildPages' ] );
+	grunt.registerTask('build', [ 'clean:htdocs', 'buildPages', 'buildBlog' ] );
 	grunt.registerTask('deploy', [ 'setConfig', 'build', 'copy:toplevelfiles', 'clean:deployDir','copy:htdocs' ]);
 	grunt.registerTask('default', [ 'build', 'watch' ] );
 };

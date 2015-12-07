@@ -1,0 +1,135 @@
+.blog-header {
+	height: 140px;
+	background: url(../images/header-back.svg) repeat-x center top;
+	text-align: center;
+	font-size: 25px;
+}
+
+.blog-header h1 {
+	font-family: 'Roboto';
+	padding-top: 40px;
+	color: white;
+}
+
+.post-thumbnail img {
+	width: 200px;
+}
+.blog-post img {
+	width: 100%;  
+}
+
+/* Every post, on every page, gets this style on its <article> tag */
+.post {
+	position: relative;
+	max-width: 780px;
+	margin: 2.457rem auto;
+	padding-bottom: 2.457rem;
+	border-bottom: #EBF2F6 1px solid;
+	word-break: break-word;
+	hyphens: auto;
+}
+
+.post-header {
+	padding-bottom: 20px;
+}
+
+.post p {
+	padding-bottom: 20px;
+}
+
+.post-thumbnail{
+	display: inline-block;
+	float:left;
+	max-width:250px;
+	margin-right: 1.65rem;
+	margin-bottom: 1.65rem;
+}
+
+.post-thumbnail img{
+	max-width:250px;
+}
+
+.post-content > p:first-child:first-letter{
+	font-size:4rem;
+	margin: 0 .55rem 0 0;
+	line-height: 1;
+	float:left;
+	color:slategray;
+	font-weight: 900;
+	vertical-align: top;
+}
+
+.read-more {
+  text-decoration: none;
+}
+
+.read-more span:before{
+	content: "read more ";
+}
+
+.post-meta {
+	font-family: "Source Sans Pro", Helvetica, sans-serif;
+	display: block;
+	margin: 0;
+	color: lightslategray;
+	font-size: .8888rem;
+}
+
+.post-meta a {
+	color: slategray;
+	text-decoration: none;
+}
+
+.post-meta a:hover {
+	text-decoration: underline;
+}
+
+.user-meta {
+	position: relative;
+	padding: 0.3rem 40px 0 100px;
+	min-height: 77px;
+}
+
+.post-date {
+	display: inline-block;
+}
+
+.post-tags:before,
+.post-date:before {
+	content: " • ";
+}
+
+.page-template .post-date:before{
+	content: "";
+}
+
+.user-image {
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.user-name {
+	display: block;
+}
+
+.user-bio {
+	display: block;
+	max-width: 440px;
+}
+
+.publish-meta {
+	position: absolute;
+	top: 0;
+	right: 0;
+	padding: 4.3rem 0 4rem 0;
+	text-align: right;
+}
+
+.publish-heading {
+	display: block;
+}
+
+.publish-date {
+	display: block;
+}

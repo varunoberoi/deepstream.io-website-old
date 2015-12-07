@@ -1,3 +1,4 @@
+var fs = require( 'fs' );
 var hbs = require( 'handlebars' );
 var path = require( 'path' );
 
@@ -53,6 +54,8 @@ hbs.registerHelper( 'debug', function(){
 	var val = JSON.stringify( this, null, '    ' );
 	return new hbs.SafeString( '<pre>' + val + '</pre>' );
 });
+
+hbs.registerPartial( 'blogentry', fs.readFileSync( './partials/blogentry.hbt', 'utf8'));
 
 module.exports = hbs;
 
