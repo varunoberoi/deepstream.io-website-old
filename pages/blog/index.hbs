@@ -6,34 +6,40 @@
 		<h1>The deepstream blog</h1>
 	</div>
 
-	<div class="blog-posts">
+	<div class="blog-wrapper">
 
-		{{#each blogPosts}}
-		<article class="post">
+		<span class="blog-posts">
 
-			<header class="post-header">
-				<h2 class="post-title">
-					<a href="{{blogPath}}">
-						{{title}}
-					</a>
-				</h2>
-			</header>
+			{{#each blogPosts}}
+			<article class="post">
 
-			<div class="post-thumbnail">
-				<img src="{{thumbnail}}">
-			</div>
+				<header class="post-header">
+					<h2 class="post-title">
+						<a href="{{blogPath}}">
+							{{title}}
+						</a>
+					</h2>
+				</header>
 
-			<div class="post-excerpt">
-				<p> {{description}} <span style="color:#ccc;">…</span>
-				<a class="read-more" href="{{blogPath}}"> <span>»</span></a></p>
-			</div>
-			<footer class="post-meta">>
-				By {{author.name}}
-				<time class="post-date" datetime="{{date}}">{{date}}</time>
-			</footer>
+				<div class="post-thumbnail">
+					<img src="{{thumbnail}}">
+				</div>
 
-		</article>
-		{{/each}}
+				<div class="post-excerpt">
+					<p> {{description}} </p>
+					<a class="read-more" href="{{blogPath}}"> Read more... </a>
+				</div>
+				<footer class="post-meta">>
+					By {{author.name}}
+					<time class="post-date" datetime="{{date}}">{{date}}</time>
+				</footer>
+
+			</article>
+			{{/each}}
+
+		</span>
+
+		{{> blogsidebar}}
 
 	</div>
 

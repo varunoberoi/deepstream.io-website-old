@@ -196,7 +196,6 @@ var writeBlogIndex = function( next ) {
 	var fileContent = fse.readFileSync(data.srcFilePath, fileOptions );
 	fileBuilder.hbs.build( fileContent, data, function( error, innerHtml ) {
 		data.contextVars.pageContent = new hbs.SafeString( innerHtml );
-		console.log( data.targetFilePath, data.contextVars )
 		fse.writeFileSync( data.targetFilePath, mainTemplate( data.contextVars ) );
 		next();
 	});

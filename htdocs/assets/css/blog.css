@@ -1,3 +1,7 @@
+.blog-wrapper, #wrapper {
+	position: relative;
+}
+
 .blog-header {
 	height: 140px;
 	background: url(../images/header-back.svg) repeat-x center top;
@@ -126,4 +130,76 @@
 
 .publish-date {
 	display: block;
+}
+
+.read-more:hover {
+	background: #3cb0fd;
+    border-color: #017EA8;
+    top: -2px;
+}
+
+.read-more {
+    display: inline-block;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    color: #ffffff;
+    font-size: 12px;
+    padding: 10px 20px 10px 20px;
+    text-decoration: none;
+    border-style: solid;
+    border-width: 0px 0px 3px 0px;
+    position: relative;
+    margin-bottom: 10px;
+    transition: all 100ms ease;
+    background: #28A1C3;
+    border-color: #027291;
+    top: 0;
+}
+
+/**
+* Share
+**/
+.post .icons .label {
+	display: none;
+}
+
+.post .icons li {
+	display: inline-block;
+	font-size: 30px;
+}
+
+
+/*****
+* Side Bar
+****/
+
+.blog-sidebar {
+	width: 250px;
+	position: absolute;
+	right: 10px;
+	top: 0;
+}
+
+.sidebar-item {
+	margin: 20px;
+	padding: 10px;
+	background-color: #f0f9fc;
+	color: #145068;
+}
+
+.sidebar-item p, .sidebar-item-header {
+	padding-bottom: 10px;
+}
+
+@media ( min-width: 1080px ) and ( max-width: 1299px ) {
+	.post {
+		margin: 2rem 2rem;
+	}
+}
+
+
+@media( max-width: 1080px ) {
+	.blog-sidebar {
+		display: none;
+	}
 }

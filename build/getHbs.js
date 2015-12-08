@@ -57,6 +57,7 @@ hbs.registerHelper( 'debug', function(){
 
 hbs.registerPartial( 'blogentry', fs.readFileSync( './partials/blogentry.hbt', 'utf8'));
 hbs.registerPartial( 'latestblogs', fs.readFileSync( './partials/latestblogs.hbt', 'utf8'));
+hbs.registerPartial( 'blogsidebar', fs.readFileSync( './partials/blogsidebar.hbt', 'utf8'));
 
 module.exports = hbs;
 
