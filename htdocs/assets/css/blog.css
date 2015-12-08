@@ -2,11 +2,15 @@
 	position: relative;
 }
 
+.blog-wrapper {
+	margin: 0 25px;
+}
+
 .blog-header {
-	height: 140px;
+	height: 150px;
 	background: url(../images/header-back.svg) repeat-x center top;
 	text-align: center;
-	font-size: 25px;
+	font-size: 20px;
 }
 
 .blog-header h1 {
@@ -15,22 +19,13 @@
 	color: white;
 }
 
-.post-thumbnail img {
-	width: 200px;
-}
-.blog-post img {
-	width: 100%;  
-}
-
 /* Every post, on every page, gets this style on its <article> tag */
 .post {
-	position: relative;
 	max-width: 780px;
 	margin: 2.457rem auto;
 	padding-bottom: 2.457rem;
 	border-bottom: #EBF2F6 1px solid;
 	word-break: break-word;
-	hyphens: auto;
 }
 
 .post-header {
@@ -43,14 +38,24 @@
 
 .post-thumbnail{
 	display: inline-block;
-	float:left;
-	max-width:250px;
-	margin-right: 1.65rem;
 	margin-bottom: 1.65rem;
 }
 
-.post-thumbnail img{
-	max-width:250px;
+@media( min-width: 801px ) {
+	.post-thumbnail{
+		float:left;
+		margin-right: 1.65rem;
+	}
+
+	.post-thumbnail img {
+		max-width:250px;
+	}
+}
+
+@media( max-width: 800px ) {
+	.post-thumbnail, .post-thumbnail img {
+		width: 100%;
+	}
 }
 
 .post-content > p:first-child:first-letter{
@@ -108,12 +113,16 @@
 }
 
 .author-gravatar {
+	display: inline-block;
 	border-radius: 100%;
 	width: 75px;
 }
 
-.author-bio {
-	max-width: 440px;
+.author-description {
+	display: inline-block;
+    vertical-align: top;
+    padding-left: 20px;
+	width: calc( 100% - 125px );
 }
 
 .publish-meta {
@@ -156,6 +165,12 @@
     top: 0;
 }
 
+@media( max-width: 800px ) {
+	.read-more {
+		float: right;
+	}
+}
+
 /**
 * Share
 **/
@@ -163,11 +178,31 @@
 	display: none;
 }
 
+.share {
+	text-align: center;
+}
+
 .post .icons li {
 	display: inline-block;
 	font-size: 30px;
 }
 
+.post .icons li a, .post .icons li span {
+	transition: background-color 0.2s ease-in-out;
+    border-radius: 100%;
+    border: solid 1px rgba(255, 255, 255, 0.75);
+    display: inline-block;
+    height: 2em;
+    line-height: 2em;
+    text-align: center;
+    width: 2em;
+    text-decoration: none;
+    color: #50A5DA;
+}
+
+.post .icons li a:hover {
+    background: rgba(224, 224, 224, 0.15);
+}
 
 /*****
 * Side Bar
@@ -196,7 +231,6 @@
 		margin: 2rem 2rem;
 	}
 }
-
 
 @media( max-width: 1080px ) {
 	.blog-sidebar {

@@ -205,7 +205,7 @@ var writeBlogs = function( next ) {
 		hbs.cwd = path.dirname( contextVars.targetFilePath );
 		hbs.outputDir = path.join( __dirname, '../htdocs' );
 
-		fse.writeFile( contextVars.targetFilePath, mainTemplate( contextVars ), fileOptions, next );
+		fse.writeFileSync( contextVars.targetFilePath, mainTemplate( contextVars ), fileOptions );
 		callback();
 	}, next );
 };
