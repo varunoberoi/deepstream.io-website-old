@@ -61,9 +61,18 @@ hbs.registerHelper( 'debug', function(){
 	return new hbs.SafeString( '<pre>' + val + '</pre>' );
 });
 
-hbs.registerPartial( 'blogentry', fs.readFileSync( './partials/blogentry.hbt', 'utf8'));
-hbs.registerPartial( 'latestblogs', fs.readFileSync( './partials/latestblogs.hbt', 'utf8'));
-hbs.registerPartial( 'blogsidebar', fs.readFileSync( './partials/blogsidebar.hbt', 'utf8'));
+/**
+*	Load Partials
+***/
+fs.readdir( 'partials', function( err,files ){
+	if(err) throw err;
+
+	files.forEach(function(file){
+		var templateName = file.split('.').shift();
+		var partialContents = fs.readFileSync( 'partials/' + file ).toString('utf8');
+		hbs.registerPartial( templateName, partialContents );
+	});
+});
 
 module.exports = hbs;
 

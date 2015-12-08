@@ -10,13 +10,13 @@
 	height: 150px;
 	background: url(../images/header-back.svg) repeat-x center top;
 	text-align: center;
-	font-size: 20px;
 }
 
 .blog-header h1 {
 	font-family: 'Roboto';
 	padding-top: 40px;
 	color: white;
+	font-size: 40px;
 }
 
 /* Every post, on every page, gets this style on its <article> tag */
@@ -53,6 +53,11 @@
 }
 
 @media( max-width: 800px ) {
+	.blog-header h1 {
+		font-size: 30px;
+		padding-top: 55px;
+	}
+
 	.post-thumbnail, .post-thumbnail img {
 		width: 100%;
 	}

@@ -11,26 +11,40 @@
 	<meta name="author" content="Wolfram Hempel" />
 	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="stylesheet" type="text/css" href="../assets/css/navigation.css" />
 	<link rel="stylesheet" type="text/css" href="../assets/css/screen.css" />
 	<script type="text/javascript">
 	document.createElement( 'header' );
 	document.createElement( 'nav' );
 	</script>
 	<script type="text/javascript" src="../assets/js/jquery.js"></script>
+	<script type="text/javascript" src="../assets/js/menu.js"></script>
 
 	<link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Quicksand:300,400,700' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-
 </head>
+
 <body class="category_download">
+	<div class="mobile-menu">
+		<div class="nav mobile-nav">
+			<ul>
+				<li ><a href="..">Home</a></li>
+				<li class="active"><a href="../download/">Downloads</a></li>
+				<li ><a href="../tutorials/getting-started.html">Tutorials</a></li>
+				<li ><a href="../docs/deepstream.html">Documentation</a></li>
+				<li ><a href="../info/">Info</a></li>					
+				<li ><a href="../blog/">Blog</a></li>
+			</ul>		</div>
+	</div>
+
 	<div id="outer-wrapper">
-		<div class="top-section">
-			<div id="header" class="small-logo micro">
+		<div id="header" class="compact-header">
+			<div class="header-tiny-logo">
 				<h1><a href="..">deepstream.io - a scalable server for realtime web apps</a></h1>
 			</div>
-			<div id="nav" class="standalone">
+			<div class="nav desktop-nav">
 				<ul>
 					<li ><a href="..">Home</a></li>
 					<li class="active"><a href="../download/">Downloads</a></li>
@@ -38,8 +52,10 @@
 					<li ><a href="../docs/deepstream.html">Documentation</a></li>
 					<li ><a href="../info/">Info</a></li>					
 					<li ><a href="../blog/">Blog</a></li>
-				</ul>
-			</div>
+				</ul>			</div>
+			<span class="menu-button menu-icon">
+				<i class="fa fa-bars"></i>
+			</span>
 		</div>
 			<div class="content main">
 				<link rel="stylesheet" type="text/css" href="../assets/css/downloads.css" />

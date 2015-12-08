@@ -14,6 +14,7 @@
 	<meta name="author" content="Wolfram Hempel" />
 	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="stylesheet" type="text/css" href="{{link 'asset' 'css/navigation.css'}}" />
 	<link rel="stylesheet" type="text/css" href="{{link 'asset' 'css/screen.css'}}" />
 	{{#if isDocs }}
 	<link rel="stylesheet" type="text/css" href="{{link 'asset' 'css/api.css'}}" />
@@ -24,32 +25,32 @@
 	document.createElement( 'nav' );
 	</script>
 	<script type="text/javascript" src="{{link 'asset' 'js/jquery.js'}}"></script>
+	<script type="text/javascript" src="{{link 'asset' 'js/menu.js'}}"></script>
 
 	<link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Quicksand:300,400,700' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-
 </head>
+
 <body class="category_{{category}}">
+	<div class="mobile-menu">
+		<div class="nav mobile-nav">
+			{{> mainnav}}
+		</div>
+	</div>
+
 	<div id="outer-wrapper">
-		<div class="top-section">
-			{{#if isNotStart}}
-			<div id="header" class="small-logo {{#if isNotStart}}micro{{/if}}">
+		<div id="header" {{#if isNotStart}}class="compact-header"{{/if}}>
+			<div class="header-tiny-logo">
 				<h1><a href="{{link 'page' ''}}">deepstream.io - a scalable server for realtime web apps</a></h1>
-				{{!-- <a class="download" href="{{link 'page' 'download'}}">download</a> --}}
 			</div>
-			{{/if}}
-			<div id="nav" {{#if isNotStart}}class="standalone"{{/if}}>
-				<ul>
-					<li {{#unless isNotStart}}class="active"{{/unless}}><a href="{{link 'page' ''}}">Home</a></li>
-					<li {{#if pageIs_download}}class="active"{{/if}}><a href="{{link 'page' 'download/'}}">Downloads</a></li>
-					<li {{#if pageIs_tutorials}}class="active"{{/if}}><a href="{{link 'page' 'tutorials/getting-started.html'}}">Tutorials</a></li>
-					<li {{#if pageIs_docs}}class="active"{{/if}}><a href="{{link 'page' 'docs/deepstream.html'}}">Documentation</a></li>
-					<li {{#if pageIs_info}}class="active"{{/if}}><a href="{{link 'page' 'info/'}}">Info</a></li>					
-					<li {{#if pageIs_blog}}class="active"{{/if}}><a href="{{link 'page' 'blog/'}}">Blog</a></li>
-				</ul>
+			<div class="nav desktop-nav">
+				{{> mainnav}}
 			</div>
+			<span class="menu-button menu-icon">
+				<i class="fa fa-bars"></i>
+			</span>
 		</div>
 		{{#if hasNav}}
 		<div id="wrapper" class="main">

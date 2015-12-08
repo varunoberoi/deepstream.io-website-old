@@ -26,149 +26,53 @@ body {
 	src: url('../fonts/Kalinga.eot');
 	src: local('Kalinga'), url('../fonts/Kalinga.woff') format('woff'), url('../fonts/Kalinga.ttf') format('truetype');
 }
-/****************************
-* NAVIGATION
-****************************/
 
-#nav {
-	position: relative;
-	height: 60px;
-	background-color: #145068;
-	text-align: center;
-	border-style: solid;
-	border-width: 0px 0px 2px 0px;
-	border-color: #0C394B;
-	z-index: 1;
-	overflow: hidden;
-}
-#nav img {
-	display: none;
-}
-#nav.standalone {
-	height: 40px;
-	padding: 0px 200px 0px 0px;
-}
-#nav ul {
-	display: inline-block;
-	top: 0;
-	left: 0;
-	z-index: 1;
-}
-#nav li {
-	opacity: 1;
-	float: left;
-	background-size: 4px;
-	margin: 0px 10px 0px 10px;
-	transition: opacity 300ms ease;
-	text-align: center;
-}
-#nav li.active a {
-	color: #00CCFE;
-	border-style: solid;
-	padding: 14px;
-	border-width: 4px 0px 0px;
-	border-color: #00CCFE;
-}
-#nav li:hover {
-	opacity: 0.2;
-	color: red;
-	border-top: 4px;
-	border-color: #00CCFE;
-}
-#nav a {
-	padding: 18px 20px 10px 10px;
-	display: block;
-	font-size: 14px;
-	font-family: 'Quicksand', sans-serif;
-	font-weight: 500;
-	color: #fff;
-	text-decoration: none;
-}
-@media( max-width: 1080px) {
-	#nav a {
-		padding: 18px 0 10px 0;
-	}
-}
-@media( max-width: 1080px) and (min-width: 601px) {
-	.small-logo.micro {
-		display: none;
-	}
-	#nav.standalone {
-		padding: 0px;
-	}
-}
-@media( max-width: 600px) {
-	#nav.standalone {
-		display: none;
-	}
-}
 /****************************
 * HEADER WITH LOGO
 ****************************/
-
-.small-logo {
-	background: url(../images/hoxton-one--small-logo.svg) no-repeat center center;
-	background-color: #145068;
-	height: 100%;
-	text-align: center;
-	color: white;
-}
 #header {
-	height: 140px;
-	width: 100%;
-	position: relative;
+	background-color: #145068;
+	height: 62px;
 	border-style: solid;
 	border-width: 0px 0px 2px 0px;
 	border-color: #0C394B;
+	z-index: 2;
 }
-#header.micro {
+#header.compact-header {
+	height: 42px;
+}
+#header.compact-header .header-tiny-logo{
+	display: block;
+}
+.header-tiny-logo {
+	background: url(../images/deepstream--small-logo.svg) no-repeat center center;
+	height: 100%;
+	text-align: center;
+	color: white;
+	position: relative;
 	width: 200px;
-	height: 40px;
 	float: left;
 }
-#header h1 {
-	width: 343px;
-	height: 60px;
-	position: absolute;
-	left: 49%;
-	margin-left: -172px;
-	margin-top: 40px;
-	text-indent: -9999px;
-}
-#header.micro h1 {
+.header-tiny-logo h1 {
 	width: 200px;
 	height: 40px;
+	text-indent: -9999px;
 	left: 0;
 	top: 0;
 	margin: 0;
 }
-#header.micro h1 a {
+.header-tiny-logo h1 a {
 	display: block;
 	width: 100%;
 	height: 100%;
 	cursor: pointer;
 	text-indent: -9999px;
 }
-#header a.download {
-	background: #111;
-	background: rgba( 0, 0, 0, 0.4);
-	font-family: "Courier New", monospace;
-	color: #fff;
-	padding: 3px;
-	padding-right: 111px;
-	text-decoration: none;
-	position: absolute;
-	left: 45%;
-	top: 114px;
-	font-size: 12px;
-	cursor: pointer;
-	transition: all 400ms ease;
-}
-#header a.download:hover {
-	background: rgba( 0, 0, 0, 0.8);
-}
-#header.micro a.download {
-	display: none;
+
+@media( min-width: 750px ) {
+	.header-tiny-logo {
+		display: none;
+	}
 }
 /****************************
 * FOOTER
@@ -268,7 +172,7 @@ body {
 		padding: 5px 0 5px 25px;
 	}
 }
-@media( max-width: 950px) {
+@media( max-width: 949px) {
 	.footer-left, .footer-right {
 		display: block;
 	}
