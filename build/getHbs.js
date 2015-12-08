@@ -4,14 +4,20 @@ var path = require( 'path' );
 
 
 hbs.registerHelper( 'link', function( type, target ) {
+
 	var url, folder;
 
 	if( type === 'page' ) {
 		folder = module.exports.outputDir;
 	}
-
-	if( type === 'asset' ) {
+	else if( type === 'asset' ) {
 		folder = module.exports.outputDir + '\\assets';
+	}
+	else if( type === 'blogpost' ) {
+		folder = module.exports.outputDir + '\\blog\\' + target;
+		return path.relative( module.exports.cwd, folder );
+	} else {
+		throw new Error( 'Link type not supported: ' + type );
 	}
 
 	url = path.relative( module.exports.cwd, folder );

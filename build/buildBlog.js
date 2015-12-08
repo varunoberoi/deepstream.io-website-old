@@ -110,9 +110,6 @@ var readFile = function( srcFilePath, next ) {
 };
 
 var buildBlogPost = function( data, fileContent, next ) {
-	hbs.cwd = path.dirname( data.targetFilePath );
-	hbs.outputDir = path.join( __dirname, '../htdocs' );
-
 	var metaDataEnd = fileContent.indexOf( '}' ),
 		metaData;
 
@@ -204,6 +201,10 @@ var writeBlogIndex = function( next ) {
 var writeBlogs = function( next ) {
 	async.each( blogPosts, function iterator(contextVars, callback) {
 		contextVars.blogPosts = blogPosts;
+
+		hbs.cwd = path.dirname( contextVars.targetFilePath );
+		hbs.outputDir = path.join( __dirname, '../htdocs' );
+
 		fse.writeFile( contextVars.targetFilePath, mainTemplate( contextVars ), fileOptions, next );
 		callback();
 	}, next );

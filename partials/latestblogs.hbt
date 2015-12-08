@@ -5,7 +5,7 @@
 	<li class="latest-blogs-content">
 		{{#each blogPosts}}
 		<ul class="latest-blog-article">
-			<a href="{{blogPath}}">
+			<a href="{{link 'blogpost' blogPath}}">
 				{{title}}
 			</a>
 		</ul>
