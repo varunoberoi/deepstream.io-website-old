@@ -1,7 +1,5 @@
 .nav ul {
 	display: inline-block;
-	top: 0;
-	left: 0;
 	z-index: 1;
 }
 .nav li {
@@ -80,11 +78,13 @@ body.menu-open .mobile-menu {
 }
 .mobile-nav {
 	font-size: 16px;
-	width: 150px;
+	width: 300px;
 	margin: 50px auto 0 auto;
 	text-align: center;
 }
-
+.mobile-nav ul {
+	width: 100%;
+}
 .mobile-nav li a {
 		color: #145068;
 		padding: 14px;
