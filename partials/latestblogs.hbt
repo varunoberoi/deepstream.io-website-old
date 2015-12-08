@@ -1,0 +1,14 @@
+<div class="latest-blogs">
+	<h4 class="latest-blogs-header">
+		Latest Articles
+	</h4>
+	<li class="latest-blogs-content">
+		{{#each blogPosts}}
+		<ul class="latest-blog-article">
+			<a href="{{blogPath}}">
+				{{title}}
+			</a>
+		</ul>
+		{{/each}}
+	</li>
+</div>

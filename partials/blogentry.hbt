@@ -25,7 +25,7 @@
 				
 				<span class="author-description">
 					<h4>About the author</h4>
-					
+
 					<p class="author-bio">
 						{{author.bio}}
 					</p>
@@ -68,5 +68,7 @@
 			</section>
 
 		</footer>
+
+		{{> latestblogs}}
 	</div>
 </div>

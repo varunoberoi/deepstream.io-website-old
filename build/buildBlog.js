@@ -24,7 +24,9 @@ exports.action = function( done ) {
 	//	createTargetDirectory,
 		readTemplate,
 		walkTree,
-		buildBlogIndex
+		sortBlogs,
+		writeBlogs,
+		writeBlogIndex
 	], done );
 };
 
@@ -99,8 +101,7 @@ var createTargetFile = function( root, stats, next ) {
 
 	async.waterfall([
 		readFile.bind( {}, srcFilePath ),
-		buildBlogPost.bind( {}, data ),
-		writeFile.bind( {}, targetFilePath )
+		buildBlogPost.bind( {}, data )
 	], next );
 };
 
@@ -137,7 +138,6 @@ var buildBlogPost = function( data, fileContent, next ) {
 		throw new Error( 'Author needs to be declared in author.json file ' + metaData.author );	
 	}
 
-
 	fileBuilder.md.build( fileContent, data, function( error, innerHtml ) {
 
 		pageContent = new hbs.SafeString( innerHtml );
@@ -145,7 +145,9 @@ var buildBlogPost = function( data, fileContent, next ) {
 		if( !innerHtml.match( '<p>([^>]*)') ) {
 			throw new Error( 'No excert could be extracted from blog post' );
 		}
-		
+
+		data.contextVars.targetFilePath = data.targetFilePath;
+
 		data.contextVars.description = innerHtml.match( '<p>([^<]*)')[ 1 ];
 		data.contextVars.dateISO = metaData.dateISO;
 		data.contextVars.date = moment( metaData.dateISO, 'YYYYMMDD' ).format( 'MMMM Do YYYY' );
@@ -157,16 +159,18 @@ var buildBlogPost = function( data, fileContent, next ) {
 
 		blogPosts.push( data.contextVars );
 
-		next( null, mainTemplate( data.contextVars ) );
+		next();
 	});
 };
 
-var buildBlogIndex = function( next ) {
-
+var sortBlogs = function( next ) {
 	blogPosts.sort( function( blogA, blogB ) {
 		return blogA.dateISO > blogB.dateISO;
 	} );
+	next();
+};
 
+var writeBlogIndex = function( next ) {
 	var contextVars = {
 		title: 'The deepstream blog',
 		description: 'Covering every aspect of deepstream in your day to day life',
@@ -192,11 +196,16 @@ var buildBlogIndex = function( next ) {
 	var fileContent = fse.readFileSync(data.srcFilePath, fileOptions );
 	fileBuilder.hbs.build( fileContent, data, function( error, innerHtml ) {
 		data.contextVars.pageContent = new hbs.SafeString( innerHtml );
+		console.log( data.targetFilePath, data.contextVars )
 		fse.writeFileSync( data.targetFilePath, mainTemplate( data.contextVars ) );
 		next();
 	});
 };
 
-var writeFile = function( targetFilePath, content, next ) {
-	fse.writeFile( targetFilePath, content, fileOptions, next );
+var writeBlogs = function( next ) {
+	async.each( blogPosts, function iterator(contextVars, callback) {
+		contextVars.blogPosts = blogPosts;
+		fse.writeFile( contextVars.targetFilePath, mainTemplate( contextVars ), fileOptions, next );
+		callback();
+	}, next );
 };
