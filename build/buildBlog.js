@@ -127,6 +127,11 @@ var buildBlogPost = function( data, fileContent, next ) {
 
 	fileContent = fileContent.substr( metaDataEnd + 1 ).trim();
 
+	if( metaData.isDraft ) {
+		next();
+		return;
+	}
+	
 	if( !metaData.title || !metaData.dateISO || !metaData.author || !metaData.thumbnail ) {
 		throw new Error( 'Missing meta data for blog entry (title|dateISO|author|thumbnail) ' + data.targetFilePath );
 	}

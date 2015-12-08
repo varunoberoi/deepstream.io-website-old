@@ -2,7 +2,8 @@
 	"title": "Third Test Entry",
 	"dateISO": "20151205",
 	"author": "yasserf",
-    "thumbnail": "thumbnail.jpg"
+    "thumbnail": "thumbnail.jpg",
+    "isDraft": true
 }
 
 In semper urna enim, ut accumsan nulla fringilla eget. Cras neque arcu, condimentum et dui nec, elementum consectetur lacus. Nam sit amet purus mi. Proin vel pellentesque turpis. Interdum et malesuada fames ac ante ipsum primis in faucibus. Maecenas ac venenatis orci. Cras aliquet dapibus euismod. Integer porttitor vitae arcu in efficitur.

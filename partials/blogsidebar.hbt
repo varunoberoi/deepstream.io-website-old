@@ -19,7 +19,17 @@
 
 		<p>
 			<i class="fa fa-github"></i>
-			<a href="https://github.com/hoxton-one">Join</a> our community on GitHub!
+			<a href="https://github.com/hoxton-one">Star</a> us GitHub!
+		</p>
+	</div>
+
+
+	<div class="sidebar-item deepstream-star">
+		<h4 class="sidebar-item-header">Liking deepstream?</h4>
+		
+		<p>
+			<i class="fa fa-github"></i>
+			<a href="https://github.com/hoxton-one">Star</a> us on GitHub!
 		</p>
 	</div>
 

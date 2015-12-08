@@ -5,11 +5,10 @@
 	<div class="post">
 
 		<header class="post-header">
-			<h1 class="post-title typl8-gamma">{{title}}</h1>
+			<h1 class="post-title">{{title}}</h1>
 			<section class="post-meta">
 				By {{author.name}}
 				<span class="post-date">{{date}}</span>
-				<!-- <span class="post-tags">Tags: {{tags}}</span> -->
 			</section>
 		</header>
 
