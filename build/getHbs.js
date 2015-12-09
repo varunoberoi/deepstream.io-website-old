@@ -33,6 +33,15 @@ hbs.registerHelper( 'issue', function( number ){
 	return new hbs.SafeString( html );
 });
 
+hbs.registerHelper( 'githubstar', function( number ){
+	var html = '<a class="github-button" href="https://github.com/hoxton-one/deepstream.io" ' + 
+	'data-icon="octicon-star" data-style="mega" data-count-href="/hoxton-one/deepstream.io/stargazers" ' +
+	'data-count-api="/repos/hoxton-one/deepstream.io#stargazers_count" ' + 
+	'data-count-aria-label="# stargazers on GitHub" ' + 
+	'aria-label="Star hoxton-one/deepstream.io on GitHub">Star</a>';
+	return new hbs.SafeString( html );
+});
+
 hbs.registerHelper( 'downloadItem', function( name, packageName, hasBower, icon ){
 	var html = '' +
 		'<li class="download-item ' + packageName.replace( '.', '_') + '" data-package="' + packageName + '">';
