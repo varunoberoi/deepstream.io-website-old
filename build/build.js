@@ -18,6 +18,7 @@ var fileBuilder = {
 	'hbs': require( './fileBuilder/HbsBuilder' ),
 	'md': require( './fileBuilder/MdBuilder' )
 };
+var communityEvents = require( '../events.json' );
 
 exports.action = function( done ) {
 	async.waterfall([
@@ -184,6 +185,12 @@ var buildFile = function( fileExtension, data, fileContent, next ) {
 		fileContent = fileContent.substr( metaDataEnd + 1 ).trim();
 	}
 
+	var blogPosts =  require( './buildBlog' ).blogPosts;
+	if( !blogPosts ) {
+		console.log( 'Skipping blog data since buildBlog was not run as part of build' );
+	}
+	data.contextVars.blogPosts = blogPosts;
+	data.contextVars.communityEvents = communityEvents;
 
 	fileBuilder[ fileExtension ].build( fileContent, data, function( error, innerHtml ){
 		if( data.contextVars.hasNav ) {

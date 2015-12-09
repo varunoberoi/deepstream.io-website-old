@@ -1,12 +1,13 @@
 <div class="latest-blogs">
 	<h4 class="latest-blogs-header">
-		Latest Articles
+		Latest Blog Articles
 	</h4>
 	<li class="latest-blogs-content">
 		{{#each blogPosts}}
 		<ul class="latest-blog-article">
 			<a href="{{link 'blogpost' blogPath}}">
-				{{title}}
+				<span class="date">{{shortDate}}</span>
+				<span class="title">{{title}}</span>
 			</a>
 		</ul>
 		{{/each}}

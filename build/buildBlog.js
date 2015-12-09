@@ -153,6 +153,7 @@ var buildBlogPost = function( data, fileContent, next ) {
 		data.contextVars.description = innerHtml.match( '<p>([^<]*)')[ 1 ];
 		data.contextVars.dateISO = metaData.dateISO;
 		data.contextVars.date = moment( metaData.dateISO, 'YYYYMMDD' ).format( 'MMMM Do YYYY' );
+		data.contextVars.shortDate = moment( metaData.dateISO, 'YYYYMMDD' ).format( 'DD/MM/YYYY' );
 		data.contextVars.title = metaData.title;
 		data.contextVars.author =  authors[ metaData.author];
 		data.contextVars.blogPath =  data.contextVars.category + '/';
@@ -170,6 +171,7 @@ var sortBlogs = function( next ) {
 		return blogA.dateISO > blogB.dateISO;
 	} );
 	next();
+	module.exports.blogPosts = blogPosts;
 };
 
 var writeBlogIndex = function( next ) {
