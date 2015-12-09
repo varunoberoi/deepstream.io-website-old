@@ -4,10 +4,13 @@
 	<meta charset="UTF-8">
 	<title>deepstream.io | {{title}}</title>
 
-	
+	{{#if pageIs_blog}}
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	{{/if}}
+	{{#unless isNotStart}}
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	{{/unless}}
 
-	
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<meta name="keywords" content="deepstream, deepstream.io, streaming, realtime, server, socket" />
 	<meta name="description" content="{{description}}" />

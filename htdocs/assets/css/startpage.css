@@ -426,6 +426,9 @@ body{
 	.diagram-label {
 		font-size: 0.5em;
 	}
+	.segment-label{
+		font-size: 23px;
+	}
 }
 
 /****************************
