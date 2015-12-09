@@ -37,19 +37,11 @@ server<span class="token punctuation">.</span><span class="token keyword">set</s
 server<span class="token punctuation">.</span><span class="token keyword">set</span><span class="token punctuation">(</span> <span class="token string">'port'</span><span class="token punctuation">,</span> <span class="token number">6020</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
 <br />
 server<span class="token punctuation">.</span><span class="token function">start<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-		</div>
+		</div></pre></code>
 		<div class="code-seperator">
 		</div>
 		<div class="code-right">
-		<span class="token comment" spellcheck="true">
-// Browser / Node Client<br />
-</span><span class="token keyword">var</span> ds <span class="token operator">=</span> <span class="token function">deepstream<span class="token punctuation">(</span></span> <span class="token string">'localhost:6020'</span> <span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">login<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">,</span><br />
-&nbsp;&nbsp;&nbsp;&nbsp;record <span class="token operator">=</span> ds<span class="token punctuation">.</span>record<span class="token punctuation">.</span><span class="token function">getRecord<span class="token punctuation">(</span></span> <span class="token string">'stock/hxto'</span> <span class="token punctuation">)</span><span class="token punctuation">;</span><br />
-
-<br />
-record<span class="token punctuation">.</span><span class="token keyword">get</span><span class="token punctuation">(</span> <span class="token string">'name'</span> <span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true"> // Hoxton One</span><br />
-record<span class="token punctuation">.</span><span class="token keyword">set</span><span class="token punctuation">(</span> <span class="token string">'employees[1].firstname'</span><span class="token punctuation">,</span> <span class="token string">'Zack'</span> <span class="token punctuation">)</span><span class="token punctuation">;</span><br />
-record<span class="token punctuation">.</span><span class="token function">subscribe<span class="token punctuation">(</span></span> <span class="token string">'price'</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span> price <span class="token punctuation">)</span><span class="token punctuation">{</span> <span class="token comment" spellcheck="true">/***/</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br />
+		<pre><code><span class="token comment" spellcheck="true">// Browser / Node Client<br /></span><span class="token keyword">var</span> ds <span class="token operator">=</span> <span class="token function">deepstream<span class="token punctuation">(</span></span> <span class="token string">'localhost:6020'</span> <span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">login<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">,</span><br />&nbsp;&nbsp;&nbsp;&nbsp;record <span class="token operator">=</span>ds<span class="token punctuation">.</span>record<span class="token punctuation">.</span><span class="token function">getRecord<span class="token punctuation">(</span></span> <span class="token string">'stock/hxto'</span> <span class="token punctuation">)</span><span class="token punctuation">;</span><br /><br />record<span class="token punctuation">.</span><span class="token keyword">get</span><span class="token punctuation">(</span> <span class="token string">'name'</span> <span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true"> // Hoxton One</span><br />record<span class="token punctuation">.</span><span class="token keyword">set</span><span class="token punctuation">(</span> <span class="token string">'employees[1].firstname'</span><span class="token punctuation">,</span> <span class="token string">'Zack'</span> <span class="token punctuation">)</span><span class="token punctuation">;</span><br />record<span class="token punctuation">.</span><span class="token function">subscribe<span class="token punctuation">(</span></span> <span class="token string">'price'</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span> price <span class="token punctuation">)</span><span class="token punctuation">{</span> <span class="token comment" spellcheck="true">/***/</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br />
 <br />
 </code></pre>
 
@@ -115,6 +107,7 @@ record<span class="token punctuation">.</span><span class="token function">subsc
 </div>
 
 <div id="segment-diagram">
+	<img class="diagram-image" src="assets/images/diagram-ani-vSVG.svg">
 	<div class="diagram">
 		<div class="segment-label">
 		Under the Hood

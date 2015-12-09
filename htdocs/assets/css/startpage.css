@@ -143,7 +143,7 @@ body{
 	}
 
 	.header-text-wrapper {
-		background-color: #145068;
+		background-color: #0F3E50;
 		padding: 25px 0;
 	}
 
@@ -243,9 +243,16 @@ body{
 		padding-bottom: 15px;
 	}
 
-	#segment-code .token.comment {
-		font-size: 14px;
+	#segment-code .code-right {
+		padding-top: 15px;
 	}
+
+	#segment-code .code-seperator {
+		width: 100%;
+    border-top: 1px solid black;
+    border-bottom: 1px solid #3C3B3B;
+	}
+
 }
 
 /****************************
@@ -351,63 +358,74 @@ body{
 	}
 }
 
-@media( max-width: 1047px ) {
-}
-
 /****************************
 * DIAGRAM
 ****************************/
 
 .segment-label{
-	position: relative;
-	top: 71px;
-	right: 356px;
+	position: absolute;
+	top: 7%;
+	left: 5%;
 	color: #22C9F1;
 	font-size: 23px;
 	font-family: 'Quicksand', sans-serif;
 	font-weight: 400;
 	opacity: 1;
-
 }
 
 #segment-diagram{
+ position: relative;
  background-color: #37505A
 }
 
+.diagram-image {
+	position: absolute;
+	width: 100%;
+	max-height: 600px;
+}
+
 .diagram{
-	display: none;
-	background: url(../images/diagram-ani-vSVG.svg) no-repeat center center;
-	height: 600px;
 	text-align: center;
 	color: white;
+
+  width: 100%;
+  height: 0;
+  padding-top: 41.66%; /* (img-height / img-width * container-width) */              /* (853 / 1280 * 100) */
 }
 
 .diagram-label{
 	font-family: 'Quicksand', sans-serif;
-	position: relative;
+	position: absolute;
 	opacity: 0.5;
+	width: 100%;
 }
 
 .diagram-label-1{
-	top: 115px;
+	top: 23%;
 }
 
 .diagram-label-2{
-	top: 138px;
+	top: 30%;
 }
 
 .diagram-label-3{
-	top: 161px;
+	top: 37%;
 }
 
 .diagram-label-4{
-	top: 230px;
+	top: 55%;
 	font-family: 'Montserrat', sans-serif;
 	opacity: 1;
 }
 
 .diagram-label-5{
-	top: 364px;
+	top: 80%;
+}
+
+@media( max-width: 800px ) {
+	.diagram-label {
+		font-size: 0.5em;
+	}
 }
 
 /****************************
