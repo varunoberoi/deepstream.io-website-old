@@ -10,25 +10,21 @@ body{
 	text-align: center;
 	overflow: hidden;
 	color: #145068;
-	height: 376px;
 	background: url(../images/header-back.svg) repeat-x center top;
 }
 
-.header-logo{
-	background: url(../images/deepstream-logo.svg) no-repeat 109px 55px;
+.header-wrapper {
 	position: relative;
-	height: 376px;
-	width: 960px;
-	left: 50%;
-	margin-left: -460px;
-	color: white;
 }
 
-.header-text{
-	width: 500px;
-	height: 270px;
-	position: absolute;
-	margin: 73px 0px 0px 434px;
+.header-background {
+
+}
+
+.header-logo{
+	background: url(../images/deepstream-logo.svg) no-repeat;
+	height: 320px;
+	width: 460px;
 }
 
 .header-strapline{
@@ -47,20 +43,17 @@ body{
 	font-family: 'Quicksand', sans-serif;
 	font-size: 14px;
 	line-height: 20px;
-	margin: 29px 0px 0px 0px;
+	margin: 29px 0px 0px 40px;
 	opacity: 1;
 }
 
 .header-bullets li{
 	list-style-type: circle;
-
 }
 
 .header-buttons{
 	padding: 40px 0px 0px 0px;
 	margin: 0px 0px 0px -20px;
-	width: 100%;
-	height: 100px;
 }
 
 .first-btn,
@@ -112,6 +105,86 @@ body{
 	-moz-box-shadow: 0px 2px 3px rgba(0,0,0,0.01);
 
 }
+
+@media( min-width: 900px ) {
+	#segment-header, #segment-header .header-wrapper{
+		height: 376px;
+	}
+
+	#segment-header .header-wrapper{
+    width: 900px;
+    margin: 0 auto;
+    height: 380px;
+	}
+
+	#segment-header .header-logo, #segment-header .header-text {
+  	float: left;
+	}
+
+	#segment-header .header-text {
+    margin: 50px 0 0 75px;
+    width: 430px;
+    position: absolute;
+    right: 15px;
+	}
+
+	#segment-header .header-logo {
+  	margin: 50px 0 0 100px;
+	}
+
+	.header-buttons{
+		width: 100%;
+	}
+}
+
+@media( max-width: 899px ) {
+	#segment-header .header-wrapper{
+    margin: 0 auto;
+	}
+
+	.header-text-wrapper {
+		background-color: #145068;
+		padding: 25px 0;
+	}
+
+	#segment-header .header-logo, #segment-header .header-text {
+  	margin: 0 auto;
+	}
+
+	#segment-header .header-text {
+    max-width: 450px;
+    padding: 0 25px;
+	}
+
+	#segment-header .header-logo {
+  	position: relative;
+    position: relative;
+    left: 33px;
+    top: 55px;
+    height: 360px;
+	}
+}
+
+@media( max-width: 499px ) {
+		#segment-header .header-logo {
+    	left: 55px;
+    	top: 55px;
+	}
+
+	.header-buttons {
+		text-align: center;
+  	width: 100%;
+	}
+
+	.header-buttons > a {
+  	width: 150px;
+	}
+
+	.header-buttons .first-btn {
+		margin-bottom: 20px;
+	}
+}
+
 
 /****************************
 * CODE SAMPLES
@@ -386,6 +459,10 @@ body{
 
 	#segment-security .lock, 	#segment-security .security-content {
   	float: left;
+
+	}
+
+	#segment-security .security-content {
   	margin: 30px 0 0 100px;
 	}
 
@@ -410,7 +487,6 @@ body{
 	}
 
 	#segment-security .security-content {
-  	margin: 0 auto;
   	max-width: 450px;
     padding: 0 25px;
 	}
