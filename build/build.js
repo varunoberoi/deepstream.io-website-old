@@ -22,7 +22,6 @@ var fileBuilder = {
 exports.action = function( done ) {
 	async.waterfall([
 		readTemplate,
-		//clearPagesDir,
 		buildNav,
 		walkTree
 	], done );
@@ -34,13 +33,6 @@ var readTemplate = function( done ) {
 	fs.readFile( templatePath, fileOptions, function( error, contents ){
 		mainTemplate = hbs.compile( contents );
 		done( error );
-	});
-};
-
-var clearPagesDir = function( done ) {
-	rimraf( outputDir, function( error ) {
-		checkError( error );
-		fs.mkdir( outputDir, done );
 	});
 };
 
@@ -64,7 +56,10 @@ var checkError = function( error ) {
 };
 
 var walkTree = function( done ) {
-	var walker = walk.walk( inputDir );
+	var options = {
+  		filters: [ 'blog' ]
+	};
+	var walker = walk.walk( inputDir, options );
 	walker.on( 'directory', createTargetDirectory );
 	walker.on( 'file', createTargetFile );
 	walker.on( 'end', done );
@@ -158,7 +153,8 @@ var buildFile = function( fileExtension, data, fileContent, next ) {
 	hbs.outputDir = data.outputDir;
 	// defaults
 	data.contextVars.title = 'A Scalable Server for Realtime Web Apps';
-	data.contextVars.description = 'a node.js realtime server, supporting data-sync, RPCs, events and WebRTC';
+	data.contextVars.description = 'A node.js realtime server, supporting data-sync, RPCs, events and WebRTC';
+	
 	if( fileExtension === 'md' ) {
 		var metaDataEnd = fileContent.indexOf( '}' ),
 			metaData;

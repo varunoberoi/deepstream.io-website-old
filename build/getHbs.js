@@ -1,16 +1,23 @@
+var fs = require( 'fs' );
 var hbs = require( 'handlebars' );
 var path = require( 'path' );
 
 
 hbs.registerHelper( 'link', function( type, target ) {
+
 	var url, folder;
 
 	if( type === 'page' ) {
 		folder = module.exports.outputDir;
 	}
-
-	if( type === 'asset' ) {
+	else if( type === 'asset' ) {
 		folder = module.exports.outputDir + '\\assets';
+	}
+	else if( type === 'blogpost' ) {
+		folder = module.exports.outputDir + '\\blog\\' + target;
+		return path.relative( module.exports.cwd, folder );
+	} else {
+		throw new Error( 'Link type not supported: ' + type );
 	}
 
 	url = path.relative( module.exports.cwd, folder );
@@ -52,6 +59,19 @@ hbs.registerHelper( 'downloadItem', function( name, packageName, hasBower, icon 
 hbs.registerHelper( 'debug', function(){
 	var val = JSON.stringify( this, null, '    ' );
 	return new hbs.SafeString( '<pre>' + val + '</pre>' );
+});
+
+/**
+*	Load Partials
+***/
+fs.readdir( 'partials', function( err,files ){
+	if(err) throw err;
+
+	files.forEach(function(file){
+		var templateName = file.split('.').shift();
+		var partialContents = fs.readFileSync( 'partials/' + file ).toString('utf8');
+		hbs.registerPartial( templateName, partialContents );
+	});
 });
 
 module.exports = hbs;

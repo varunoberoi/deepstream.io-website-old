@@ -1,0 +1,47 @@
+<link rel="stylesheet" type="text/css" href="../assets/css/blog.css" />
+
+<div id="wrapper">
+
+	<div class="blog-header">
+		<h1>The deepstream blog</h1>
+	</div>
+
+	<div class="blog-wrapper">
+
+		<span class="blog-posts">
+
+			{{#each blogPosts}}
+			<article class="post">
+
+				<header class="post-header">
+					<h2 class="post-title">
+						<a href="{{blogPath}}">
+							{{title}}
+						</a>
+					</h2>
+				</header>
+
+				<div class="post-thumbnail">
+					<img src="{{thumbnail}}">
+				</div>
+
+				<div class="post-excerpt">
+					<p> {{description}} </p>
+					<a class="read-more" href="{{blogPath}}"> Read more... </a>
+				</div>
+				
+				<footer class="post-meta">
+					By {{author.name}}
+					<time class="post-date" datetime="{{date}}">{{date}}</time>
+				</footer>
+
+			</article>
+			{{/each}}
+
+		</span>
+
+		{{> blogsidebar}}
+
+	</div>
+
+</div>

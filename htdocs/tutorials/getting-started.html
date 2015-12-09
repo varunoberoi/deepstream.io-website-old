@@ -4,12 +4,14 @@
 	<meta charset="UTF-8">
 	<title>deepstream.io | Getting started</title>
 
+	
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<meta name="keywords" content="deepstream, deepstream.io, streaming, realtime, server, socket" />
 	<meta name="description" content="learn how to get up and running with deepstream" />
 	<meta name="author" content="Wolfram Hempel" />
 	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="stylesheet" type="text/css" href="../assets/css/navigation.css" />
 	<link rel="stylesheet" type="text/css" href="../assets/css/screen.css" />
 	<link rel="stylesheet" type="text/css" href="../assets/css/api.css" />
 	<link rel="stylesheet" type="text/css" href="../assets/css/syntaxhighlighter.css" />
@@ -18,29 +20,44 @@
 	document.createElement( 'nav' );
 	</script>
 	<script type="text/javascript" src="../assets/js/jquery.js"></script>
+	<script type="text/javascript" src="../assets/js/menu.js"></script>
 
 	<link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Quicksand:300,400,700' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-
 </head>
-<body class="category_tutorials">
 
-	<div id="outerWrapper">
-		<div class="topSection">
-			<div id="header" class="small-logo micro">
+<body class="category_tutorials">
+	<div class="mobile-menu">
+		<div class="nav mobile-nav">
+			<ul>
+				<li ><a href="..">Home</a></li>
+				<li ><a href="../download/">Downloads</a></li>
+				<li class="active"><a href="../tutorials/getting-started.html">Tutorials</a></li>
+				<li ><a href="../docs/deepstream.html">Documentation</a></li>
+				<li ><a href="../info/">Info</a></li>					
+				<li ><a href="../blog/">Blog</a></li>
+			</ul>		</div>
+	</div>
+
+	<div id="outer-wrapper">
+		<div id="header" class="compact-header">
+			<div class="header-tiny-logo">
 				<h1><a href="..">deepstream.io - a scalable server for realtime web apps</a></h1>
 			</div>
-			<div id="nav" class="standalone">
+			<div class="nav desktop-nav">
 				<ul>
 					<li ><a href="..">Home</a></li>
 					<li ><a href="../download/">Downloads</a></li>
 					<li class="active"><a href="../tutorials/getting-started.html">Tutorials</a></li>
 					<li ><a href="../docs/deepstream.html">Documentation</a></li>
-					<li ><a href="../info/">Info</a></li>
-				</ul>
-			</div>
+					<li ><a href="../info/">Info</a></li>					
+					<li ><a href="../blog/">Blog</a></li>
+				</ul>			</div>
+			<span class="menu-button menu-icon">
+				<i class="fa fa-bars"></i>
+			</span>
 		</div>
 		<div id="wrapper" class="main">
 			<ul id="subnav">
@@ -228,40 +245,17 @@ should now look like this:</p><pre><code><span class="token operator" >&lt;</spa
         </li>
       </ul>
 </div>
-
 			</div>
 		</div>
 		<script type="text/javascript" src="../assets/js/docs.js"></script>
-		<div id="footerPush"></div>
 	</div>
 	<div id="footer">
-		<ul class="footerItems">
-			<li class="footer-left">
-				<h4>Contact us</h4>
-				<p>
-					<b>deepstream.io </b>is developed by Hoxton One Ltd. <br>
-				</p>
-				<p>
-					Email us <a href="mailto:info@hoxton-one.com">info@hoxton-one.com</a>.<br><br>
-
-				</p>
-				<p>Registered in England and Wales, Company Nr 09121068</p>
-			</li>
-
-
-			<a href="http://www.hoxton-one.com/" title="hoxton-one.com" class="footer-middle">
-				<p>
-				Handcrafted by
-				</p>
-
-				<div class="footer-hoxton-one">
-				</div>
-			</li>
+		<ul class="footer-items">
 
 			<li class="footer-right">
 				<ul class="social">
 					<li class="twitter">
-						<a href="https://twitter.com/HoxtonOne">
+						<a href="https://twitter.com/deepstreamIO">
 							<i class="fa fa-twitter"></i>  Twitter
 						</a>
 					</li>
@@ -276,10 +270,34 @@ should now look like this:</p><pre><code><span class="token operator" >&lt;</spa
 						</a>
 					</li>
 				</ul>
-				<div class="copyright">
-					&copy;2015 Hoxton One Ltd. All rights reserved.
-				</div>
 			</li>
+
+			<li class="footer-middle">
+				<a class="footer-middle" href="http://www.hoxton-one.com/" title="hoxton-one.com">
+					<p>
+					Handcrafted by
+					</p>
+
+					<div class="footer-hoxton-one">
+					</div>
+
+					<div class="copyright">
+						&copy;2015 Hoxton One Ltd. All rights reserved.
+					</div>
+				</a>
+			</li>
+
+			<li class="footer-left">
+				<h4>Contact us</h4>
+				<p>
+					<b>deepstream.io </b>is developed by Hoxton One Ltd. <br>
+				</p>
+				<p>
+					Email us <a href="mailto:info@hoxton-one.com">info@hoxton-one.com</a>.<br><br>
+				</p>
+				<p>Registered in England and Wales, Company Nr 09121068</p>
+			</li>
+
 		</ul>
 	</div>
 
