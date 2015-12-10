@@ -56,6 +56,10 @@ h1.post-title {
 }
 
 @media( min-width: 801px ) {
+	.blog-wrapper {
+    	min-height: 700px;
+	}
+
 	.post-thumbnail{
 		float:left;
 		margin-right: 1.65rem;

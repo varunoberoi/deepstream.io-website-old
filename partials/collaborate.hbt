@@ -3,6 +3,13 @@
 			Community Links
 		</h4>
 
+			<div class="community-collaborate">
+			<h6>
+				Using deepstream?
+			</h6>
+			{{> storyshare}}
+		</div>
+
 		<div class="community-collaborate community-collaborate-git">
 			<h6>
 				Raise an issue, request a feature or browse the source on <a href="https://github.com/hoxton-one">github</a> or give it a star!
@@ -28,4 +35,5 @@
 				</a>
 			</div>
 		</div>
+
 </div>

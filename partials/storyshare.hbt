@@ -1,0 +1,6 @@
+<div class="share-story community-collaborate-content">
+	<img width="100%" src="{{link 'asset' 'images/ds-stories-background.png'}}" class="share-story-image" >
+	<a class="share-story-content">
+		Tell us how and get awesome deepstream swag!
+	</a>
+</div>

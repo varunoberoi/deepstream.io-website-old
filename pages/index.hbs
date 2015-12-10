@@ -98,9 +98,13 @@
 
 <div id="segment-community">
 	<div class="segment-community-wrapper clearfix">
-		{{> latestevents}}
-		{{> latestblogs}}
-		{{> collaborate}}
+		<div class="segment-community-wrapper-first-column">
+			{{> latestevents}}
+			{{> latestblogs}}
+		</div>
+		<div class="segment-community-wrapper-second-column">
+			{{> collaborate}}
+		</div>
 	</div>
 </div>
 

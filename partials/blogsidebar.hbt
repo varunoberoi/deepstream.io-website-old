@@ -10,6 +10,11 @@
 		<a href="/">Learn More</a>.
 	</div>
 
+	<div class="sidebar-item share-story">
+		<h4 class="sidebar-item-header">Using deepstream?</h4>
+		{{>storyshare}}
+	</div>
+
 	<div class="sidebar-item deepstream-help-out">
 		<h4 class="sidebar-item-header">Community</h4>
 		
