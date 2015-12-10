@@ -239,9 +239,6 @@ h1.post-title {
 
 .blog-sidebar {
 	width: 250px;
-	position: absolute;
-	right: 10px;
-	top: 0;
 }
 
 .sidebar-item {
@@ -259,10 +256,11 @@ h1.post-title {
 	.post {
 		margin: 2rem 2rem;
 	}
-}
 
-@media( max-width: 1080px ) {
 	.blog-sidebar {
-		display: none;
+		position: absolute;
+		right: 10px;
+		top: 0;
 	}
+
 }

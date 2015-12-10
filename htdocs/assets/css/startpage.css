@@ -363,20 +363,12 @@ body{
 ****************************/
 #segment-community {
 	background-color: rgb(246, 247, 248);
-	padding-bottom: 25px;
+	padding: 25px 0;
 }
 
 .segment-community-wrapper {
 	max-width: 1000px;
 	margin: 0 auto;
-}
-
-.segment-community-wrapper-first-column {
-	float: left;
-}
-
-.segment-community-wrapper-second-column {
-	float: right;
 }
 
 .community-events-title, .latest-blogs-header, .community-collaborations-title {
@@ -395,15 +387,13 @@ body{
 	margin: 10px 0;
  }
 
-.community-events {
-	float: left;
+.community-events, .latest-blogs {
 	max-width: 525px;
-	display: inline-block;
 }
 
 .community-event {
 	margin: 5px 0;
-  padding: 5px;  
+  	padding: 5px;  
 	display: inline-block;
 	text-decoration: none;
 }
@@ -471,7 +461,7 @@ body{
 	margin: 4px 0px 0px 0px;
 }
 
-.latest-blogs, .community-collaborations {
+.community-collaborations {
 	vertical-align: top;
 	max-width: 425px;
 }
@@ -519,21 +509,25 @@ body{
 }
 
 @media ( min-width: 999px ) {
+	.segment-community-wrapper-first-column {
+	float: left;
+}
+
 	.segment-community-wrapper-second-column {
+			float: right;
 		padding-left: 25px;
 	}
 }
 
 @media ( max-width: 999px ) {
 	.segment-community-wrapper > div {
-		padding: 0 25px;
 		margin: 0 auto;
-    	width: 325px;
+    	width: 300px;
     	display: block;
 	}
 
 	.segment-community-wrapper * {
-		max-width: 325px;
+		max-width: 300px;
 	}
 
 	.community-event-image-wrapper {
