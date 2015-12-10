@@ -597,6 +597,21 @@ body{
 	top: 80%;
 }
 
+/* If bigger than diagram image */
+@media( min-width: 1440px ) {
+	.diagram-image {
+    	position: absolute;
+    	margin: 0 auto;
+    	width: 100%;
+	}
+
+	.diagram {
+	    height: 600px;
+	    width: 1440px;
+	    padding-top: 15px;
+	}
+}
+
 @media( max-width: 800px ) {
 	.diagram-label {
 		font-size: 0.5em;
