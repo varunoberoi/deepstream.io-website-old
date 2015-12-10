@@ -1,7 +1,7 @@
 [
    {
       "eventName":"Scalable realtime apps using rethinkdb and deepstream.io",
-      "date":"December 1st 2015, 6:00 pm",
+      "date":"December 1st 2015",
       "location":{
          "lat":52.4984352,
          "lon":13.38119519999998
@@ -23,7 +23,7 @@
    },
    {
       "eventName":"Workshop: Live stock prices with RethinkDb and Deepstream.io",
-      "date":"November 19th 2015, 6:00 pm",
+      "date":"November 19th 2015",
       "location":{
          "lat":52.5098686,
          "lon":13.398451300000033
@@ -43,29 +43,8 @@
       "locationLink":"https://maps.google.com?q=Amazon%20Berlin,%20Krausenstra%C3%9Fe%2038,%2010117%20Berlin"
    },
    {
-      "eventName":"Ten things that slow down web applications",
-      "date":"October 27th 2015, 7:00 pm",
-      "location":{
-         "lat":52.53153,
-         "lon":13.383500000000026
-      },
-      "link":"http://www.meetup.com/Berlin-Web-Performance-Group/events/225722896/",
-      "eventImage":{
-         "description":"Web Performance Berlin Logo",
-         "url":"//images.contentful.com/mnigzo7n5kg1/117G16ILvGgqG4QwSoICGE/f04c7966221e025365e882d0bf2d34a2/highres_74729622.jpeg",
-         "size":[
-            null
-         ],
-         "fileName":"highres_74729622.jpeg"
-      },
-      "description":"A talk on ten things that slows down large web applications",
-      "locationName":"Zinnowitzer Stra&szlig;e 8, 10115 Berlin",
-      "linkDesc":"http://www.meetup.com/Berlin-Web-Performance-Group/...",
-      "locationLink":"https://maps.google.com?q=Zinnowitzer%20Stra%C3%9Fe%208,%2010115%20Berlin"
-   },
-   {
       "eventName":"Talk: Making a collaborative whiteboard using deepstream.io",
-      "date":"October 19th 2015, 7:00 pm",
+      "date":"October 19th 2015",
       "location":{
          "lat":52.5003822,
          "lon":13.419730100000038
@@ -85,7 +64,7 @@
    },
    {
       "eventName":"RethinkDB and an intro to Deepstream.io",
-      "date":"September 19th 2015, 6:00 pm",
+      "date":"September 19th 2015",
       "location":{
          "lat":40.5655379,
          "lon":-111.902062
