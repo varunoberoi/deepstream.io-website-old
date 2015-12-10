@@ -55,11 +55,7 @@ body{
 .first-btn,
 .second-btn{
 	display: inline-block;
-	-webkit-border-radius: 4;
-	-moz-border-radius: 4;
 	border-radius: 4px;
-	-webkit-box-shadow: 0px 2px 3px rgba(0,0,0,0.5);
-	-moz-box-shadow: 0px 2px 3px rgba(0,0,0,0.5);
 	font-family: 'Montserrat', sans-serif;
 	font-weight: 400;
 	color: #ffffff;
@@ -74,6 +70,11 @@ body{
 	top: 0px;
 	margin: 0px 0px 0px 10px;
 	transition: all 100ms ease;
+
+	-webkit-box-shadow: 0px 2px 3px rgba(0,0,0,0.5);
+	-moz-box-shadow: 0px 2px 3px rgba(0,0,0,0.5);
+	-webkit-border-radius: 4;
+	-moz-border-radius: 4;
 }
 
 .second-btn{
@@ -103,7 +104,8 @@ body{
 }
 
 @media( min-width: 900px ) {
-	#segment-header, #segment-header .header-wrapper{
+	#segment-header,
+	#segment-header .header-wrapper{
 		height: 376px;
 	}
 
@@ -113,7 +115,8 @@ body{
 		height: 380px;
 	}
 
-	#segment-header .header-logo, #segment-header .header-text {
+	#segment-header .header-logo,
+	#segment-header .header-text {
 		float: left;
 	}
 
@@ -143,7 +146,8 @@ body{
 		padding: 25px 0;
 	}
 
-	#segment-header .header-logo, #segment-header .header-text {
+	#segment-header .header-logo,
+	#segment-header .header-text {
 		margin: 0 auto;
 	}
 
@@ -212,7 +216,8 @@ body{
 		margin: 0 auto;
 	}
 
-	#segment-code .code-left, #segment-code .code-right {
+	#segment-code .code-left,
+	#segment-code .code-right {
 		max-width: 464px;
 		height: 200px;
 		float: left;
@@ -371,7 +376,9 @@ body{
 	margin: 0 auto;
 }
 
-.community-events-title, .latest-blogs-header, .community-collaborations-title {
+.community-events-title,
+.latest-blogs-header,
+.community-collaborations-title {
 	margin: 25px 0 10px;
 	color: #272822;
 	font-size: 23px;
@@ -387,20 +394,23 @@ body{
 	margin: 10px 0;
  }
 
-.community-events, .latest-blogs {
+.community-events,
+.latest-blogs {
 	max-width: 525px;
 }
 
 .community-event {
 	margin: 5px 0;
-  	padding: 5px;  
+	padding: 5px;  
 	display: inline-block;
 	text-decoration: none;
 }
 
-.community-event:hover, .latest-blog-article:hover, .community-collaborate-content > a:hover {
-    border-radius: 5px;
-    background-color: #fafafa;
+.community-event:hover,
+.latest-blog-article:hover,
+.community-collaborate-content > a:hover {
+	border-radius: 5px;
+	background-color: #fafafa;
 }
 
 .community-event-image-wrapper {
@@ -433,7 +443,8 @@ body{
 	height: 70px;
 }
 
-.community-event-title, .latest-blog-article {
+.community-event-title,
+.latest-blog-article {
 		font-family: 'Roboto';
 		font-size: 16px;
 		font-weight: 400;
@@ -471,7 +482,8 @@ body{
 	padding: 3px 0;
 }
 
-.latest-blog-article a, .community-collaborate-content > a {
+.latest-blog-article a,
+.community-collaborate-content > a {
 	text-decoration: none;
 	color: #222;
 	font-family: 'Roboto';
@@ -482,7 +494,8 @@ body{
 	color: #22C9F1;
 }
 
-.latest-blog-article:hover a, .community-collaborate-git > a:hover {
+.latest-blog-article:hover a, =
+.community-collaborate-git > a:hover {
 	color: black;
 }
 
@@ -510,11 +523,11 @@ body{
 
 @media ( min-width: 999px ) {
 	.segment-community-wrapper-first-column {
-	float: left;
-}
+		float: left;
+	}
 
 	.segment-community-wrapper-second-column {
-			float: right;
+		float: right;
 		padding-left: 25px;
 	}
 }
@@ -522,8 +535,8 @@ body{
 @media ( max-width: 999px ) {
 	.segment-community-wrapper > div {
 		margin: 0 auto;
-    	width: 300px;
-    	display: block;
+		width: 300px;
+		display: block;
 	}
 
 	.segment-community-wrapper * {
@@ -552,8 +565,8 @@ body{
 }
 
 #segment-diagram{
- position: relative;
- background-color: #37505A
+	position: relative;
+	background-color: #37505A
 }
 
 .diagram-image {
@@ -603,15 +616,15 @@ body{
 /* If bigger than diagram image */
 @media( min-width: 1440px ) {
 	.diagram-image {
-    	position: absolute;
-    	margin: 0 auto;
-    	width: 100%;
+		position: absolute;
+		margin: 0 auto;
+		width: 100%;
 	}
 
 	.diagram {
-	    height: 600px;
-	    width: 1440px;
-	    padding-top: 15px;
+		height: 600px;
+		width: 1440px;
+		padding-top: 15px;
 	}
 }
 
@@ -645,7 +658,8 @@ body{
 	color: white;
 }
 
-.security-text, .security-bullets{ 
+.security-text, 
+.security-bullets{ 
 	opacity: 1;
 	text-align: left;
 }
@@ -671,7 +685,8 @@ body{
 		height: 275px;
 	}
 
-	#segment-security .lock, 	#segment-security .security-content {
+	#segment-security .lock, 
+	#segment-security .security-content {
 		float: left;
 
 	}
@@ -696,7 +711,8 @@ body{
 		background-size: 40%;
 	}
 
-	#segment-security .lock, 	#segment-security .security-content {
+	#segment-security .lock, 	
+	#segment-security .security-content {
 		margin: 0 auto;
 	}
 
@@ -705,7 +721,3 @@ body{
 		padding: 0 25px;
 	}
 }
-
-
-
-
