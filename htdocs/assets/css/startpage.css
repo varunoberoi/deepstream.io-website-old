@@ -17,10 +17,6 @@ body{
 	position: relative;
 }
 
-.header-background {
-
-}
-
 .header-logo{
 	background: url(../images/deepstream-logo.svg) no-repeat;
 	height: 320px;
@@ -374,15 +370,24 @@ body{
 	margin: 0 auto;
 }
 
-.community-events-title, .latest-blogs-header {
-	padding: 25px 0 10px;
+.community-events-title, .latest-blogs-header, .community-collaborations-title {
+	margin: 25px 0 10px;
 	color: #272822;
 	font-size: 23px;
 	font-family: 'Quicksand', sans-serif;
 	font-weight: 400;
 }
 
+ .community-collaborations h6 {
+	color: #272822;
+	font-size: 17px;
+	font-family: 'Quicksand', sans-serif;
+	font-weight: 500;
+	margin: 10px 0;
+ }
+
 .community-events {
+	float: left;
 	max-width: 525px;
 	display: inline-block;
 }
@@ -394,7 +399,7 @@ body{
 	text-decoration: none;
 }
 
-.community-event:hover, .latest-blog-article:hover {
+.community-event:hover, .latest-blog-article:hover, .community-collaborate-content > a:hover {
     border-radius: 5px;
     background-color: #fafafa;
 }
@@ -457,11 +462,12 @@ body{
 		margin: 4px 0px 0px 0px;
 }
 
-.latest-blogs {
-		padding-left: 25px;
-		display: inline-block;
-		vertical-align: top;
-		max-width: 450px;
+.latest-blogs, .community-collaborations {
+	float: left;
+	padding-left: 25px;
+	display: inline-block;
+	vertical-align: top;
+	max-width: 425px;
 }
 
 .latest-blog-article {
@@ -469,24 +475,40 @@ body{
 	padding: 3px 0;
 }
 
-.latest-blog-article a {
+.latest-blog-article a, .community-collaborate-content > a {
 	text-decoration: none;
 	color: #222;
 }
 
-.latest-blog-article:hover a {
+.community-collaborate-git a {
+	text-decoration: none;
+	color: #22C9F1;
+}
+
+.latest-blog-article:hover a, .community-collaborate-git > a:hover {
 	color: black;
 }
 
 .latest-blog-article .date {
-		display: inline-block;
-		width: 90px;
-		vertical-align: top;
+	display: inline-block;
+	width: 90px;
+	vertical-align: top;
 }
 
 .latest-blog-article .title {
-		display: inline-block;
-		width: calc( 100% - 100px );
+	display: inline-block;
+	width: calc( 100% - 100px );
+}
+
+.community-collaborate-git .community-collaborate-content, 
+.community-collaborate-content > a {
+	margin: 5px 0 5px 25px;
+}
+
+.community-collaborate-content > a {
+	display: block;
+	padding: 5px 0;
+	font-size: 17px;
 }
 
 @media ( max-width: 999px ) {
@@ -497,19 +519,18 @@ body{
 		.segment-community-wrapper > div {
 			padding: 0 25px;
 			margin: 0 auto;
-    	width: 325px;
-    	display: block;
+	    	width: 325px;
+	    	display: block;
 		}
 
 		.segment-community-wrapper * {
-				max-width: 325px;
+			max-width: 325px;
 		}
 
 		.community-event-image-wrapper {
 			margin: 0 auto;
-    	display: block;
+    		display: block;
 		}
-
 }
 
 /****************************

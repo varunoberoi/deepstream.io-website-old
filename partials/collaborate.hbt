@@ -1,0 +1,31 @@
+<div class="community-collaborations">
+		<h4 class="community-collaborations-title">
+			Community Links
+		</h4>
+
+		<div class="community-collaborate community-collaborate-git">
+			<h6>
+				Raise an issue, request a feature or browse the source on <a href="https://github.com/hoxton-one">github</a> or give it a star!
+			</h6>
+			<div class="community-collaborate-content">
+				{{githubstar}}
+			</div>
+		</div>
+
+		<div class="community-collaborate">
+			<h6>
+				Contact the team
+			</h6>
+			<div class="community-collaborate-content">
+				<a href="https://twitter.com/deepstreamIO">
+					<i class="fa fa-twitter"></i>  Twitter
+				</a>
+				<a href="http://stackoverflow.com/questions/tagged/deepstream.io">
+					<i class="fa fa-stack-overflow"></i>  Stack Overflow
+				</a>
+				<a>
+					<i class="fa fa-slack"></i>  Slack ( coming soon )
+				</a>
+			</div>
+		</div>
+</div>
