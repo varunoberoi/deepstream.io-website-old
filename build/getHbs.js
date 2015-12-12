@@ -50,22 +50,31 @@ hbs.registerHelper( 'downloadItem', function( name, packageName, hasBower, icon 
 			html += '<i class="fa fa-' + icon + '"></i>';
 		}
 
-		html +=	'<h3>' + name + '</h3>' +
+		html +=	'<h3 class="download-item-header">' + name + '</h3>' +
 			'<code>' +
-				'<span class="pckg-name">' + packageName + '</span>: <span class="version">-</span>' +
+				'<span class="pckg-name">' + packageName + '</span><span class="version">-</span>' +
 			'</code>' +
-			'<a class="npm label" title="get from npm" href="https://www.npmjs.com/package/' + packageName + '"><i></i><span>NPM</span></a>';
+			'<a class="npm download-link" title="get from npm" href="https://www.npmjs.com/package/' + packageName + '"><i></i><span>NPM</span></a>';
 		if( hasBower === true ) {
-			html += '<a class="bower label" title="get from bower" href="http://bower.io/search/?q=' + packageName + '"><i></i><span>Bower</span></a>';
+			html += '<a class="bower download-link" title="get from bower" href="http://bower.io/search/?q=' + packageName + '"><i></i><span>Bower</span></a>';
 		}
 
-		html +=	'<a class="github label" title="see on github" href="https://github.com/hoxton-one/' + packageName + '"><i></i><span>Github</span></a>' +
+		html +=	'<a class="github download-link" title="see on github" href="https://github.com/hoxton-one/' + packageName + '"><i></i><span>Github</span></a>' +
 		'</li>';
 
 	return new hbs.SafeString( html );
 });
 
+hbs.registerHelper( 'viewport', function(){
+	if( this.isDocs ) {
+		return '';
+	} else {
+		return new hbs.SafeString( '<meta name="viewport" content="width=device-width, initial-scale=1" />' );
+	}
+});
+
 hbs.registerHelper( 'debug', function(){
+	delete this.blogPosts;
 	var val = JSON.stringify( this, null, '    ' );
 	return new hbs.SafeString( '<pre>' + val + '</pre>' );
 });
