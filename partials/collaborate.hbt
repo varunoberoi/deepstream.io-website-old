@@ -30,8 +30,8 @@
 				<a href="http://stackoverflow.com/questions/tagged/deepstream.io">
 					<i class="fa fa-stack-overflow"></i>  Stack Overflow
 				</a>
-				<a>
-					<i class="fa fa-slack"></i>  Slack ( coming soon )
+				<a href="https://deepstream-slack.herokuapp.com/">
+					<i class="fa fa-slack"></i>  Slack
 				</a>
 			</div>
 		</div>

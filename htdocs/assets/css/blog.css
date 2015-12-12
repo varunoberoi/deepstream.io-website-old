@@ -253,7 +253,7 @@ h1.post-title {
 }
 
 
-@media ( min-width: 1080px ) {
+@media ( min-width: 1200px ) {
 	.blog-sidebar {
 		position: absolute;
 		right: 10px;
@@ -261,10 +261,9 @@ h1.post-title {
 	}
 }
 
-@media ( max-width: 999px ) {
+@media ( max-width: 1199px ) {
 	.sidebar-item {
 		width: 250px;
-		min-height: 200px;
 		display: inline-block;
 		vertical-align: top;	
 	}
