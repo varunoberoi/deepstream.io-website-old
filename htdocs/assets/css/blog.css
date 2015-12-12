@@ -26,10 +26,12 @@
 	padding-bottom: 2.457rem;
 	border-bottom: #EBF2F6 1px solid;
 	word-break: break-word;
+	font-family: 'Roboto';
 }
 
 .post-header {
 	padding-bottom: 20px;
+    font-weight: 600;
 }
 
 .post p {
@@ -241,11 +243,17 @@ h1.post-title {
 	width: 250px;
 }
 
+.sidebar-item-header, .blog-sidebar .latest-blogs-header {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 600;
+}
+
 .sidebar-item {
 	margin: 20px;
 	padding: 10px;
 	background-color: #f0f9fc;
 	color: #145068;
+	font-family: 'Roboto';
 }
 
 .sidebar-item p, .sidebar-item-header {
