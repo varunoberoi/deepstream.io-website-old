@@ -4,7 +4,8 @@
 	<meta charset="UTF-8">
 	<title>deepstream.io | A Scalable Server for Realtime Web Apps</title>
 
-	
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<meta name="keywords" content="deepstream, deepstream.io, streaming, realtime, server, socket" />
 	<meta name="description" content="A node.js realtime server, supporting data-sync, RPCs, events and WebRTC" />
@@ -26,7 +27,7 @@
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 </head>
 
-<body class="category_">
+<body class="category_ start-page">
 	<div class="mobile-menu">
 		<div class="nav mobile-nav">
 			<ul>
@@ -34,8 +35,8 @@
 				<li ><a href="download/">Downloads</a></li>
 				<li ><a href="tutorials/getting-started.html">Tutorials</a></li>
 				<li ><a href="docs/deepstream.html">Documentation</a></li>
-				<li ><a href="info/">Info</a></li>					
 				<li ><a href="blog/">Blog</a></li>
+				<li ><a href="info/">Info</a></li>				
 			</ul>		</div>
 	</div>
 
@@ -50,36 +51,39 @@
 					<li ><a href="download/">Downloads</a></li>
 					<li ><a href="tutorials/getting-started.html">Tutorials</a></li>
 					<li ><a href="docs/deepstream.html">Documentation</a></li>
-					<li ><a href="info/">Info</a></li>					
 					<li ><a href="blog/">Blog</a></li>
+					<li ><a href="info/">Info</a></li>				
 				</ul>			</div>
 			<span class="menu-button menu-icon">
 				<i class="fa fa-bars"></i>
 			</span>
 		</div>
 			<div class="content main">
-				<link rel="stylesheet" type="text/css" href="assets/css/startpage.css" />
+				<link rel="stylesheet" type="text/css" href="assets/css/community.css" />
+<link rel="stylesheet" type="text/css" href="assets/css/startpage.css" />
 <link rel="stylesheet" type="text/css" href="assets/css/syntaxhighlighter.css" />
 
 <div id="segment-header">
-	<div class="header-logo">
-		<div class="header-text">
-			<p class="header-strapline">
-				A Scalable Server for Realtime Web Apps	
-			</p>
-			<ul class="header-bullets">
-				<li>Stores and syncs data in realtime </li>
-				<li>Built in node.js </li>
-				<li>Works for browsers, backend &amp; mobile</li>
-				<li>Scales via clustering </li>
-				<li>Exceptionally fast &amp; easy to use  </li>
-				<li>Open Source and free <small>(MIT License)</small></li>
-				<div class="header-buttons">
-					<a class="first-btn" href="download/"><large> <i class="fa fa-cloud-download"></i></large> &nbsp; Download</a>
-
-					<a class="second-btn" href="tutorials/getting-started.html"><i class="fa fa-book"></i>  &nbsp; Quick Start Tutorial</a>
-				</div>	
-			</ul>
+	<div class="header-wrapper">
+		<div class="header-logo"></div>
+		<div class="header-text-wrapper">
+			<div class="header-text">
+				<p class="header-strapline">
+					A Scalable Server for Realtime Web Apps	
+				</p>
+				<ul class="header-bullets">
+					<li>Stores and syncs data in realtime </li>
+					<li>Built in node.js </li>
+					<li>Works for browsers, backend &amp; mobile</li>
+					<li>Scales via clustering </li>
+					<li>Exceptionally fast &amp; easy to use  </li>
+					<li>Open Source and free <small>(MIT License)</small></li>
+					<div class="header-buttons">
+						<a class="first-btn" href="download/"><large> <i class="fa fa-cloud-download"></i></large> &nbsp; Download</a>
+						<a class="second-btn" href="tutorials/getting-started.html"><i class="fa fa-book"></i>  &nbsp; Quick Start Tutorial</a>
+					</div>	
+				</ul>
+			</div>
 		</div>
 	</div>
 </div>
@@ -88,29 +92,11 @@
 	<div class="codes">
 		<div class="code-left">
 		<pre><code><span class="token comment" spellcheck="true">// Server
-</span><span class="token keyword">var</span> DeepstreamServer <span class="token operator">=</span> <span class="token function">require<span class="token punctuation">(</span></span> <span class="token string">'deepstream.io'</span> <span class="token punctuation">)</span><span class="token punctuation">,</span>
-    server <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">DeepstreamServer</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-server<span class="token punctuation">.</span><span class="token keyword">set</span><span class="token punctuation">(</span> <span class="token string">'host'</span><span class="token punctuation">,</span> <span class="token string">'localhost'</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
-server<span class="token punctuation">.</span><span class="token keyword">set</span><span class="token punctuation">(</span> <span class="token string">'port'</span><span class="token punctuation">,</span> <span class="token number">6020</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
-<br />
-server<span class="token punctuation">.</span><span class="token function">start<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-		</div>
+</span><span class="token keyword">var</span> DeepstreamServer <span class="token operator">=</span> <span class="token function">require<span class="token punctuation">(</span></span> <span class="token string">'deepstream.io'</span> <span class="token punctuation">)</span><span class="token punctuation">,</span><br />&nbsp;&nbsp;&nbsp;&nbsp;server <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">DeepstreamServer</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br/><br/>server<span class="token punctuation">.</span><span class="token keyword">set</span><span class="token punctuation">(</span> <span class="token string">'host'</span><span class="token punctuation">,</span> <span class="token string">'localhost'</span> <span class="token punctuation">)</span><span class="token punctuation">;</span><br />server<span class="token punctuation">.</span><span class="token keyword">set</span><span class="token punctuation">(</span> <span class="token string">'port'</span><span class="token punctuation">,</span> <span class="token number">6020</span> <span class="token punctuation">)</span><span class="token punctuation">;</span><br /><br />server<span class="token punctuation">.</span><span class="token function">start<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span></div></pre></code>
 		<div class="code-seperator">
 		</div>
 		<div class="code-right">
-		<span class="token comment" spellcheck="true">
-// Browser / Node Client<br />
-</span><span class="token keyword">var</span> ds <span class="token operator">=</span> <span class="token function">deepstream<span class="token punctuation">(</span></span> <span class="token string">'localhost:6020'</span> <span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">login<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">,</span><br />
-&nbsp;&nbsp;&nbsp;&nbsp;record <span class="token operator">=</span> ds<span class="token punctuation">.</span>record<span class="token punctuation">.</span><span class="token function">getRecord<span class="token punctuation">(</span></span> <span class="token string">'stock/hxto'</span> <span class="token punctuation">)</span><span class="token punctuation">;</span><br />
-
-<br />
-record<span class="token punctuation">.</span><span class="token keyword">get</span><span class="token punctuation">(</span> <span class="token string">'name'</span> <span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true"> // Hoxton One</span><br />
-record<span class="token punctuation">.</span><span class="token keyword">set</span><span class="token punctuation">(</span> <span class="token string">'employees[1].firstname'</span><span class="token punctuation">,</span> <span class="token string">'Zack'</span> <span class="token punctuation">)</span><span class="token punctuation">;</span><br />
-record<span class="token punctuation">.</span><span class="token function">subscribe<span class="token punctuation">(</span></span> <span class="token string">'price'</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span> price <span class="token punctuation">)</span><span class="token punctuation">{</span> <span class="token comment" spellcheck="true">/***/</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br />
-<br />
-</code></pre>
-
+<pre><code><span class="token comment" spellcheck="true">// Browser / Node Client<br /></span><span class="token keyword">var</span> ds <span class="token operator">=</span> <span class="token function">deepstream<span class="token punctuation">(</span></span> <span class="token string">'localhost:6020'</span> <span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">login<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">,</span><br />&nbsp;&nbsp;&nbsp;&nbsp;record <span class="token operator">=</span>ds<span class="token punctuation">.</span>record<span class="token punctuation">.</span><span class="token function">getRecord<span class="token punctuation">(</span></span> <span class="token string">'stock/hxto'</span> <span class="token punctuation">)</span><span class="token punctuation">;</span><br /><br />record<span class="token punctuation">.</span><span class="token keyword">get</span><span class="token punctuation">(</span> <span class="token string">'name'</span> <span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true"> // Hoxton One</span><br />record<span class="token punctuation">.</span><span class="token keyword">set</span><span class="token punctuation">(</span> <span class="token string">'employees[1].firstname'</span><span class="token punctuation">,</span> <span class="token string">'Zack'</span> <span class="token punctuation">)</span><span class="token punctuation">;</span><br />record<span class="token punctuation">.</span><span class="token function">subscribe<span class="token punctuation">(</span></span> <span class="token string">'price'</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span> price <span class="token punctuation">)</span><span class="token punctuation">{</span> <span class="token comment" spellcheck="true">/***/</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br /><br /></code></pre>
 		</div>
 	</div>
 </div>
@@ -125,8 +111,6 @@ record<span class="token punctuation">.</span><span class="token function">subsc
 	</div>
 	<div id="segment-example-app-wrap">
 		<div class="example-app">
-			
-
 			<video id="examplevid" poster="assets/images/poster-example-app.png" src="assets/videos/exmple-app-retina.mp4" preload width="960" height="676" autoplay loop="loop" style="margin: -100px 0px 0px 0px;" >
 			</video>
 		</div>
@@ -174,7 +158,143 @@ record<span class="token punctuation">.</span><span class="token function">subsc
 	</div>
 </div>
 
+<div id="segment-community">
+	<div class="segment-community-wrapper clearfix">
+		<div class="segment-community-wrapper-first-column">
+			<div class="community-events">
+					<h4 class="community-events-title">
+						Events &amp; Workshops 
+					</h4>
+			
+						<a class="community-event" target="_blank" href="http://www.meetup.com/Node-js-Meetup-Berlin/events/225798605/">
+							<div class="community-event-image-wrapper">
+								<img src="//images.contentful.com/mnigzo7n5kg1/7KLsTpwCFaWQA8qSMq0qSU/5a1dce19b9b62d500aa28f3a9e0e2b1a/node-js-logo.png" class="community-event-image" alt="Node Js Logo">
+							</div>
+							<div class="community-event-content">
+								<div class="community-event-date">
+									December 1st 2015
+								</div>
+								<div class="community-event-title">
+									Scalable realtime apps using rethinkdb and deepstream.io
+								</div>
+								<div class="community-event-location">
+									Wikimedia, Tempelhofer Ufer 23-24, Berlin
+								</div>
+							</div>
+						</a>
+						<a class="community-event" target="_blank" href="http://www.meetup.com/Berlin-Realtime-Web-Meetup/events/226120639/">
+							<div class="community-event-image-wrapper">
+								<img src="//images.contentful.com/mnigzo7n5kg1/4bqIK0F2KQQkW8Cqksa6O8/d108fa1b31016fb1536b66bce40fa844/meetup-logo.png" class="community-event-image" alt="">
+							</div>
+							<div class="community-event-content">
+								<div class="community-event-date">
+									November 19th 2015
+								</div>
+								<div class="community-event-title">
+									Workshop: Live stock prices with RethinkDb and Deepstream.io
+								</div>
+								<div class="community-event-location">
+									Amazon Berlin, Krausenstra&szlig;e 38, 10117 Berlin
+								</div>
+							</div>
+						</a>
+						<a class="community-event" target="_blank" href="http://berlinjs.org/">
+							<div class="community-event-image-wrapper">
+								<img src="//images.contentful.com/mnigzo7n5kg1/1LOsVM9C8A46QAoQu2GgYo/a5395f5105bde215d56dabc46649ab8d/logo.png" class="community-event-image" alt="">
+							</div>
+							<div class="community-event-content">
+								<div class="community-event-date">
+									October 19th 2015
+								</div>
+								<div class="community-event-title">
+									Talk: Making a collaborative whiteboard using deepstream.io
+								</div>
+								<div class="community-event-location">
+									Co.up, Adalbertstra&szlig;e 7-8 in Berlin-Kreuzberg
+								</div>
+							</div>
+						</a>
+						<a class="community-event" target="_blank" href="http://www.meetup.com/RethinkDB-Utah/events/223349697/">
+							<div class="community-event-image-wrapper">
+								<img src="//images.contentful.com/mnigzo7n5kg1/4STmLHjlDWOg8qkCwk2ge/f6957d019be541e0ce378cffc29fe01e/event-rethink.png" class="community-event-image" alt="">
+							</div>
+							<div class="community-event-content">
+								<div class="community-event-date">
+									September 19th 2015
+								</div>
+								<div class="community-event-title">
+									RethinkDB and an intro to Deepstream.io
+								</div>
+								<div class="community-event-location">
+									10235 S Jordan Gtwy, South Jordan, UT, USA
+								</div>
+							</div>
+						</a>
+			</div>			<div class="latest-blogs">
+				<h4 class="latest-blogs-header">
+					Latest Blog Articles
+				</h4>
+				<li class="latest-blogs-content">
+					<ul class="latest-blog-article">
+						<a href="blog\introducing-deepstream">
+							<span class="date">15/12/2015</span>
+							<span class="title">Introducing deepstreamHub</span>
+						</a>
+					</ul>
+				</li>
+			</div>		</div>
+		<div class="segment-community-wrapper-second-column">
+			<div class="community-collaborations">
+					<h4 class="community-collaborations-title">
+						Community Links
+					</h4>
+			
+						<div class="community-collaborate">
+						<h6>
+							Using deepstream?
+						</h6>
+						<div class="share-story community-collaborate-content">
+							<img width="100%" src="assets/images/ds-stories-background.png" class="share-story-image" >
+							<a class="share-story-content">
+								tell us what you're building with deepstream and get a t-shirt*
+								<span class="comical-warning">
+									* warning: t-shirt is actually looks good and is desirable
+								</span>
+							</a>
+						</div>		</div>
+			
+					<div class="community-collaborate community-collaborate-git">
+						<h6>
+							Raise an issue, request a feature or browse the source on <a href="https://github.com/hoxton-one">github</a> or give it a star!
+						</h6>
+						<div class="community-collaborate-content">
+							<a class="github-button" href="https://github.com/hoxton-one/deepstream.io" data-icon="octicon-star" data-style="mega" data-count-href="/hoxton-one/deepstream.io/stargazers" data-count-api="/repos/hoxton-one/deepstream.io#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star hoxton-one/deepstream.io on GitHub">Star</a>
+						</div>
+					</div>
+			
+					<div class="community-collaborate">
+						<h6>
+							Contact the team
+						</h6>
+						<div class="community-collaborate-content">
+							<a href="https://twitter.com/deepstreamIO">
+								<i class="fa fa-twitter"></i>  Twitter
+							</a>
+							<a href="http://stackoverflow.com/questions/tagged/deepstream.io">
+								<i class="fa fa-stack-overflow"></i>  Stack Overflow
+							</a>
+							<a href="https://deepstream-slack.herokuapp.com/">
+								<i class="fa fa-slack"></i>  Slack
+							</a>
+						</div>
+					</div>
+			
+			</div>		</div>
+	</div>
+</div>
+
 <div id="segment-diagram">
+	<img class="diagram-image" src="assets/images/diagram-ani-vSVG.svg">
 	<div class="diagram">
 		<div class="segment-label">
 		Under the Hood
@@ -198,23 +318,20 @@ record<span class="token punctuation">.</span><span class="token function">subsc
 </div>
 
 <div id="segment-security">
-	<div class="lock">
-		<p class="security-text">
-			We know you're worried about security, and so are we. That's why deepstream helps you to secure each and every step as your information makes it's way.
-		</p>
-		<ul class="security-bullets">
-		  <li>Https &amp; Wss </li>
-		  <li>Granular Permissions</li>
-		  <li>Performant and Scalable</li>
-		</ul>
+	<div class="wrapper">
+		<div class="lock"></div>
+		<div class="security-content">
+			<p class="security-text">
+				We know you're worried about security, and so are we. That's why deepstream helps you to secure each and every step as your information makes it's way.
+			</p>
+			<ul class="security-bullets">
+				<li>Https &amp; Wss </li>
+				<li>Granular Permissions</li>
+				<li>Performant and Scalable</li>
+			</ul>
+		</div>
 	</div>
 </div>
-
-
-
-
-
-
 			</div>
 	</div>
 	<div id="footer">
@@ -235,6 +352,11 @@ record<span class="token punctuation">.</span><span class="token function">subsc
 					<li class="stack-overflow">
 						<a href="http://stackoverflow.com/questions/tagged/deepstream.io">
 							<i class="fa fa-stack-overflow"></i>  Stack Overflow
+						</a>
+					</li>
+					<li>
+						<a href="https://deepstream-slack.herokuapp.com/">
+							<i class="fa fa-slack"></i>  Slack
 						</a>
 					</li>
 				</ul>
@@ -263,12 +385,17 @@ record<span class="token punctuation">.</span><span class="token function">subsc
 				<p>
 					Email us <a href="mailto:info@hoxton-one.com">info@hoxton-one.com</a>.<br><br>
 				</p>
-				<p>Registered in England and Wales, Company Nr 09121068</p>
+
+				<h4>Star this project on github!</h4>
+				<p>
+					<a class="github-button" href="https://github.com/hoxton-one/deepstream.io" data-icon="octicon-star" data-style="mega" data-count-href="/hoxton-one/deepstream.io/stargazers" data-count-api="/repos/hoxton-one/deepstream.io#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star hoxton-one/deepstream.io on GitHub">Star</a>
+				</p>
 			</li>
 
 		</ul>
 	</div>
 
 
+	<script async defer id="github-bjs" src="https://buttons.github.io/buttons.js"></script>
 </body>
 </html>

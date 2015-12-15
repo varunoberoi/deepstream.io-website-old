@@ -26,10 +26,12 @@
 	padding-bottom: 2.457rem;
 	border-bottom: #EBF2F6 1px solid;
 	word-break: break-word;
+	font-family: 'Roboto';
 }
 
 .post-header {
 	padding-bottom: 20px;
+    font-weight: 600;
 }
 
 .post p {
@@ -56,6 +58,10 @@ h1.post-title {
 }
 
 @media( min-width: 801px ) {
+	.blog-wrapper {
+    	min-height: 700px;
+	}
+
 	.post-thumbnail{
 		float:left;
 		margin-right: 1.65rem;
@@ -85,6 +91,10 @@ h1.post-title {
 	color:slategray;
 	font-weight: 900;
 	vertical-align: top;
+}
+
+.post-content img {
+    width: 100%;
 }
 
 .read-more {
@@ -235,9 +245,11 @@ h1.post-title {
 
 .blog-sidebar {
 	width: 250px;
-	position: absolute;
-	right: 10px;
-	top: 0;
+}
+
+.sidebar-item-header, .blog-sidebar .latest-blogs-header {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 600;
 }
 
 .sidebar-item {
@@ -245,20 +257,32 @@ h1.post-title {
 	padding: 10px;
 	background-color: #f0f9fc;
 	color: #145068;
+	font-family: 'Roboto';
 }
 
 .sidebar-item p, .sidebar-item-header {
 	padding-bottom: 10px;
 }
 
-@media ( min-width: 1080px ) and ( max-width: 1299px ) {
-	.post {
-		margin: 2rem 2rem;
+
+@media ( min-width: 1200px ) {
+	.blog-sidebar {
+		position: absolute;
+		right: 10px;
+		top: 0;
 	}
 }
 
-@media( max-width: 1080px ) {
-	.blog-sidebar {
-		display: none;
+@media ( max-width: 1199px ) {
+	.sidebar-item {
+		width: 250px;
+		display: inline-block;
+		vertical-align: top;	
+	}
+}
+
+@media ( min-width: 1080px ) and ( max-width: 1299px ) {
+	.post {
+		margin: 2rem 2rem;
 	}
 }

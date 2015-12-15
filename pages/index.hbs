@@ -1,25 +1,28 @@
+<link rel="stylesheet" type="text/css" href="{{link 'asset' 'css/community.css'}}" />
 <link rel="stylesheet" type="text/css" href="{{link 'asset' 'css/startpage.css'}}" />
 <link rel="stylesheet" type="text/css" href="{{link 'asset' 'css/syntaxhighlighter.css'}}" />
 
 <div id="segment-header">
-	<div class="header-logo">
-		<div class="header-text">
-			<p class="header-strapline">
-				A Scalable Server for Realtime Web Apps	
-			</p>
-			<ul class="header-bullets">
-				<li>Stores and syncs data in realtime </li>
-				<li>Built in node.js </li>
-				<li>Works for browsers, backend &amp; mobile</li>
-				<li>Scales via clustering </li>
-				<li>Exceptionally fast &amp; easy to use  </li>
-				<li>Open Source and free <small>(MIT License)</small></li>
-				<div class="header-buttons">
-					<a class="first-btn" href="download/"><large> <i class="fa fa-cloud-download"></i></large> &nbsp; Download</a>
-
-					<a class="second-btn" href="tutorials/getting-started.html"><i class="fa fa-book"></i>  &nbsp; Quick Start Tutorial</a>
-				</div>	
-			</ul>
+	<div class="header-wrapper">
+		<div class="header-logo"></div>
+		<div class="header-text-wrapper">
+			<div class="header-text">
+				<p class="header-strapline">
+					A Scalable Server for Realtime Web Apps	
+				</p>
+				<ul class="header-bullets">
+					<li>Stores and syncs data in realtime </li>
+					<li>Built in node.js </li>
+					<li>Works for browsers, backend &amp; mobile</li>
+					<li>Scales via clustering </li>
+					<li>Exceptionally fast &amp; easy to use  </li>
+					<li>Open Source and free <small>(MIT License)</small></li>
+					<div class="header-buttons">
+						<a class="first-btn" href="download/"><large> <i class="fa fa-cloud-download"></i></large> &nbsp; Download</a>
+						<a class="second-btn" href="tutorials/getting-started.html"><i class="fa fa-book"></i>  &nbsp; Quick Start Tutorial</a>
+					</div>	
+				</ul>
+			</div>
 		</div>
 	</div>
 </div>
@@ -28,29 +31,11 @@
 	<div class="codes">
 		<div class="code-left">
 		<pre><code><span class="token comment" spellcheck="true">// Server
-</span><span class="token keyword">var</span> DeepstreamServer <span class="token operator">=</span> <span class="token function">require<span class="token punctuation">(</span></span> <span class="token string">'deepstream.io'</span> <span class="token punctuation">)</span><span class="token punctuation">,</span>
-    server <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">DeepstreamServer</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-server<span class="token punctuation">.</span><span class="token keyword">set</span><span class="token punctuation">(</span> <span class="token string">'host'</span><span class="token punctuation">,</span> <span class="token string">'localhost'</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
-server<span class="token punctuation">.</span><span class="token keyword">set</span><span class="token punctuation">(</span> <span class="token string">'port'</span><span class="token punctuation">,</span> <span class="token number">6020</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
-<br />
-server<span class="token punctuation">.</span><span class="token function">start<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-		</div>
+</span><span class="token keyword">var</span> DeepstreamServer <span class="token operator">=</span> <span class="token function">require<span class="token punctuation">(</span></span> <span class="token string">'deepstream.io'</span> <span class="token punctuation">)</span><span class="token punctuation">,</span><br />&nbsp;&nbsp;&nbsp;&nbsp;server <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">DeepstreamServer</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br/><br/>server<span class="token punctuation">.</span><span class="token keyword">set</span><span class="token punctuation">(</span> <span class="token string">'host'</span><span class="token punctuation">,</span> <span class="token string">'localhost'</span> <span class="token punctuation">)</span><span class="token punctuation">;</span><br />server<span class="token punctuation">.</span><span class="token keyword">set</span><span class="token punctuation">(</span> <span class="token string">'port'</span><span class="token punctuation">,</span> <span class="token number">6020</span> <span class="token punctuation">)</span><span class="token punctuation">;</span><br /><br />server<span class="token punctuation">.</span><span class="token function">start<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span></div></pre></code>
 		<div class="code-seperator">
 		</div>
 		<div class="code-right">
-		<span class="token comment" spellcheck="true">
-// Browser / Node Client<br />
-</span><span class="token keyword">var</span> ds <span class="token operator">=</span> <span class="token function">deepstream<span class="token punctuation">(</span></span> <span class="token string">'localhost:6020'</span> <span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">login<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">,</span><br />
-&nbsp;&nbsp;&nbsp;&nbsp;record <span class="token operator">=</span> ds<span class="token punctuation">.</span>record<span class="token punctuation">.</span><span class="token function">getRecord<span class="token punctuation">(</span></span> <span class="token string">'stock/hxto'</span> <span class="token punctuation">)</span><span class="token punctuation">;</span><br />
-
-<br />
-record<span class="token punctuation">.</span><span class="token keyword">get</span><span class="token punctuation">(</span> <span class="token string">'name'</span> <span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true"> // Hoxton One</span><br />
-record<span class="token punctuation">.</span><span class="token keyword">set</span><span class="token punctuation">(</span> <span class="token string">'employees[1].firstname'</span><span class="token punctuation">,</span> <span class="token string">'Zack'</span> <span class="token punctuation">)</span><span class="token punctuation">;</span><br />
-record<span class="token punctuation">.</span><span class="token function">subscribe<span class="token punctuation">(</span></span> <span class="token string">'price'</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span> price <span class="token punctuation">)</span><span class="token punctuation">{</span> <span class="token comment" spellcheck="true">/***/</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br />
-<br />
-</code></pre>
-
+<pre><code><span class="token comment" spellcheck="true">// Browser / Node Client<br /></span><span class="token keyword">var</span> ds <span class="token operator">=</span> <span class="token function">deepstream<span class="token punctuation">(</span></span> <span class="token string">'localhost:6020'</span> <span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">login<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">,</span><br />&nbsp;&nbsp;&nbsp;&nbsp;record <span class="token operator">=</span>ds<span class="token punctuation">.</span>record<span class="token punctuation">.</span><span class="token function">getRecord<span class="token punctuation">(</span></span> <span class="token string">'stock/hxto'</span> <span class="token punctuation">)</span><span class="token punctuation">;</span><br /><br />record<span class="token punctuation">.</span><span class="token keyword">get</span><span class="token punctuation">(</span> <span class="token string">'name'</span> <span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true"> // Hoxton One</span><br />record<span class="token punctuation">.</span><span class="token keyword">set</span><span class="token punctuation">(</span> <span class="token string">'employees[1].firstname'</span><span class="token punctuation">,</span> <span class="token string">'Zack'</span> <span class="token punctuation">)</span><span class="token punctuation">;</span><br />record<span class="token punctuation">.</span><span class="token function">subscribe<span class="token punctuation">(</span></span> <span class="token string">'price'</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span> price <span class="token punctuation">)</span><span class="token punctuation">{</span> <span class="token comment" spellcheck="true">/***/</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br /><br /></code></pre>
 		</div>
 	</div>
 </div>
@@ -65,8 +50,6 @@ record<span class="token punctuation">.</span><span class="token function">subsc
 	</div>
 	<div id="segment-example-app-wrap">
 		<div class="example-app">
-			
-
 			<video id="examplevid" poster="assets/images/poster-example-app.png" src="assets/videos/exmple-app-retina.mp4" preload width="960" height="676" autoplay loop="loop" style="margin: -100px 0px 0px 0px;" >
 			</video>
 		</div>
@@ -114,7 +97,20 @@ record<span class="token punctuation">.</span><span class="token function">subsc
 	</div>
 </div>
 
+<div id="segment-community">
+	<div class="segment-community-wrapper clearfix">
+		<div class="segment-community-wrapper-first-column">
+			{{> latestevents}}
+			{{> latestblogs}}
+		</div>
+		<div class="segment-community-wrapper-second-column">
+			{{> collaborate}}
+		</div>
+	</div>
+</div>
+
 <div id="segment-diagram">
+	<img class="diagram-image" src="assets/images/diagram-ani-vSVG.svg">
 	<div class="diagram">
 		<div class="segment-label">
 		Under the Hood
@@ -138,22 +134,17 @@ record<span class="token punctuation">.</span><span class="token function">subsc
 </div>
 
 <div id="segment-security">
-	<div class="lock">
-		<p class="security-text">
-			We know you're worried about security, and so are we. That's why deepstream helps you to secure each and every step as your information makes it's way.
-		</p>
-		<ul class="security-bullets">
-		  <li>Https &amp; Wss </li>
-		  <li>Granular Permissions</li>
-		  <li>Performant and Scalable</li>
-		</ul>
+	<div class="wrapper">
+		<div class="lock"></div>
+		<div class="security-content">
+			<p class="security-text">
+				We know you're worried about security, and so are we. That's why deepstream helps you to secure each and every step as your information makes it's way.
+			</p>
+			<ul class="security-bullets">
+				<li>Https &amp; Wss </li>
+				<li>Granular Permissions</li>
+				<li>Performant and Scalable</li>
+			</ul>
+		</div>
 	</div>
 </div>
-
-
-
-
-
-{{!-- 
-<video src="assets/videos/deepstream-message-flow.mp4" autoplay loop autobuffer></video>
---}}

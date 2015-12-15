@@ -7,29 +7,28 @@
 			deepstream.io is the open source server thats allows you to create realtime apps with minimal code!
 		</p>
 
-		<a href="/">Learn More</a>.
+		<a href="{{link 'page' '/'}}">Learn More</a>.
+	</div>
+
+	<div class="sidebar-item share-story">
+		<h4 class="sidebar-item-header">Using deepstream?</h4>
+		{{>storyshare}}
 	</div>
 
 	<div class="sidebar-item deepstream-help-out">
 		<h4 class="sidebar-item-header">Community</h4>
 		
-		<p>
+		<!--<p>
 			If your interested in bringing deepstream to your favourite language feel free to <a href="mailto:info@deepstreamhub.com" target="_top">contact us</a> for any support!
 		</p>
+		-->
 
 		<p>
-			<i class="fa fa-github"></i>
-			<a href="https://github.com/hoxton-one">Star</a> us GitHub!
+			Support us by giving us a virtual gold star!
 		</p>
-	</div>
-
-
-	<div class="sidebar-item deepstream-star">
-		<h4 class="sidebar-item-header">Liking deepstream?</h4>
 		
 		<p>
-			<i class="fa fa-github"></i>
-			<a href="https://github.com/hoxton-one">Star</a> us on GitHub!
+			{{githubstar}}
 		</p>
 	</div>
 

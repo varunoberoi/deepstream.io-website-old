@@ -1,0 +1,24 @@
+<div class="community-events">
+		<h4 class="community-events-title">
+			Events &amp; Workshops 
+		</h4>
+
+		{{#each communityEvents}}
+			<a class="community-event" target="_blank" href="{{ this.link }}">
+				<div class="community-event-image-wrapper">
+					<img src="{{eventImage.url}}" class="community-event-image" alt="{{eventImage.description}}">
+				</div>
+				<div class="community-event-content">
+					<div class="community-event-date">
+						{{{ date }}}
+					</div>
+					<div class="community-event-title">
+						{{{ eventName}}}
+					</div>
+					<div class="community-event-location">
+						{{{ locationName }}}
+					</div>
+				</div>
+			</a>
+		  {{/each}}
+</div>

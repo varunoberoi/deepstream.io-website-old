@@ -2,7 +2,8 @@
 	"title": "How to get the most out of your resources using active subscribers",
 	"dateISO": "20151204",
 	"author": "yasserf",
-    "thumbnail": "thumbnail.jpg"
+    "thumbnail": "thumbnail.jpg",
+    "isDraft": true
 }
 
 Sed metus tortor, porta ut turpis eget, tincidunt porttitor est. Suspendisse facilisis dolor id turpis condimentum consectetur. Ut pharetra urna leo, nec lobortis ante venenatis in. Aliquam et elit mattis, auctor nisi vitae, fermentum sem. Donec porta ac velit a varius.

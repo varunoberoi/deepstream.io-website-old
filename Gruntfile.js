@@ -111,7 +111,7 @@ module.exports = function(grunt) {
 		'build'
 	]);
 
-	grunt.registerTask('build', [ 'clean:htdocs', 'buildPages', 'buildBlog' ] );
+	grunt.registerTask('build', [ 'clean:htdocs', 'buildBlog', 'buildPages' ] );
 	grunt.registerTask('deploy', [ 'setConfig', 'build', 'copy:toplevelfiles', 'clean:deployDir','copy:htdocs' ]);
 	grunt.registerTask('default', [ 'build', 'watch' ] );
 };
