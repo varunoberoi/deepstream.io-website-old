@@ -224,11 +224,11 @@ body{
 	}
 
 	#segment-code .code-left{
-		padding: 50px 50px 0 50px;
+		padding: 50px 25px 0 50px;
 	}
 
 	#segment-code .code-right{
-		padding: 50px 0 50px 50px;
+		padding: 50px 0 50px 25px;
 		border-left: 4px solid black;
 	}
 }
