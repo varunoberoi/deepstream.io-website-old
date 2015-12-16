@@ -201,39 +201,45 @@ body{
 	box-shadow: inset 0px 5px 10px 0px rgba(0,0,0,0.3);
 }
 
+#segment-code * {
+	box-sizing: border-box;
+}
+
 #segment-code .codes{
 	height: 100%;
 	margin: auto;
 }
 
-@media( min-width: 920px ) {
+@media( min-width: 900px ) {
 	#segment-code {
 		height: 300px;
 	}
 
 	#segment-code .codes{
-		width: 920px;
+		width: 800px;
 		margin: 0 auto;
 	}
 
 	#segment-code .code-left,
 	#segment-code .code-right {
-		max-width: 464px;
-		height: 200px;
+		width: 400px;
 		float: left;
+		height: 100%;
+		padding: 50px 0;
 	}
 
 	#segment-code .code-left{
-		padding: 50px 50px 0 50px;
+		padding-right: 25px;
+		box-shadow: 2px 0 0 #000;
 	}
 
 	#segment-code .code-right{
-		padding: 50px 0 50px 50px;
-		border-left: 4px solid black;
+		padding-left: 25px;
+		box-shadow: -2px 0 0 #000;
 	}
 }
 
-@media( max-width: 919px ) {
+@media( max-width: 899px ) {
 	#segment-code {
 		font-size: 11px;
 		padding: 20px 0;
@@ -241,7 +247,7 @@ body{
 	
 	#segment-code .code-left, #segment-code .code-right{
 		margin: 0 auto;
-		width: 300px;
+		width: 340px;
 	}
 
 	#segment-code .code-left {
@@ -258,6 +264,16 @@ body{
 		border-bottom: 1px solid #3C3B3B;
 	}
 
+}
+
+@media( max-width: 320px ) {
+	#segment-code {
+		font-size: 10px;
+	}
+
+	#segment-code .code-left, #segment-code .code-right{
+		width: 300px;
+	}
 }
 
 /****************************
@@ -521,7 +537,7 @@ body{
 	font-size: 17px;
 }
 
-@media ( min-width: 999px ) {
+@media ( min-width: 1000px ) {
 	.segment-community-wrapper-first-column {
 		float: left;
 	}
