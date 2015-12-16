@@ -23,8 +23,13 @@
 	display: block;
 }
 
+.share-story img{
+	opacity: 0.4;
+}
 .share-story > .share-story-content  {
-	display: none;
+	font-family: 'Roboto';
+	text-shadow:1px 1px 1px rgba( 0,0,0,0.8);
+	/*display: none;*/
 }
 
 .share-story:hover  {
