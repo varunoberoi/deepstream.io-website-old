@@ -18,14 +18,14 @@ In doing so, we have three main goals. We want to:
 Please note: The following tests are non-conclusive and will be improved and extended as development progresses. If you have a particular performance test scenario in mind or noticed a bottleneck within deepstream, please write to us at [info@hoxton-one.com](mailto:info@hoxton-one.com).
 
 
-###Performance tests reduces risk by:
+### Performance tests reduces risk by:
 
 * understanding how the system reacts under an expected load 
 * ensuring the system can sustain the expected load for long periods of time
 * understanding how the system will react when reaching its full capacity
 * understanding how the system will react  when put under extreme load for a short period of time
 
-###What type of tests can take these into account?
+### What type of tests can take these into account?
 
 * load tests<br />
 	Make sure that the system works as expected under a set conditions. This covers *CPU* and *message latency* and its output can be used to determine what kind of deployment structure would suit you best. 
@@ -36,14 +36,14 @@ Please note: The following tests are non-conclusive and will be improved and ext
 * spike tests<br />
 	Generating large amounts of clients or traffic in a very small amount of time and ensuring that the system does not fail.
 
-###How can you improve results?
+### How can you improve results?
 
 About deepstream’s performance
 Deepstream is designed as a distributed system. Individual nodes can multiplex updates amongst each other. This means that it’s possible to keep message latency and throughput rates steady whilst catering for an ever increasing number of simultaneously connected clients – simply by spinning up additional deepstream nodes as needed.
 
 To put this statement into numbers, please see the performance test results for [a single node in comparison to a three instance cluster](./performance-single-node-vs-cluster.html).
 
-###How to run the tests yourself
+### How to run the tests yourself
 
 When running these tests, we're using a [performance test harness that's available on github](https://github.com/hoxton-one/deepstream.io-performance). It makes it easy to quickly spin up large numbers of deepstream servers and clients.
 

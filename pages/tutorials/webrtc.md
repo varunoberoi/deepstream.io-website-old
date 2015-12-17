@@ -16,7 +16,7 @@ We’ve baked all this directly into deepstream and boiled it down to two concep
 
 Combine this with other deepstream features such as permissioning, records or data-transforms and you can build an amazing realtime app without worrying too much about implementation details.
 
-###Demo
+### Demo
 <div class="webrtc-example">
 	<div class="error-screen">
 		<div class="inner">
@@ -69,7 +69,7 @@ Combine this with other deepstream features such as permissioning, records or da
 	</div>
 </div>
 
-###How does it work?
+### How does it work?
 
 Clients can register themselves as callees
 
@@ -104,7 +104,7 @@ and call each other
 		console.log( 'Call declined because of ' + reason );
 	});
 
-###Try it out
+### Try it out
 Please find the documentation [here](../docs/client.webrtc.html) and have a look at our examples.
 
 <div class="two-examples">

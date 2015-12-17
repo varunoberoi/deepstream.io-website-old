@@ -79,7 +79,7 @@ This will call the permissionHandler's `isValidUser` method with three arguments
 		}
 	}
 
-###Why do I have to pass the username to the callback?
+### Why do I have to pass the username to the callback?
 The username will be passed to `canPerformAction()` which allows you to permission individual operations. Read about it in the [permissioning tutorial](permissioning.html)
 
 </div>

@@ -6,7 +6,7 @@ Performance: Single Node vs Three Instance Cluster
 ======================================
 This test aims to verify horizontal scalability by establishing message latency and cpu consumption under high traffic for a single deepstream node in comparison to a cluster of three nodes.
 
-###Test Setup
+### Test Setup
 All tests were run on Amazon Web Services EC2 instances within the same region, running AWS Linux. For the cluster tests, Redis was used as a message bus.
 
 <table class="mini">
@@ -69,7 +69,7 @@ CPU reached an average of 80% with approximately 10,000 messages a second
 	<img class="tutorial" width="602" height="302" src="../assets/images/performance/one-ds-cpu.png" alt="Single deepstream cpu" />
 </div>
 
-###Three deepstream node cluster
+### Three deepstream node cluster
 
 **Latency Distribution**<br />
 Average latency was 0.999ms ( machines being within same data centre )

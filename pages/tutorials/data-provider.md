@@ -14,7 +14,7 @@ all possible updates at all times.
 
 <a class="mega" href="https://github.com/hoxton-one/ds-demo-provider"><i class="fa fa-github"></i>Checkout the provider tutorial code</a>
 
-###Brief tutorial introduction
+### Brief tutorial introduction
 
 We're going to build a simple data provider for foreign exchange (FX) rates.
 
@@ -36,7 +36,7 @@ We will need to create the following:
 - A client that listens to requests and sends prices.
 - Deepstream to provide permissions that ensure only providers can update records that match the 'FX/XXXYYY'.
 
-###Creating a Provider
+### Creating a Provider
 
 A provider works by using **record.listen**. This works by providing a regex of a record name that a
 provider is interested in and a callback for when the a subscription is requested or when the record is
@@ -82,7 +82,7 @@ We have supplied a ***fx-price-generator*** class that requests the current mark
     	}
     }
 
-###Authenticate provider to make them the only source of prices
+### Authenticate provider to make them the only source of prices
 
 Visit the <a href="authentication.html">authentication tutorial</a> and <a href="permissioning.html">permissioning tutorial</a> for in depth description on this section.
 
@@ -144,7 +144,7 @@ the prices
     };
 
 
-###Create a user to request the data
+### Create a user to request the data
 
 Now that we have both a permissioned price provider we can request the record from a client
 and view streaming prices!

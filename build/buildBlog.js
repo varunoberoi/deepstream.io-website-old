@@ -78,7 +78,7 @@ var createTargetFile = function( root, stats, next ) {
 	if( root === inputDir ) {
 		folder = '';
 	} else {
-		folder = root.replace( inputDir + '/', '' );
+		folder = root.replace( inputDir + '\\', '' );
 	}
 
 	var contextVars = {

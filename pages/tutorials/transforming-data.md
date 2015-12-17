@@ -10,7 +10,7 @@ Deepstream allows to manipulate data before it leaves the server. This can be us
 * removing confidential information from record data before it is send to clients
 * modifying values based on the user they are sent to, e.g. applying user specific discounts to prices
 
-###How to manipulate data
+### How to manipulate data
 Data transformation functions can be registered for all TOPIC / ACTION combinations that send out data.
 
 <table class="mini">
@@ -90,7 +90,7 @@ Transform-functions are registered using `server.set( 'dataTransforms', [...])`
 
 	server.start();
 
-###Transforming record data
+### Transforming record data
 
 Transforming outgoing record data can be a bit complex, due to the different ways that updates are sent out. 
 * When a client calls `ds.record.getRecord( recordName )` the server responds with a READ action. 
