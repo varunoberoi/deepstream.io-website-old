@@ -15,7 +15,8 @@ hbs.registerHelper( 'link', function( type, target ) {
 	}
 	else if( type === 'blogpost' ) {
 		folder = module.exports.outputDir + '\\blog\\' + target;
-		return path.relative( module.exports.cwd, folder );
+		var relativePath = path.relative( module.exports.cwd, folder );
+		return  relativePath ? relativePath +'\\' : '';
 	} else {
 		throw new Error( 'Link type not supported: ' + type );
 	}
