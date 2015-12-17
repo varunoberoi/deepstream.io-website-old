@@ -56,16 +56,16 @@ Records
 	johnDoe.delete();
 
 
-###Record names
+### Record names
 Every record is identified by a unique name. This name can be any string, but we found that there are some naming conventions that help a lot with larger scale applications:
 
-####Use unique, randomized ids
+#### Use unique, randomized ids
 It's tempting to use a field that could act as primary key as the recordname, e.g. `user/johndoe`, but using a UID, e.g. `user/iam7f3vy-2mgd656jrx3di` has some advantages: You don't need to ensure its uniqueness, the user can change his username later without invalidating the record and ids generated with deepstream's `ds.getUid()` method are loosely sequential (the first 8 characters are a base64 encoded) which helps databases to index them more efficiently.
 
-####Organize your records into collections
+#### Organize your records into collections
 Prefixing your record names with a collection, e.g. `user/bob` rather than just `bob` makes them easier to organize and allows storage-connectors to create individual database tables or collections for each.
 
-####Use a security group to support permissioning
+#### Use a security group to support permissioning
 If your system has to support multiple users or groups that are not allowed to access each others data, it might make sense to include the id of the group into the record name. This allows the permissionHandler to deny access to records straight away if they don't belong to the user's group.
 
 **Client**
@@ -108,7 +108,7 @@ If your system has to support multiple users or groups that are not allowed to a
 	});
 
 
-###Lists & Anonymous Records
+### Lists & Anonymous Records
 Deepstream has two other concepts that extend records: <a href="lists.html">Lists</a> and Anonymous Records.
 
 <a href="lists.html">Lists</a> are arrays of record names that come with a number of helper-methods like `addEntry` or `removeEntry`. 
@@ -116,7 +116,7 @@ Deepstream has two other concepts that extend records: <a href="lists.html">List
 An Anonymous Record is a record without a predefined name. It
 acts as a wrapper around an actual record that can be swapped out for another one whilst keeping all bindings intact.
 
-###listening for record subscriptions made by other clients
+### Listening for record subscriptions made by other clients
 deepstream allows you to register a callback function that will be notified whenever clients subscribe to a record for the first time. This is useful to create dynamic data providers that provide record content only on request.
 
 	//Browser Client

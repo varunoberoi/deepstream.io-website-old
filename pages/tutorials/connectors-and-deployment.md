@@ -36,19 +36,19 @@ Connectors can be used using deepstream's `set()` method.
 	server.start();
 
 
-###Cache
+### Cache
 In production, deepstream instances don’t hold any data. Instead they connect to an external, distributed cache (e.g. Redis or Memcached). This makes them stateless, quick to spin up and allows for clustering.
 
-###Storage
+### Storage
 In addition to a cache, deepstream can store records in a database. This happens outside the performance critical path and has two benefits: It provides a way to store data persistently when used in conjunction with an in-memory only cache (e.g. Memcached) and it allows to utilise the database’s query features to run complex searches against the data. Due to the way deepstream structures its data (JSON blobs, identified by a primary key) it is recommendable to use an Object oriented or schema-less database (e.g. MongoDB or RethinkDB), rather than a relational database like MySQL.
 
-###Messaging
+### Messaging
 deepstream instances can share updates with each other via a message-bus. This enables horizontal scalability and allows to cater for a large number of clients at the same time. Small clusters (e.g. 3-4 instances) can connect directly to each other via TCP using the [direct connector](../download/) whereas it makes sense for larger clusters to use a message broker or Pub-Sub system instead (e.g. AMQP, Redis or Apache Kafka.)
 
-###Performance
+### Performance
 The most performance-critical path of deepstream’s architecture is the connection between it and its cache and messaging system. Both are constantly in use and any millisecond in network latency can lead to a noticeable decline in performance. It’s therefore recommendable to host deepstream and its cache and messaging system in close network proximity, e.g. within the same data centre, server or aws-region.
 
-###What’s the simplest production-ready setup?
+### What’s the simplest production-ready setup?
 Good question, simple answer: Redis and 2-3 deepstream instances. Redis provides a fast cache, persists its data to disk and offers a pub-sub mechanism that can be used for messaging. The whole setup would look like this:
 
 

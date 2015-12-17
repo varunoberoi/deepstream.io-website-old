@@ -27,7 +27,7 @@ update is received.
 This allows the subscription to be terminated to avoid any memory leaks after
 the object is no longer in the dom.
 
-###Example App
+### Example App
 
 <div class="img-container">
 	<img class="tutorial" width="602" height="302" src="../assets/images/simple-app.png" alt="Simple App Screenshot" />

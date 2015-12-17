@@ -6,7 +6,7 @@ Building a simple app with deepstream and knockout js
 =====================================================
 [KnockoutJs](http://knockoutjs.com/) works well with deepstream. Its two way bindings, atomic updates and overall speed make it a great fit for realtime applications. So well in fact, that we developed a tool that makes using it even easier.
 
-###KoTools
+### KoTools
 <table class="mini space">
 	<thead>
 		<tr>
@@ -44,7 +44,7 @@ Knockout has observable properties and observable arrays. Deepstream has observa
 	};
 
 
-###Example App
+### Example App
 <div class="img-container">
 	<img class="tutorial" width="602" height="302" src="../assets/images/simple-app.png" alt="Simple App Screenshot" />
 </div>

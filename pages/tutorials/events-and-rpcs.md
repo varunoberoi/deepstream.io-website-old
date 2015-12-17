@@ -6,7 +6,7 @@ Events & RPCs
 ====================================
 In addition to records, deepstream provides means of messaging and request-response communication: events and rpcs.
 	
-###Events
+### Events
 Events work just like a common event-emitter, but distributed across all connected clients
 
 	//subscribe to an event
@@ -18,7 +18,7 @@ Events work just like a common event-emitter, but distributed across all connect
 	//unsubscribe from an event
 	ds.event.unsubscribe( 'someEvent' );
 
-###RPCs
+### RPCs
 Remote Procedure Calls allow for Request-Reponse communication. If multiple clients are able to provide the same
 rpc, deepstream will distribute requests evenly between them.
 

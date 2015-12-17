@@ -52,7 +52,7 @@ value changes on the scope to directly update the associated record.
 			angular may already be in a digest cycle. If this case occurs the recommended solution is to use $timeout or to avoid triggering a new digest cycle if one is already in progress.</p>
 </div>
 
-###Example App
+### Example App
 <div class="img-container">
 	<img class="tutorial" width="602" height="302" src="../assets/images/simple-app.png" alt="Simple App Screenshot" />
 </div>

@@ -34,10 +34,10 @@ The functionality for each is grouped under a namespace on the client:
 ### Records
 Records are persistant data-structures. Deepstream can store them in both a distributed cache for quick read-write access and in a database for long-term storage and querying.
 
-##Choosing a record name
+## Choosing a record name
 Every record is identified by a unique name. This name can be any string, but we found that there are some naming conventions that help a lot with larger scale applications:
 
-####Use unique, randomized ids
+#### Use unique, randomized ids
 It's tempting to use a field that could act as primary key as the recordname, e.g. `user/johndoe`, but using a UID, e.g. `user/iam7f3vy-2mgd656jrx3di` has some advantages: You don't need to ensure its uniqueness, the user can change his username later without invalidating the record and ids generated with deepstream's `ds.getUid()` method are loosely sequential (the first 8 characters are a base64 encoded) which helps databases to index them more efficiently.
 
 <!--
@@ -48,11 +48,10 @@ It's tempting to use a field that could act as primary key as the recordname, e.
 	<p>Instead, deepstream provides a <code>ds.getUid()</code> method that provides random strings. These start with a timestamp – which means two identical ids would need to be generated within the same millisecond. This is not impossible, but the likelihood for it to happen is 1: 10 Quadrillion.</p>
 </div>
 -->
-
-####Organize your records in groups
+#### Organize your records in groups
 Starting your recordnames with a group, e.g. `user/iam7f3vy-2mgd656jrx3di` rather than just `iam7f3vy-2mgd656jrx3di` makes them easier to organize and enables storage-connectors to create individual tables or collections per group.
 
-####Include a group to help with permissioning
+#### Include a group to help with permissioning
 If your system has to support multiple users or groups that are not allowed to access each others data, it might make sense to include the id of the group into the record name. This allows the permissionHandler to deny access to records straight away, if they don't belong to the user's group.
 
 	// Client
@@ -85,7 +84,7 @@ If your system has to support multiple users or groups that are not allowed to a
 		}
 	});
 
-###Record paths
+### Record paths
 Most record operations can be performed for the entire record or for a path within it
 
 	var someUser = ds.record.getRecord( 'someUser' );
@@ -122,14 +121,14 @@ Most record operations can be performed for the entire record or for a path with
 		//will be called on the next change to lastname
 	});
 
-###unsubscribe, discard and delete
+### unsubscribe, discard and delete
 These can be a bit confusing
 * **unsubscribe** removes a subscription that was previously established using `subscribe`
 * **discard** notifies the server that the client is no longer interested in updates for this record.
 * **delete** irreversibly deletes the record from storage and cache.
 
 
-###listening for record subscriptions made by other clients
+### listening for record subscriptions made by other clients
 deepstream allows you to register a callback function that will be notified whenever clients subscribe to a record for the first time. This is useful to create dynamic data provider that provide record content only on request.
 
 	//Browser Client
