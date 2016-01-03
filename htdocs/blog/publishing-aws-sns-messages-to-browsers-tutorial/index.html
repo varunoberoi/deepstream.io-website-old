@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>deepstream.io | Publishing AWS SNS messages to browsers</title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="keywords" content="deepstream, deepstream.io, streaming, realtime, server, socket" />
+	<meta name="description" content="Sending the same message to Smartphones, Email inboxes and VoIP clients on an Amazon scale? Sounds great! And that’s exactly what AWS’ Simple Notification Service lets you do. It’s a realtime-pub-sub-hub that lets you fan out the same data to AWS services like SQS or Lambda as well as to a wide range of connected devices. 
+There’s one thing though it doesn’t do: send your message directly to web browsers. Here’s how to close this gap with a bit of deepstream.io." />
+	<meta name="author" content="Wolfram Hempel" />
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="stylesheet" type="text/css" href="../../assets/css/navigation.css" />
+	<link rel="stylesheet" type="text/css" href="../../assets/css/screen.css" />
+	<script type="text/javascript">
+	document.createElement( 'header' );
+	document.createElement( 'nav' );
+	</script>
+	<script type="text/javascript" src="../../assets/js/jquery.js"></script>
+	<script type="text/javascript" src="../../assets/js/menu.js"></script>
+
+	<link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Quicksand:300,400,700' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+</head>
+
+<body class="category_publishing-aws-sns-messages-to-browsers-tutorial ">
+	<div class="mobile-menu">
+		<div class="nav mobile-nav">
+			<ul>
+				<li ><a href="../..">Home</a></li>
+				<li ><a href="../../download/">Downloads</a></li>
+				<li ><a href="../../tutorials/getting-started.html">Tutorials</a></li>
+				<li ><a href="../../docs/deepstream.html">Documentation</a></li>
+				<li class="active"><a href="../../blog/">Blog</a></li>
+				<li ><a href="../../info/">Info</a></li>				
+			</ul>		</div>
+	</div>
+
+	<div id="outer-wrapper">
+		<div id="header" class="compact-header">
+			<div class="header-tiny-logo">
+				<h1><a href="../..">deepstream.io - a scalable server for realtime web apps</a></h1>
+			</div>
+			<div class="nav desktop-nav">
+				<ul>
+					<li ><a href="../..">Home</a></li>
+					<li ><a href="../../download/">Downloads</a></li>
+					<li ><a href="../../tutorials/getting-started.html">Tutorials</a></li>
+					<li ><a href="../../docs/deepstream.html">Documentation</a></li>
+					<li class="active"><a href="../../blog/">Blog</a></li>
+					<li ><a href="../../info/">Info</a></li>				
+				</ul>			</div>
+			<span class="menu-button menu-icon">
+				<i class="fa fa-bars"></i>
+			</span>
+		</div>
+<link rel="stylesheet" type="text/css" href="../../assets/css/community.css" />
+<link rel="stylesheet" type="text/css" href="../../assets/css/blog.css" />
+
+<div id="wrapper" class="blog-wrapper">
+
+	<div class="post">
+
+		<header class="post-header">
+			<h1 class="post-title">Publishing AWS SNS messages to browsers</h1>
+			<section class="post-meta">
+				By Wolfram Hempel
+				<span class="post-date">January 4th 2016</span>
+			</section>
+		</header>
+
+		<section class="post-content">
+<p>Sending the same message to Smartphones, Email inboxes and VoIP clients on an Amazon scale? Sounds great! And that’s exactly what AWS’ Simple Notification Service lets you do. It’s a realtime-pub-sub-hub that lets you fan out the same data to AWS services like SQS or Lambda as well as to a wide range of connected devices. 
+There’s one thing though it doesn’t do: send your message directly to web browsers. Here’s how to close this gap with a bit of deepstream.io.</p><h3>The basic setup</h3><p>In this tutorial, we’ll build a “sns-provider”, a node process that subscribes to a SNS topic and forwards messages as deepstream events. For this to work, our provider needs to</p><ul>
+<li>Authenticate against AWS</li>
+<li>Become a SNS HTTP endpoint</li>
+<li>Subscribe to a SNS topic</li>
+<li>Connect to deepstream</li>
+<li>Forward incoming messages as deepstream events</li>
+</ul>
+<p>Phew, that sounds like a lot! But, it’s actually not that bad. Here’s what our setup will look like</p><p><img src="aws-sns-to-deepstream.png" alt="Basic Setup"></p><p>If you prefer diving right into the code, here’s the <a href="https://github.com/hoxton-one/ds-tutorial-aws-sns">github repo</a></p><h3>A bit of a disclaimer</h3><p>For brevities sake, this tutorial skimps on security. AWS security is extremely powerful, but also complex enough to have <a href="http://media.amazonwebservices.com/AWS_Security_Best_Practices.pdf">whole books written about it</a>. We’ll be using http instead of https, temporary security tokens (which is a good idea), but store them as plaintext in our code (which is not) and a deepstream.io server that’s open to the world, instead of <a href="http://deepstream.io/tutorials/authentication.html">properly permissioned</a>.
+This tutorial also assumes that you&#39;re already familiar with deepstream&#39;s basic concepts. If not, quickly head over to the <a href="http://deepstream.io/tutorials/getting-started.html">getting started</a> tutorial - don&#39;t worry, I&#39;ll wait.</p><h3>Let’s get started: Creating a topic.</h3><p>We’ll start by creating a topic via the AWS console. Topics are the fundamental concept for message routing in a pub-sub architecture: Many subscribers listen to a topic and are notified whenever something publishes a message on that topic. Basically, it’s like JavaScript events, but you have to create a topic before you can subscribe.
+Let’s create a topic called “news” via the console:</p><p><img src="create-sns-topic.png" alt="Creating a SNS topic via the consol"></p><h3>Create the http server</h3><p>Next up, we need to start an http server. Why? The way SNS notifies your application of incoming messages is via HTTP.  For this to work, your application needs to:</p><ul>
+<li>Start a HTTP server</li>
+<li>Subscribe to a topic and tell SNS which URL it should send updates to</li>
+<li>Receives a “do you really want to receive updates?” message on that URL</li>
+<li>Confirms that message</li>
+</ul>
+<p>And from there on, it receives all updates as incoming http requests. A few things to note about these requests:</p><ul>
+<li>All incoming requests are POST requests</li>
+<li>The message data is JSON encoded</li>
+<li>Each message contains a &quot; x-amz-sns-message-type” header that tells you which kind of message it is (e.g. “SubscriptionConfirmation” or “Notification”)</li>
+</ul>
+<p>With this in mind, here’s what our http server looks like</p><pre><code class="lang-javascript"><span class="token keyword" >function</span> <span class="token function" >createHttpServer<span class="token punctuation" >(</span></span><span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
+    <span class="token keyword" >var</span> server <span class="token operator" >=</span> <span class="token keyword" >new</span> <span class="token class-name" >http<span class="token punctuation" >.</span>Server</span><span class="token punctuation" >(</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+    server<span class="token punctuation" >.</span><span class="token function" >on<span class="token punctuation" >(</span></span> <span class="token string" >'request'</span><span class="token punctuation" >,</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> request<span class="token punctuation" >,</span> response <span class="token punctuation" >)</span><span class="token punctuation" >{</span>
+        <span class="token keyword" >var</span> msgBody <span class="token operator" >=</span> <span class="token string" >''</span><span class="token punctuation" >;</span>
+        request<span class="token punctuation" >.</span><span class="token function" >setEncoding<span class="token punctuation" >(</span></span> <span class="token string" >'utf8'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+       <span class="token comment" spellcheck="true"> //get post data
+</span>        request<span class="token punctuation" >.</span><span class="token function" >on<span class="token punctuation" >(</span></span> <span class="token string" >'data'</span><span class="token punctuation" >,</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> data <span class="token punctuation" >)</span><span class="token punctuation" >{</span> 
+            msgBody <span class="token operator" >+</span><span class="token operator" >=</span> data<span class="token punctuation" >;</span>
+        <span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+
+        request<span class="token punctuation" >.</span><span class="token function" >on<span class="token punctuation" >(</span></span> <span class="token string" >'end'</span><span class="token punctuation" >,</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span><span class="token punctuation" >)</span><span class="token punctuation" >{</span>
+            <span class="token keyword" >var</span> msgData <span class="token operator" >=</span> <span class="token function" >parseJSON<span class="token punctuation" >(</span></span> msgBody <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+            <span class="token keyword" >var</span> msgType <span class="token operator" >=</span> request<span class="token punctuation" >.</span>headers<span class="token punctuation" >[</span> <span class="token string" >'x-amz-sns-message-type'</span> <span class="token punctuation" >]</span><span class="token punctuation" >;</span>
+            <span class="token function" >handleIncomingMessage<span class="token punctuation" >(</span></span> msgType<span class="token punctuation" >,</span> msgData <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+        <span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+
+        response<span class="token punctuation" >.</span><span class="token function" >end<span class="token punctuation" >(</span></span> <span class="token string" >'OK'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+    <span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+
+    server<span class="token punctuation" >.</span><span class="token function" >listen<span class="token punctuation" >(</span></span> <span class="token number" >6001</span><span class="token punctuation" >,</span> subscribeToSnS <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+<span class="token punctuation" >}</span>
+</code></pre>
+<p>Oh, and before I forget it: Your http server needs to be accessible from the Internet. If you&#39;re running it locally, you might want to use a tool like <a href="https://ngrok.com/">ngrok</a> to do this.</p><h3>Subscribing to a topic</h3><p>Using the <a href="https://aws.amazon.com/sdk-for-node-js/">AWS-SDK for NodeJS</a>, subscribing to a topic is as easy as</p><pre><code class="lang-javascript"><span class="token keyword" >var</span> AWS <span class="token operator" >=</span> <span class="token function" >require<span class="token punctuation" >(</span></span><span class="token string" >'aws-sdk'</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+<span class="token keyword" >var</span> sns <span class="token operator" >=</span> <span class="token keyword" >new</span> <span class="token class-name" >AWS<span class="token punctuation" >.</span>SNS</span><span class="token punctuation" >(</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+
+sns<span class="token punctuation" >.</span><span class="token function" >subscribe<span class="token punctuation" >(</span></span><span class="token punctuation" >{</span>
+    Protocol<span class="token punctuation" >:</span> <span class="token string" >'http'</span><span class="token punctuation" >,</span>
+    TopicArn<span class="token punctuation" >:</span> <span class="token string" >'arn:aws:sns:eu-central-1:792569207202:news'</span><span class="token punctuation" >,</span>
+    Endpoint<span class="token punctuation" >:</span> <span class="token string" >'http://your-endpoint-url.com'</span>
+<span class="token punctuation" >}</span><span class="token punctuation" >,</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> error<span class="token punctuation" >,</span> data <span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
+    console<span class="token punctuation" >.</span><span class="token function" >log<span class="token punctuation" >(</span></span> error <span class="token operator" >||</span> data <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+<span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+</code></pre>
+<p>But for this to work, we need to get two security steps out of the way first: Permission a user to use SNS and add its credentials to the Node SDK.</p><p>Here&#39;s how to permission a user:</p><p><img src="attaching-SNS-policy.png" alt="Attaching SNS user policy"></p><p>Next, we need to create a security token for this user. Using the AWS command line tool this is as simple as</p><pre><code class="lang-text">aws sts <span class="token keyword" >get</span><span class="token operator" >-</span>session<span class="token operator" >-</span>token
+</code></pre>
+<p>This will display a set of credentials that we can use to configure our SDK.</p><pre><code class="lang-javascript"><span class="token keyword" >var</span> AWS <span class="token operator" >=</span> <span class="token function" >require<span class="token punctuation" >(</span></span><span class="token string" >'aws-sdk'</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+AWS<span class="token punctuation" >.</span>config<span class="token punctuation" >.</span><span class="token function" >update<span class="token punctuation" >(</span></span><span class="token punctuation" >{</span>
+    <span class="token string" >"secretAccessKey"</span><span class="token punctuation" >:</span> <span class="token string" >"..."</span><span class="token punctuation" >,</span>
+    <span class="token string" >"sessionToken"</span><span class="token punctuation" >:</span> <span class="token string" >"..."</span><span class="token punctuation" >,</span>
+    <span class="token string" >"accessKeyId"</span><span class="token punctuation" >:</span> <span class="token string" >"..."</span><span class="token punctuation" >,</span>
+    <span class="token string" >"region"</span><span class="token punctuation" >:</span> <span class="token string" >"eu-central-1"</span>
+<span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+<span class="token keyword" >var</span> sns <span class="token operator" >=</span> <span class="token keyword" >new</span> <span class="token class-name" >AWS<span class="token punctuation" >.</span>SNS</span><span class="token punctuation" >(</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+</code></pre>
+<p>As mentioned before, embedding your credentials into the code might be easy, but it isn&#39;t safe. Have a look at the <a href="http://docs.aws.amazon.com/AWSJavaScriptSDK/guide/node-configuring.html">official documentation</a> to find a better way to store credentials.</p><h3>Confirming the subscription</h3><p>Great, now our call to <code>sns.subscribe</code> should work. A few milliseconds after we made it, our http server should receive a message, asking it to confirm the subscription. To process it, it&#39;s time to fill in the <code>handleIncomingMessage( msgType, msgData );</code> method from above.</p><pre><code class="lang-javascript"><span class="token keyword" >function</span> <span class="token function" >handleIncomingMessage<span class="token punctuation" >(</span></span> msgType<span class="token punctuation" >,</span> msgData <span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
+    <span class="token keyword" >if</span><span class="token punctuation" >(</span> msgType <span class="token operator" >===</span> <span class="token string" >'SubscriptionConfirmation'</span><span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
+       <span class="token comment" spellcheck="true"> //confirm the subscription.
+</span>        sns<span class="token punctuation" >.</span><span class="token function" >confirmSubscription<span class="token punctuation" >(</span></span><span class="token punctuation" >{</span>
+            Token<span class="token punctuation" >:</span> msgData<span class="token punctuation" >.</span>Token<span class="token punctuation" >,</span>
+            TopicArn<span class="token punctuation" >:</span> msgData<span class="token punctuation" >.</span>TopicArn
+        <span class="token punctuation" >}</span><span class="token punctuation" >,</span> onAwsResponse <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+    <span class="token punctuation" >}</span> <span class="token keyword" >else</span> <span class="token keyword" >if</span> <span class="token punctuation" >(</span> msgType <span class="token operator" >===</span> <span class="token string" >'Notification'</span> <span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
+       <span class="token comment" spellcheck="true"> // That's where the actual messages will arrive
+</span>    <span class="token punctuation" >}</span> <span class="token keyword" >else</span> <span class="token punctuation" >{</span>
+        console<span class="token punctuation" >.</span><span class="token function" >log<span class="token punctuation" >(</span></span> <span class="token string" >'Unexpected message type '</span> <span class="token operator" >+</span> msgType <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+    <span class="token punctuation" >}</span>
+<span class="token punctuation" >}</span>
+</code></pre>
+<h3>Starting a deepstream.io server</h3><p>Next up, we&#39;ll start up our deepstream server. Just create a separate file with</p><pre><code class="lang-javascript"><span class="token keyword" >var</span> DeepstreamServer <span class="token operator" >=</span> <span class="token function" >require<span class="token punctuation" >(</span></span> <span class="token string" >'deepstream.io'</span> <span class="token punctuation" >)</span><span class="token punctuation" >,</span>
+    server <span class="token operator" >=</span> <span class="token keyword" >new</span> <span class="token class-name" >DeepstreamServer</span><span class="token punctuation" >(</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+
+server<span class="token punctuation" >.</span><span class="token function" >start<span class="token punctuation" >(</span></span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+</code></pre>
+<p>and run it</p><p><img src="deepstream-startup.png" alt="Deepstream.io startup"></p><p>As the console shows, the server is now listening for TCP connections (e.g. from a node client) on port <code>6021</code> and for browser connections on port <code>6020</code>. If you&#39;d prefer different hosts/ports, please have a look at the <a href="http://deepstream.io/docs/deepstream.html">configuration docs</a>.</p><p>All that&#39;s left now is to connect our SNS-provider to the server:</p><pre><code class="lang-javascript"><span class="token keyword" >var</span> deepstreamClient <span class="token operator" >=</span> <span class="token function" >require<span class="token punctuation" >(</span></span> <span class="token string" >'deepstream.io-client-js'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+<span class="token keyword" >var</span> ds <span class="token operator" >=</span> <span class="token function" >deepstreamClient<span class="token punctuation" >(</span></span> <span class="token string" >'localhost:6021'</span> <span class="token punctuation" >)</span><span class="token punctuation" >.</span><span class="token function" >login<span class="token punctuation" >(</span></span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+</code></pre>
+<h3>Forwarding SNS messages as deepstream events</h3><p>Ok, time for the last piece of the puzzle. Everytime we receive a message from SNS, we want to forward it as a deepstream event. (Events are deepstream&#39;s pub-sub mechanism. They work exactly like a JavaScript event emitter, distributed across many clients).</p><p>Each SNS message has a &quot;Subject&quot; and a &quot;Message&quot; - both of which are plain text. This leaves us with a number of choices: We could use the topic as an event name, send JSON as the message body or come up with a totally different mechanism. But for now, let&#39;s keep things simple: Everytime we receive a message, we&#39;ll use the Subject as an event-name and send the message content as event-data... or in code, inside our <code>handleIncomingMessage</code> method:</p><pre><code class="lang-javascript"><span class="token keyword" >else</span> <span class="token keyword" >if</span> <span class="token punctuation" >(</span> msgType <span class="token operator" >===</span> <span class="token string" >'Notification'</span> <span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
+    ds<span class="token punctuation" >.</span>event<span class="token punctuation" >.</span><span class="token function" >emit<span class="token punctuation" >(</span></span> msgData<span class="token punctuation" >.</span>Subject<span class="token punctuation" >,</span> msgData<span class="token punctuation" >.</span>Message <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+<span class="token punctuation" >}</span>
+</code></pre>
+<p>Subscribing to this event from a browser is now as easy as</p><pre><code class="lang-javascript">    ds<span class="token punctuation" >.</span>event<span class="token punctuation" >.</span><span class="token function" >subscribe<span class="token punctuation" >(</span></span> <span class="token string" >'someEvent'</span><span class="token punctuation" >,</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> data <span class="token punctuation" >)</span><span class="token punctuation" >{</span>
+       <span class="token comment" spellcheck="true"> //...
+</span>    <span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+</code></pre>
+<p>And that&#39;s it. Thanks for holding out with me for so long. If you&#39;d like to learn more about events in deepstream, head over to the <a href="http://deepstream.io/tutorials/events-and-rpcs.html">Events &amp; RPC tutorial</a>
+or have a look at the <a href="http://deepstream.io/docs/client.event.html">event documentation</a></p>
+		</section>
+
+		<footer class="post-footer">
+
+			<section class="author">
+
+				<img class="author-gravatar" src="http://www.gravatar.com/avatar/f831162b79d84f85f589a1a76b4975db">
+				
+				<span class="author-description">
+					<h4>About the author</h4>
+
+					<p class="author-bio">
+						Wolfram worked all over the world before settling in Berlin and becoming a co-founder of deepstream.io. He also once studied art-history, but that&#x27;s a different story and shall be told another time.
+					</p>
+				</span>
+
+				<!--
+					<p>Read <a href="">more posts</a> by this author.</p>
+				
+				<div class="author-meta">
+					
+					
+				</div> 
+				-->
+
+			</section>
+
+			<section class="share">
+				<h4>Share this post</h4>
+				<ul class="icons">
+					<li>
+						<a class="icon fa fa-twitter" href="https://twitter.com/share?text=Publishing AWS SNS messages to browsers @deepstreamhub&amp;url="
+							onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+							<span class="label">Twitter</span>
+						</a>
+					</li>
+					<li>
+						<a class="icon fa fa-facebook" href="https://www.facebook.com/sharer/sharer.php?u="
+						onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+						<span class="label">Facebook</span>
+						</a>
+					</li>
+					<li>
+						<a class="icon fa fa-google-plus" href="https://plus.google.com/share?url="
+					   onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+						<span class="label">Google+</span>
+					</a>
+					</li>
+				</ul>
+				
+			</section>
+
+		<div class="latest-blogs">
+			<h4 class="latest-blogs-header">
+				Latest Blog Articles
+			</h4>
+			<li class="latest-blogs-content">
+				<ul class="latest-blog-article">
+					<a href="..\introducing-deepstreamhub\">
+						<span class="date">15/12/2015</span>
+						<span class="title">Introducing deepstreamHub</span>
+					</a>
+				</ul>
+				<ul class="latest-blog-article">
+					<a href="">
+						<span class="date">04/01/2016</span>
+						<span class="title">Publishing AWS SNS messages to browsers</span>
+					</a>
+				</ul>
+			</li>
+		</div>		</footer>
+	</div>
+
+	<span class="blog-sidebar">
+	
+		<div class="sidebar-item deepstream-learn-more">
+			<h4 class="sidebar-item-header">What is deepstream?</h4>
+			
+			<p>
+				deepstream.io is the open source server thats allows you to create realtime apps with minimal code!
+			</p>
+	
+			<a href="../../">Learn More</a>.
+		</div>
+	
+		<div class="sidebar-item share-story">
+			<h4 class="sidebar-item-header">Using deepstream?</h4>
+			<div class="share-story community-collaborate-content">
+				<img width="100%" src="../../assets/images/ds-stories-background.png" class="share-story-image" >
+				<a class="share-story-content" href="mailto:info@hoxton-one.com">
+					tell us what you're building with deepstream and get the t-shirt *
+					<span class="comical-warning">
+						* warning: t-shirt actually looks good and is desirable
+					</span>
+				</a>
+			</div>	</div>
+	
+		<div class="sidebar-item deepstream-help-out">
+			<h4 class="sidebar-item-header">Community</h4>
+			
+			<!--<p>
+				If your interested in bringing deepstream to your favourite language, please <a href="mailto:info@deepstreamhub.com" target="_top">contact us</a> for any support!
+			</p>
+			-->
+	
+			<p>
+				Like deepstream.io? Grant it a star!
+			</p>
+			
+			<p>
+				<a class="github-button" href="https://github.com/hoxton-one/deepstream.io" data-icon="octicon-star" data-style="mega" data-count-href="/hoxton-one/deepstream.io/stargazers" data-count-api="/repos/hoxton-one/deepstream.io#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star hoxton-one/deepstream.io on GitHub">Star</a>
+			</p>
+		</div>
+	
+		<div class="sidebar-item deepstream-latest-posts">
+			<div class="latest-blogs">
+				<h4 class="latest-blogs-header">
+					Latest Blog Articles
+				</h4>
+				<li class="latest-blogs-content">
+					<ul class="latest-blog-article">
+						<a href="..\introducing-deepstreamhub\">
+							<span class="date">15/12/2015</span>
+							<span class="title">Introducing deepstreamHub</span>
+						</a>
+					</ul>
+					<ul class="latest-blog-article">
+						<a href="">
+							<span class="date">04/01/2016</span>
+							<span class="title">Publishing AWS SNS messages to browsers</span>
+						</a>
+					</ul>
+				</li>
+			</div>	</div>
+	
+	</span>	<link rel="stylesheet" type="text/css" href="../../assets/css/prism.css" />
+	<script type="text/javascript" src="../../assets/js/prism.js"></script>
+</div>	</div>
+	<div id="footer">
+		<ul class="footer-items">
+
+			<li class="footer-right">
+				<ul class="social">
+					<li class="twitter">
+						<a href="https://twitter.com/deepstreamIO">
+							<i class="fa fa-twitter"></i>  Twitter
+						</a>
+					</li>
+					<li class="github">
+						<a href="https://github.com/hoxton-one">
+							<i class="fa fa-github"></i>  Github
+						</a>
+					</li>
+					<li class="stack-overflow">
+						<a href="http://stackoverflow.com/questions/tagged/deepstream.io">
+							<i class="fa fa-stack-overflow"></i>  Stack Overflow
+						</a>
+					</li>
+					<li>
+						<a href="https://deepstream-slack.herokuapp.com/">
+							<i class="fa fa-slack"></i>  Slack
+						</a>
+					</li>
+				</ul>
+			</li>
+
+			<li class="footer-middle">
+				<a class="footer-middle" href="http://www.hoxton-one.com/" title="hoxton-one.com">
+					<p>
+					Handcrafted by
+					</p>
+
+					<div class="footer-hoxton-one">
+					</div>
+
+					<div class="copyright">
+						&copy;2015 Hoxton One Ltd. All rights reserved.
+					</div>
+				</a>
+			</li>
+
+			<li class="footer-left">
+				<h4>Contact us</h4>
+				<p>
+					<b>deepstream.io </b>is developed by Hoxton One Ltd. <br>
+				</p>
+				<p>
+					Email us <a href="mailto:info@hoxton-one.com">info@hoxton-one.com</a>.<br><br>
+				</p>
+
+				<h4>Star this project on github!</h4>
+				<p>
+					<a class="github-button" href="https://github.com/hoxton-one/deepstream.io" data-icon="octicon-star" data-style="mega" data-count-href="/hoxton-one/deepstream.io/stargazers" data-count-api="/repos/hoxton-one/deepstream.io#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star hoxton-one/deepstream.io on GitHub">Star</a>
+				</p>
+			</li>
+
+		</ul>
+	</div>
+
+
+	<script async defer id="github-bjs" src="https://buttons.github.io/buttons.js"></script>
+</body>
+</html>

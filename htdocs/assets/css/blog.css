@@ -38,6 +38,23 @@
 	padding-bottom: 20px;
 }
 
+.post ul{
+	margin-bottom: 20px;
+}
+
+.post li{
+	margin-left: 1.5em;
+	list-style-type: circle; 
+}
+
+li.latest-blogs-content{
+	list-style-type: none;
+	margin: 0;
+}
+
+li.latest-blogs-content ul{
+	margin: 0;
+}
 .post-title a, .latest-blog-article a {
 	text-decoration: none;
 	color: #145068;
