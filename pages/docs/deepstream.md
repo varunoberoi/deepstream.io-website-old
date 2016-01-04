@@ -140,7 +140,7 @@ server.set( 'dataTransforms', [{
 * @type Logger
 * @default StdOutLogger
 */
-server.set( 'Logger', new FileLogger() );
+server.set( 'logger', new FileLogger() );
 
 /**
 * MessageConnectors connect deepstream to a message bus
