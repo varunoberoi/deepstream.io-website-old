@@ -15,18 +15,19 @@
 	<link rel="stylesheet" type="text/css" href="../assets/css/navigation.css" />
 	<link rel="stylesheet" type="text/css" href="../assets/css/screen.css" />
 	<link rel="stylesheet" type="text/css" href="../assets/css/api.css" />
-	<link rel="stylesheet" type="text/css" href="../assets/css/syntaxhighlighter.css" />
 	<script type="text/javascript">
 	document.createElement( 'header' );
 	document.createElement( 'nav' );
 	</script>
 	<script type="text/javascript" src="../assets/js/jquery.js"></script>
 	<script type="text/javascript" src="../assets/js/menu.js"></script>
+	<script type="text/javascript" src="../assets/js/prism.js"></script>
 
 	<link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Quicksand:300,400,700' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="../assets/css/prism.css" />
 </head>
 
 <body class="category_tutorials ">
@@ -156,105 +157,109 @@
 </ul>
 
 			<div id="content">
-				<h1>Records</h1><p><a href="docs/record.html">Records</a> are arbitrary JSON structures that can be manipulated and subscribed to. Every change to a record is synced accross all subscribed clients</p><pre><code><span class="token comment" spellcheck="true">//creating or retrieving a record is the same
-</span><span class="token keyword" >var</span> johnDoe <span class="token operator" >=</span> ds<span class="token punctuation" >.</span>record<span class="token punctuation" >.</span><span class="token function" >getRecord<span class="token punctuation" >(</span></span> <span class="token string" >'johnDoe'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-<span class="token comment" spellcheck="true">
-//you can set the entire record's content
-</span>johnDoe<span class="token punctuation" >.</span><span class="token keyword" >set</span><span class="token punctuation" >(</span><span class="token punctuation" >{</span> firstname<span class="token punctuation" >:</span> <span class="token string" >'John'</span><span class="token punctuation" >,</span> lastname<span class="token punctuation" >:</span> <span class="token string" >'Doe'</span> <span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-<span class="token comment" spellcheck="true">
+				<h1>Records</h1><p><a href="docs/record.html">Records</a> are arbitrary JSON structures that can be manipulated and subscribed to. Every change to a record is synced accross all subscribed clients</p><pre><code class="lang-javascript">//creating or retrieving a record is the same
+var johnDoe = ds.record.getRecord( &#39;johnDoe&#39; );
+
+//you can set the entire record&#39;s content
+johnDoe.set({ firstname: &#39;John&#39;, lastname: &#39;Doe&#39; });
+
 //or just a path within the record
-</span>johnDoe<span class="token punctuation" >.</span><span class="token keyword" >set</span><span class="token punctuation" >(</span> <span class="token string" >'age'</span><span class="token punctuation" >,</span> <span class="token number" >28</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-<span class="token comment" spellcheck="true">
+johnDoe.set( &#39;age&#39;, 28 );
+
 //getting data from a record works the same
-</span>johnDoe<span class="token punctuation" >.</span><span class="token keyword" >get</span><span class="token punctuation" >(</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-<span class="token comment" spellcheck="true">
+johnDoe.get();
+
 //but be aware, if your record exists already
-</span><span class="token comment" spellcheck="true">//it needs a brief moment to receive its data
-</span>johnDoe<span class="token punctuation" >.</span><span class="token function" >whenReady<span class="token punctuation" >(</span></span><span class="token keyword" >function</span><span class="token punctuation" >(</span><span class="token punctuation" >)</span><span class="token punctuation" >{</span>
-    <span class="token function" >alert<span class="token punctuation" >(</span></span> johnDoe<span class="token punctuation" >.</span><span class="token keyword" >get</span><span class="token punctuation" >(</span> <span class="token string" >'middleName'</span> <span class="token punctuation" >)</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-<span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-<span class="token comment" spellcheck="true">
+//it needs a brief moment to receive its data
+johnDoe.whenReady(function(){
+    alert( johnDoe.get( &#39;middleName&#39; ));
+});
+
 //or if you just want to get the value of a
-</span><span class="token comment" spellcheck="true">//specific path
-</span>johnDoe<span class="token punctuation" >.</span><span class="token keyword" >get</span><span class="token punctuation" >(</span> <span class="token string" >'firstname'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-<span class="token comment" spellcheck="true">
+//specific path
+johnDoe.get( &#39;firstname&#39; );
+
 //paths can be as complex as you like. If you
-</span><span class="token comment" spellcheck="true">//set a value for a path that doesn't exist yet,
-</span><span class="token comment" spellcheck="true">//deepstream will create it
-</span>johnDoe<span class="token punctuation" >.</span><span class="token keyword" >set</span><span class="token punctuation" >(</span> <span class="token string" >'hobbies[2].name'</span><span class="token punctuation" >,</span> <span class="token string" >'skiing'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-<span class="token comment" spellcheck="true">
+//set a value for a path that doesn&#39;t exist yet,
+//deepstream will create it
+johnDoe.set( &#39;hobbies[2].name&#39;, &#39;skiing&#39; );
+
 //you can subscribe to changes of the entire record...
-</span>johnDoe<span class="token punctuation" >.</span><span class="token function" >subscribe<span class="token punctuation" >(</span></span><span class="token keyword" >function</span><span class="token punctuation" >(</span> data <span class="token punctuation" >)</span><span class="token punctuation" >{</span> <span class="token comment" spellcheck="true">/*...*/</span> <span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-<span class="token comment" spellcheck="true">
+johnDoe.subscribe(function( data ){ /*...*/ });
+
 //or just the changes of a specific field
-</span><span class="token keyword" >var</span> happyBirthday <span class="token operator" >=</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> newAge <span class="token punctuation" >)</span><span class="token punctuation" >{</span> <span class="token function" >alert<span class="token punctuation" >(</span></span> <span class="token string" >'Happy birthday'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span><span class="token punctuation" >}</span><span class="token punctuation" >;</span>
-johnDoe<span class="token punctuation" >.</span><span class="token function" >subscribe<span class="token punctuation" >(</span></span> <span class="token string" >'age'</span><span class="token punctuation" >,</span> happyBirthday <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-<span class="token comment" spellcheck="true">
+var happyBirthday = function( newAge ){ alert( &#39;Happy birthday&#39; );};
+johnDoe.subscribe( &#39;age&#39;, happyBirthday );
+
 //You can remove subscriptions
-</span>johnDoe<span class="token punctuation" >.</span><span class="token function" >unsubscribe<span class="token punctuation" >(</span></span> <span class="token string" >'age'</span><span class="token punctuation" >,</span> happyBirthday <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-<span class="token comment" spellcheck="true">
+johnDoe.unsubscribe( &#39;age&#39;, happyBirthday );
+
 //records also emit events
-</span>johnDoe<span class="token punctuation" >.</span><span class="token function" >on<span class="token punctuation" >(</span></span> <span class="token string" >'delete'</span><span class="token punctuation" >,</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span><span class="token punctuation" >)</span><span class="token punctuation" >{</span>
-    <span class="token function" >alert<span class="token punctuation" >(</span></span> <span class="token string" >'someone deleted this record'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-<span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-<span class="token comment" spellcheck="true">
+johnDoe.on( &#39;delete&#39;, function(){
+    alert( &#39;someone deleted this record&#39; );
+});
+
 //Once you are no longer interested in receiving
-</span><span class="token comment" spellcheck="true">//updates for this record, call discard
-</span>johnDoe<span class="token punctuation" >.</span><span class="token function" >discard<span class="token punctuation" >(</span></span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-<span class="token comment" spellcheck="true">
+//updates for this record, call discard
+johnDoe.discard();
+
 //Or delete the record entirely
-</span>johnDoe<span class="token punctuation" >.</span><span class="token keyword" >delete</span><span class="token punctuation" >(</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-</code></pre><h3>Record names</h3><p>Every record is identified by a unique name. This name can be any string, but we found that there are some naming conventions that help a lot with larger scale applications:</p><h4>Use unique, randomized ids</h4><p>It&#39;s tempting to use a field that could act as primary key as the recordname, e.g. <code>user/johndoe</code>, but using a UID, e.g. <code>user/iam7f3vy-2mgd656jrx3di</code> has some advantages: You don&#39;t need to ensure its uniqueness, the user can change his username later without invalidating the record and ids generated with deepstream&#39;s <code>ds.getUid()</code> method are loosely sequential (the first 8 characters are a base64 encoded) which helps databases to index them more efficiently.</p><h4>Organize your records into collections</h4><p>Prefixing your record names with a collection, e.g. <code>user/bob</code> rather than just <code>bob</code> makes them easier to organize and allows storage-connectors to create individual database tables or collections for each.</p><h4>Use a security group to support permissioning</h4><p>If your system has to support multiple users or groups that are not allowed to access each others data, it might make sense to include the id of the group into the record name. This allows the permissionHandler to deny access to records straight away if they don&#39;t belong to the user&#39;s group.</p><p><strong>Client</strong></p><pre><code><span class="token keyword" >var</span> ds <span class="token operator" >=</span> <span class="token function" >deepstream<span class="token punctuation" >(</span></span> <span class="token string" >'143.234.324.234:6020'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-ds<span class="token punctuation" >.</span><span class="token function" >login<span class="token punctuation" >(</span></span><span class="token punctuation" >{</span> user<span class="token punctuation" >:</span> <span class="token string" >'paul'</span><span class="token punctuation" >,</span> pass<span class="token punctuation" >:</span> <span class="token string" >'abc'</span> <span class="token punctuation" >}</span><span class="token punctuation" >,</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> success <span class="token punctuation" >)</span><span class="token punctuation" >{</span>
-    <span class="token keyword" >if</span><span class="token punctuation" >(</span> success <span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
-       <span class="token comment" spellcheck="true"> //Allowed
-</span>        <span class="token keyword" >var</span> recA <span class="token operator" >=</span> ds<span class="token punctuation" >.</span>record<span class="token punctuation" >.</span><span class="token function" >getRecord<span class="token punctuation" >(</span></span> <span class="token string" >'beatles-albums'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-       <span class="token comment" spellcheck="true"> //Forbidden
-</span>        <span class="token keyword" >var</span> recB <span class="token operator" >=</span> ds<span class="token punctuation" >.</span>record<span class="token punctuation" >.</span><span class="token function" >getRecord<span class="token punctuation" >(</span></span> <span class="token string" >'stones-albums'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-    <span class="token punctuation" >}</span>
-<span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-</code></pre><p><strong>Server</strong></p><pre><code><span class="token comment" spellcheck="true">//Permission Handler
-</span><span class="token keyword" >var</span> users <span class="token operator" >=</span> <span class="token punctuation" >{</span>
-    <span class="token string" >'paul'</span><span class="token punctuation" >:</span>  <span class="token punctuation" >{</span> pass<span class="token punctuation" >:</span> <span class="token string" >'abc'</span><span class="token punctuation" >,</span> group<span class="token punctuation" >:</span> <span class="token string" >'beatles'</span> <span class="token punctuation" >}</span><span class="token punctuation" >,</span>
-    <span class="token string" >'john'</span><span class="token punctuation" >:</span>  <span class="token punctuation" >{</span> pass<span class="token punctuation" >:</span> <span class="token string" >'def'</span><span class="token punctuation" >,</span> group<span class="token punctuation" >:</span> <span class="token string" >'beatles'</span> <span class="token punctuation" >}</span><span class="token punctuation" >,</span>
-    <span class="token string" >'keith'</span><span class="token punctuation" >:</span> <span class="token punctuation" >{</span> pass<span class="token punctuation" >:</span> <span class="token string" >'ghi'</span><span class="token punctuation" >,</span> group<span class="token punctuation" >:</span> <span class="token string" >'stones'</span> <span class="token punctuation" >}</span><span class="token punctuation" >,</span>
-    <span class="token string" >'mick'</span><span class="token punctuation" >:</span>  <span class="token punctuation" >{</span> pass<span class="token punctuation" >:</span> <span class="token string" >'jkl'</span><span class="token punctuation" >,</span> group<span class="token punctuation" >:</span> <span class="token string" >'stones'</span> <span class="token punctuation" >}</span>
-<span class="token punctuation" >}</span><span class="token punctuation" >;</span>
-
-server<span class="token punctuation" >.</span><span class="token keyword" >set</span><span class="token punctuation" >(</span> <span class="token string" >'permissionHandler'</span><span class="token punctuation" >,</span> <span class="token punctuation" >{</span>
-    isValidUser<span class="token punctuation" >:</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> connectionData<span class="token punctuation" >,</span> authData<span class="token punctuation" >,</span> callback <span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
-        <span class="token keyword" >if</span><span class="token punctuation" >(</span> users<span class="token punctuation" >[</span> authData<span class="token punctuation" >.</span>user <span class="token punctuation" >]</span><span class="token punctuation" >.</span>pass <span class="token operator" >===</span> authData<span class="token punctuation" >.</span>pass <span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
-            <span class="token function" >callback<span class="token punctuation" >(</span></span> <span class="token keyword" >null</span><span class="token punctuation" >,</span> authData<span class="token punctuation" >.</span>user <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-        <span class="token punctuation" >}</span> <span class="token keyword" >else</span> <span class="token punctuation" >{</span>
-            <span class="token function" >callback<span class="token punctuation" >(</span></span> <span class="token string" >'Invalid Credentials'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-        <span class="token punctuation" >}</span>
-    <span class="token punctuation" >}</span><span class="token punctuation" >,</span>
-    canPerformAction<span class="token punctuation" >:</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> username<span class="token punctuation" >,</span> message<span class="token punctuation" >,</span> callback <span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
-        <span class="token keyword" >var</span> recordName <span class="token operator" >=</span> message<span class="token punctuation" >.</span>data<span class="token punctuation" >[</span> <span class="token number" >0</span> <span class="token punctuation" >]</span><span class="token punctuation" >;</span>
-        <span class="token keyword" >var</span> requestedGroup <span class="token operator" >=</span> recordName<span class="token punctuation" >.</span><span class="token function" >split<span class="token punctuation" >(</span></span> <span class="token string" >'-'</span> <span class="token punctuation" >)</span><span class="token punctuation" >[</span> <span class="token number" >0</span> <span class="token punctuation" >]</span><span class="token punctuation" >;</span>
-        <span class="token keyword" >var</span> actualGroup <span class="token operator" >=</span> users<span class="token punctuation" >[</span> username <span class="token punctuation" >]</span><span class="token punctuation" >.</span>group<span class="token punctuation" >;</span>
-
-        <span class="token function" >callback<span class="token punctuation" >(</span></span> <span class="token keyword" >null</span><span class="token punctuation" >,</span> requestedGroup <span class="token operator" >===</span> actualGroup <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-    <span class="token punctuation" >}</span>
-<span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-</code></pre><h3>Lists &amp; Anonymous Records</h3><p>Deepstream has two other concepts that extend records: <a href="lists.html">Lists</a> and Anonymous Records.</p><p><a href="lists.html">Lists</a> are arrays of record names that come with a number of helper-methods like <code>addEntry</code> or <code>removeEntry</code>.</p><p>An Anonymous Record is a record without a predefined name. It
-acts as a wrapper around an actual record that can be swapped out for another one whilst keeping all bindings intact.</p><h3>Listening for record subscriptions made by other clients</h3><p>deepstream allows you to register a callback function that will be notified whenever clients subscribe to a record for the first time. This is useful to create dynamic data providers that provide record content only on request.</p><pre><code><span class="token comment" spellcheck="true">//Browser Client
-</span>ds<span class="token punctuation" >.</span>record<span class="token punctuation" >.</span><span class="token function" >getRecord<span class="token punctuation" >(</span></span> <span class="token string" >'stock/HXTO'</span> <span class="token punctuation" >)</span>
-    <span class="token punctuation" >.</span><span class="token function" >subscribe<span class="token punctuation" >(</span></span><span class="token string" >'ask-price'</span><span class="token punctuation" >,</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> askPrice <span class="token punctuation" >)</span><span class="token punctuation" >{</span>
-       <span class="token comment" spellcheck="true"> //Will be called every time the ask-price for HXTO changes
-</span>    <span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-<span class="token comment" spellcheck="true">
-//Data Provider process on the backend that integrates deepstream with
-</span><span class="token comment" spellcheck="true">//a stock data source
-</span>ds<span class="token punctuation" >.</span>record<span class="token punctuation" >.</span><span class="token function" >listen<span class="token punctuation" >(</span></span> <span class="token string" >'stock/*'</span><span class="token punctuation" >,</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> recordName<span class="token punctuation" >,</span> isSubscribed <span class="token punctuation" >)</span><span class="token punctuation" >{</span>
-    <span class="token keyword" >var</span> stockSymbol <span class="token operator" >=</span> recordName<span class="token punctuation" >.</span><span class="token function" >replace<span class="token punctuation" >(</span></span> <span class="token string" >'stock/'</span><span class="token punctuation" >,</span> <span class="token string" >''</span> <span class="token punctuation" >)</span><span class="token punctuation" >,</span>
-        stockRecord <span class="token operator" >=</span> ds<span class="token punctuation" >.</span>record<span class="token punctuation" >.</span><span class="token function" >getRecord<span class="token punctuation" >(</span></span> recordName <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-
-    stockDataSource<span class="token punctuation" >.</span><span class="token function" >getData<span class="token punctuation" >(</span></span> stockSymbol<span class="token punctuation" >.</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> stockData <span class="token punctuation" >)</span><span class="token punctuation" >{</span>
-        stockRecord<span class="token punctuation" >.</span><span class="token keyword" >set</span><span class="token punctuation" >(</span> stockData <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-    <span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-<span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+johnDoe.delete();
 </code></pre>
+<h3>Record names</h3><p>Every record is identified by a unique name. This name can be any string, but we found that there are some naming conventions that help a lot with larger scale applications:</p><h4>Use unique, randomized ids</h4><p>It&#39;s tempting to use a field that could act as primary key as the recordname, e.g. <code>user/johndoe</code>, but using a UID, e.g. <code>user/iam7f3vy-2mgd656jrx3di</code> has some advantages: You don&#39;t need to ensure its uniqueness, the user can change his username later without invalidating the record and ids generated with deepstream&#39;s <code>ds.getUid()</code> method are loosely sequential (the first 8 characters are a base64 encoded) which helps databases to index them more efficiently.</p><h4>Organize your records into collections</h4><p>Prefixing your record names with a collection, e.g. <code>user/bob</code> rather than just <code>bob</code> makes them easier to organize and allows storage-connectors to create individual database tables or collections for each.</p><h4>Use a security group to support permissioning</h4><p>If your system has to support multiple users or groups that are not allowed to access each others data, it might make sense to include the id of the group into the record name. This allows the permissionHandler to deny access to records straight away if they don&#39;t belong to the user&#39;s group.</p><p><strong>Client</strong></p><pre><code class="lang-javascript">var ds = deepstream( &#39;143.234.324.234:6020&#39; );
+ds.login({ user: &#39;paul&#39;, pass: &#39;abc&#39; }, function( success ){
+    if( success ) {
+        //Allowed
+        var recA = ds.record.getRecord( &#39;beatles-albums&#39; );
+        //Forbidden
+        var recB = ds.record.getRecord( &#39;stones-albums&#39; );
+    }
+});
+</code></pre>
+<p><strong>Server</strong></p><pre><code class="lang-javascript">//Permission Handler
+var users = {
+    &#39;paul&#39;:  { pass: &#39;abc&#39;, group: &#39;beatles&#39; },
+    &#39;john&#39;:  { pass: &#39;def&#39;, group: &#39;beatles&#39; },
+    &#39;keith&#39;: { pass: &#39;ghi&#39;, group: &#39;stones&#39; },
+    &#39;mick&#39;:  { pass: &#39;jkl&#39;, group: &#39;stones&#39; }
+};
+
+server.set( &#39;permissionHandler&#39;, {
+    isValidUser: function( connectionData, authData, callback ) {
+        if( users[ authData.user ].pass === authData.pass ) {
+            callback( null, authData.user );
+        } else {
+            callback( &#39;Invalid Credentials&#39; );
+        }
+    },
+    canPerformAction: function( username, message, callback ) {
+        var recordName = message.data[ 0 ];
+        var requestedGroup = recordName.split( &#39;-&#39; )[ 0 ];
+        var actualGroup = users[ username ].group;
+
+        callback( null, requestedGroup === actualGroup );
+    }
+});
+</code></pre>
+<h3>Lists &amp; Anonymous Records</h3><p>Deepstream has two other concepts that extend records: <a href="lists.html">Lists</a> and Anonymous Records.</p><p><a href="lists.html">Lists</a> are arrays of record names that come with a number of helper-methods like <code>addEntry</code> or <code>removeEntry</code>.</p><p>An Anonymous Record is a record without a predefined name. It
+acts as a wrapper around an actual record that can be swapped out for another one whilst keeping all bindings intact.</p><h3>Listening for record subscriptions made by other clients</h3><p>deepstream allows you to register a callback function that will be notified whenever clients subscribe to a record for the first time. This is useful to create dynamic data providers that provide record content only on request.</p><pre><code class="lang-javascript">//Browser Client
+ds.record.getRecord( &#39;stock/HXTO&#39; )
+    .subscribe(&#39;ask-price&#39;, function( askPrice ){
+        //Will be called every time the ask-price for HXTO changes
+    });
+
+//Data Provider process on the backend that integrates deepstream with
+//a stock data source
+ds.record.listen( &#39;stock/*&#39;, function( recordName, isSubscribed ){
+    var stockSymbol = recordName.replace( &#39;stock/&#39;, &#39;&#39; ),
+        stockRecord = ds.record.getRecord( recordName );
+
+    stockDataSource.getData( stockSymbol. function( stockData ){
+        stockRecord.set( stockData );
+    });
+});
+</code></pre>
+
 			</div>
 		</div>
 		<script type="text/javascript" src="../assets/js/docs.js"></script>

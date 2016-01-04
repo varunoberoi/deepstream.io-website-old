@@ -15,18 +15,19 @@
 	<link rel="stylesheet" type="text/css" href="../assets/css/navigation.css" />
 	<link rel="stylesheet" type="text/css" href="../assets/css/screen.css" />
 	<link rel="stylesheet" type="text/css" href="../assets/css/api.css" />
-	<link rel="stylesheet" type="text/css" href="../assets/css/syntaxhighlighter.css" />
 	<script type="text/javascript">
 	document.createElement( 'header' );
 	document.createElement( 'nav' );
 	</script>
 	<script type="text/javascript" src="../assets/js/jquery.js"></script>
 	<script type="text/javascript" src="../assets/js/menu.js"></script>
+	<script type="text/javascript" src="../assets/js/prism.js"></script>
 
 	<link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Quicksand:300,400,700' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="../assets/css/prism.css" />
 </head>
 
 <body class="category_docs ">
@@ -160,16 +161,17 @@ on the left and a user detail panel on the right. The user detail
 panel would use the anonymous record to set up its bindings, yet whenever
 a user is chosen from the list of existing users, the anonymous record&#39;s
 <code>setName()</code> method is called and the detail panel will update to
-show the selected user&#39;s details</p><p>An anonymous record can be created using <code>client.record.getAnonymousRecord()</code> (see <a href="client.record.html#getRecord( name )">getAnonymousRecord()</a>), e.g.</p><pre><code><span class="token keyword" >var</span> selectedUser <span class="token operator" >=</span> client<span class="token punctuation" >.</span>record<span class="token punctuation" >.</span><span class="token function" >getAnonymousRecord<span class="token punctuation" >(</span></span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+show the selected user&#39;s details</p><p>An anonymous record can be created using <code>client.record.getAnonymousRecord()</code> (see <a href="client.record.html#getRecord( name )">getAnonymousRecord()</a>), e.g.</p><pre><code class="lang-javascript">var selectedUser = client.record.getAnonymousRecord();
 
-selectedUser<span class="token punctuation" >.</span><span class="token function" >subscribe<span class="token punctuation" >(</span></span> <span class="token string" >'firstname'</span><span class="token punctuation" >,</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> firstname <span class="token punctuation" >)</span><span class="token punctuation" >{</span>
-    $<span class="token punctuation" >(</span> <span class="token string" >'#firstname'</span> <span class="token punctuation" >)</span><span class="token punctuation" >.</span><span class="token function" >text<span class="token punctuation" >(</span></span> firstname <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-<span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+selectedUser.subscribe( &#39;firstname&#39;, function( firstname ){
+    $( &#39;#firstname&#39; ).text( firstname );
+});
 
-$<span class="token punctuation" >(</span> <span class="token string" >'#users li'</span> <span class="token punctuation" >)</span><span class="token punctuation" >.</span><span class="token function" >click<span class="token punctuation" >(</span></span><span class="token keyword" >function</span><span class="token punctuation" >(</span><span class="token punctuation" >)</span><span class="token punctuation" >{</span>
-    selectedUser<span class="token punctuation" >.</span><span class="token function" >setName<span class="token punctuation" >(</span></span> $<span class="token punctuation" >(</span><span class="token keyword" >this</span><span class="token punctuation" >)</span><span class="token punctuation" >.</span><span class="token function" >data<span class="token punctuation" >(</span></span> <span class="token string" >'username'</span> <span class="token punctuation" >)</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-<span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-</code></pre><div class="hint-box fa fa-gears">
+$( &#39;#users li&#39; ).click(function(){
+    selectedUser.setName( $(this).data( &#39;username&#39; ) );
+});
+</code></pre>
+<div class="hint-box fa fa-gears">
     <p>An anonymous record has all the methods, events and properties of a normal <a href="record.html">record</a> plus a <code>setName()</code> method.</p></div>
 
 </div><div class="section"><h2><a name="setName( recordName )">setName( recordName )</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">recordName</td><td class="type">String</td><td class="optional">false</td><td class="default">-</td><td class="description">The name of the actual record the anonymousRecord should use. Can be called multiple times.</td></tr></tbody></table><p>Sets the underlying record the anonymousRecord wraps around.</p><p></div></p>

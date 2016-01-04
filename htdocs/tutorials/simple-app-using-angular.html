@@ -15,18 +15,19 @@
 	<link rel="stylesheet" type="text/css" href="../assets/css/navigation.css" />
 	<link rel="stylesheet" type="text/css" href="../assets/css/screen.css" />
 	<link rel="stylesheet" type="text/css" href="../assets/css/api.css" />
-	<link rel="stylesheet" type="text/css" href="../assets/css/syntaxhighlighter.css" />
 	<script type="text/javascript">
 	document.createElement( 'header' );
 	document.createElement( 'nav' );
 	</script>
 	<script type="text/javascript" src="../assets/js/jquery.js"></script>
 	<script type="text/javascript" src="../assets/js/menu.js"></script>
+	<script type="text/javascript" src="../assets/js/prism.js"></script>
 
 	<link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Quicksand:300,400,700' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="../assets/css/prism.css" />
 </head>
 
 <body class="category_tutorials ">
@@ -157,37 +158,40 @@
 
 			<div id="content">
 				<h1>Building a simple app with deepstream and angular</h1><p>Angulars services and powerful inline html bindings allows you to integrate easily
-with deepstream.</p><p>To conenct to deepstream you can connect initialise it within a service:</p><pre><code>angular<span class="token punctuation" >.</span><span class="token function" >service<span class="token punctuation" >(</span></span> <span class="token string" >'deepstream'</span><span class="token punctuation" >,</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span><span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
-    <span class="token keyword" >var</span> client <span class="token operator" >=</span> <span class="token function" >deepstream<span class="token punctuation" >(</span></span> <span class="token string" >'localhost:6020'</span> <span class="token punctuation" >)</span>
-    client<span class="token punctuation" >.</span><span class="token function" >login<span class="token punctuation" >(</span></span><span class="token punctuation" >{</span> username<span class="token punctuation" >:</span> <span class="token string" >'ds-simple-input-'</span> <span class="token operator" >+</span> client<span class="token punctuation" >.</span><span class="token function" >getUid<span class="token punctuation" >(</span></span><span class="token punctuation" >)</span> <span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-    <span class="token keyword" >return</span> client<span class="token punctuation" >;</span>
-<span class="token punctuation" >}</span><span class="token punctuation" >)</span>
-</code></pre><p>One way bindings on record data can be done purely via html:</p><pre><code><span class="token operator" >&lt;</span>span ng<span class="token operator" >-</span>bind<span class="token operator" >=</span><span class="token string" >"user.get('firstname')"</span><span class="token operator" >></span><span class="token operator" >&lt;</span><span class="token operator" >/</span>span<span class="token operator" >></span>
-</code></pre><p>Or if doing two way bindings you can use <strong><em>Object.defineProperty()</em></strong> to allow
-value changes on the scope to directly update the associated record.</p><pre><code><span class="token function" >service<span class="token punctuation" >(</span></span> <span class="token string" >'bindFields'</span><span class="token punctuation" >,</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span><span class="token punctuation" >)</span><span class="token punctuation" >{</span>
-    <span class="token keyword" >return</span> <span class="token keyword" >function</span> <span class="token function" >getField<span class="token punctuation" >(</span></span> $scope<span class="token punctuation" >,</span> record<span class="token punctuation" >,</span> names <span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
-        angular<span class="token punctuation" >.</span><span class="token function" >forEach<span class="token punctuation" >(</span></span> names<span class="token punctuation" >,</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> name <span class="token punctuation" >)</span><span class="token punctuation" >{</span>
-            Object<span class="token punctuation" >.</span><span class="token function" >defineProperty<span class="token punctuation" >(</span></span> $scope<span class="token punctuation" >,</span> name<span class="token punctuation" >,</span> <span class="token punctuation" >{</span>
-                <span class="token keyword" >get</span><span class="token punctuation" >:</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span><span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
-                    <span class="token keyword" >return</span> record<span class="token punctuation" >.</span><span class="token keyword" >get</span><span class="token punctuation" >(</span> name <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-                <span class="token punctuation" >}</span><span class="token punctuation" >,</span>
-                <span class="token keyword" >set</span><span class="token punctuation" >:</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> newValue <span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
-                    <span class="token keyword" >if</span><span class="token punctuation" >(</span> newValue <span class="token operator" >===</span> undefined <span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
-                        <span class="token keyword" >return</span><span class="token punctuation" >;</span>
-                    <span class="token punctuation" >}</span>
-                    record<span class="token punctuation" >.</span><span class="token keyword" >set</span><span class="token punctuation" >(</span> name<span class="token punctuation" >,</span> newValue <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-                <span class="token punctuation" >}</span>
-            <span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-        <span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+with deepstream.</p><p>To conenct to deepstream you can connect initialise it within a service:</p><pre><code class="lang-javascript">angular.service( &#39;deepstream&#39;, function() {
+    var client = deepstream( &#39;localhost:6020&#39; )
+    client.login({ username: &#39;ds-simple-input-&#39; + client.getUid() });
+    return client;
+})
+</code></pre>
+<p>One way bindings on record data can be done purely via html:</p><pre><code class="lang-html">    &lt;span ng-bind=&quot;user.get(&#39;firstname&#39;)&quot;&gt;&lt;/span&gt;
+</code></pre>
+<p>Or if doing two way bindings you can use <strong><em>Object.defineProperty()</em></strong> to allow
+value changes on the scope to directly update the associated record.</p><pre><code class="lang-javascript">service( &#39;bindFields&#39;, function(){
+    return function getField( $scope, record, names ) {
+        angular.forEach( names, function( name ){
+            Object.defineProperty( $scope, name, {
+                get: function() {
+                    return record.get( name );
+                },
+                set: function( newValue ) {
+                    if( newValue === undefined ) {
+                        return;
+                    }
+                    record.set( name, newValue );
+                }
+            });
+        });
 
-        record<span class="token punctuation" >.</span><span class="token function" >subscribe<span class="token punctuation" >(</span></span><span class="token keyword" >function</span><span class="token punctuation" >(</span><span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
-            <span class="token keyword" >if</span><span class="token punctuation" >(</span> <span class="token operator" >!</span>$scope<span class="token punctuation" >.</span>$$phase <span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
-                $scope<span class="token punctuation" >.</span>$<span class="token function" >apply<span class="token punctuation" >(</span></span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-            <span class="token punctuation" >}</span>
-        <span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-    <span class="token punctuation" >}</span><span class="token punctuation" >;</span>
-<span class="token punctuation" >}</span><span class="token punctuation" >)</span>
-</code></pre><div class="hint-box fa fa-gears">
+        record.subscribe(function() {
+            if( !$scope.$$phase ) {
+                $scope.$apply();
+            }
+        });
+    };
+})
+</code></pre>
+<div class="hint-box fa fa-gears">
     <p>        Since subscribe callbacks are called as soon as the record is updated (to maximize performance)
             angular may already be in a digest cycle. If this case occurs the recommended solution is to use $timeout or to avoid triggering a new digest cycle if one is already in progress.</p>
 </div>

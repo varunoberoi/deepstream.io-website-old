@@ -7,7 +7,9 @@ Record
 Records are one of deepstream's core features. A Record is an arbitrary JSON data structure that can be created, retrieved, updated, deleted and listened to. Records are created and retrieved using
 `client.record.getRecord( 'name' );`
 
-	var record = client.record.getRecord( 'recordName' );
+```javascript
+var record = client.record.getRecord( 'recordName' );
+```
 
 Please see <a href="client.record.html#getRecord( name )">getRecord( 'name' );</a> for details.
 
@@ -89,22 +91,21 @@ desc: A particular path within the JSON structure that should be retrieved.
 
 `get()` is used to return the record's data. If called without an argument it returns all the data. Alternatively you can call it with a path string to only retrieve a specific part. If this path can't be found, `get()` will return `undefined`.
 
+```javascript
+var record = client.record.getRecord( 'user/14' );
 
-	var record = client.record.getRecord( 'user/14' );
+record.set({
+	personalData: {
+		firstname: 'Homer',
+		lastname: 'Simpson'
+	}
+	children: [ 'Bart', 'Maggie', 'Lisa' ]
+});
 
-	record.set({
-		personalData: {
-			firstname: 'Homer',
-			lastname: 'Simpson'
-		}
-		children: [ 'Bart', 'Maggie', 'Lisa' ]
-	});
-
-	record.get(); // Returns entire object
-	record.get( 'children[1]' ); // 'Maggie'
-	record.get( 'personalData.firstname' ); // 'Homer';
-
-
+record.get(); // Returns entire object
+record.get( 'children[1]' ); // 'Maggie'
+record.get( 'personalData.firstname' ); // 'Homer';
+```
 
 
 set( path, value )
@@ -121,20 +122,21 @@ desc: The value the record or path should be set to
 
 Set is used to set the record's data. It can be called with just a value or with a path and a value.
 
-	var record = client.record.getRecord( 'user/14' );
+```javascript
+var record = client.record.getRecord( 'user/14' );
 
-	// Set the entire record's data
-	record.set({
-		personalData: {
-			firstname: 'Homer',
-			lastname: 'Simpson'
-		}
-		children: [ 'Bart', 'Maggie', 'Lisa' ]
-	});
+// Set the entire record's data
+record.set({
+	personalData: {
+		firstname: 'Homer',
+		lastname: 'Simpson'
+	}
+	children: [ 'Bart', 'Maggie', 'Lisa' ]
+});
 
-	// Update only firstname
-	record.set( 'personalData.firstname', 'Marge' );
-
+// Update only firstname
+record.set( 'personalData.firstname', 'Marge' );
+```
 
 
 subscribe( path, callback, triggerNow )
@@ -158,19 +160,21 @@ Subscribe registers a function that will be invoked whenever the record's value 
 
 Optionally one can also pass `true` to execute the callback function straight away with the record's current value.
 
-	shoppingCart = ds.record.getRecord( 'shopping-cart/4322' );
+```javascript
+shoppingCart = ds.record.getRecord( 'shopping-cart/4322' );
 
-	// Subscribe to any change of the record
-	shoppingCart.subscribe(function( data ){
-		// do stuff...
-	});
+// Subscribe to any change of the record
+shoppingCart.subscribe(function( data ){
+	// do stuff...
+});
 
-	// Only subscribe to price changes and add true to run
-	// renderPrice straight away for the current price
-	renderPrice = function( price ) {
-		document.getElementById( 'price' ).innerHTML = price;
-	};
-	shoppingCart.subscribe( 'price', renderPrice, true );
+// Only subscribe to price changes and add true to run
+// renderPrice straight away for the current price
+renderPrice = function( price ) {
+	document.getElementById( 'price' ).innerHTML = price;
+};
+shoppingCart.subscribe( 'price', renderPrice, true );
+```
 
 unsubscribe( path, callback )
 --------------------------------------------------

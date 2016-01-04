@@ -6,7 +6,9 @@ List
 ---------------------------------
 Lists are arrays of record names. Similar to records, lists can be manipulated and observed. Lists are created and retrieved using `client.record.get( 'name' );`, e.g.
 
-	var list = client.record.getList( 'users' );
+```javascript
+var list = client.record.getList( 'users' );
+```
 
 Please see <a href="client.record.html#getList( name )">getList( name );</a> for details.
 

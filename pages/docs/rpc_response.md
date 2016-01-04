@@ -6,9 +6,11 @@ RpcResponse
 -----------------------
 RpcResponse objects are passed to rpc `provide` callbacks. They allow to explicitely acknowledge, complete or reject requests 
 
-	client.rpc.provide( 'add-two-numbers', function( data, response ){
-		response.send( data.numberA + data.numberB );
-	});
+```javascript
+client.rpc.provide( 'add-two-numbers', function( data, response ){
+	response.send( data.numberA + data.numberB );
+});
+```
 
 ack()
 -----------------------
@@ -17,14 +19,16 @@ Doing so might make sense if the client needs to perform an asynchronous operati
 
 Please note: calling `send()`, `reject()` or `error()` completes the request. Calling `ack()` after any of these methods will not do anything.
 
-	client.rpc.provide( 'add-two-numbers', function( data, response ){
+```javascript
+client.rpc.provide( 'add-two-numbers', function( data, response ){
 
-		// Turn of automatic acknowledgements. This needs to happen synchronously
-		response.autoAck = false;
+	// Turn of automatic acknowledgements. This needs to happen synchronously
+	response.autoAck = false;
 
-		// Acknowledge the request yourself
-		response.ack();
-	});
+	// Acknowledge the request yourself
+	response.ack();
+});
+```
 
 send( data )
 -----------------------
@@ -43,15 +47,17 @@ error( errorMsg )
 -----------------------
 Send an error to the client. errorMsg will be received as the first argument to the `make` callback.
 
-	//provider
-	client.rpc.provide( 'add-two-numbers', function( data, response ){
-		response.error( 'Something went wrong' );
-	});
+```javascript
+//provider
+client.rpc.provide( 'add-two-numbers', function( data, response ){
+	response.error( 'Something went wrong' );
+});
 
-	//requestor
-	client.rpc.make( 'add-two-numbers', {}, function( error, result ){
-		// error = 'Something went wrong'
-	});
+//requestor
+client.rpc.make( 'add-two-numbers', {}, function( error, result ){
+	// error = 'Something went wrong'
+});
+```
 
 </div>
 

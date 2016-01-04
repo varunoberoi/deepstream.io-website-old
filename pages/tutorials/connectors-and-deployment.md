@@ -9,32 +9,33 @@ Deepstream can connect to three different systems: A (distributed) cache, a data
 
 Connectors can be used using deepstream's `set()` method.
 
-	var RedisCacheConnector = require( 'deepstream.io-cache-redis' ),
-		AmqpMessageConnector = require( 'deepstream.io-msg-amqp' ),
-		RethinkDbConnector = require( 'deepstream.io-storage-rethinkdb' ),
-		Deepstream = require( 'deepstream.io' );
+```javascript
+var RedisCacheConnector = require( 'deepstream.io-cache-redis' ),
+	AmqpMessageConnector = require( 'deepstream.io-msg-amqp' ),
+	RethinkDbConnector = require( 'deepstream.io-storage-rethinkdb' ),
+	Deepstream = require( 'deepstream.io' );
 
-	var server = new Deepstream();
+var server = new Deepstream();
 
-	server.set( 'cache', new RedisCacheConnector({
-		port: 6379,
-		host: 'localhost' 
-	}));
+server.set( 'cache', new RedisCacheConnector({
+	port: 6379,
+	host: 'localhost' 
+}));
 
-	server.set( 'messageConnector', new AmqpMessageConnector({
-		port: 5672,
-		host: 'localhost' 
-	}));
+server.set( 'messageConnector', new AmqpMessageConnector({
+	port: 5672,
+	host: 'localhost' 
+}));
 
-	server.set( 'storage', new RethinkDbConnector({
-		port: 28015,
-		host: 'localhost',
-		splitChar: '/',
-		defaultTable: 'ds-records'
-	}));
+server.set( 'storage', new RethinkDbConnector({
+	port: 28015,
+	host: 'localhost',
+	splitChar: '/',
+	defaultTable: 'ds-records'
+}));
 
-	server.start();
-
+server.start();
+```
 
 ### Cache
 In production, deepstream instances don’t hold any data. Instead they connect to an external, distributed cache (e.g. Redis or Memcached). This makes them stateless, quick to spin up and allows for clustering.
@@ -51,21 +52,22 @@ The most performance-critical path of deepstream’s architecture is the connect
 ### What’s the simplest production-ready setup?
 Good question, simple answer: Redis and 2-3 deepstream instances. Redis provides a fast cache, persists its data to disk and offers a pub-sub mechanism that can be used for messaging. The whole setup would look like this:
 
+```javascript
+var RedisCacheConnector = require( 'deepstream.io-cache-redis' ),
+	RedisMessageConnector = require( 'deepstream.io-msg-redis' ),
+	Deepstream = require( 'deepstream.io' );
 
-	var RedisCacheConnector = require( 'deepstream.io-cache-redis' ),
-		RedisMessageConnector = require( 'deepstream.io-msg-redis' ),
-		Deepstream = require( 'deepstream.io' );
+var server = new Deepstream();
 
-	var server = new Deepstream();
+server.set( 'cache', new RedisCacheConnector({
+	port: 6379,
+	host: 'localhost' 
+}));
 
-	server.set( 'cache', new RedisCacheConnector({
-		port: 6379,
-		host: 'localhost' 
-	}));
+server.set( 'messageConnector', new RedisMessageConnector({
+	port: 6379,
+	host: 'localhost' 
+}));
 
-	server.set( 'messageConnector', new RedisMessageConnector({
-		port: 6379,
-		host: 'localhost' 
-	}));
-
-	server.start();
+server.start();
+```

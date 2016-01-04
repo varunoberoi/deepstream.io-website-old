@@ -15,18 +15,19 @@
 	<link rel="stylesheet" type="text/css" href="../assets/css/navigation.css" />
 	<link rel="stylesheet" type="text/css" href="../assets/css/screen.css" />
 	<link rel="stylesheet" type="text/css" href="../assets/css/api.css" />
-	<link rel="stylesheet" type="text/css" href="../assets/css/syntaxhighlighter.css" />
 	<script type="text/javascript">
 	document.createElement( 'header' );
 	document.createElement( 'nav' );
 	</script>
 	<script type="text/javascript" src="../assets/js/jquery.js"></script>
 	<script type="text/javascript" src="../assets/js/menu.js"></script>
+	<script type="text/javascript" src="../assets/js/prism.js"></script>
 
 	<link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Quicksand:300,400,700' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="../assets/css/prism.css" />
 </head>
 
 <body class="category_tutorials ">
@@ -162,72 +163,81 @@
 <li>create a record</li>
 <li>wire the record to a text input</li>
 </ul>
-<h3>Server</h3><p>Install the server via npm</p><pre><code>npm install deepstream<span class="token punctuation" >.</span>io
-</code></pre><p>Create a js file, e.g. <code>start.js</code> with the following content</p><pre><code><span class="token keyword" >var</span> DeepstreamServer <span class="token operator" >=</span> <span class="token function" >require<span class="token punctuation" >(</span></span> <span class="token string" >'deepstream.io'</span> <span class="token punctuation" >)</span><span class="token punctuation" >,</span>
-    server <span class="token operator" >=</span> <span class="token keyword" >new</span> <span class="token class-name" >DeepstreamServer</span><span class="token punctuation" >(</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-<span class="token comment" spellcheck="true">
+<h3>Server</h3><p>Install the server via npm</p><pre><code class="lang-bash">npm install deepstream.io
+</code></pre>
+<p>Create a js file, e.g. <code>start.js</code> with the following content</p><pre><code class="lang-javascript">var DeepstreamServer = require( &#39;deepstream.io&#39; ),
+    server = new DeepstreamServer();
+
 // Optionally you can specify some settings, a full list of which
-</span><span class="token comment" spellcheck="true">// can be found here http://deepstream.io/docs/deepstream.html
-</span>server<span class="token punctuation" >.</span><span class="token keyword" >set</span><span class="token punctuation" >(</span> <span class="token string" >'host'</span><span class="token punctuation" >,</span> <span class="token string" >'localhost'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-server<span class="token punctuation" >.</span><span class="token keyword" >set</span><span class="token punctuation" >(</span> <span class="token string" >'port'</span><span class="token punctuation" >,</span> <span class="token number" >6020</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-<span class="token comment" spellcheck="true">
+// can be found here http://deepstream.io/docs/deepstream.html
+server.set( &#39;host&#39;, &#39;localhost&#39; );
+server.set( &#39;port&#39;, 6020 );
+
 // start the server
-</span>server<span class="token punctuation" >.</span><span class="token function" >start<span class="token punctuation" >(</span></span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-</code></pre><p>run the file with node</p><pre><code>node start<span class="token punctuation" >.</span>js
-</code></pre><p>your console should now show this</p><p><img src="../assets/images/deepstream-started-console.png" /></p><h3>Client</h3><p>Install the javascript client via bower or npm or download it <a href="https://raw.githubusercontent.com/hoxton-one/deepstream.io-client-js/master/dist/deepstream.min.js">here</a></p><pre><code>bower install deepstream<span class="token punctuation" >.</span>io<span class="token operator" >-</span>client<span class="token operator" >-</span>js
-</code></pre><p>Create a simple webpage with a single text input field.</p><pre><code><span class="token operator" >&lt;</span><span class="token operator" >!</span>DOCTYPE html<span class="token operator" >></span>
-<span class="token operator" >&lt;</span>html<span class="token operator" >></span>
-    <span class="token operator" >&lt;</span>head<span class="token operator" >></span>
-        <span class="token operator" >&lt;</span>script 
-            type<span class="token operator" >=</span><span class="token string" >"text/javascript"</span> 
-            src<span class="token operator" >=</span><span class="token string" >"bower_components/deepstream.io-client-js/dist/deepstream.js"</span><span class="token operator" >></span>
-        <span class="token operator" >&lt;</span><span class="token operator" >/</span>script<span class="token operator" >></span>
-    <span class="token operator" >&lt;</span><span class="token operator" >/</span>head<span class="token operator" >></span>
-    <span class="token operator" >&lt;</span>body<span class="token operator" >></span>
-        <span class="token operator" >&lt;</span>input type<span class="token operator" >=</span><span class="token string" >"text"</span> <span class="token operator" >/</span><span class="token operator" >></span>
-        <span class="token operator" >&lt;</span>script type<span class="token operator" >=</span><span class="token string" >"text/javascript"</span><span class="token operator" >></span>
-           <span class="token comment" spellcheck="true"> //js goes here
-</span>        <span class="token operator" >&lt;</span><span class="token operator" >/</span>script<span class="token operator" >></span>
-    <span class="token operator" >&lt;</span><span class="token operator" >/</span>body<span class="token operator" >></span>
-<span class="token operator" >&lt;</span><span class="token operator" >/</span>html<span class="token operator" >></span>
-</code></pre><p>Connect to the server and login without credentials.</p><pre><code>ds <span class="token operator" >=</span> <span class="token function" >deepstream<span class="token punctuation" >(</span></span> <span class="token string" >'localhost:6020'</span> <span class="token punctuation" >)</span><span class="token punctuation" >.</span><span class="token function" >login<span class="token punctuation" >(</span></span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-</code></pre><p>Create a record</p><pre><code>record <span class="token operator" >=</span> ds<span class="token punctuation" >.</span>record<span class="token punctuation" >.</span><span class="token function" >getRecord<span class="token punctuation" >(</span></span> <span class="token string" >'someUser'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-</code></pre><p>Wire it up to the input</p><pre><code>input <span class="token operator" >=</span> document<span class="token punctuation" >.</span><span class="token function" >querySelector<span class="token punctuation" >(</span></span> <span class="token string" >'input'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+server.start();
+</code></pre>
+<p>run the file with node</p><pre><code class="lang-bash">node start.js
+</code></pre>
+<p>your console should now show this</p><p><img src="../assets/images/deepstream-started-console.png" /></p><h3>Client</h3><p>Install the javascript client via bower or npm or download it <a href="https://raw.githubusercontent.com/hoxton-one/deepstream.io-client-js/master/dist/deepstream.min.js">here</a></p><pre><code class="lang-bash">bower install deepstream.io-client-js
+</code></pre>
+<p>Create a simple webpage with a single text input field.</p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;script 
+            type=&quot;text/javascript&quot; 
+            src=&quot;bower_components/deepstream.io-client-js/dist/deepstream.js&quot;&gt;
+        &lt;/script&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;input type=&quot;text&quot; /&gt;
+        &lt;script type=&quot;text/javascript&quot;&gt;
+            //js goes here
+        &lt;/script&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p>Connect to the server and login without credentials.</p><pre><code class="lang-javascript">ds = deepstream( &#39;localhost:6020&#39; ).login();
+</code></pre>
+<p>Create a record</p><pre><code class="lang-javascript">record = ds.record.getRecord( &#39;someUser&#39; );
+</code></pre>
+<p>Wire it up to the input</p><pre><code class="lang-javascript">input = document.querySelector( &#39;input&#39; );
 
-input<span class="token punctuation" >.</span>onkeyup <span class="token operator" >=</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span><span class="token punctuation" >)</span><span class="token punctuation" >{</span>
-    record<span class="token punctuation" >.</span><span class="token keyword" >set</span><span class="token punctuation" >(</span> <span class="token string" >'firstname'</span><span class="token punctuation" >,</span> input<span class="token punctuation" >.</span>value <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-<span class="token punctuation" >}</span><span class="token punctuation" >;</span>
+input.onkeyup = function(){
+    record.set( &#39;firstname&#39;, input.value );
+};
 
-record<span class="token punctuation" >.</span><span class="token function" >subscribe<span class="token punctuation" >(</span></span> <span class="token string" >'firstname'</span><span class="token punctuation" >,</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> value <span class="token punctuation" >)</span><span class="token punctuation" >{</span>
-    input<span class="token punctuation" >.</span>value <span class="token operator" >=</span> value<span class="token punctuation" >;</span>
-<span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-</code></pre><p>Now open your page in two browser windows and watch both inputs stay in sync. Alltogether your page
-should now look like this:</p><pre><code><span class="token operator" >&lt;</span><span class="token operator" >!</span>DOCTYPE html<span class="token operator" >></span>
-<span class="token operator" >&lt;</span>html<span class="token operator" >></span>
-    <span class="token operator" >&lt;</span>head<span class="token operator" >></span>
-        <span class="token operator" >&lt;</span>script 
-            type<span class="token operator" >=</span><span class="token string" >"text/javascript"</span> 
-            src<span class="token operator" >=</span><span class="token string" >"bower_components/deepstream.io-client-js/dist/deepstream.js"</span><span class="token operator" >></span>
-        <span class="token operator" >&lt;</span><span class="token operator" >/</span>script<span class="token operator" >></span>
-    <span class="token operator" >&lt;</span><span class="token operator" >/</span>head<span class="token operator" >></span>
-    <span class="token operator" >&lt;</span>body<span class="token operator" >></span>
-        <span class="token operator" >&lt;</span>input type<span class="token operator" >=</span><span class="token string" >"text"</span> <span class="token operator" >/</span><span class="token operator" >></span>
-        <span class="token operator" >&lt;</span>script type<span class="token operator" >=</span><span class="token string" >"text/javascript"</span><span class="token operator" >></span>
-            ds <span class="token operator" >=</span> <span class="token function" >deepstream<span class="token punctuation" >(</span></span> <span class="token string" >'localhost:6020'</span> <span class="token punctuation" >)</span><span class="token punctuation" >.</span><span class="token function" >login<span class="token punctuation" >(</span></span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-            record <span class="token operator" >=</span> ds<span class="token punctuation" >.</span>record<span class="token punctuation" >.</span><span class="token function" >getRecord<span class="token punctuation" >(</span></span> <span class="token string" >'someUser'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-            input <span class="token operator" >=</span> document<span class="token punctuation" >.</span><span class="token function" >querySelector<span class="token punctuation" >(</span></span> <span class="token string" >'input'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+record.subscribe( &#39;firstname&#39;, function( value ){
+    input.value = value;
+});
+</code></pre>
+<p>Now open your page in two browser windows and watch both inputs stay in sync. Alltogether your page
+should now look like this:</p><pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;script 
+            type=&quot;text/javascript&quot; 
+            src=&quot;bower_components/deepstream.io-client-js/dist/deepstream.js&quot;&gt;
+        &lt;/script&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;input type=&quot;text&quot; /&gt;
+        &lt;script type=&quot;text/javascript&quot;&gt;
+            ds = deepstream( &#39;localhost:6020&#39; ).login();
+            record = ds.record.getRecord( &#39;someUser&#39; );
+            input = document.querySelector( &#39;input&#39; );
 
-            input<span class="token punctuation" >.</span>onkeyup <span class="token operator" >=</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span><span class="token punctuation" >)</span><span class="token punctuation" >{</span>
-                record<span class="token punctuation" >.</span><span class="token keyword" >set</span><span class="token punctuation" >(</span> <span class="token string" >'firstname'</span><span class="token punctuation" >,</span> input<span class="token punctuation" >.</span>value <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-            <span class="token punctuation" >}</span><span class="token punctuation" >;</span>
+            input.onkeyup = function(){
+                record.set( &#39;firstname&#39;, input.value );
+            };
 
-            record<span class="token punctuation" >.</span><span class="token function" >subscribe<span class="token punctuation" >(</span></span> <span class="token string" >'firstname'</span><span class="token punctuation" >,</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> value <span class="token punctuation" >)</span><span class="token punctuation" >{</span>
-                input<span class="token punctuation" >.</span>value <span class="token operator" >=</span> value<span class="token punctuation" >;</span>
-            <span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-        <span class="token operator" >&lt;</span><span class="token operator" >/</span>script<span class="token operator" >></span>
-    <span class="token operator" >&lt;</span><span class="token operator" >/</span>body<span class="token operator" >></span>
-<span class="token operator" >&lt;</span><span class="token operator" >/</span>html<span class="token operator" >></span>
-</code></pre><h3>Where to go from here?</h3><p>There are two options:</p><ul>
+            record.subscribe( &#39;firstname&#39;, function( value ){
+                input.value = value;
+            });
+        &lt;/script&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<h3>Where to go from here?</h3><p>There are two options:</p><ul>
 <li>This tutorial only used records. Learn about deepstream&#39;s other concepts in the <a href="events-and-rpcs.html">Events &amp; RPC Tutorial</a> or find out about deepstream&#39;s support for <a href="webrtc.html">WebRTC</a></li>
 <li>In this tutorial, deepstream stored all data in memory. For persistance, deepstream can connect to a distributed cache (Redis, Memcached etc.) and to a database (RethinkDb, MongoDb etc). It can also connect to a message broker (AMQP, Redis) or directly via TCP to scale horizontally. Learn about this in the <a href="connectors-and-deployment.html">connectors and deployment tutorial</a>.</li>
 </ul>
@@ -239,10 +249,9 @@ should now look like this:</p><pre><code><span class="token operator" >&lt;</spa
             the server with an <em>sslCert</em> and <em>sslKey</em> option.
         </li>
         <li>
-            <code>
-                server.set(&#39;sslCert&#39;, fs.readFileSync( &#39;./keys/cert.pem&#39;, &#39;utf8&#39; ));
-                server.set(&#39;sslKey&#39;,  fs.readFileSync( &#39;./keys/key.pem&#39;, &#39;utf8&#39; ));
-            </code>
+            <code>javascript
+server.set(&#39;sslCert&#39;, fs.readFileSync( &#39;./keys/cert.pem&#39;, &#39;utf8&#39; ));
+server.set(&#39;sslKey&#39;,  fs.readFileSync( &#39;./keys/key.pem&#39;, &#39;utf8&#39; ));</code>
         </li>
       </ul>
 </div>

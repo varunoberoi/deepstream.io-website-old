@@ -44,34 +44,38 @@ Authenticates the client against the server. To learn more about how authenticat
 
 Callback will be called with three arguments: success (Boolean), errorEvent (String) and errorMessage (String)
 
-	var deepstream = require( 'deepstream.io-client-js' );
+```javascript
+var deepstream = require( 'deepstream.io-client-js' );
 
-	ds = deepstream( 'localhost:6020' );
+ds = deepstream( 'localhost:6020' );
 
-	// ds.getConnectionState() will now return 'AWAITING_AUTHENTICATION'
+// ds.getConnectionState() will now return 'AWAITING_AUTHENTICATION'
 
-	ds.login({ username: 'PeterA', password: 'sesame' }, function( success, errorEvent, errorMessage ){
-		if( success ) {
-			// start application
-			// ds.getConnectionState() will now return 'OPEN'
-		} else {
-			alert( errorMessage );
-			// ds.getConnectionState() will now return 'AWAITING_AUTHENTICATION' or 'CLOSED' if the maximum number
-			// of authentication attempts has been exceeded.
-		}
-	});
+ds.login({ username: 'PeterA', password: 'sesame' }, function( success, errorEvent, errorMessage ){
+	if( success ) {
+		// start application
+		// ds.getConnectionState() will now return 'OPEN'
+	} else {
+		alert( errorMessage );
+		// ds.getConnectionState() will now return 'AWAITING_AUTHENTICATION' or 'CLOSED' if the maximum number
+		// of authentication attempts has been exceeded.
+	}
+});
 
-	// ds.getConnectionState() will now return 'AUTHENTICATING'
+// ds.getConnectionState() will now return 'AUTHENTICATING'
+```
 
 close()
 -----------------------------
 Closes the connection to the server.
 
-	ds.on( 'connectionStateChanged', function( connectionState ){
-		// will be called with 'CLOSED' once the connection is successfully closed.
-	});
+```javascript
+ds.on( 'connectionStateChanged', function( connectionState ){
+	// will be called with 'CLOSED' once the connection is successfully closed.
+});
 
-	ds.close();
+ds.close();
+```
 
 getConnectionState()
 -----------------------------
@@ -81,5 +85,8 @@ getUid()
 -----------------------------
 Returnes a unique id. The uid starts with a Base64 encoded timestamt to allow for semi-sequentual ordering and ends in a random string.
 
-	ds.getUid() // 'i9i6db5q-1xak1s2sfzk'
+
+```javascript
+ds.getUid() // 'i9i6db5q-1xak1s2sfzk'
+```
 </div>

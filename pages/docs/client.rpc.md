@@ -6,20 +6,24 @@ Remote Procedure Calls (RPCs)
 -----------------------------
 RPCs are deepstream's mechanism for request/response communication (think Ajax Request, but with load balancing). Deepstream clients can register as providers for RPCs using `provide`, e.g.
 
-	client.rpc.provide( 'add-two-numbers', function( data, response ){
-		response.send( data.numberA + data.numberB );
-	});
+```javascript
+client.rpc.provide( 'add-two-numbers', function( data, response ){
+	response.send( data.numberA + data.numberB );
+});
+```
 
 Now a client can make a request that will be routed to the provider using `make`, e.g.
 
-	var data = {
-		numberA: 3,
-		numberB: 8
-	};
+```javascript
+var data = {
+	numberA: 3,
+	numberB: 8
+};
 
-	client.rpc.make( 'add-two-numbers', data, function( error, result ){
-		// error = null, result = 11
-	});
+client.rpc.make( 'add-two-numbers', data, function( error, result ){
+	// error = null, result = 11
+});
+```
 
 If multiple providers register for the same RPC, deepstream will distribute the requests between them. It's also possible for providers to reject requests (e.g. because they're under heavy load) which will prompt deepstream to re-route the request to another available provider
 
@@ -70,8 +74,9 @@ desc: The callback function that receives the result. Will be called with two ar
 
 Initiates a remote procedure call.
 
-	client.rpc.make( 'search-products', 'coffeemug', function( error, result ){
-		
-	});
-
+```javascript
+client.rpc.make( 'search-products', 'coffeemug', function( error, result ){
+	
+});
+```
 </div>

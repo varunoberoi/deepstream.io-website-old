@@ -6,11 +6,13 @@ Constants
 ----------------------------------
 Constants are used throughout deepstream. They can be accessed from the outside via the server instance 
 
-	var DeepstreamServer = require( 'deepstream.io' ),
-		server = new DeepstreamServer();
+```javascript
+var DeepstreamServer = require( 'deepstream.io' ),
+   server = new DeepstreamServer();
 
-		// Constants are accessible as e.g.
-		server.constants.TOPIC.RECORD
+// Constants are accessible as e.g.
+server.constants.TOPIC.RECORD
+```
 
 General
 ---------------------------

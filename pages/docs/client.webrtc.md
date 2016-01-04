@@ -16,21 +16,23 @@ desc: a function that will be invoked for incoming calls with a [WebRTCCall](web
 
 Register a callable endpoint (an entry in a phonebook) that other clients can call using `makeCall`. A client can register multiple callees, however, every callee can only be registered once.
 
-	ds.webrtc.registerCallee( 'Peter Venkman', function( call, metaData ){
-		if( metaData.callerName === 'Walter Peck' ) {
-			call.decline( 'Nope, not interested.' );
-		} else {
-			getUserMedia({ video: true, audio: true }, function( localStream ){
-				call.accept( localStream );
-			}, function( error ){
-				throw error;
-			});
-		}
-
-		call.on( 'established', function( remoteStream ){
-			myVideo.src = URL.createObjectURL( remoteStream );
+```javascript
+ds.webrtc.registerCallee( 'Peter Venkman', function( call, metaData ){
+	if( metaData.callerName === 'Walter Peck' ) {
+		call.decline( 'Nope, not interested.' );
+	} else {
+		getUserMedia({ video: true, audio: true }, function( localStream ){
+			call.accept( localStream );
+		}, function( error ){
+			throw error;
 		});
+	}
+
+	call.on( 'established', function( remoteStream ){
+		myVideo.src = URL.createObjectURL( remoteStream );
 	});
+});
+```
 
 client.webrtc.unregisterCallee( calleeName )
 -----------------------
@@ -60,20 +62,22 @@ desc: An instance of a [HTML5 MediaStream](https://developer.mozilla.org/en/docs
 
 Establishes a call with `calleeName` and returns an instance of [WebRTCCall](webrtc_call.html)
 
-	getUserMedia({ video: true, audio: true }, function( localStream ){
-		var metaData = { callerName: 'Raymond Stantz' };
-		var call = ds.webrtc.makeCall( 'Peter Venkman', metaData, localStream );
+```javascript
+getUserMedia({ video: true, audio: true }, function( localStream ){
+	var metaData = { callerName: 'Raymond Stantz' };
+	var call = ds.webrtc.makeCall( 'Peter Venkman', metaData, localStream );
 
-		call.on( 'established', function( remoteStream ){
-			myVideo.src = URL.createObjectURL( remoteStream );
-		});
-
-		call.on( 'declined', function( reason ){
-			console.log( 'Call declined because of ' + reason );
-		});
-	}, function( error ){
-		throw error;
+	call.on( 'established', function( remoteStream ){
+		myVideo.src = URL.createObjectURL( remoteStream );
 	});
+
+	call.on( 'declined', function( reason ){
+		console.log( 'Call declined because of ' + reason );
+	});
+}, function( error ){
+	throw error;
+});
+```
 
 client.webrtc.listenForCallees( callback )
 -----------------------
@@ -85,19 +89,20 @@ desc: a callback that will be invoked with a list of callees
 Listen for changes to the list of registered callees. Callback will be invoked initially with the full list
 of currently registered calleeNames and from thereon with an updated list of callees for every change. Only one calleeListener can be registered per client (but its easy to multiplex updates from there, e.g. by using an event emitter.)
 
-	client.webrtc.listenForCallees(function( calleeNames ){
-		/*
-		 * calleeNames = [
-		 *	'Peter Venkman', 
-		 *	'Raymond Stantz', 
-		 *	'Egon Spengler', 
-		 *	'Winston Zeddmore'
-		 * ]
-		 */
-		$scope.callees = calleeNames;
-		$scope.$apply();
-	});
-
+```javascript
+client.webrtc.listenForCallees(function( calleeNames ){
+	/*
+		 + calleeNames = [
+		 +	'Peter Venkman', 
+		 +	'Raymond Stantz', 
+		 +	'Egon Spengler', 
+		 +	'Winston Zeddmore'
+		 + ]
+	 */
+	$scope.callees = calleeNames;
+	$scope.$apply();
+});
+```
 
 client.webrtc.unlistenForCallees()
 -----------------------

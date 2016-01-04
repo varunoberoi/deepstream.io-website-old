@@ -18,54 +18,62 @@ At the time of writing (June 2015), [RethinkDB](http://rethinkdb.com/) is the on
 
 How does it work? Given you have a number of records like
 
-	ds.record.getRecord( 'book/i95ny80q-2bph9txxqxg' ).set({
-	    'title': 'Harry Potter and the goblet of fire',
-	    'price': 9.99
-	});
+```javascript
+ds.record.getRecord( 'book/i95ny80q-2bph9txxqxg' ).set({
+    'title': 'Harry Potter and the goblet of fire',
+    'price': 9.99
+});
+```
 
 and use deepstream.io's RethinkDb storage connector with a splitChar
 
-	{ splitChar: '/' }
+```javascript
+{ splitChar: '/' }
+```
 
 you can search for Harry Potter books that cost less than 15.30 by creating a dynamic list name, e.g.
 
-	var queryString = JSON.stringify({
-	    table: 'book',
-	    query: [
-	        [ 'title', 'match', '^Harry Potter.*' ],
-	        [ 'price', 'lt', 15.30 ]
-	    ]
-	});
+```javascript
+var queryString = JSON.stringify({
+    table: 'book',
+    query: [
+        [ 'title', 'match', '^Harry Potter.*' ],
+        [ 'price', 'lt', 15.30 ]
+    ]
+});
 
-	//search?{"table":"book","query":[["title","match","^Harry Potter.*"],["price","lt",15.3]]}
-	ds.record.getList( 'search?' + queryString );
+//search?{"table":"book","query":[["title","match","^Harry Potter.*"],["price","lt",15.3]]}
+ds.record.getList( 'search?' + queryString );
+```
 
 ### Alternatively, here are a few things to consider when building your own search
 
 ***splitChar / tables***
 Most databases have a concept of a table or a collection. And most storage-providers support a `splitChar`, a character that is used in recordnames to seperate the record's id from the table that it should be stored in, e.g.
 
-	// a mongo-db storage-connector with
-	deepstream.set( 'storage', new MongoDbStorageConnector{
-		connectionString: 'mongodb://usr:pass@localhost:10087/testdb',
-		splitChar: '/'
-	})
+```javascript
+// a mongo-db storage-connector with
+deepstream.set( 'storage', new MongoDbStorageConnector{
+	connectionString: 'mongodb://usr:pass@localhost:10087/testdb',
+	splitChar: '/'
+})
 
-	//would store this record
-	var rec = ds.record.getRecord( 'book/i95ny80q-2bph9txxqxg' );
+//would store this record
+var rec = ds.record.getRecord( 'book/i95ny80q-2bph9txxqxg' );
 
-	//in a new collection called book
-
+//in a new collection called book
+```
 
 ***data structure***
 Records are not stored their raw format, but in the following structure
 
-	{
-		_v: 1,  // version
-		_o: {}, // options - coming soon
-		_d: {}, // the actual data
-	}
-
+```javascript
+{
+	_v: 1,  // version
+	_o: {}, // options - coming soon
+	_d: {}, // the actual data
+}
+```
 
 ***use rpcs instead of lists***
 Searches are usually a single request-response operation, so it might make more sense to build providers for them as RPC's, rather than lists.

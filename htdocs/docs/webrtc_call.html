@@ -15,18 +15,19 @@
 	<link rel="stylesheet" type="text/css" href="../assets/css/navigation.css" />
 	<link rel="stylesheet" type="text/css" href="../assets/css/screen.css" />
 	<link rel="stylesheet" type="text/css" href="../assets/css/api.css" />
-	<link rel="stylesheet" type="text/css" href="../assets/css/syntaxhighlighter.css" />
 	<script type="text/javascript">
 	document.createElement( 'header' );
 	document.createElement( 'nav' );
 	</script>
 	<script type="text/javascript" src="../assets/js/jquery.js"></script>
 	<script type="text/javascript" src="../assets/js/menu.js"></script>
+	<script type="text/javascript" src="../assets/js/prism.js"></script>
 
 	<link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Quicksand:300,400,700' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="../assets/css/prism.css" />
 </head>
 
 <body class="category_docs ">
@@ -278,22 +279,25 @@
 </tbody>
 </table>
 
-</div><div class="section"><h2><a name="accept( localStream )">accept( localStream )</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">localStream</td><td class="type">MediaStream</td><td class="optional">false</td><td class="default">-</td><td class="description">An instance of a <a href="https://developer.mozilla.org/en/docs/Web/API/MediaStream">HTML5 MediaStream</a></td></tr></tbody></table><p>Accept an incoming call</p><pre><code>ds<span class="token punctuation" >.</span>webrtc<span class="token punctuation" >.</span><span class="token function" >registerCallee<span class="token punctuation" >(</span></span> <span class="token string" >'Egon Spengler'</span><span class="token punctuation" >,</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> call<span class="token punctuation" >,</span> metaData <span class="token punctuation" >)</span><span class="token punctuation" >{</span>
-    <span class="token function" >getUserMedia<span class="token punctuation" >(</span></span><span class="token punctuation" >{</span> video<span class="token punctuation" >:</span> <span class="token keyword" >true</span><span class="token punctuation" >,</span> audio<span class="token punctuation" >:</span> <span class="token keyword" >true</span> <span class="token punctuation" >}</span><span class="token punctuation" >,</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> localStream <span class="token punctuation" >)</span><span class="token punctuation" >{</span>
-        call<span class="token punctuation" >.</span><span class="token function" >accept<span class="token punctuation" >(</span></span> localStream <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-    <span class="token punctuation" >}</span><span class="token punctuation" >,</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> error <span class="token punctuation" >)</span><span class="token punctuation" >{</span>
-        <span class="token keyword" >throw</span> error<span class="token punctuation" >;</span>
-    <span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-<span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-</code></pre></div><div class="section"><h2><a name="decline( reason )">decline( reason )</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">reason</td><td class="type">String</td><td class="optional">true</td><td class="default">-</td><td class="description">A reason why the call was declined</td></tr></tbody></table><p>Decline an incoming call</p><pre><code>ds<span class="token punctuation" >.</span>webrtc<span class="token punctuation" >.</span><span class="token function" >registerCallee<span class="token punctuation" >(</span></span> <span class="token string" >'Louis Tully'</span><span class="token punctuation" >,</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> call<span class="token punctuation" >,</span> metaData <span class="token punctuation" >)</span><span class="token punctuation" >{</span>
-    <span class="token keyword" >if</span><span class="token punctuation" >(</span> user<span class="token punctuation" >.</span>doNotDisturb <span class="token operator" >===</span> <span class="token keyword" >true</span> <span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
-        call<span class="token punctuation" >.</span><span class="token function" >decline<span class="token punctuation" >(</span></span> <span class="token string" >'Please try again later'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-    <span class="token punctuation" >}</span>
-<span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-</code></pre></div><div class="section"><h2><a name="end()">end()</a></h2><p>End a call that&#39;s currently in progress</p><pre><code>$<span class="token punctuation" >(</span> <span class="token string" >'button.hang-up'</span> <span class="token punctuation" >)</span><span class="token punctuation" >.</span><span class="token function" >click<span class="token punctuation" >(</span></span><span class="token keyword" >function</span><span class="token punctuation" >(</span><span class="token punctuation" >)</span><span class="token punctuation" >{</span>
-    call<span class="token punctuation" >.</span><span class="token function" >end<span class="token punctuation" >(</span></span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-<span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-</code></pre><p></div></p>
+</div><div class="section"><h2><a name="accept( localStream )">accept( localStream )</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">localStream</td><td class="type">MediaStream</td><td class="optional">false</td><td class="default">-</td><td class="description">An instance of a <a href="https://developer.mozilla.org/en/docs/Web/API/MediaStream">HTML5 MediaStream</a></td></tr></tbody></table><p>Accept an incoming call</p><pre><code class="lang-javascript">ds.webrtc.registerCallee( &#39;Egon Spengler&#39;, function( call, metaData ){
+    getUserMedia({ video: true, audio: true }, function( localStream ){
+        call.accept( localStream );
+    }, function( error ){
+        throw error;
+    });
+});
+</code></pre>
+</div><div class="section"><h2><a name="decline( reason )">decline( reason )</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">reason</td><td class="type">String</td><td class="optional">true</td><td class="default">-</td><td class="description">A reason why the call was declined</td></tr></tbody></table><p>Decline an incoming call</p><pre><code class="lang-javascript">ds.webrtc.registerCallee( &#39;Louis Tully&#39;, function( call, metaData ){
+    if( user.doNotDisturb === true ) {
+        call.decline( &#39;Please try again later&#39; );
+    }
+});
+</code></pre>
+</div><div class="section"><h2><a name="end()">end()</a></h2><p>End a call that&#39;s currently in progress</p><pre><code class="lang-javascript">$( &#39;button.hang-up&#39; ).click(function(){
+    call.end();
+});
+</code></pre>
+<p></div></p>
 			</div>
 		</div>
 		<script type="text/javascript" src="../assets/js/docs.js"></script>

@@ -21,11 +21,13 @@ There’s one thing though it doesn’t do: send your message directly to web br
 	</script>
 	<script type="text/javascript" src="../../assets/js/jquery.js"></script>
 	<script type="text/javascript" src="../../assets/js/menu.js"></script>
+	<script type="text/javascript" src="../../assets/js/prism.js"></script>
 
 	<link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Quicksand:300,400,700' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="../../assets/css/prism.css" />
 </head>
 
 <body class="category_publishing-aws-sns-messages-to-browsers-tutorial ">
@@ -96,82 +98,82 @@ Let’s create a topic called “news” via the console:</p><p><img src="create
 <li>The message data is JSON encoded</li>
 <li>Each message contains a &quot; x-amz-sns-message-type” header that tells you which kind of message it is (e.g. “SubscriptionConfirmation” or “Notification”)</li>
 </ul>
-<p>With this in mind, here’s what our http server looks like</p><pre><code class="lang-javascript"><span class="token keyword" >function</span> <span class="token function" >createHttpServer<span class="token punctuation" >(</span></span><span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
-    <span class="token keyword" >var</span> server <span class="token operator" >=</span> <span class="token keyword" >new</span> <span class="token class-name" >http<span class="token punctuation" >.</span>Server</span><span class="token punctuation" >(</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-    server<span class="token punctuation" >.</span><span class="token function" >on<span class="token punctuation" >(</span></span> <span class="token string" >'request'</span><span class="token punctuation" >,</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> request<span class="token punctuation" >,</span> response <span class="token punctuation" >)</span><span class="token punctuation" >{</span>
-        request<span class="token punctuation" >.</span><span class="token function" >setEncoding<span class="token punctuation" >(</span></span> <span class="token string" >'utf8'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+<p>With this in mind, here’s what our http server looks like</p><pre><code class="lang-javascript">function createHttpServer() {
+    var server = new http.Server();
+    server.on( &#39;request&#39;, function( request, response ){
+        request.setEncoding( &#39;utf8&#39; );
 
-       <span class="token comment" spellcheck="true"> //concatenate POST data
-</span>        <span class="token keyword" >var</span> msgBody <span class="token operator" >=</span> <span class="token string" >''</span><span class="token punctuation" >;</span>
-        request<span class="token punctuation" >.</span><span class="token function" >on<span class="token punctuation" >(</span></span> <span class="token string" >'data'</span><span class="token punctuation" >,</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> data <span class="token punctuation" >)</span><span class="token punctuation" >{</span> 
-            msgBody <span class="token operator" >+</span><span class="token operator" >=</span> data<span class="token punctuation" >;</span>
-        <span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-        request<span class="token punctuation" >.</span><span class="token function" >on<span class="token punctuation" >(</span></span> <span class="token string" >'end'</span><span class="token punctuation" >,</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span><span class="token punctuation" >)</span><span class="token punctuation" >{</span>
-            <span class="token keyword" >var</span> msgData <span class="token operator" >=</span> <span class="token function" >parseJSON<span class="token punctuation" >(</span></span> msgBody <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-            <span class="token keyword" >var</span> msgType <span class="token operator" >=</span> request<span class="token punctuation" >.</span>headers<span class="token punctuation" >[</span> <span class="token string" >'x-amz-sns-message-type'</span> <span class="token punctuation" >]</span><span class="token punctuation" >;</span>
-            <span class="token function" >handleIncomingMessage<span class="token punctuation" >(</span></span> msgType<span class="token punctuation" >,</span> msgData <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-        <span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+        //concatenate POST data
+        var msgBody = &#39;&#39;;
+        request.on( &#39;data&#39;, function( data ){ 
+            msgBody += data;
+        });
+        request.on( &#39;end&#39;, function(){
+            var msgData = parseJSON( msgBody );
+            var msgType = request.headers[ &#39;x-amz-sns-message-type&#39; ];
+            handleIncomingMessage( msgType, msgData );
+        });
 
-       <span class="token comment" spellcheck="true"> // SNS doesn't care about our response as long as it comes
-</span>       <span class="token comment" spellcheck="true"> // with a HTTP statuscode of 200
-</span>        response<span class="token punctuation" >.</span><span class="token function" >end<span class="token punctuation" >(</span></span> <span class="token string" >'OK'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-    <span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+        // SNS doesn&#39;t care about our response as long as it comes
+        // with a HTTP statuscode of 200
+        response.end( &#39;OK&#39; );
+    });
 
-    server<span class="token punctuation" >.</span><span class="token function" >listen<span class="token punctuation" >(</span></span> <span class="token number" >6001</span><span class="token punctuation" >,</span> subscribeToSnS <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-<span class="token punctuation" >}</span>
+    server.listen( 6001, subscribeToSnS );
+}
 </code></pre>
-<p>Oh, and before I forget: Your http server needs to be accessible from the internet. If you&#39;re running it locally, you might want to use a tool like <a href="https://ngrok.com/">ngrok</a> to make this possible.</p><h3>Subscribing to a topic</h3><p>Using the <a href="https://aws.amazon.com/sdk-for-node-js/">AWS-SDK for NodeJS</a>, subscribing to a topic is as easy as</p><pre><code class="lang-javascript"><span class="token keyword" >var</span> AWS <span class="token operator" >=</span> <span class="token function" >require<span class="token punctuation" >(</span></span><span class="token string" >'aws-sdk'</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-<span class="token keyword" >var</span> sns <span class="token operator" >=</span> <span class="token keyword" >new</span> <span class="token class-name" >AWS<span class="token punctuation" >.</span>SNS</span><span class="token punctuation" >(</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+<p>Oh, and before I forget: Your http server needs to be accessible from the internet. If you&#39;re running it locally, you might want to use a tool like <a href="https://ngrok.com/">ngrok</a> to make this possible.</p><h3>Subscribing to a topic</h3><p>Using the <a href="https://aws.amazon.com/sdk-for-node-js/">AWS-SDK for NodeJS</a>, subscribing to a topic is as easy as</p><pre><code class="lang-javascript">var AWS = require(&#39;aws-sdk&#39;);
+var sns = new AWS.SNS();
 
-sns<span class="token punctuation" >.</span><span class="token function" >subscribe<span class="token punctuation" >(</span></span><span class="token punctuation" >{</span>
-    Protocol<span class="token punctuation" >:</span> <span class="token string" >'http'</span><span class="token punctuation" >,</span>
-   <span class="token comment" spellcheck="true"> //You don't just subscribe to "news", but the whole Amazon Resource Name (ARN)
-</span>    TopicArn<span class="token punctuation" >:</span> <span class="token string" >'arn:aws:sns:eu-central-1:792569207202:news'</span><span class="token punctuation" >,</span>
-    Endpoint<span class="token punctuation" >:</span> <span class="token string" >'http://your-endpoint-url.com'</span>
-<span class="token punctuation" >}</span><span class="token punctuation" >,</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> error<span class="token punctuation" >,</span> data <span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
-    console<span class="token punctuation" >.</span><span class="token function" >log<span class="token punctuation" >(</span></span> error <span class="token operator" >||</span> data <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-<span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+sns.subscribe({
+    Protocol: &#39;http&#39;,
+    //You don&#39;t just subscribe to &quot;news&quot;, but the whole Amazon Resource Name (ARN)
+    TopicArn: &#39;arn:aws:sns:eu-central-1:792569207202:news&#39;,
+    Endpoint: &#39;http://your-endpoint-url.com&#39;
+}, function( error, data ) {
+    console.log( error || data );
+});
 </code></pre>
-<p>But for this to work, we need to get two security steps out of the way first: Permission a user to use SNS and add its credentials to the Node SDK.</p><p>Here&#39;s how to permission a user via the AWS console:</p><p><img src="attaching-SNS-policy.png" alt="Attaching SNS user policy"></p><p>Next, we need to create a security token for this user. Using the <a href="https://aws.amazon.com/cli/">AWS command line tool</a> this is as simple as</p><pre><code class="lang-text">aws sts <span class="token keyword" >get</span><span class="token operator" >-</span>session<span class="token operator" >-</span>token
+<p>But for this to work, we need to get two security steps out of the way first: Permission a user to use SNS and add its credentials to the Node SDK.</p><p>Here&#39;s how to permission a user via the AWS console:</p><p><img src="attaching-SNS-policy.png" alt="Attaching SNS user policy"></p><p>Next, we need to create a security token for this user. Using the <a href="https://aws.amazon.com/cli/">AWS command line tool</a> this is as simple as</p><pre><code class="lang-text">aws sts get-session-token
 </code></pre>
-<p>This will display a set of credentials that we can use to configure our SDK.</p><pre><code class="lang-javascript"><span class="token keyword" >var</span> AWS <span class="token operator" >=</span> <span class="token function" >require<span class="token punctuation" >(</span></span><span class="token string" >'aws-sdk'</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-AWS<span class="token punctuation" >.</span>config<span class="token punctuation" >.</span><span class="token function" >update<span class="token punctuation" >(</span></span><span class="token punctuation" >{</span>
-    <span class="token string" >"secretAccessKey"</span><span class="token punctuation" >:</span> <span class="token string" >"..."</span><span class="token punctuation" >,</span>
-    <span class="token string" >"sessionToken"</span><span class="token punctuation" >:</span> <span class="token string" >"..."</span><span class="token punctuation" >,</span>
-    <span class="token string" >"accessKeyId"</span><span class="token punctuation" >:</span> <span class="token string" >"..."</span><span class="token punctuation" >,</span>
-    <span class="token string" >"region"</span><span class="token punctuation" >:</span> <span class="token string" >"eu-central-1"</span>
-<span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-<span class="token keyword" >var</span> sns <span class="token operator" >=</span> <span class="token keyword" >new</span> <span class="token class-name" >AWS<span class="token punctuation" >.</span>SNS</span><span class="token punctuation" >(</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+<p>This will display a set of credentials that we can use to configure our SDK.</p><pre><code class="lang-javascript">var AWS = require(&#39;aws-sdk&#39;);
+AWS.config.update({
+    &quot;secretAccessKey&quot;: &quot;...&quot;,
+    &quot;sessionToken&quot;: &quot;...&quot;,
+    &quot;accessKeyId&quot;: &quot;...&quot;,
+    &quot;region&quot;: &quot;eu-central-1&quot;
+});
+var sns = new AWS.SNS();
 </code></pre>
-<p>As mentioned before, embedding your credentials into the code might be easy, but it isn&#39;t safe. Have a look at the <a href="http://docs.aws.amazon.com/AWSJavaScriptSDK/guide/node-configuring.html">config documentation</a> to find a better way to store credentials.</p><h3>Confirming your subscription</h3><p>Great, now our call to <code>sns.subscribe</code> should work. A few milliseconds after we&#39;ve made it, our http server should receive a message, asking it to confirm the subscription. To process it, it&#39;s time to fill in the <code>handleIncomingMessage( msgType, msgData );</code> method from the http-server snippet.</p><pre><code class="lang-javascript"><span class="token keyword" >function</span> <span class="token function" >handleIncomingMessage<span class="token punctuation" >(</span></span> msgType<span class="token punctuation" >,</span> msgData <span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
-    <span class="token keyword" >if</span><span class="token punctuation" >(</span> msgType <span class="token operator" >===</span> <span class="token string" >'SubscriptionConfirmation'</span><span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
-       <span class="token comment" spellcheck="true"> //confirm the subscription.
-</span>        sns<span class="token punctuation" >.</span><span class="token function" >confirmSubscription<span class="token punctuation" >(</span></span><span class="token punctuation" >{</span>
-            Token<span class="token punctuation" >:</span> msgData<span class="token punctuation" >.</span>Token<span class="token punctuation" >,</span>
-            TopicArn<span class="token punctuation" >:</span> msgData<span class="token punctuation" >.</span>TopicArn
-        <span class="token punctuation" >}</span><span class="token punctuation" >,</span> onAwsResponse <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-    <span class="token punctuation" >}</span> <span class="token keyword" >else</span> <span class="token keyword" >if</span> <span class="token punctuation" >(</span> msgType <span class="token operator" >===</span> <span class="token string" >'Notification'</span> <span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
-       <span class="token comment" spellcheck="true"> // That's where the actual messages will arrive
-</span>    <span class="token punctuation" >}</span> <span class="token keyword" >else</span> <span class="token punctuation" >{</span>
-        console<span class="token punctuation" >.</span><span class="token function" >log<span class="token punctuation" >(</span></span> <span class="token string" >'Unexpected message type '</span> <span class="token operator" >+</span> msgType <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-    <span class="token punctuation" >}</span>
-<span class="token punctuation" >}</span>
+<p>As mentioned before, embedding your credentials into the code might be easy, but it isn&#39;t safe. Have a look at the <a href="http://docs.aws.amazon.com/AWSJavaScriptSDK/guide/node-configuring.html">config documentation</a> to find a better way to store credentials.</p><h3>Confirming your subscription</h3><p>Great, now our call to <code>sns.subscribe</code> should work. A few milliseconds after we&#39;ve made it, our http server should receive a message, asking it to confirm the subscription. To process it, it&#39;s time to fill in the <code>handleIncomingMessage( msgType, msgData );</code> method from the http-server snippet.</p><pre><code class="lang-javascript">function handleIncomingMessage( msgType, msgData ) {
+    if( msgType === &#39;SubscriptionConfirmation&#39;) {
+        //confirm the subscription.
+        sns.confirmSubscription({
+            Token: msgData.Token,
+            TopicArn: msgData.TopicArn
+        }, onAwsResponse );
+    } else if ( msgType === &#39;Notification&#39; ) {
+        // That&#39;s where the actual messages will arrive
+    } else {
+        console.log( &#39;Unexpected message type &#39; + msgType );
+    }
+}
 </code></pre>
-<h3>Starting a deepstream.io server</h3><p>Now it&#39;s time to start our deepstream server. Just create a separate js file (e.g. start-server.js) with</p><pre><code class="lang-javascript"><span class="token keyword" >var</span> DeepstreamServer <span class="token operator" >=</span> <span class="token function" >require<span class="token punctuation" >(</span></span> <span class="token string" >'deepstream.io'</span> <span class="token punctuation" >)</span><span class="token punctuation" >,</span>
-    server <span class="token operator" >=</span> <span class="token keyword" >new</span> <span class="token class-name" >DeepstreamServer</span><span class="token punctuation" >(</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+<h3>Starting a deepstream.io server</h3><p>Now it&#39;s time to start our deepstream server. Just create a separate js file (e.g. start-server.js) with</p><pre><code class="lang-javascript">var DeepstreamServer = require( &#39;deepstream.io&#39; ),
+    server = new DeepstreamServer();
 
-server<span class="token punctuation" >.</span><span class="token function" >start<span class="token punctuation" >(</span></span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+server.start();
 </code></pre>
-<p>and run it</p><p><img src="deepstream-startup.png" alt="Deepstream.io startup"></p><p>As the console shows, the server is now listening for TCP connections (e.g. from a node client) on port <code>6021</code> and for browser connections on port <code>6020</code>. If you&#39;d prefer different hosts/ports, please have a look at the <a href="http://deepstream.io/docs/deepstream.html">configuration docs</a>.</p><p>All that&#39;s left now is to connect our SNS-provider to the deepstream server:</p><pre><code class="lang-javascript"><span class="token keyword" >var</span> deepstreamClient <span class="token operator" >=</span> <span class="token function" >require<span class="token punctuation" >(</span></span> <span class="token string" >'deepstream.io-client-js'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-<span class="token keyword" >var</span> ds <span class="token operator" >=</span> <span class="token function" >deepstreamClient<span class="token punctuation" >(</span></span> <span class="token string" >'localhost:6021'</span> <span class="token punctuation" >)</span><span class="token punctuation" >.</span><span class="token function" >login<span class="token punctuation" >(</span></span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+<p>and run it</p><p><img src="deepstream-startup.png" alt="Deepstream.io startup"></p><p>As the console shows, the server is now listening for TCP connections (e.g. from a node client) on port <code>6021</code> and for browser connections on port <code>6020</code>. If you&#39;d prefer different hosts/ports, please have a look at the <a href="http://deepstream.io/docs/deepstream.html">configuration docs</a>.</p><p>All that&#39;s left now is to connect our SNS-provider to the deepstream server:</p><pre><code class="lang-javascript">var deepstreamClient = require( &#39;deepstream.io-client-js&#39; );
+var ds = deepstreamClient( &#39;localhost:6021&#39; ).login();
 </code></pre>
-<h3>Forwarding SNS messages as deepstream events</h3><p>Ok, time for the last piece of the puzzle. Every time we receive a message from SNS, we want to forward it as a deepstream event. (Events are deepstream&#39;s pub-sub mechanism. They work exactly like a JavaScript event emitter, distributed across many clients).</p><p>Each SNS message has a &quot;Subject&quot; and a &quot;Message&quot; - both of which are plain text. This leaves us with a couple of choices: We could use the topic as an event name, send JSON as the message body or come up with a totally different mechanism. But for now, let&#39;s keep things simple: Every time we receive a message, we&#39;ll use the Subject as an event-name and send the message content as event-data... or in code, inside our <code>handleIncomingMessage</code> method:</p><pre><code class="lang-javascript"><span class="token keyword" >else</span> <span class="token keyword" >if</span> <span class="token punctuation" >(</span> msgType <span class="token operator" >===</span> <span class="token string" >'Notification'</span> <span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
-    ds<span class="token punctuation" >.</span>event<span class="token punctuation" >.</span><span class="token function" >emit<span class="token punctuation" >(</span></span> msgData<span class="token punctuation" >.</span>Subject<span class="token punctuation" >,</span> msgData<span class="token punctuation" >.</span>Message <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-<span class="token punctuation" >}</span>
+<h3>Forwarding SNS messages as deepstream events</h3><p>Ok, time for the last piece of the puzzle. Every time we receive a message from SNS, we want to forward it as a deepstream event. (Events are deepstream&#39;s pub-sub mechanism. They work exactly like a JavaScript event emitter, distributed across many clients).</p><p>Each SNS message has a &quot;Subject&quot; and a &quot;Message&quot; - both of which are plain text. This leaves us with a couple of choices: We could use the topic as an event name, send JSON as the message body or come up with a totally different mechanism. But for now, let&#39;s keep things simple: Every time we receive a message, we&#39;ll use the Subject as an event-name and send the message content as event-data... or in code, inside our <code>handleIncomingMessage</code> method:</p><pre><code class="lang-javascript">else if ( msgType === &#39;Notification&#39; ) {
+    ds.event.emit( msgData.Subject, msgData.Message );
+}
 </code></pre>
-<p>Subscribing to this event from a browser is now as easy as</p><pre><code class="lang-javascript">    ds<span class="token punctuation" >.</span>event<span class="token punctuation" >.</span><span class="token function" >subscribe<span class="token punctuation" >(</span></span> <span class="token string" >'someEvent'</span><span class="token punctuation" >,</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> data <span class="token punctuation" >)</span><span class="token punctuation" >{</span>
-       <span class="token comment" spellcheck="true"> //...
-</span>    <span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+<p>Subscribing to this event from a browser is now as easy as</p><pre><code class="lang-javascript">    ds.event.subscribe( &#39;someEvent&#39;, function( data ){
+        //...
+    });
 </code></pre>
 <p>And that&#39;s it. Thanks for holding out with me for so long. If you&#39;d like to learn more about events in deepstream, head over to the <a href="http://deepstream.io/tutorials/events-and-rpcs.html">Events &amp; RPC tutorial</a>
 or have a look at the <a href="http://deepstream.io/docs/client.event.html">event documentation</a></p>
@@ -310,9 +312,7 @@ or have a look at the <a href="http://deepstream.io/docs/client.event.html">even
 				</li>
 			</div>	</div>
 	
-	</span>	<link rel="stylesheet" type="text/css" href="../../assets/css/prism.css" />
-	<script type="text/javascript" src="../../assets/js/prism.js"></script>
-</div>	</div>
+	</span></div>	</div>
 	<div id="footer">
 		<ul class="footer-items">
 

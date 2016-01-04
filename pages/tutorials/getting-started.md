@@ -13,24 +13,30 @@ Learn how to
 ### Server
 Install the server via npm
 
-	npm install deepstream.io
+```bash
+npm install deepstream.io
+```
 
 Create a js file, e.g. `start.js` with the following content
 
-	var DeepstreamServer = require( 'deepstream.io' ),
-		server = new DeepstreamServer();
+```javascript
+var DeepstreamServer = require( 'deepstream.io' ),
+	server = new DeepstreamServer();
 
-	// Optionally you can specify some settings, a full list of which
-	// can be found here http://deepstream.io/docs/deepstream.html
-	server.set( 'host', 'localhost' );
-	server.set( 'port', 6020 );
+// Optionally you can specify some settings, a full list of which
+// can be found here http://deepstream.io/docs/deepstream.html
+server.set( 'host', 'localhost' );
+server.set( 'port', 6020 );
 
-	// start the server
-	server.start();
+// start the server
+server.start();
+```
 
 run the file with node
 
-	node start.js
+```bash
+node start.js
+```
 
 your console should now show this
 
@@ -40,75 +46,86 @@ your console should now show this
 
 Install the javascript client via bower or npm or download it [here](https://raw.githubusercontent.com/hoxton-one/deepstream.io-client-js/master/dist/deepstream.min.js)
 
-	bower install deepstream.io-client-js
+```bash
+bower install deepstream.io-client-js
+```
 
 Create a simple webpage with a single text input field. 
 
-	<!DOCTYPE html>
-	<html>
-		<head>
-			<script 
-				type="text/javascript" 
-				src="bower_components/deepstream.io-client-js/dist/deepstream.js">
-			</script>
-		</head>
-		<body>
-			<input type="text" />
-			<script type="text/javascript">
-				//js goes here
-			</script>
-		</body>
-	</html>
-
+```html
+<!DOCTYPE html>
+<html>
+	<head>
+		<script 
+			type="text/javascript" 
+			src="bower_components/deepstream.io-client-js/dist/deepstream.js">
+		</script>
+	</head>
+	<body>
+		<input type="text" />
+		<script type="text/javascript">
+			//js goes here
+		</script>
+	</body>
+</html>
+```
 
 Connect to the server and login without credentials.
 
-	ds = deepstream( 'localhost:6020' ).login();
+```javascript
+ds = deepstream( 'localhost:6020' ).login();
+```
 
 Create a record
 
-	record = ds.record.getRecord( 'someUser' );
+```javascript
+record = ds.record.getRecord( 'someUser' );
+```
 
 Wire it up to the input
 
-	input = document.querySelector( 'input' );
-				
-	input.onkeyup = function(){
-		record.set( 'firstname', input.value );
-	};
+```javascript
+input = document.querySelector( 'input' );
+			
+input.onkeyup = function(){
+	record.set( 'firstname', input.value );
+};
 
-	record.subscribe( 'firstname', function( value ){
-		input.value = value;
-	});
+record.subscribe( 'firstname', function( value ){
+	input.value = value;
+});
+```
 
 Now open your page in two browser windows and watch both inputs stay in sync. Alltogether your page
 should now look like this:
 
-	<!DOCTYPE html>
-	<html>
-		<head>
-			<script 
-				type="text/javascript" 
-				src="bower_components/deepstream.io-client-js/dist/deepstream.js">
-			</script>
-		</head>
-		<body>
-			<input type="text" />
-			<script type="text/javascript">
-				ds = deepstream( 'localhost:6020' ).login();
-				record = ds.record.getRecord( 'someUser' );
-				input = document.querySelector( 'input' );
-				
-				input.onkeyup = function(){
-					record.set( 'firstname', input.value );
-				};
+```html
+<!DOCTYPE html>
+<html>
+	<head>
+		<script 
+			type="text/javascript" 
+			src="bower_components/deepstream.io-client-js/dist/deepstream.js">
+		</script>
+	</head>
+	<body>
+		<input type="text" />
+		<script type="text/javascript">
+			ds = deepstream( 'localhost:6020' ).login();
+			record = ds.record.getRecord( 'someUser' );
+			input = document.querySelector( 'input' );
+			
+			input.onkeyup = function(){
+				record.set( 'firstname', input.value );
+			};
 
-				record.subscribe( 'firstname', function( value ){
-					input.value = value;
-				});
-			</script>
-		</body>
-	</html>
+			record.subscribe( 'firstname', function( value ){
+				input.value = value;
+			});
+		</script>
+	</body>
+</html>
+```
 
 ### Where to go from here?
 There are two options:
@@ -125,10 +142,10 @@ There are two options:
 			the server with an <em>sslCert</em> and <em>sslKey</em> option.
 		</li>
 		<li>
-			<code>
-				server.set('sslCert', fs.readFileSync( './keys/cert.pem', 'utf8' ));
-				server.set('sslKey',  fs.readFileSync( './keys/key.pem', 'utf8' ));
-			</code>
+			```javascript
+server.set('sslCert', fs.readFileSync( './keys/cert.pem', 'utf8' ));
+server.set('sslKey',  fs.readFileSync( './keys/key.pem', 'utf8' ));
+			```
 		</li>
   	</ul>
 </div>

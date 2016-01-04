@@ -28,21 +28,22 @@ Building a simple app with deepstream and knockout js
 
 Knockout has observable properties and observable arrays. Deepstream has observable lists and records with path bindings. Our tool maps the two together.
 
-	// Create a list that's two-way bound to a ko.observableArray
-	AppViewModel = function() {
-		var userList = ds.record.getList( 'users' );
-		this.users = koTools.getViewList(  UserViewModel, userList );
-	};
+```javascript
+// Create a list that's two-way bound to a ko.observableArray
+AppViewModel = function() {
+	var userList = ds.record.getList( 'users' );
+	this.users = koTools.getViewList(  UserViewModel, userList );
+};
 
-	// Create a record and create two-way bound ko.observables
-	UserViewModel = function( userRecordName, viewList ) {
-		this.record = ds.record.getRecord( userRecordName );
-		this.viewList = viewList;
-		this.firstname = koTools.getObservable( this.record, 'firstname' );
-		this.lastname = koTools.getObservable( this.record, 'lastname' );
-		this.isActive = ko.observable( false );
-	};
-
+// Create a record and create two-way bound ko.observables
+UserViewModel = function( userRecordName, viewList ) {
+	this.record = ds.record.getRecord( userRecordName );
+	this.viewList = viewList;
+	this.firstname = koTools.getObservable( this.record, 'firstname' );
+	this.lastname = koTools.getObservable( this.record, 'lastname' );
+	this.isActive = ko.observable( false );
+};
+```
 
 ### Example App
 <div class="img-container">

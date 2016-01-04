@@ -10,19 +10,23 @@ Integration with react is done within the ***componentDidMount*** and
 
 Example:
 
-	componentDidMount: function() {
-		this.record = ds.record.getRecord( this.props.recordName );
-		this.record.subscribe( function( data ) {
-			this.setState( data );
-		}.bind( this ));
-	}
+```javascript
+componentDidMount: function() {
+	this.record = ds.record.getRecord( this.props.recordName );
+	this.record.subscribe( function( data ) {
+		this.setState( data );
+	}.bind( this ));
+}
+```
 
 This allows it to subscribe to a subject and call ***setState*** whenever an
 update is received.
 
-	componentWillUnmount: function() {
-		this.record.discard();
-	}
+```javascript
+componentWillUnmount: function() {
+	this.record.discard();
+}
+```
 
 This allows the subscription to be terminated to avoid any memory leaks after
 the object is no longer in the dom.

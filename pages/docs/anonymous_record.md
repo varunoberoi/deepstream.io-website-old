@@ -18,15 +18,17 @@ show the selected user's details
 
 An anonymous record can be created using `client.record.getAnonymousRecord()` (see <a href="client.record.html#getRecord( name )">getAnonymousRecord()</a>), e.g.
 
-	var selectedUser = client.record.getAnonymousRecord();
+```javascript
+var selectedUser = client.record.getAnonymousRecord();
 
-	selectedUser.subscribe( 'firstname', function( firstname ){
-		$( '#firstname' ).text( firstname );
-	});
+selectedUser.subscribe( 'firstname', function( firstname ){
+	$( '#firstname' ).text( firstname );
+});
 
-	$( '#users li' ).click(function(){
-		selectedUser.setName( $(this).data( 'username' ) );
-	});
+$( '#users li' ).click(function(){
+	selectedUser.setName( $(this).data( 'username' ) );
+});
+```
 
 <div class="hint-box fa fa-gears">
 	<p>An anonymous record has all the methods, events and properties of a normal <a href="record.html">record</a> plus a <code>setName()</code> method.</p></div>

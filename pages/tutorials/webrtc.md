@@ -73,36 +73,42 @@ Combine this with other deepstream features such as permissioning, records or da
 
 Clients can register themselves as callees
 
-	ds.webrtc.registerCallee( 'Peter Venkman', function( call, metaData ){
-		if( metaData.callerName === 'Walter Peck' ) {
-			call.decline( 'Nope, not interested.' );
-		} else {
-			call.accept( localStream );
-		}
-
-		call.on( 'established', function( remoteStream ){
-			myVideo.src = URL.createObjectURL( remoteStream );
-		});
-	});
-
-Other clients can subscribe to updates to the list of callees
-
-	ds.webrtc.listenForCallees(function( callees ){
-		// render list of callees
-	});
-
-and call each other
-
-	var metaData = { callerName: 'Raymond Stantz' };
-	var call = ds.webrtc.makeCall( 'Peter Venkman', metaData, localStream );
+```javascript
+ds.webrtc.registerCallee( 'Peter Venkman', function( call, metaData ){
+	if( metaData.callerName === 'Walter Peck' ) {
+		call.decline( 'Nope, not interested.' );
+	} else {
+		call.accept( localStream );
+	}
 
 	call.on( 'established', function( remoteStream ){
 		myVideo.src = URL.createObjectURL( remoteStream );
 	});
+});
+```
 
-	call.on( 'declined', function( reason ){
-		console.log( 'Call declined because of ' + reason );
-	});
+Other clients can subscribe to updates to the list of callees
+
+```javascript
+ds.webrtc.listenForCallees(function( callees ){
+	// render list of callees
+});
+```
+
+and call each other
+
+```javascript
+var metaData = { callerName: 'Raymond Stantz' };
+var call = ds.webrtc.makeCall( 'Peter Venkman', metaData, localStream );
+
+call.on( 'established', function( remoteStream ){
+	myVideo.src = URL.createObjectURL( remoteStream );
+});
+
+call.on( 'declined', function( reason ){
+	console.log( 'Call declined because of ' + reason );
+});
+```
 
 ### Try it out
 Please find the documentation [here](../docs/client.webrtc.html) and have a look at our examples.

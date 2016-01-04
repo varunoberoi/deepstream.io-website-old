@@ -6,14 +6,15 @@ Events
 -------------------------
 Events provide a simple way of sending messages betweem clients. Deepstream's event mechanism basically works like an EventEmitter that's distributed across clients.
 
-	// client a
-	client.event.subscribe( 'news/politics', function( news ){
+```javascript
+// client a
+client.event.subscribe( 'news/politics', function( news ){
 
-	});
+});
 
-	// client b
-	client.event.emit( 'news/politics', { headline: '...', content: '...' });
-
+// client b
+client.event.emit( 'news/politics', { headline: '...', content: '...' });
+```
 
 subscribe( event, callback );
 -----------------------------

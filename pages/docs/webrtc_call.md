@@ -140,13 +140,15 @@ desc: An instance of a [HTML5 MediaStream](https://developer.mozilla.org/en/docs
 
 Accept an incoming call
 
-	ds.webrtc.registerCallee( 'Egon Spengler', function( call, metaData ){
-		getUserMedia({ video: true, audio: true }, function( localStream ){
-			call.accept( localStream );
-		}, function( error ){
-			throw error;
-		});
+```javascript
+ds.webrtc.registerCallee( 'Egon Spengler', function( call, metaData ){
+	getUserMedia({ video: true, audio: true }, function( localStream ){
+		call.accept( localStream );
+	}, function( error ){
+		throw error;
 	});
+});
+```
 
 decline( reason )
 -----------------------
@@ -157,18 +159,22 @@ desc: A reason why the call was declined
 
 Decline an incoming call
 
-	ds.webrtc.registerCallee( 'Louis Tully', function( call, metaData ){
-		if( user.doNotDisturb === true ) {
-			call.decline( 'Please try again later' );
-		}
-	});
+```javascript
+ds.webrtc.registerCallee( 'Louis Tully', function( call, metaData ){
+	if( user.doNotDisturb === true ) {
+		call.decline( 'Please try again later' );
+	}
+});
+```
 
 end()
 -----------------------
 End a call that's currently in progress
 
-	$( 'button.hang-up' ).click(function(){
-		call.end();
-	});
+```javascript
+$( 'button.hang-up' ).click(function(){
+	call.end();
+});
+```
 
 </div>

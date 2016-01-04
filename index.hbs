@@ -16,7 +16,6 @@
 	<link rel="stylesheet" type="text/css" href="{{link 'asset' 'css/screen.css'}}" />
 	{{#if isDocs }}
 	<link rel="stylesheet" type="text/css" href="{{link 'asset' 'css/api.css'}}" />
-	<link rel="stylesheet" type="text/css" href="{{link 'asset' 'css/syntaxhighlighter.css'}}" />
 	{{/if}}
 	<script type="text/javascript">
 	document.createElement( 'header' );
@@ -24,11 +23,13 @@
 	</script>
 	<script type="text/javascript" src="{{link 'asset' 'js/jquery.js'}}"></script>
 	<script type="text/javascript" src="{{link 'asset' 'js/menu.js'}}"></script>
+	<script type="text/javascript" src="{{link 'asset' 'js/prism.js'}}"></script>
 
 	<link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Quicksand:300,400,700' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="{{link 'asset' 'css/prism.css'}}" />
 </head>
 
 <body class="category_{{category}} {{#unless isNotStart}}start-page{{/unless}}">

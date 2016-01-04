@@ -67,28 +67,30 @@ Data transformation functions can be registered for all TOPIC / ACTION combinati
 
 Transform-functions are registered using `server.set( 'dataTransforms', [...])`
 
-	var Deepstream = require( 'deepstream.io' );
-	var server = new Deepstream();
+```javascript
+var Deepstream = require( 'deepstream.io' );
+var server = new Deepstream();
 
-	server.set( 'dataTransforms', [{
-		topic: C.TOPIC.RPC,
-		action: C.ACTIONS.REQUEST,
-		transform: function( data, metaData ) {
-			if( metaData.rpcName === 'get-price' ) {
-				data.discount = userDiscounts[ metaData.sender ];
-			}
-			return data;
+server.set( 'dataTransforms', [{
+	topic: C.TOPIC.RPC,
+	action: C.ACTIONS.REQUEST,
+	transform: function( data, metaData ) {
+		if( metaData.rpcName === 'get-price' ) {
+			data.discount = userDiscounts[ metaData.sender ];
 		}
-	},{
-		topic: C.TOPIC.RECORD,
-		action: C.ACTIONS.READ,
-		transform: function( data, metaData ) {
-			delete data.confidentialInfo;
-			return data;
-		}
-	}]);
+		return data;
+	}
+},{
+	topic: C.TOPIC.RECORD,
+	action: C.ACTIONS.READ,
+	transform: function( data, metaData ) {
+		delete data.confidentialInfo;
+		return data;
+	}
+}]);
 
-	server.start();
+server.start();
+```
 
 ### Transforming record data
 
@@ -103,45 +105,46 @@ The following example shows how a user-discount would be applied to the price of
 * record names are structured as item/&lt;id&gt;
 * record data looks like { price: &lt;id&gt;, other: &lt;...&gt; }
 
+```javascript
+var userDiscounts = {
+	'anne': 0.97,
+	'max': 0.90,
+	'lisa': 0.85
+};
 
-	var userDiscounts = {
-		'anne': 0.97,
-		'max': 0.90,
-		'lisa': 0.85
-	};
+// READ and UPDATE have the same signature,
+// so we can use the same function for both
+var transformReadAndUpdate = function( data, metaData ) {
+	if( metaData.recordName.substr( 0, 5 ) === 'item/' ) {
+		data.price *= userDiscounts[ metaData.receiver ];
+	}
+	return data;
+};
 
-	// READ and UPDATE have the same signature,
-	// so we can use the same function for both
-	var transformReadAndUpdate = function( data, metaData ) {
-		if( metaData.recordName.substr( 0, 5 ) === 'item/' ) {
-			data.price *= userDiscounts[ metaData.receiver ];
+server.set( 'dataTransforms', [{
+	topic: C.TOPIC.RECORD,
+	action: C.ACTIONS.READ,
+	transform: transformReadAndUpdate
+}, {
+	topic: C.TOPIC.RECORD,
+	action: C.ACTIONS.UPDATE,
+	transform: transformReadAndUpdate
+},{
+	topic: C.TOPIC.RECORD,
+	action: C.ACTIONS.PATCH,
+	transform: function( data, metaData ) {
+		if( 
+			metaData.recordName.substr( 0, 5 ) === 'item/' &&
+			metaData.path === 'price'
+		) {
+			//data for PATCH is just the price
+			return data * userDiscounts[ metaData.receiver ];
+		} else {
+			return data;
 		}
-		return data;
-	};
-
-	server.set( 'dataTransforms', [{
-		topic: C.TOPIC.RECORD,
-		action: C.ACTIONS.READ,
-		transform: transformReadAndUpdate
-	}, {
-		topic: C.TOPIC.RECORD,
-		action: C.ACTIONS.UPDATE,
-		transform: transformReadAndUpdate
-	},{
-		topic: C.TOPIC.RECORD,
-		action: C.ACTIONS.PATCH,
-		transform: function( data, metaData ) {
-			if( 
-				metaData.recordName.substr( 0, 5 ) === 'item/' &&
-				metaData.path === 'price'
-			) {
-				//data for PATCH is just the price
-				return data * userDiscounts[ metaData.receiver ];
-			} else {
-				return data;
-			}
-		}
-	}]);
+	}
+}]);
+```
 
 <div class="hint-box fa fa-gears">
 	<h3>BUT!...</h3>

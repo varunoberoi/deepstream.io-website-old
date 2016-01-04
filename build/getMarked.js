@@ -1,14 +1,7 @@
 var marked = require( 'marked' );
-var prism = require( './prism' );
 var renderer = new marked.Renderer();
 var inArguments = false;
 var firstH2 = true;
-
-marked.setOptions({
-  highlight: function (code) {
-    return prism.highlight( code, prism.languages.javascript );
-  }
-});
 
 renderer.heading = function( text, level ){
 	if( level !== 2 ) {
