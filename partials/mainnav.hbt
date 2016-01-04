@@ -4,5 +4,5 @@
 	<li {{#if pageIs_tutorials}}class="active"{{/if}}><a href="{{link 'page' 'tutorials/getting-started.html'}}">Tutorials</a></li>
 	<li {{#if pageIs_docs}}class="active"{{/if}}><a href="{{link 'page' 'docs/deepstream.html'}}">Documentation</a></li>
 	<li {{#if pageIs_blog}}class="active"{{/if}}><a href="{{link 'page' 'blog/'}}">Blog</a></li>
-	<li {{#if pageIs_info}}class="active"{{/if}}><a href="{{link 'page' 'info/'}}">Info</a></li>				
+	<li {{#if pageIs_info}}class="active"{{/if}}><a href="{{link 'page' 'info/'}}">Info</a></li>
 </ul>

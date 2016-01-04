@@ -154,7 +154,14 @@ body {
 	font-size: 10px;
 	opacity: 1;
 }
-.footer-right a {
+#footer .social a, .footer-middle a {
+		padding: 5px 0;
+}
+.footer-middle li {
+	margin: 2px 0;
+}
+
+.footer-right a, .footer-middle a {
 	padding: 0px 0px 0px 0px;
 	text-align: left;
 	color: #ccc;
@@ -184,16 +191,25 @@ body {
 	#footer ul.footer-items > * {
 		float: right;
 	}
-	#footer .social a {
-		padding: 5px 0 5px 25px;
+	.footer-middle {
+		left: -70px;
+		position: relative;
+	}
+	.footer-middle h4 {
+		display: none;
 	}
 }
 @media( max-width: 949px) {
 	.footer-left, .footer-right {
 		display: block;
 	}
-	.footer-middle {
-		display: none;
+	#footer ul.footer-items > .footer-middle {
+		text-align: left;
+		margin-top: 10px;
+	}
+	.footer-middle li {
+		margin: 1px 0;
+		padding: 1px 0;
 	}
 	#footer ul.footer-items > * {
 		margin: 0 25px;
@@ -201,7 +217,7 @@ body {
 	#footer .social a {
 		padding: 5px 0;
 	}
-	#footer ul.footer-items > .footer-left {
+	#footer ul.footer-items > .footer-left, #footer ul.footer-items > .footer-middle {
 		height: 150px;
 	}
 }
