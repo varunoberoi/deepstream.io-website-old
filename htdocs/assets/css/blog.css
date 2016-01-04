@@ -19,6 +19,10 @@
 	font-size: 40px;
 }
 
+.post-excerpt {
+	overflow: hidden;
+}
+
 /* Every post, on every page, gets this style on its <article> tag */
 .post {
 	max-width: 780px;
