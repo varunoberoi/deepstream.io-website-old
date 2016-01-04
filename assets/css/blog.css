@@ -19,6 +19,10 @@
 	font-size: 40px;
 }
 
+.post-excerpt {
+	overflow: hidden;
+}
+
 /* Every post, on every page, gets this style on its <article> tag */
 .post {
 	max-width: 780px;
@@ -38,6 +42,30 @@
 	padding-bottom: 20px;
 }
 
+.post ul{
+	margin-bottom: 20px;
+}
+
+.post li{
+	margin-left: 1.5em;
+	list-style-type: circle; 
+}
+
+.post pre[class*="language-"] {
+	margin: 0 0 2em;
+	border: none;
+    border-radius: 0;
+    background: #111;
+}
+
+li.latest-blogs-content{
+	list-style-type: none;
+	margin: 0;
+}
+
+li.latest-blogs-content ul{
+	margin: 0;
+}
 .post-title a, .latest-blog-article a {
 	text-decoration: none;
 	color: #145068;
