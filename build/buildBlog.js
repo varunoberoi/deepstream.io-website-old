@@ -168,7 +168,7 @@ var buildBlogPost = function( data, fileContent, next ) {
 
 var sortBlogs = function( next ) {
 	blogPosts.sort( function( blogA, blogB ) {
-		return blogA.dateISO > blogB.dateISO;
+		return blogB.dateISO > blogA.dateISO;
 	} );
 	next();
 	module.exports.blogPosts = blogPosts;
