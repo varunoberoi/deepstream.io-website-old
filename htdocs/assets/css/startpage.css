@@ -203,6 +203,7 @@ body{
 
 #segment-code pre[class*="language-"] {
 	background: none;
+	overflow: hidden;
 }
 
 #segment-code * {

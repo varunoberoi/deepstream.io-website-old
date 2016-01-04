@@ -12,7 +12,7 @@ Deepstream uses a “storage connector” to connect to a database and write rec
 
 
 ### Using deepstream's RethinkDB realtime search provider
-At the time of writing (June 2015), [RethinkDB](http://rethinkdb.com/) is the only database that natively supports realtime queries. (If you know of another one, [please give us a nudge](mailto:info@hoxton-one.com)). Using it, we've build a provider that creates dynamically updating lists based on search criteria.
+At the time of writing (June 2015), [RethinkDB](http://rethinkdb.com/) is the only database that natively supports realtime queries. (If you know of another one, [please give us a nudge](mailto:info@deepstream.io)). Using it, we've build a provider that creates dynamically updating lists based on search criteria.
 
 <a class="mega" href="https://github.com/hoxton-one/deepstream.io-provider-search-rethinkdb"><i class="fa fa-github"></i>deepstream.io-provider-search-rethinkdb</a>
 

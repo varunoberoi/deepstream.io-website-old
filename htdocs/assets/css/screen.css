@@ -175,11 +175,6 @@ body {
 .footer-right a:hover {
 	color: #fff;
 }
-.footer-hoxton-one {
-	background: url(../images/hoxton-one-logo.svg) no-repeat center center;
-	height: 90px;
-	color: white;
-}
 @media( min-width: 950px) {
 	#footer {
 		height: 160px;

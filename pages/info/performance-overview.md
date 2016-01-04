@@ -15,7 +15,7 @@ In doing so, we have three main goals. We want to:
 * develop a suite of benchmarks that create reproducible results to help detect any decline in performance early on
 * make it easier to compare deepstream against other realtime servers to help you choose the right tool for your performance requirements
 
-Please note: The following tests are non-conclusive and will be improved and extended as development progresses. If you have a particular performance test scenario in mind or noticed a bottleneck within deepstream, please write to us at [info@hoxton-one.com](mailto:info@hoxton-one.com).
+Please note: The following tests are non-conclusive and will be improved and extended as development progresses. If you have a particular performance test scenario in mind or noticed a bottleneck within deepstream, please write to us at [info@deepstream.io](mailto:info@deepstream.io).
 
 
 ### Performance tests reduces risk by:

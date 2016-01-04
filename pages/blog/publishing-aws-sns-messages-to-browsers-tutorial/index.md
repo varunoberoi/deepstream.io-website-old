@@ -177,9 +177,9 @@ else if ( msgType === 'Notification' ) {
 Subscribing to this event from a browser is now as easy as
 
 ```javascript
-	ds.event.subscribe( 'someEvent', function( data ){
-		//...
-	});
+ds.event.subscribe( 'someEvent', function( data ){
+	//...
+});
 ```
 
 And that's it. Thanks for holding out with me for so long. If you'd like to learn more about events in deepstream, head over to the [Events & RPC tutorial](http://deepstream.io/tutorials/events-and-rpcs.html)
