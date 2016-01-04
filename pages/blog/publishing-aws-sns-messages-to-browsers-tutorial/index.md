@@ -31,7 +31,7 @@ This tutorial also assumes that you're already familiar with deepstream's basic 
 We’ll start by creating a topic via the AWS console. Topics are the fundamental concept for message routing in a pub-sub architecture: Many subscribers listen to a topic and are notified whenever something publishes a message on that topic. Basically, it’s like JavaScript events, but you have to create a topic before you can subscribe.
 Let’s create a topic called “news” via the console:
 
-![Creating a SNS topic via the consol](create-sns-topic.png)
+![Creating a SNS topic via the console](create-sns-topic.png)
 
 ### Create the http server
 Next up, we need to start an http server. Why? The way SNS notifies your application of incoming messages is via HTTP.  For this to work, your application needs to:
@@ -164,9 +164,9 @@ var ds = deepstreamClient( 'localhost:6021' ).login();
 ```
 
 ### Forwarding SNS messages as deepstream events
-Ok, time for the last piece of the puzzle. Everytime we receive a message from SNS, we want to forward it as a deepstream event. (Events are deepstream's pub-sub mechanism. They work exactly like a JavaScript event emitter, distributed across many clients).
+Ok, time for the last piece of the puzzle. Every time we receive a message from SNS, we want to forward it as a deepstream event. (Events are deepstream's pub-sub mechanism. They work exactly like a JavaScript event emitter, distributed across many clients).
 
-Each SNS message has a "Subject" and a "Message" - both of which are plain text. This leaves us with a couple of choices: We could use the topic as an event name, send JSON as the message body or come up with a totally different mechanism. But for now, let's keep things simple: Everytime we receive a message, we'll use the Subject as an event-name and send the message content as event-data... or in code, inside our `handleIncomingMessage` method:
+Each SNS message has a "Subject" and a "Message" - both of which are plain text. This leaves us with a couple of choices: We could use the topic as an event name, send JSON as the message body or come up with a totally different mechanism. But for now, let's keep things simple: Every time we receive a message, we'll use the Subject as an event-name and send the message content as event-data... or in code, inside our `handleIncomingMessage` method:
 
 ```javascript
 else if ( msgType === 'Notification' ) {
