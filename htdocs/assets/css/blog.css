@@ -47,6 +47,13 @@
 	list-style-type: circle; 
 }
 
+.post pre[class*="language-"] {
+	margin: 0 0 2em;
+	border: none;
+    border-radius: 0;
+    background: #111;
+}
+
 li.latest-blogs-content{
 	list-style-type: none;
 	margin: 0;

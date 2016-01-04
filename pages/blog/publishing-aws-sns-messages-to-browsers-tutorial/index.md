@@ -9,7 +9,7 @@ Sending the same message to Smartphones, Email inboxes and VoIP clients on an Am
 There’s one thing though it doesn’t do: send your message directly to web browsers. Here’s how to close this gap with a bit of deepstream.io.
 
 ### The basic setup
-In this tutorial, we’ll build a “sns-provider”, a node process that subscribes to a SNS topic and forwards messages as deepstream events. For this to work, our provider needs to
+In this tutorial, we’ll build a “sns-provider”, a node process that subscribes to a SNS topic and forwards its messages as deepstream events. For this to work, our provider needs to
 
 - Authenticate against AWS
 - Become a SNS HTTP endpoint
@@ -21,10 +21,10 @@ Phew, that sounds like a lot! But, it’s actually not that bad. Here’s what o
 
 ![Basic Setup](aws-sns-to-deepstream.png)
 
-If you prefer diving right into the code, here’s the [github repo](https://github.com/hoxton-one/ds-tutorial-aws-sns)
+If you prefer diving right into the code, check out the [github repo](https://github.com/hoxton-one/ds-tutorial-aws-sns)
 
 ### A bit of a disclaimer
-For brevities sake, this tutorial skimps on security. AWS security is extremely powerful, but also complex enough to have [whole books written about it](http://media.amazonwebservices.com/AWS_Security_Best_Practices.pdf). We’ll be using http instead of https, temporary security tokens (which is a good idea), but store them as plaintext in our code (which is not) and a deepstream.io server that’s open to the world, instead of [properly permissioned](http://deepstream.io/tutorials/authentication.html).
+For brevities sake, this tutorial skimps on security. AWS security is extremely powerful, but also complex enough to have [whole books written about it](http://media.amazonwebservices.com/AWS_Security_Best_Practices.pdf). We’ll be using http instead of https, temporary security tokens (which is a good idea), but store them as plain text in our code (which is not) and a deepstream.io server that’s open to the world, instead of [properly permissioned](http://deepstream.io/tutorials/authentication.html).
 This tutorial also assumes that you're already familiar with deepstream's basic concepts. If not, quickly head over to the [getting started](http://deepstream.io/tutorials/getting-started.html) tutorial - don't worry, I'll wait.
 
 ### Let’s get started: Creating a topic.
@@ -38,8 +38,8 @@ Next up, we need to start an http server. Why? The way SNS notifies your applica
 
 -   Start a HTTP server
 -   Subscribe to a topic and tell SNS which URL it should send updates to
--   Receives a “do you really want to receive updates?” message on that URL
--   Confirms that message
+-   Receive a “do you really want to receive updates?” message on that URL
+-   Confirm that message
 
 And from there on, it receives all updates as incoming http requests. A few things to note about these requests:
 
@@ -53,19 +53,21 @@ With this in mind, here’s what our http server looks like
 function createHttpServer() {
 	var server = new http.Server();
 	server.on( 'request', function( request, response ){
-		var msgBody = '';
 		request.setEncoding( 'utf8' );
-		//get post data
+
+		//concatenate POST data
+		var msgBody = '';
 		request.on( 'data', function( data ){ 
 			msgBody += data;
 		});
-
 		request.on( 'end', function(){
 			var msgData = parseJSON( msgBody );
 			var msgType = request.headers[ 'x-amz-sns-message-type' ];
 			handleIncomingMessage( msgType, msgData );
 		});
 
+		// SNS doesn't care about our response as long as it comes
+		// with a HTTP statuscode of 200
 		response.end( 'OK' );
 	});
 
@@ -73,7 +75,7 @@ function createHttpServer() {
 }
 ```
 
-Oh, and before I forget it: Your http server needs to be accessible from the Internet. If you're running it locally, you might want to use a tool like [ngrok](https://ngrok.com/) to do this.
+Oh, and before I forget it: Your http server needs to be accessible from the internet. If you're running it locally, you might want to use a tool like [ngrok](https://ngrok.com/) to make this possible.
 
 ### Subscribing to a topic
 Using the [AWS-SDK for NodeJS](https://aws.amazon.com/sdk-for-node-js/), subscribing to a topic is as easy as
@@ -84,6 +86,7 @@ var sns = new AWS.SNS();
 
 sns.subscribe({
 	Protocol: 'http',
+	//You don't just subscribe to "news", but the whole Amazon Resource Name (ARN)
 	TopicArn: 'arn:aws:sns:eu-central-1:792569207202:news',
 	Endpoint: 'http://your-endpoint-url.com'
 }, function( error, data ) {
@@ -93,11 +96,11 @@ sns.subscribe({
 
 But for this to work, we need to get two security steps out of the way first: Permission a user to use SNS and add its credentials to the Node SDK.
 
-Here's how to permission a user:
+Here's how to permission a user via the AWS console:
 
 ![Attaching SNS user policy](attaching-SNS-policy.png)
 
-Next, we need to create a security token for this user. Using the AWS command line tool this is as simple as
+Next, we need to create a security token for this user. Using the [AWS command line tool](https://aws.amazon.com/cli/) this is as simple as
 
 ```text
 aws sts get-session-token
@@ -116,10 +119,10 @@ AWS.config.update({
 var sns = new AWS.SNS();
 ```
 
-As mentioned before, embedding your credentials into the code might be easy, but it isn't safe. Have a look at the [official documentation](http://docs.aws.amazon.com/AWSJavaScriptSDK/guide/node-configuring.html) to find a better way to store credentials.
+As mentioned before, embedding your credentials into the code might be easy, but it isn't safe. Have a look at the [config documentation](http://docs.aws.amazon.com/AWSJavaScriptSDK/guide/node-configuring.html) to find a better way to store credentials.
 
-### Confirming the subscription
-Great, now our call to `sns.subscribe` should work. A few milliseconds after we made it, our http server should receive a message, asking it to confirm the subscription. To process it, it's time to fill in the `handleIncomingMessage( msgType, msgData );` method from above.
+### Confirming your subscription
+Great, now our call to `sns.subscribe` should work. A few milliseconds after we've made it, our http server should receive a message, asking it to confirm the subscription. To process it, it's time to fill in the `handleIncomingMessage( msgType, msgData );` method from the http-server snippet.
 
 ```javascript
 function handleIncomingMessage( msgType, msgData ) {
@@ -138,7 +141,7 @@ function handleIncomingMessage( msgType, msgData ) {
 ```
 
 ### Starting a deepstream.io server
-Next up, we'll start up our deepstream server. Just create a separate file with
+Now it's time to start our deepstream server. Just create a separate js file (e.g. start-server.js) with
 
 ```javascript
 var DeepstreamServer = require( 'deepstream.io' ),
@@ -153,7 +156,7 @@ and run it
 
 As the console shows, the server is now listening for TCP connections (e.g. from a node client) on port `6021` and for browser connections on port `6020`. If you'd prefer different hosts/ports, please have a look at the [configuration docs](http://deepstream.io/docs/deepstream.html).
 
-All that's left now is to connect our SNS-provider to the server:
+All that's left now is to connect our SNS-provider to the deepstream server:
 
 ```javascript
 var deepstreamClient = require( 'deepstream.io-client-js' );
@@ -163,7 +166,7 @@ var ds = deepstreamClient( 'localhost:6021' ).login();
 ### Forwarding SNS messages as deepstream events
 Ok, time for the last piece of the puzzle. Everytime we receive a message from SNS, we want to forward it as a deepstream event. (Events are deepstream's pub-sub mechanism. They work exactly like a JavaScript event emitter, distributed across many clients).
 
-Each SNS message has a "Subject" and a "Message" - both of which are plain text. This leaves us with a number of choices: We could use the topic as an event name, send JSON as the message body or come up with a totally different mechanism. But for now, let's keep things simple: Everytime we receive a message, we'll use the Subject as an event-name and send the message content as event-data... or in code, inside our `handleIncomingMessage` method:
+Each SNS message has a "Subject" and a "Message" - both of which are plain text. This leaves us with a couple of choices: We could use the topic as an event name, send JSON as the message body or come up with a totally different mechanism. But for now, let's keep things simple: Everytime we receive a message, we'll use the Subject as an event-name and send the message content as event-data... or in code, inside our `handleIncomingMessage` method:
 
 ```javascript
 else if ( msgType === 'Notification' ) {
