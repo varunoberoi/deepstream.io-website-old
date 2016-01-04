@@ -16,7 +16,7 @@ renderer.heading = function( text, level ){
 		html += '</div>';
 	}
 
-	html += '<div class="section"><h2><a name="' + text + '">' + text + '</a></h2>';
+	html += '<div class="section"><h2><a name="' + text.replace(/\s/g,'') + '">' + text + '</a></h2>';
 	
 	return html;
 };

@@ -67,10 +67,12 @@
 	<li >
 		<a href="deepstream.html">Deepstream</a>
 		<div class="isActiveIndicator orangeGradient"></div>
+		
 	</li>
 	<li >
 		<a href="constants.html">Constants</a>
 		<div class="isActiveIndicator orangeGradient"></div>
+		
 	</li>
 
 
@@ -78,6 +80,7 @@
 	<li >
 		<a href="client.html">Client</a>
 		<div class="isActiveIndicator orangeGradient"></div>
+		
 	</li>
 
 	<li >
@@ -98,73 +101,76 @@
 	<li class="active">
 		<a href="event_emitter.html">EventEmitter</a>
 		<div class="isActiveIndicator orangeGradient"></div>
-			<ul class="overview">
-				<li><a href="#EventEmitter">EventEmitter</a></li>
-				<li><a href="#on(event, callback)">on(event, callback)</a></li>
-				<li><a href="#once(event, callback)">once(event, callback)</a></li>
-				<li><a href="#off(event, callback)">off(event, callback)</a></li>
-				<li><a href="#emit(event, ...)">emit(event, ...)</a></li>
-				<li><a href="#listeners( event )">listeners( event )</a></li>
-				<li><a href="#hasListeners( event )">hasListeners( event )</a></li>
-			</ul>
+		<ul class="overview">
+	<li><a href="#EventEmitter">EventEmitter</a></li><li><a href="#on(event,callback)">on(event,callback)</a></li><li><a href="#once(event,callback)">once(event,callback)</a></li><li><a href="#off(event,callback)">off(event,callback)</a></li><li><a href="#emit(event,...)">emit(event,...)</a></li><li><a href="#listeners(event)">listeners(event)</a></li><li><a href="#hasListeners(event)">hasListeners(event)</a></li>
+</ul>
 	</li>
 
 	<li class="de-emphasized">Record</li>
 	<li >
 		<a href="client.record.html">client.record</a>
 		<div class="isActiveIndicator orangeGradient"></div>
+		
 	</li>
 
 	<li >
 		<a href="record.html">Record</a>
 		<div class="isActiveIndicator orangeGradient"></div>
+		
 	</li>
 
 	<li >
 		<a href="list.html">List</a>
 		<div class="isActiveIndicator orangeGradient"></div>
+		
 	</li>
 
 	<li >
 		<a href="anonymous_record.html">Anonymous Record</a>
 		<div class="isActiveIndicator orangeGradient"></div>
+		
 	</li>
 
 	<li class="de-emphasized">RPC</li>
 	<li >
 		<a href="client.rpc.html">client.rpc</a>
 		<div class="isActiveIndicator orangeGradient"></div>
+		
 	</li>
 
 	<li >
 		<a href="rpc_response.html">RpcResponse</a>
 		<div class="isActiveIndicator orangeGradient"></div>
+		
 	</li>
 
 	<li class="de-emphasized">Event</li>
 	<li >
 		<a href="client.event.html">client.event</a>
 		<div class="isActiveIndicator orangeGradient"></div>
+		
 	</li>
 
 	<li class="de-emphasized">WebRTC</li>
 	<li >
 		<a href="client.webrtc.html">client.webrtc</a>
 		<div class="isActiveIndicator orangeGradient"></div>
+		
 	</li>
 	<li >
 		<a href="webrtc_call.html">WebRTC Call</a>
 		<div class="isActiveIndicator orangeGradient"></div>
+		
 	</li>
 </ul>
 
 			<div id="content">
-				<div class="section"><h2><a name="EventEmitter">EventEmitter</a></h2><p>The deepstream-client uses <a href="https://www.npmjs.com/package/component-emitter">component-emitter</a> as an event-emitter which in turn implements a subset of the <a href="https://nodejs.org/api/events.html">NodeJS EventEmitter API</a>.</p></div><div class="section"><h2><a name="on(event, callback)">on(event, callback)</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">event</td><td class="type">String</td><td class="optional">false</td><td class="default">-</td><td class="description">an eventname</td></tr><tr><td class="argument">callback</td><td class="type">Function</td><td class="optional">false</td><td class="default">-</td><td class="description">The function that will be invoked when the event is emitted</td></tr></tbody></table><p>Subscribe to an event</p></div><div class="section"><h2><a name="once(event, callback)">once(event, callback)</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">event</td><td class="type">String</td><td class="optional">false</td><td class="default">-</td><td class="description">an eventname</td></tr><tr><td class="argument">callback</td><td class="type">Function</td><td class="optional">false</td><td class="default">-</td><td class="description">The function that will be invoked when the event is emitted</td></tr></tbody></table><p>Register an one-of listener for an event. The listener will be removed immediatly after it has been invoked for the first time.</p></div><div class="section"><h2><a name="off(event, callback)">off(event, callback)</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">event</td><td class="type">String</td><td class="optional">true</td><td class="default">-</td><td class="description">an eventname</td></tr><tr><td class="argument">callback</td><td class="type">Function</td><td class="optional">true</td><td class="default">-</td><td class="description">The previously registered function</td></tr></tbody></table><p>Unsubscribes from an event</p><ul>
+				<div class="section"><h2><a name="EventEmitter">EventEmitter</a></h2><p>The deepstream-client uses <a href="https://www.npmjs.com/package/component-emitter">component-emitter</a> as an event-emitter which in turn implements a subset of the <a href="https://nodejs.org/api/events.html">NodeJS EventEmitter API</a>.</p></div><div class="section"><h2><a name="on(event,callback)">on(event, callback)</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">event</td><td class="type">String</td><td class="optional">false</td><td class="default">-</td><td class="description">an eventname</td></tr><tr><td class="argument">callback</td><td class="type">Function</td><td class="optional">false</td><td class="default">-</td><td class="description">The function that will be invoked when the event is emitted</td></tr></tbody></table><p>Subscribe to an event</p></div><div class="section"><h2><a name="once(event,callback)">once(event, callback)</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">event</td><td class="type">String</td><td class="optional">false</td><td class="default">-</td><td class="description">an eventname</td></tr><tr><td class="argument">callback</td><td class="type">Function</td><td class="optional">false</td><td class="default">-</td><td class="description">The function that will be invoked when the event is emitted</td></tr></tbody></table><p>Register an one-of listener for an event. The listener will be removed immediatly after it has been invoked for the first time.</p></div><div class="section"><h2><a name="off(event,callback)">off(event, callback)</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">event</td><td class="type">String</td><td class="optional">true</td><td class="default">-</td><td class="description">an eventname</td></tr><tr><td class="argument">callback</td><td class="type">Function</td><td class="optional">true</td><td class="default">-</td><td class="description">The previously registered function</td></tr></tbody></table><p>Unsubscribes from an event</p><ul>
 <li>removes a specific callback when called with both arguments</li>
 <li>removes all listeners for an event when only called with an event</li>
 <li>removes all listeners for all events if called without arguments</li>
 </ul>
-</div><div class="section"><h2><a name="emit(event, ...)">emit(event, ...)</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">event</td><td class="type">String</td><td class="optional">false</td><td class="default">-</td><td class="description">an eventname</td></tr><tr><td class="argument">arguments</td><td class="type">Mixed</td><td class="optional">true</td><td class="default">-</td><td class="description">arguments that should be passed to the listeners</td></tr></tbody></table><p>Emits an event</p></div><div class="section"><h2><a name="listeners( event )">listeners( event )</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">event</td><td class="type">String</td><td class="optional">false</td><td class="default">-</td><td class="description">an eventname</td></tr></tbody></table><p>Returns an array of listeners that are registered for the event</p></div><div class="section"><h2><a name="hasListeners( event )">hasListeners( event )</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">event</td><td class="type">String</td><td class="optional">false</td><td class="default">-</td><td class="description">an eventname</td></tr></tbody></table><p>Returns true if there are listeners registered for that event.</p><p></div></p>
+</div><div class="section"><h2><a name="emit(event,...)">emit(event, ...)</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">event</td><td class="type">String</td><td class="optional">false</td><td class="default">-</td><td class="description">an eventname</td></tr><tr><td class="argument">arguments</td><td class="type">Mixed</td><td class="optional">true</td><td class="default">-</td><td class="description">arguments that should be passed to the listeners</td></tr></tbody></table><p>Emits an event</p></div><div class="section"><h2><a name="listeners(event)">listeners( event )</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">event</td><td class="type">String</td><td class="optional">false</td><td class="default">-</td><td class="description">an eventname</td></tr></tbody></table><p>Returns an array of listeners that are registered for the event</p></div><div class="section"><h2><a name="hasListeners(event)">hasListeners( event )</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">event</td><td class="type">String</td><td class="optional">false</td><td class="default">-</td><td class="description">an eventname</td></tr></tbody></table><p>Returns true if there are listeners registered for that event.</p><p></div></p>
 			</div>
 		</div>
 		<script type="text/javascript" src="../assets/js/docs.js"></script>

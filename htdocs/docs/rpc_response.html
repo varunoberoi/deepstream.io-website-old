@@ -67,10 +67,12 @@
 	<li >
 		<a href="deepstream.html">Deepstream</a>
 		<div class="isActiveIndicator orangeGradient"></div>
+		
 	</li>
 	<li >
 		<a href="constants.html">Constants</a>
 		<div class="isActiveIndicator orangeGradient"></div>
+		
 	</li>
 
 
@@ -78,6 +80,7 @@
 	<li >
 		<a href="client.html">Client</a>
 		<div class="isActiveIndicator orangeGradient"></div>
+		
 	</li>
 
 	<li >
@@ -98,61 +101,66 @@
 	<li >
 		<a href="event_emitter.html">EventEmitter</a>
 		<div class="isActiveIndicator orangeGradient"></div>
+		
 	</li>
 
 	<li class="de-emphasized">Record</li>
 	<li >
 		<a href="client.record.html">client.record</a>
 		<div class="isActiveIndicator orangeGradient"></div>
+		
 	</li>
 
 	<li >
 		<a href="record.html">Record</a>
 		<div class="isActiveIndicator orangeGradient"></div>
+		
 	</li>
 
 	<li >
 		<a href="list.html">List</a>
 		<div class="isActiveIndicator orangeGradient"></div>
+		
 	</li>
 
 	<li >
 		<a href="anonymous_record.html">Anonymous Record</a>
 		<div class="isActiveIndicator orangeGradient"></div>
+		
 	</li>
 
 	<li class="de-emphasized">RPC</li>
 	<li >
 		<a href="client.rpc.html">client.rpc</a>
 		<div class="isActiveIndicator orangeGradient"></div>
+		
 	</li>
 
 	<li class="active">
 		<a href="rpc_response.html">RpcResponse</a>
 		<div class="isActiveIndicator orangeGradient"></div>
-			<ul class="overview">
-				<li><a href="#RpcResponse">RpcResponse</a></li>
-				<li><a href="#ack()">ack()</a></li>
-				<li><a href="#send( data )">send( data )</a></li>
-				<li><a href="#reject()">reject()</a></li>
-				<li><a href="#error( errorMsg )">error( errorMsg )</a></li>
-			</ul>
+		<ul class="overview">
+	<li><a href="#RpcResponse">RpcResponse</a></li><li><a href="#ack()">ack()</a></li><li><a href="#send(data)">send(data)</a></li><li><a href="#reject()">reject()</a></li><li><a href="#error(errorMsg)">error(errorMsg)</a></li>
+</ul>
 	</li>
 
 	<li class="de-emphasized">Event</li>
 	<li >
 		<a href="client.event.html">client.event</a>
 		<div class="isActiveIndicator orangeGradient"></div>
+		
 	</li>
 
 	<li class="de-emphasized">WebRTC</li>
 	<li >
 		<a href="client.webrtc.html">client.webrtc</a>
 		<div class="isActiveIndicator orangeGradient"></div>
+		
 	</li>
 	<li >
 		<a href="webrtc_call.html">WebRTC Call</a>
 		<div class="isActiveIndicator orangeGradient"></div>
+		
 	</li>
 </ul>
 
@@ -171,7 +179,7 @@ Doing so might make sense if the client needs to perform an asynchronous operati
     response.ack();
 });
 </code></pre>
-</div><div class="section"><h2><a name="send( data )">send( data )</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">data</td><td class="type">Mixed</td><td class="optional">false</td><td class="default">-</td><td class="description">Any serializable response data</td></tr></tbody></table><p>Send the response to the client</p></div><div class="section"><h2><a name="reject()">reject()</a></h2><p>Reject the request. Rejections are not errors, but merely a means of saying &quot;I&#39;m busy at the moment, try another client&quot;. Upon receiving a rejection deepstream will try to re-route the request to another provider for the same RPC. If there are no more providers left to try, deepstream will send a NO_RPC_PROVIDER error to the client.</p></div><div class="section"><h2><a name="error( errorMsg )">error( errorMsg )</a></h2><p>Send an error to the client. errorMsg will be received as the first argument to the <code>make</code> callback.</p><pre><code class="lang-javascript">//provider
+</div><div class="section"><h2><a name="send(data)">send( data )</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">data</td><td class="type">Mixed</td><td class="optional">false</td><td class="default">-</td><td class="description">Any serializable response data</td></tr></tbody></table><p>Send the response to the client</p></div><div class="section"><h2><a name="reject()">reject()</a></h2><p>Reject the request. Rejections are not errors, but merely a means of saying &quot;I&#39;m busy at the moment, try another client&quot;. Upon receiving a rejection deepstream will try to re-route the request to another provider for the same RPC. If there are no more providers left to try, deepstream will send a NO_RPC_PROVIDER error to the client.</p></div><div class="section"><h2><a name="error(errorMsg)">error( errorMsg )</a></h2><p>Send an error to the client. errorMsg will be received as the first argument to the <code>make</code> callback.</p><pre><code class="lang-javascript">//provider
 client.rpc.provide( &#39;add-two-numbers&#39;, function( data, response ){
     response.error( &#39;Something went wrong&#39; );
 });

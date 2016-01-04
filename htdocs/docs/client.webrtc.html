@@ -67,10 +67,12 @@
 	<li >
 		<a href="deepstream.html">Deepstream</a>
 		<div class="isActiveIndicator orangeGradient"></div>
+		
 	</li>
 	<li >
 		<a href="constants.html">Constants</a>
 		<div class="isActiveIndicator orangeGradient"></div>
+		
 	</li>
 
 
@@ -78,6 +80,7 @@
 	<li >
 		<a href="client.html">Client</a>
 		<div class="isActiveIndicator orangeGradient"></div>
+		
 	</li>
 
 	<li >
@@ -98,66 +101,71 @@
 	<li >
 		<a href="event_emitter.html">EventEmitter</a>
 		<div class="isActiveIndicator orangeGradient"></div>
+		
 	</li>
 
 	<li class="de-emphasized">Record</li>
 	<li >
 		<a href="client.record.html">client.record</a>
 		<div class="isActiveIndicator orangeGradient"></div>
+		
 	</li>
 
 	<li >
 		<a href="record.html">Record</a>
 		<div class="isActiveIndicator orangeGradient"></div>
+		
 	</li>
 
 	<li >
 		<a href="list.html">List</a>
 		<div class="isActiveIndicator orangeGradient"></div>
+		
 	</li>
 
 	<li >
 		<a href="anonymous_record.html">Anonymous Record</a>
 		<div class="isActiveIndicator orangeGradient"></div>
+		
 	</li>
 
 	<li class="de-emphasized">RPC</li>
 	<li >
 		<a href="client.rpc.html">client.rpc</a>
 		<div class="isActiveIndicator orangeGradient"></div>
+		
 	</li>
 
 	<li >
 		<a href="rpc_response.html">RpcResponse</a>
 		<div class="isActiveIndicator orangeGradient"></div>
+		
 	</li>
 
 	<li class="de-emphasized">Event</li>
 	<li >
 		<a href="client.event.html">client.event</a>
 		<div class="isActiveIndicator orangeGradient"></div>
+		
 	</li>
 
 	<li class="de-emphasized">WebRTC</li>
 	<li class="active">
 		<a href="client.webrtc.html">client.webrtc</a>
 		<div class="isActiveIndicator orangeGradient"></div>
-			<ul class="overview">
-				<li><a href="#client.webrtc.registerCallee( calleeName, onCallFn )">client.webrtc.registerCallee( calleeName, onCallFn )</a></li>
-				<li><a href="#client.webrtc.unregisterCallee( calleeName )">client.webrtc.unregisterCallee( calleeName )</a></li>
-				<li><a href="#client.webrtc.makeCall( calleeName, metaData, localStream ) ">client.webrtc.makeCall( calleeName, metaData, localStream ) </a></li>
-				<li><a href="#client.webrtc.listenForCallees( callback )">client.webrtc.listenForCallees( callback )</a></li>
-				<li><a href="#client.webrtc.unlistenForCallees()">client.webrtc.unlistenForCallees()</a></li>
-			</ul>
+		<ul class="overview">
+	<li><a href="#client.webrtc.registerCallee(calleeName,onCallFn)">client.webrtc.registerCallee(calleeName,onCallFn)</a></li><li><a href="#client.webrtc.unregisterCallee(calleeName)">client.webrtc.unregisterCallee(calleeName)</a></li><li><a href="#client.webrtc.makeCall(calleeName,metaData,localStream)">client.webrtc.makeCall(calleeName,metaData,localStream)</a></li><li><a href="#client.webrtc.listenForCallees(callback)">client.webrtc.listenForCallees(callback)</a></li><li><a href="#client.webrtc.unlistenForCallees()">client.webrtc.unlistenForCallees()</a></li>
+</ul>
 	</li>
 	<li >
 		<a href="webrtc_call.html">WebRTC Call</a>
 		<div class="isActiveIndicator orangeGradient"></div>
+		
 	</li>
 </ul>
 
 			<div id="content">
-				<div class="section"><h2><a name="client.webrtc.registerCallee( calleeName, onCallFn )">client.webrtc.registerCallee( calleeName, onCallFn )</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">calleeName</td><td class="type">String</td><td class="optional">false</td><td class="default">-</td><td class="description">the name of the callee</td></tr><tr><td class="argument">onCallFn</td><td class="type">Function</td><td class="optional">false</td><td class="default">-</td><td class="description">a function that will be invoked for incoming calls with a <a href="webrtc_call.html">WebRTCCall</a> and metaData.</td></tr></tbody></table><p>Register a callable endpoint (an entry in a phonebook) that other clients can call using <code>makeCall</code>. A client can register multiple callees, however, every callee can only be registered once.</p><pre><code class="lang-javascript">ds.webrtc.registerCallee( &#39;Peter Venkman&#39;, function( call, metaData ){
+				<div class="section"><h2><a name="client.webrtc.registerCallee(calleeName,onCallFn)">client.webrtc.registerCallee( calleeName, onCallFn )</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">calleeName</td><td class="type">String</td><td class="optional">false</td><td class="default">-</td><td class="description">the name of the callee</td></tr><tr><td class="argument">onCallFn</td><td class="type">Function</td><td class="optional">false</td><td class="default">-</td><td class="description">a function that will be invoked for incoming calls with a <a href="webrtc_call.html">WebRTCCall</a> and metaData.</td></tr></tbody></table><p>Register a callable endpoint (an entry in a phonebook) that other clients can call using <code>makeCall</code>. A client can register multiple callees, however, every callee can only be registered once.</p><pre><code class="lang-javascript">ds.webrtc.registerCallee( &#39;Peter Venkman&#39;, function( call, metaData ){
     if( metaData.callerName === &#39;Walter Peck&#39; ) {
         call.decline( &#39;Nope, not interested.&#39; );
     } else {
@@ -173,7 +181,7 @@
     });
 });
 </code></pre>
-</div><div class="section"><h2><a name="client.webrtc.unregisterCallee( calleeName )">client.webrtc.unregisterCallee( calleeName )</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">calleeName</td><td class="type">String</td><td class="optional">false</td><td class="default">-</td><td class="description">the name of the previously registered callee</td></tr></tbody></table><p>Un-register a callee that was previously registered using <code>client.webrtc.registerCallee</code></p></div><div class="section"><h2><a name="client.webrtc.makeCall( calleeName, metaData, localStream ) ">client.webrtc.makeCall( calleeName, metaData, localStream ) </a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">calleeName</td><td class="type">String</td><td class="optional">false</td><td class="default">-</td><td class="description">the name of a callee that another client registered</td></tr><tr><td class="argument">metaData</td><td class="type">Mixed</td><td class="optional">true</td><td class="default">-</td><td class="description">Arbitrary data that&#39;s send to the callee to help identify the caller and decide whether to accept or decline the call</td></tr><tr><td class="argument">localStream</td><td class="type">MediaStream</td><td class="optional">false</td><td class="default">-</td><td class="description">An instance of a <a href="https://developer.mozilla.org/en/docs/Web/API/MediaStream">HTML5 MediaStream</a></td></tr></tbody></table><p>Establishes a call with <code>calleeName</code> and returns an instance of <a href="webrtc_call.html">WebRTCCall</a></p><pre><code class="lang-javascript">getUserMedia({ video: true, audio: true }, function( localStream ){
+</div><div class="section"><h2><a name="client.webrtc.unregisterCallee(calleeName)">client.webrtc.unregisterCallee( calleeName )</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">calleeName</td><td class="type">String</td><td class="optional">false</td><td class="default">-</td><td class="description">the name of the previously registered callee</td></tr></tbody></table><p>Un-register a callee that was previously registered using <code>client.webrtc.registerCallee</code></p></div><div class="section"><h2><a name="client.webrtc.makeCall(calleeName,metaData,localStream)">client.webrtc.makeCall( calleeName, metaData, localStream ) </a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">calleeName</td><td class="type">String</td><td class="optional">false</td><td class="default">-</td><td class="description">the name of a callee that another client registered</td></tr><tr><td class="argument">metaData</td><td class="type">Mixed</td><td class="optional">true</td><td class="default">-</td><td class="description">Arbitrary data that&#39;s send to the callee to help identify the caller and decide whether to accept or decline the call</td></tr><tr><td class="argument">localStream</td><td class="type">MediaStream</td><td class="optional">false</td><td class="default">-</td><td class="description">An instance of a <a href="https://developer.mozilla.org/en/docs/Web/API/MediaStream">HTML5 MediaStream</a></td></tr></tbody></table><p>Establishes a call with <code>calleeName</code> and returns an instance of <a href="webrtc_call.html">WebRTCCall</a></p><pre><code class="lang-javascript">getUserMedia({ video: true, audio: true }, function( localStream ){
     var metaData = { callerName: &#39;Raymond Stantz&#39; };
     var call = ds.webrtc.makeCall( &#39;Peter Venkman&#39;, metaData, localStream );
 
@@ -188,7 +196,7 @@
     throw error;
 });
 </code></pre>
-</div><div class="section"><h2><a name="client.webrtc.listenForCallees( callback )">client.webrtc.listenForCallees( callback )</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">callback</td><td class="type">Function</td><td class="optional">false</td><td class="default">-</td><td class="description">a callback that will be invoked with a list of callees</td></tr></tbody></table><p>Listen for changes to the list of registered callees. Callback will be invoked initially with the full list
+</div><div class="section"><h2><a name="client.webrtc.listenForCallees(callback)">client.webrtc.listenForCallees( callback )</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">callback</td><td class="type">Function</td><td class="optional">false</td><td class="default">-</td><td class="description">a callback that will be invoked with a list of callees</td></tr></tbody></table><p>Listen for changes to the list of registered callees. Callback will be invoked initially with the full list
 of currently registered calleeNames and from thereon with an updated list of callees for every change. Only one calleeListener can be registered per client (but its easy to multiplex updates from there, e.g. by using an event emitter.)</p><pre><code class="lang-javascript">client.webrtc.listenForCallees(function( calleeNames ){
     /*
          + calleeNames = [
