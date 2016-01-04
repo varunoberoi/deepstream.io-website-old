@@ -14,7 +14,7 @@
 		</header>
 
 		<section class="post-content">
-			{{{pageContent}}}
+{{{pageContent}}}
 		</section>
 
 		<footer class="post-footer">
@@ -72,5 +72,6 @@
 	</div>
 
 	{{> blogsidebar}}
-	
+	<link rel="stylesheet" type="text/css" href="{{link 'asset' 'css/prism.css'}}" />
+	<script type="text/javascript" src="{{link 'asset' 'js/prism.js'}}"></script>
 </div>

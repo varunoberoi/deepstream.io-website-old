@@ -24,12 +24,12 @@
 				<div class="post-excerpt">
 					<p> {{description}} </p>
 					<a class="read-more" href="{{blogPath}}"> Read more... </a>
+
+					<footer class="post-meta">
+						By {{author.name}}
+						<time class="post-date" datetime="{{date}}">{{date}}</time>
+					</footer>
 				</div>
-				
-				<footer class="post-meta">
-					By {{author.name}}
-					<time class="post-date" datetime="{{date}}">{{date}}</time>
-				</footer>
 
 			</article>
 			{{/each}}
