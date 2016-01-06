@@ -4,8 +4,13 @@ var path = require( 'path' );
 
 
 hbs.registerHelper( 'link', function( type, target ) {
-
 	var url, folder;
+	
+	if( target==='info/messagestructure/{{@key}}.html')	{
+		console.log( this )
+	}
+
+	target = hbs.compile( target )( this );
 
 	if( type === 'page' ) {
 		folder = module.exports.outputDir;
@@ -66,6 +71,7 @@ hbs.registerHelper( 'downloadItem', function( name, packageName, hasBower, icon 
 	return new hbs.SafeString( html );
 });
 
+
 hbs.registerHelper( 'viewport', function(){
 	if( this.isDocs ) {
 		return '';
@@ -74,10 +80,15 @@ hbs.registerHelper( 'viewport', function(){
 	}
 });
 
-hbs.registerHelper( 'debug', function(){
-	delete this.blogPosts;
-	var val = JSON.stringify( this, null, '    ' );
+hbs.registerHelper( 'debug', function( context ){
+	delete context.blogPosts;
+	var val = JSON.stringify( context, null, '    ' );
 	return new hbs.SafeString( '<pre>' + val + '</pre>' );
+});
+
+hbs.registerHelper( 'activeSpecPage', function( name, options ) {
+    var fnTrue=options.fn, fnFalse=options.inverse;
+    return options.data.root.pagePath.indexOf( name ) > -1 ? fnTrue( this ) : fnFalse( this );
 });
 
 /**

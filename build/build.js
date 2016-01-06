@@ -3,6 +3,7 @@ var rimraf = require( 'rimraf' );
 var path = require( 'path' );
 var async = require( 'async' );
 var fs = require( 'fs' );
+var fse = require( 'fs-extra' );
 var hbs = require( './getHbs.js' );
 var fileOptions = { encoding: 'utf8' };
 var inputDir =  path.join( __dirname, '../pages' );
@@ -23,7 +24,6 @@ var communityEvents = require( '../events.json' );
 exports.action = function( done ) {
 	async.waterfall([
 		readTemplate,
-		buildNav,
 		walkTree
 	], done );
 };
@@ -61,14 +61,8 @@ var walkTree = function( done ) {
   		filters: [ 'blog' ]
 	};
 	var walker = walk.walk( inputDir, options );
-	walker.on( 'directory', createTargetDirectory );
 	walker.on( 'file', createTargetFile );
 	walker.on( 'end', done );
-};
-
-var createTargetDirectory = function( root, stats, next ) {
-	var targetDir = path.join( outputDir, stats.name );
-	fs.mkdir( targetDir, next );
 };
 
 var createTargetFile = function( root, stats, next ) {
@@ -89,6 +83,7 @@ var createTargetFile = function( root, stats, next ) {
 		folder = '';
 	} else {
 		folder = root.replace( inputDir + '\\', '' );
+		folder = folder.split( '\\' )[ 0 ];
 	}
 
 	if( fileBuilder[ fileExtension ] === undefined ) {
@@ -96,35 +91,40 @@ var createTargetFile = function( root, stats, next ) {
 		return;
 	}
 
-	var contextVars = {
-		versions: CONFIG.versions,
-		latest: CONFIG.latest,
-		isDef: CONFIG.isDevelopment,
-		isNotStart: folder.length > 0,
-		category: folder,
-		isDocs: pagesWithNav.indexOf( folder ) !== -1
-	};
+	buildNav( function() {
 
-	contextVars[ 'pageIs_' + folder ] = true;
-	contextVars[ 'fileIs_' + page.replace( '.', '_' ) ] = true;
+		var contextVars = {
+			versions: CONFIG.versions,
+			latest: CONFIG.latest,
+			isDef: CONFIG.isDevelopment,
+			isNotStart: folder.length > 0,
+			category: folder,
+			isDocs: pagesWithNav.indexOf( folder ) !== -1
+		};
 
-	var data = {
-		srcFilePath: srcFilePath,
-		targetFilePath: targetFilePath,
-		outputDir: outputDir,
-		contextVars: contextVars
-	};
+		contextVars[ 'pageIs_' + folder ] = true;
+		contextVars[ 'fileIs_' + page.replace( '.', '_' ) ] = true;
+		contextVars.pagePath = targetFilePath.replace( outputDir, '' );
 
-	if( navs[ folder ] !== undefined ) {
-		contextVars.hasNav = true;
-		data.nav = navs[ folder ];
-	}
+		var data = {
+			srcFilePath: srcFilePath,
+			targetFilePath: targetFilePath,
+			outputDir: outputDir,
+			contextVars: contextVars
+		};
 
-	async.waterfall([
-		readFile.bind( {}, srcFilePath ),
-		buildFile.bind( {}, fileExtension, data ),
-		writeFile.bind( {}, targetFilePath )
-	], next );
+		if( navs[ folder ] !== undefined ) {
+			contextVars.hasNav = true;
+			data.nav = navs[ folder ];
+		}
+
+		async.waterfall([
+			readFile.bind( {}, srcFilePath ),
+			buildFile.bind( {}, fileExtension, data ),
+			writeFile.bind( {}, targetFilePath )
+		], next );
+
+	} );
 };
 
 /**
@@ -187,10 +187,16 @@ var buildFile = function( fileExtension, data, fileContent, next ) {
 
 	var blogPosts =  require( './buildBlog' ).blogPosts;
 	if( !blogPosts ) {
-		console.log( 'Skipping blog data since buildBlog was not run as part of build' );
+		console.log( 'Blog data missing' );
 	}
 	data.contextVars.blogPosts = blogPosts;
 	data.contextVars.communityEvents = communityEvents;
+
+	var messageSpecs =  require( './buildSpecs' ).loadedSpec;
+	if( !messageSpecs ) {
+		console.log( 'Message specs missing' );
+	}
+	data.contextVars.messageSpecs = messageSpecs;
 
 	fileBuilder[ fileExtension ].build( fileContent, data, function( error, innerHtml ){
 		if( data.contextVars.hasNav ) {
@@ -205,5 +211,5 @@ var buildFile = function( fileExtension, data, fileContent, next ) {
 };
 
 var writeFile = function( targetFilePath, content, next ) {
-	fs.writeFile( targetFilePath, content, fileOptions, next );
+	fse.outputFile( targetFilePath, content, fileOptions, next );
 };

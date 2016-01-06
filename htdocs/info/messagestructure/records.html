@@ -1,0 +1,587 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>deepstream.io | A Scalable Server for Realtime Web Apps</title>
+
+	
+
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="keywords" content="deepstream, deepstream.io, streaming, realtime, server, socket" />
+	<meta name="description" content="A node.js realtime server, supporting data-sync, RPCs, events and WebRTC" />
+	<meta name="author" content="Wolfram Hempel" />
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="stylesheet" type="text/css" href="../../assets/css/navigation.css" />
+	<link rel="stylesheet" type="text/css" href="../../assets/css/screen.css" />
+	<link rel="stylesheet" type="text/css" href="../../assets/css/api.css" />
+	<script type="text/javascript">
+	document.createElement( 'header' );
+	document.createElement( 'nav' );
+	</script>
+	<script type="text/javascript" src="../../assets/js/jquery.js"></script>
+	<script type="text/javascript" src="../../assets/js/menu.js"></script>
+	<script type="text/javascript" src="../../assets/js/prism.js"></script>
+
+	<link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Quicksand:300,400,700' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="../../assets/css/prism.css" />
+</head>
+
+<body class="category_info ">
+	<div class="mobile-menu">
+		<div class="nav mobile-nav">
+			<ul>
+				<li ><a href="../..">Home</a></li>
+				<li ><a href="../../download/">Downloads</a></li>
+				<li ><a href="../../tutorials/getting-started.html">Tutorials</a></li>
+				<li ><a href="../../docs/deepstream.html">Documentation</a></li>
+				<li ><a href="../../blog/">Blog</a></li>
+				<li class="active"><a href="../../info/">Info</a></li>
+			</ul>		</div>
+	</div>
+
+	<div id="outer-wrapper">
+		<div id="header" class="compact-header">
+			<div class="header-tiny-logo">
+				<h1><a href="../..">deepstream.io - a scalable server for realtime web apps</a></h1>
+			</div>
+			<div class="nav desktop-nav">
+				<ul>
+					<li ><a href="../..">Home</a></li>
+					<li ><a href="../../download/">Downloads</a></li>
+					<li ><a href="../../tutorials/getting-started.html">Tutorials</a></li>
+					<li ><a href="../../docs/deepstream.html">Documentation</a></li>
+					<li ><a href="../../blog/">Blog</a></li>
+					<li class="active"><a href="../../info/">Info</a></li>
+				</ul>			</div>
+			<span class="menu-button menu-icon">
+				<i class="fa fa-bars"></i>
+			</span>
+		</div>
+		<div id="wrapper" class="main">
+			<ul id="subnav">
+	<li class="head first">Performance</li>
+	<li >
+		<a href="../../info/performance-overview.html">Overview</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>	
+	<li >
+		<a href="../../info/performance-single-node-vs-cluster.html">Single Node vs Cluster</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li class="head first">Message Specification</li>
+	<li >
+		<a href="../../info/messagestructure/index.html">Overview</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>	
+	
+		<li >
+			<a href="../../info/messagestructure/connectivity.html">
+			connectivity Features</a>
+			<div class="isActiveIndicator orangeGradient"></div>
+		</li>
+		<li >
+			<a href="../../info/messagestructure/parsing.html">
+			parsing Features</a>
+			<div class="isActiveIndicator orangeGradient"></div>
+		</li>
+		<li >
+			<a href="../../info/messagestructure/rpc.html">
+			rpc Features</a>
+			<div class="isActiveIndicator orangeGradient"></div>
+		</li>
+		<li class="active">
+			<a href="../../info/messagestructure/records.html">
+			records Features</a>
+			<div class="isActiveIndicator orangeGradient"></div>
+				<ul class="overview">
+					<li><a href="#Record Conflicts">Record Conflicts</a></li>
+					<li><a href="#Record Connectivity">Record Connectivity</a></li>
+					<li><a href="#Record Listen Timeouts">Record Listen Timeouts</a></li>
+					<li><a href="#Record Listen">Record Listen</a></li>
+					<li><a href="#Record Subscription">Record Subscription</a></li>
+					<li><a href="#Record Timeouts">Record Timeouts</a></li>
+					<li><a href="#Record">Record</a></li>
+				</ul>
+		</li>
+		<li >
+			<a href="../../info/messagestructure/events.html">
+			events Features</a>
+			<div class="isActiveIndicator orangeGradient"></div>
+		</li>
+	
+	<li >
+		<a href="../../info/messagestructure/specs.html">Detailed Specs</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+</ul>
+
+			<div id="content">
+				<h1>
+    Record
+</h1>
+
+<link rel="stylesheet" type="text/css" href="../../assets/css/gherkin-highlight.css" />
+<link rel="stylesheet" type="text/css" href="../../assets/css/messagestructure.css" />
+<script type="text/javascript" src="../../assets/js/messagestructure.js"></script>
+
+<div class="message-in-depth">
+     <table>
+        <tbody>
+            <tr>
+                <td>Event</td>
+                <td class="event"> C.BLA.BLA </td>
+            </tr>
+            <tr>
+                <td>Action</td>
+                <td class="action"> C.BLA.BLA </td>
+            </tr>
+            <tr>
+                <td>Data</td>
+                <td class="data">['dljnnjvj','dcdjnkjnvfjkvn']</td>
+            </tr>
+            <tr>
+                <td>Message Spec</td>
+                <td class="messageSpec">
+
+<span class="message-format"><span class="message-format-part-0">E</span><span class="message-format-pipe">|</span><span class="message-format-part-1">EVT</span><span class="message-format-pipe">|</span><span class="message-format-part-2">eventName</span><span class="message-format-pipe">|</span><span class="message-format-part-3">JSON</span><span class="message-format-end">+</span></span>
+
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="down-arrow"></div>
+</div>
+    <div class="section">  
+        <a name="Record Conflicts"></a>
+        <pre><code class="language-gherkin">@records
+Feature: Record Conflicts
+
+Scenario: The client is connected
+	Given the test server is ready
+		And the client is initialised
+		And the client logs in with username XXX and password YYY
+		And the server sends the message A|A+
+
+Scenario: The server requests a record
+	Given the client creates a record named &quot;mergeRecord&quot;
+
+Scenario: The server responds with ack and read
+	When the server sends the message R|A|S|mergeRecord+
+	And the server sends the message R|R|mergeRecord|100|{&quot;key&quot;:&quot;value1&quot;}+
+
+ Scenario: The client recieves an out of sync update
+ 	When the server sends the message R|U|mergeRecord|102|{&quot;key&quot;:&quot;value3&quot;}+
+ 	Then the client throws a VERSION_EXISTS error with message mergeRecord
+ 
+ Scenario: The client sends an partial update
+ 	When the client sets the record &quot;mergeRecord&quot; &quot;key&quot; to &quot;value4&quot;
+ 	#TODO:  this doesn&#x27;t exist
+ 	#And the server sends the message R|A|P|test1+
+ 
+ Scenario: The client recieves an error saying version already exists
+ 	When the server sends the message R|E|VERSION_EXISTS|mergeRecord|102+
+ 	Then the client throws a VERSION_EXISTS error with message mergeRecord</code></pre>
+    </div>
+    <div class="section">  
+        <a name="Record Connectivity"></a>
+        <pre><code class="language-gherkin">@records
+Feature: Record Connectivity
+
+Scenario: The client is connected
+	Given the test server is ready
+		And the client is initialised
+		And the client logs in with username XXX and password YYY
+		And the server sends the message A|A+
+
+Scenario: The client creates a record
+	Given the client creates a record named &quot;connectionRecord&quot;
+	Then the last message the server recieved is R|CR|connectionRecord+
+
+Scenario: The server sends a read ACK and read message for connectionRecord
+	Given the server sends the message R|A|S|connectionRecord+
+		And the server sends the message R|R|connectionRecord|100|{&quot;name&quot;:&quot;John&quot;, &quot;pets&quot;: [{&quot;name&quot;:&quot;Ruffles&quot;, &quot;type&quot;:&quot;dog&quot;,&quot;age&quot;:2}]}+
+
+Scenario: The client listens to recordPrefix
+	When the client listens to a record matching &quot;recordPrefix/.*&quot;
+	Then the last message the server recieved is R|L|recordPrefix/.*+
+
+Scenario: The server responds with an ACK
+	Given the server sends the message R|A|L|recordPrefix/.*+
+
+Scenario: The client loses it connection to the server
+	When the connection to the server is lost
+	Given some time passes
+	Then the clients connection state is RECONNECTING
+
+Scenario: The client sends an partial update
+	When the client sets the record &quot;connectionRecord&quot; &quot;pets.0.name&quot; to &quot;Max&quot;
+	
+Scenario: The client reconnects to the server
+	When the connection to the server is reestablished
+	Then the clients connection state is AUTHENTICATING
+
+Scenario: The client is connected
+	Given the client logs in with username XXX and password YYY
+		And the server sends the message A|A+
+	Then the clients connection state is OPEN
+
+Scenario: The client resends the record subscription
+	Then the server received the message R|CR|connectionRecord+
+
+Scenario: The client resends the listen record
+	Then the server received the message R|L|recordPrefix/.*+
+
+Scenario: The client sends offline changes
+	Then the server received the message R|P|connectionRecord|101|pets.0.name|SMax+
+</code></pre>
+    </div>
+    <div class="section">  
+        <a name="Record Listen Timeouts"></a>
+        <pre><code class="language-gherkin">@records
+Feature: Record Listen Timeouts
+
+Scenario: The client is connected
+	Given the test server is ready
+		And the client is initialised
+		And the client logs in with username XXX and password YYY
+		And the server sends the message A|A+
+
+Scenario: The client listens to recordPrefix
+	When the client listens to a record matching &quot;recordPrefix/.*&quot;
+	Then the last message the server recieved is R|L|recordPrefix/.*+
+
+@timeout
+Scenario: The server does not respond in time with an ACK
+	When some time passes
+	Then the client throws a ACK_TIMEOUT error with message No ACK message received in time for recordPrefix/.*
+
+Scenario: The client unlistens to recordPrefix
+	When the client unlistens to a record matching &quot;recordPrefix/.*&quot;
+	Then the last message the server recieved is R|UL|recordPrefix/.*+
+
+@timeout
+Scenario: The server does not respond in time with an ACK
+	#When some time passes
+	#Then the client throws a ACK_TIMEOUT error with message No ACK message received in time for recordPrefix/.*</code></pre>
+    </div>
+    <div class="section">  
+        <a name="Record Listen"></a>
+        <pre><code class="language-gherkin">@records
+Feature: Record Listen
+
+Scenario: The client is connected
+	Given the test server is ready
+		And the client is initialised
+		And the client logs in with username XXX and password YYY
+		And the server sends the message A|A+
+
+Scenario: The client listens to recordPrefix
+	When the client listens to a record matching &quot;recordPrefix/.*&quot;
+	Then the last message the server recieved is R|L|recordPrefix/.*+
+
+Scenario: The server responds with an ACK
+	Given the server sends the message R|A|L|recordPrefix/.*+
+
+Scenario: The client gets notified of new matching subscriptions
+	Given the server sends the message R|SP|recordPrefix/.*|recordPrefix/foundAMatch+
+	Then the client will be notified of new record match &quot;recordPrefix/foundAMatch&quot;
+
+Scenario: The client gets notified for removed subscriptions
+	Given the server sends the message R|SR|recordPrefix/.*|recordPrefix/foundAMatch+
+	Then the client will be notified of record match removal &quot;recordPrefix/foundAMatch&quot;
+
+Scenario: The client unlistens to recordPrefix
+	When the client unlistens to a record matching &quot;recordPrefix/.*&quot;
+	Then the last message the server recieved is R|UL|recordPrefix/.*+
+
+Scenario: The server responds with an ACK
+	#TODO
+	#Given the server sends the message R|A|UL|recordPrefix/.*+
+
+Scenario: Following server updates will throw an error
+	Given the server sends the message R|SP|recordPrefix/.*|recordPrefix/foundAMatch+
+	#TODO: This error message isn&#x27;t great
+	And the client throws a UNSOLICITED_MESSAGE error with message recordPrefix/.* </code></pre>
+    </div>
+    <div class="section">  
+        <a name="Record Subscription"></a>
+        <pre><code class="language-gherkin">@records
+Feature: Record Subscription
+
+Scenario: The client is connected
+	Given the test server is ready
+		And the client is initialised
+		And the client logs in with username XXX and password YYY
+		And the server sends the message A|A+
+
+Scenario: The client creates a record
+	When the client creates a record named &quot;subscribeRecord&quot;
+	Then the last message the server recieved is R|CR|subscribeRecord+
+
+Scenario: The server responds with an ack and the initial read
+	When the server sends the message R|A|S|subscribeRecord+
+		And the server sends the message R|R|subscribeRecord|124|{&quot;name&quot;:&quot;Smith&quot;,&quot;pets&quot;:[{&quot;name&quot;:&quot;Ruffus&quot;,&quot;type&quot;:&quot;dog&quot;,&quot;age&quot;:0}]}+
+
+# Full Subscribe
+
+Scenario: The client subscribes to subscribeRecord
+	When the client subscribes to the entire record &quot;subscribeRecord&quot; changes
+	Then the client will not be notified of the record change
+
+Scenario: The client record subscribeRecord receives updated data it will notify subscribers
+	When the server sends the message R|U|subscribeRecord|125|{&quot;name&quot;:&quot;Smith&quot;,&quot;pets&quot;:[{&quot;name&quot;:&quot;Ruffus&quot;,&quot;type&quot;:&quot;dog&quot;,&quot;age&quot;:1}]}+
+	Then the client will be notified of the record change
+
+Scenario: The client record subscribeRecord receives partial data it will notify subscribers
+	When the server sends the message R|P|subscribeRecord|126|pets.0.name|SRuffusTheSecond+
+	Then the client will be notified of the partial record change
+
+Scenario: The client will no longer get notified after it unsubscribes
+	Given the client unsubscribes to the entire record &quot;subscribeRecord&quot; changes
+	When the server sends the message R|U|subscribeRecord|127|{&quot;name&quot;:&quot;Smith&quot;,&quot;pets&quot;:[{&quot;name&quot;:&quot;Ruffus&quot;,&quot;type&quot;:&quot;dog&quot;,&quot;age&quot;:1}]}+
+	Then the client will not be notified of the record change
+
+# Path Susbcribe
+
+Scenario: The client subscribes subscribeRecord to the path pets.0
+	When the client subscribes to &quot;pets.0.age&quot; for the record &quot;subscribeRecord&quot;
+	Then the client will not be notified of the record change
+
+Scenario: The client receives an partial update unrelated to the path subscribed to
+	When the server sends the message R|P|subscribeRecord|128|name|SJohn Smith+
+	Then the client will not be notified of the record change
+
+Scenario: The client receives an full update where the pets age hasn&#x27;t changed
+	When the server sends the message R|U|subscribeRecord|129|{&quot;name&quot;:&quot;John Smith&quot;, &quot;age&quot;: 21, &quot;pets&quot;: [{&quot;name&quot;:&quot;Ruffus&quot;, &quot;type&quot;:&quot;dog&quot;,&quot;age&quot;:1}]}+
+	Then the client will not be notified of the record change
+
+Scenario: The client receives an partial update related to the path subscribed to
+	When the server sends the message R|P|subscribeRecord|130|pets.0.age|N4+
+	Then the client will be notified of the record change
+
+Scenario: The client receives an full update where the pets has changed
+	When the server sends the message R|U|subscribeRecord|131|{&quot;name&quot;:&quot;John Smith&quot;, &quot;age&quot;: 21, &quot;pets&quot;: [{&quot;name&quot;:&quot;Ruffus&quot;, &quot;type&quot;:&quot;dog&quot;,&quot;age&quot;:5}]}+
+	Then the client will be notified of the second record change
+
+Scenario: The client will no longer get notified after it unsubscribes to the path
+	Given the client unsubscribes to &quot;pets.0.age&quot; for the record &quot;subscribeRecord&quot;
+	When the server sends the message R|P|subscribeRecord|132|pets.0.age|N6+
+	Then the client will not be notified of the record change</code></pre>
+    </div>
+    <div class="section">  
+        <a name="Record Timeouts"></a>
+        <pre><code class="language-gherkin">@records
+Feature: Record Timeouts
+
+Scenario: The client is connected
+	Given the test server is ready
+		And the client is initialised
+		And the client logs in with username XXX and password YYY
+		And the server sends the message A|A+
+
+@timeout
+Scenario: The server does not respond in time with an ACK
+	When the client creates a record named &quot;unhappyRecord&quot;
+		And some time passes
+	Then the client throws a ACK_TIMEOUT error with message unhappyRecord
+
+@timeout
+Scenario: The server does not recieve initial record data in time
+ 	When the server sends the message R|A|S|unhappyRecord+
+ 		And some time passes
+ 	#TODO: readtimeout?
+ 	# ACK_TIMEOUT is not too bad here, as it is the subscription that&#x27;s beeing acknowledget
+ 	# Response timeout is for RPC responses. Let&#x27;s discuss
+ 	Then the client throws a RESPONSE_TIMEOUT error with message unhappyRecord
+
+Scenario: The server then recieves the initial record data
+	When the server sends the message R|R|unhappyRecord|100|{&quot;reasons&quot;:[&quot;Because.&quot;]}+
+
+Scenario: The client sends an partial update
+	When the client sets the record &quot;unhappyRecord&quot; to {&quot;reasons&quot;:[&quot;Just Because.&quot;]}
+	Then the last message the server recieved is R|U|unhappyRecord|101|{&quot;reasons&quot;:[&quot;Just Because.&quot;]}+
+
+#@timeout
+#Scenario: The server does not respond in time with an ACK
+	#Given some time passes
+	#TODO: Do write acks actually exists?
+	#Then the client throws a ACK_TIMEOUT error with message unhappyRecord
+
+@timeout
+Scenario: The server send a cache retrieval timeout
+ 	When the server sends the message R|E|CACHE_RETRIEVAL_TIMEOUT|unhappyRecord+
+ 	Then the client throws a CACHE_RETRIEVAL_TIMEOUT error with message unhappyRecord
+ 
+ @timeout
+Scenario: The server send a storage retrieval timeout
+ 	When the server sends the message R|E|STORAGE_RETRIEVAL_TIMEOUT|unhappyRecord+
+ 	Then the client throws a STORAGE_RETRIEVAL_TIMEOUT error with message unhappyRecord
+
+Scenario: The client discards record
+	When the client discards the record named &quot;unhappyRecord&quot;
+	Then the last message the server recieved is R|US|unhappyRecord+
+
+@timeout
+Scenario: The server does not respond in time with an ACK
+	When some time passes
+	Then the client throws a ACK_TIMEOUT error with message unhappyRecord
+
+Scenario: The client deletes the record
+	Given the client creates a record named &quot;unhappyRecord&quot;
+		And the server sends the message R|A|S|unhappyRecord+
+		And the server sends the message R|R|unhappyRecord|100|{&quot;reasons&quot;:[&quot;Because.&quot;]}+
+	When the client deletes the record named &quot;unhappyRecord&quot;
+	Then the last message the server recieved is R|D|unhappyRecord+
+
+@timeout
+Scenario: The server does not recieve an ack
+	When some time passes
+	Then the client throws a DELETE_TIMEOUT error with message unhappyRecord</code></pre>
+    </div>
+    <div class="section">  
+        <a name="Record"></a>
+        <pre><code class="language-gherkin">@records
+Feature: Record
+
+Scenario: The client is connected
+	Given the test server is ready
+		And the client is initialised
+		And the client logs in with username XXX and password YYY
+		And the server sends the message A|A+
+
+Scenario: The client creates a record
+	Given the client creates a record named &quot;happyRecord&quot;
+	Then the last message the server recieved is R|CR|happyRecord+
+
+Scenario: The server sends a read ACK message for happyRecord
+	Given the server sends the message R|A|S|happyRecord+
+
+Scenario: The client receives the initial record data
+	When the server sends the message R|R|happyRecord|100|{&quot;name&quot;:&quot;John&quot;, &quot;pets&quot;: [{&quot;name&quot;:&quot;Ruffles&quot;, &quot;type&quot;:&quot;dog&quot;,&quot;age&quot;:2}]}+
+	Then the client record &quot;happyRecord&quot; data is {&quot;name&quot;:&quot;John&quot;, &quot;pets&quot;: [{&quot;name&quot;:&quot;Ruffles&quot;, &quot;type&quot;:&quot;dog&quot;,&quot;age&quot;:2}]}
+
+Scenario: The client receives an partial update
+	When the server sends the message R|P|happyRecord|101|pets.0.age|N3+
+	Then the client record &quot;happyRecord&quot; data is {&quot;name&quot;:&quot;John&quot;, &quot;pets&quot;: [{&quot;name&quot;:&quot;Ruffles&quot;, &quot;type&quot;:&quot;dog&quot;,&quot;age&quot;:3}]}
+
+Scenario: The client receives a full update
+	When the server sends the message R|U|happyRecord|102|{&quot;name&quot;:&quot;Smith&quot;, &quot;pets&quot;: [{&quot;name&quot;:&quot;Ruffus&quot;, &quot;type&quot;:&quot;dog&quot;,&quot;age&quot;:4}]}+
+	Then the client record &quot;happyRecord&quot; data is {&quot;name&quot;:&quot;Smith&quot;, &quot;pets&quot;: [{&quot;name&quot;:&quot;Ruffus&quot;, &quot;type&quot;:&quot;dog&quot;,&quot;age&quot;:4}]}
+
+Scenario: The client sends an partial update
+	When the client sets the record &quot;happyRecord&quot; &quot;pets.0.name&quot; to &quot;Max&quot;
+	Then the last message the server recieved is R|P|happyRecord|103|pets.0.name|SMax+
+
+Scenario: The server sends a write ACK message for happyRecord
+	#TODO:  this doesn&#x27;t exist
+	#Given the server sends the message R|A|P|happyRecord+
+
+Scenario: The client receives a full update
+	When the client sets the record &quot;happyRecord&quot; to {&quot;name&quot;:&quot;Smith&quot;,&quot;pets&quot;:[{&quot;name&quot;:&quot;Ruffus&quot;,&quot;type&quot;:&quot;dog&quot;,&quot;age&quot;:5}]}
+	Then the last message the server recieved is R|U|happyRecord|104|{&quot;name&quot;:&quot;Smith&quot;,&quot;pets&quot;:[{&quot;name&quot;:&quot;Ruffus&quot;,&quot;type&quot;:&quot;dog&quot;,&quot;age&quot;:5}]}+
+
+Scenario: The server sends a write ACK message for happyRecord
+	#TODO:  this doesn&#x27;t exist
+	#Given the server sends the message R|A|U|happyRecord+
+
+Scenario: The client discards the record
+	When the client discards the record named &quot;happyRecord&quot;
+	Then the last message the server recieved is R|US|happyRecord+
+
+Scenario: The server responds with a discard ACK
+	When the server sends the message R|A|US|happyRecord+
+
+Scenario: The client deletes the record
+	Given the client creates a record named &quot;happyRecord&quot;
+		And the server sends the message R|A|S|happyRecord+
+		And the server sends the message R|R|happyRecord|100|{&quot;name&quot;:&quot;John&quot;, &quot;pets&quot;: [{&quot;name&quot;:&quot;Ruffles&quot;, &quot;type&quot;:&quot;dog&quot;,&quot;age&quot;:2}]}+	
+		And the client deletes the record named &quot;happyRecord&quot;
+	Then the last message the server recieved is R|D|happyRecord+
+
+Scenario: The server responds with a delete ACK
+	When the server sends the message R|A|D|happyRecord+
+
+Scenario: The client attempts to request the same record multiple times. This should still
+		only trigger a single subscribe message to the server and the incoming events should
+		be multiplexed on the client
+
+	Given the server resets its message count
+	When the client creates a record named &quot;doubleRecord&quot;
+		And the server sends the message R|A|S|doubleRecord+
+		And the server sends the message R|R|doubleRecord|100|{&quot;name&quot;:&quot;John&quot;, &quot;pets&quot;: [{&quot;name&quot;:&quot;Ruffles&quot;, &quot;type&quot;:&quot;dog&quot;,&quot;age&quot;:2}]}+
+		And the client creates a record named &quot;doubleRecord&quot;
+	Then the last message the server recieved is R|CR|doubleRecord+
+		And the server has received 1 messages</code></pre>
+    </div>
+
+			</div>
+		</div>
+		<script type="text/javascript" src="../../assets/js/docs.js"></script>
+	</div>
+	<div id="footer">
+		<ul class="footer-items">
+
+			<li class="footer-right">
+				<ul class="social">
+					<li class="twitter">
+						<a href="https://twitter.com/deepstreamIO">
+							<i class="fa fa-twitter"></i>  Twitter
+						</a>
+					</li>
+					<li class="github">
+						<a href="https://github.com/hoxton-one">
+							<i class="fa fa-github"></i>  Github
+						</a>
+					</li>
+					<li class="stack-overflow">
+						<a href="http://stackoverflow.com/questions/tagged/deepstream.io">
+							<i class="fa fa-stack-overflow"></i>  Stack Overflow
+						</a>
+					</li>
+					<li>
+						<a href="https://deepstream-slack.herokuapp.com/">
+							<i class="fa fa-slack"></i>  Slack
+						</a>
+					</li>
+				</ul>
+			</li>
+
+			<li class="footer-middle">
+				<h4>Browse</h4>
+				<ul>
+					<li ><a href="../..">Home</a></li>
+					<li ><a href="../../download/">Downloads</a></li>
+					<li ><a href="../../tutorials/getting-started.html">Tutorials</a></li>
+					<li ><a href="../../docs/deepstream.html">Documentation</a></li>
+					<li ><a href="../../blog/">Blog</a></li>
+					<li class="active"><a href="../../info/">Info</a></li>
+				</ul>			</li>
+
+			<li class="footer-left">
+				<h4>Contact us</h4>
+				<p>
+					<b>deepstream.io </b>is developed by Hoxton One Ltd. <br>
+				</p>
+				<p>
+					Email us <a href="mailto:info@deepstream.io">info@deepstream.io</a>.<br><br>
+				</p>
+
+				<h4>Star this project on github!</h4>
+				<p>
+					<a class="github-button" href="https://github.com/hoxton-one/deepstream.io" data-icon="octicon-star" data-style="mega" data-count-href="/hoxton-one/deepstream.io/stargazers" data-count-api="/repos/hoxton-one/deepstream.io#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star hoxton-one/deepstream.io on GitHub">Star</a>
+				</p>
+			</li>
+
+		</ul>
+	</div>
+
+
+	<script async defer id="github-bjs" src="https://buttons.github.io/buttons.js"></script>
+</body>
+</html>

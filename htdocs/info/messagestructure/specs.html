@@ -1,0 +1,1873 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>deepstream.io | A Scalable Server for Realtime Web Apps</title>
+
+	
+
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="keywords" content="deepstream, deepstream.io, streaming, realtime, server, socket" />
+	<meta name="description" content="A node.js realtime server, supporting data-sync, RPCs, events and WebRTC" />
+	<meta name="author" content="Wolfram Hempel" />
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="stylesheet" type="text/css" href="../../assets/css/navigation.css" />
+	<link rel="stylesheet" type="text/css" href="../../assets/css/screen.css" />
+	<link rel="stylesheet" type="text/css" href="../../assets/css/api.css" />
+	<script type="text/javascript">
+	document.createElement( 'header' );
+	document.createElement( 'nav' );
+	</script>
+	<script type="text/javascript" src="../../assets/js/jquery.js"></script>
+	<script type="text/javascript" src="../../assets/js/menu.js"></script>
+	<script type="text/javascript" src="../../assets/js/prism.js"></script>
+
+	<link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Quicksand:300,400,700' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="../../assets/css/prism.css" />
+</head>
+
+<body class="category_info ">
+	<div class="mobile-menu">
+		<div class="nav mobile-nav">
+			<ul>
+				<li ><a href="../..">Home</a></li>
+				<li ><a href="../../download/">Downloads</a></li>
+				<li ><a href="../../tutorials/getting-started.html">Tutorials</a></li>
+				<li ><a href="../../docs/deepstream.html">Documentation</a></li>
+				<li ><a href="../../blog/">Blog</a></li>
+				<li class="active"><a href="../../info/">Info</a></li>
+			</ul>		</div>
+	</div>
+
+	<div id="outer-wrapper">
+		<div id="header" class="compact-header">
+			<div class="header-tiny-logo">
+				<h1><a href="../..">deepstream.io - a scalable server for realtime web apps</a></h1>
+			</div>
+			<div class="nav desktop-nav">
+				<ul>
+					<li ><a href="../..">Home</a></li>
+					<li ><a href="../../download/">Downloads</a></li>
+					<li ><a href="../../tutorials/getting-started.html">Tutorials</a></li>
+					<li ><a href="../../docs/deepstream.html">Documentation</a></li>
+					<li ><a href="../../blog/">Blog</a></li>
+					<li class="active"><a href="../../info/">Info</a></li>
+				</ul>			</div>
+			<span class="menu-button menu-icon">
+				<i class="fa fa-bars"></i>
+			</span>
+		</div>
+		<div id="wrapper" class="main">
+			<ul id="subnav">
+	<li class="head first">Performance</li>
+	<li >
+		<a href="../../info/performance-overview.html">Overview</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>	
+	<li >
+		<a href="../../info/performance-single-node-vs-cluster.html">Single Node vs Cluster</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li class="head first">Message Specification</li>
+	<li >
+		<a href="../../info/messagestructure/index.html">Overview</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>	
+	
+		<li >
+			<a href="../../info/messagestructure/connectivity.html">
+			connectivity Features</a>
+			<div class="isActiveIndicator orangeGradient"></div>
+		</li>
+		<li >
+			<a href="../../info/messagestructure/parsing.html">
+			parsing Features</a>
+			<div class="isActiveIndicator orangeGradient"></div>
+		</li>
+		<li >
+			<a href="../../info/messagestructure/rpc.html">
+			rpc Features</a>
+			<div class="isActiveIndicator orangeGradient"></div>
+		</li>
+		<li >
+			<a href="../../info/messagestructure/records.html">
+			records Features</a>
+			<div class="isActiveIndicator orangeGradient"></div>
+		</li>
+		<li >
+			<a href="../../info/messagestructure/events.html">
+			events Features</a>
+			<div class="isActiveIndicator orangeGradient"></div>
+		</li>
+	
+	<li class="active">
+		<a href="../../info/messagestructure/specs.html">Detailed Specs</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+			<ul class="overview">
+					<li class="de-emphasized">auth</li>
+						<li><a href="#login">Login</a></li>
+						<li><a href="#invalidlogin">Invalid Login</a></li>
+						<li><a href="#toomanyauthattempts">Too many login attempts</a></li>
+						<li><a href="#invalidmessage">Invalid Message</a></li>
+						<li><a href="#unknownaction">Unknown Action</a></li>
+					<li class="de-emphasized">event</li>
+						<li><a href="#listen">Listen</a></li>
+						<li><a href="#unlisten">Unlisten</a></li>
+						<li><a href="#subscribe">Susbcribe</a></li>
+						<li><a href="#unsubscribe">Unsubscribe</a></li>
+						<li><a href="#publish">Publish</a></li>
+						<li><a href="#listenmatch">Listen Match</a></li>
+						<li><a href="#invalidmessage">Invalid Message</a></li>
+						<li><a href="#unknownaction">Unknown Action</a></li>
+					<li class="de-emphasized">record</li>
+						<li><a href="#listen">Listen</a></li>
+						<li><a href="#unlisten">Unlisten</a></li>
+						<li><a href="#listenmatch">Listen Match</a></li>
+						<li><a href="#create">Read/Create</a></li>
+						<li><a href="#update">Update Entire Record</a></li>
+						<li><a href="#patch">Patch Record</a></li>
+						<li><a href="#delete">Delete Record</a></li>
+						<li><a href="#recieveupdate">Receive Record Update</a></li>
+						<li><a href="#invalidmessage">Invalid Message</a></li>
+						<li><a href="#unknownaction">Unknown Action</a></li>
+					<li class="de-emphasized">rpc</li>
+						<li><a href="#register">Register as provider</a></li>
+						<li><a href="#unregister">Unregister as provider</a></li>
+						<li><a href="#send">Send RPC request</a></li>
+						<li><a href="#reject">Reject RPC request</a></li>
+						<li><a href="#error">Error RPC request</a></li>
+						<li><a href="#success">Respond to RPC request</a></li>
+						<li><a href="#invalidmessage">Invalid Message</a></li>
+						<li><a href="#unknownaction">Unknown Action</a></li>
+					<li class="de-emphasized">webRTC</li>
+						<li><a href="#listen">Listen to callee changes</a></li>
+						<li><a href="#unlisten">Unlisten to callee changes</a></li>
+						<li><a href="#register">Register callee</a></li>
+						<li><a href="#unregister">Unregister callee</a></li>
+						<li><a href="#make">Make call</a></li>
+						<li><a href="#accept">Accept call</a></li>
+						<li><a href="#decline">Decline call</a></li>
+						<li><a href="#end">End Call</a></li>
+						<li><a href="#calleelist">Initial callee list update received</a></li>
+						<li><a href="#calleeadded">Callee added message received</a></li>
+						<li><a href="#calleeremoved">Callee removed message received</a></li>
+						<li><a href="#invalidmessage">Invalid Message</a></li>
+						<li><a href="#unknownaction">Unknown Action</a></li>
+			</ul>
+	</li>
+
+</ul>
+
+			<div id="content">
+				<h1>
+    Auth
+</h1>
+<link rel="stylesheet" type="text/css" href="../../assets/css/messagestructure.css" />
+<script type="text/javascript" src="../../assets/js/messagestructure.js"></script>
+
+<div class="message-in-depth">
+     <table>
+        <tbody>
+            <tr>
+                <td>Event</td>
+                <td class="event"> C.BLA.BLA </td>
+            </tr>
+            <tr>
+                <td>Action</td>
+                <td class="action"> C.BLA.BLA </td>
+            </tr>
+            <tr>
+                <td>Data</td>
+                <td class="data">['dljnnjvj','dcdjnkjnvfjkvn']</td>
+            </tr>
+            <tr>
+                <td>Message Spec</td>
+                <td class="messageSpec">
+
+<span class="message-format"><span class="message-format-part-0">E</span><span class="message-format-pipe">|</span><span class="message-format-part-1">EVT</span><span class="message-format-pipe">|</span><span class="message-format-part-2">eventName</span><span class="message-format-pipe">|</span><span class="message-format-part-3">JSON</span><span class="message-format-end">+</span></span>
+
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="down-arrow"></div>
+</div>
+    <div class="section">
+        <h2>
+            <a name="login">Login</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                Sent to authenticate user
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            Client
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <pre><code class="language-gherkin">A|REQ|loginData+</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Ack
+                        </td>
+                        <td>
+                            <pre><code class="language-gherkin">A|A</code></pre>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="section">
+        <h2>
+            <a name="invalidlogin">Invalid Login</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                Recieved if login fails
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            Server
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <pre><code class="language-gherkin">A|E|INVALID_AUTH_DATA|unknown user+</code></pre>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="section">
+        <h2>
+            <a name="toomanyauthattempts">Too many login attempts</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                Recieved if login fails more than the maximum allowed attempts and closes the client connection
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            Server
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <pre><code class="language-gherkin">A|E|TOO_MANY_AUTH_ATTEMPTS+</code></pre>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="section">
+        <h2>
+            <a name="invalidmessage">Invalid Message</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <pre><code class="language-gherkin">X|E|INVALID_MESSAGE_DATA|invalidMessage+</code></pre>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="section">
+        <h2>
+            <a name="unknownaction">Unknown Action</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <pre><code class="language-gherkin">X|E|UNKNOWN_ACTION|unknown action actionName+</code></pre>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+<h1>
+    Events
+</h1>
+<link rel="stylesheet" type="text/css" href="../../assets/css/messagestructure.css" />
+<script type="text/javascript" src="../../assets/js/messagestructure.js"></script>
+
+<div class="message-in-depth">
+     <table>
+        <tbody>
+            <tr>
+                <td>Event</td>
+                <td class="event"> C.BLA.BLA </td>
+            </tr>
+            <tr>
+                <td>Action</td>
+                <td class="action"> C.BLA.BLA </td>
+            </tr>
+            <tr>
+                <td>Data</td>
+                <td class="data">['dljnnjvj','dcdjnkjnvfjkvn']</td>
+            </tr>
+            <tr>
+                <td>Message Spec</td>
+                <td class="messageSpec">
+
+<span class="message-format"><span class="message-format-part-0">E</span><span class="message-format-pipe">|</span><span class="message-format-part-1">EVT</span><span class="message-format-pipe">|</span><span class="message-format-part-2">eventName</span><span class="message-format-pipe">|</span><span class="message-format-part-3">JSON</span><span class="message-format-end">+</span></span>
+
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="down-arrow"></div>
+</div>
+    <div class="section">
+        <h2>
+            <a name="listen">Listen</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                Send when listening to event matching regex
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            Client
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <pre><code class="language-gherkin">E|L|event\/.*+</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Ack
+                        </td>
+                        <td>
+                            <pre><code class="language-gherkin">E|A|L|event\/.*+</code></pre>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="section">
+        <h2>
+            <a name="unlisten">Unlisten</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                Send when no longer interested in listening to event
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            Client
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <pre><code class="language-gherkin">E|UL|event\/.*+</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Ack
+                        </td>
+                        <td>
+                            <pre><code class="language-gherkin">E|A|UL|event\/.*+</code></pre>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="section">
+        <h2>
+            <a name="subscribe">Susbcribe</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                Send to subscribe to event
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            Client
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <pre><code class="language-gherkin">E|S|eventName+</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Ack
+                        </td>
+                        <td>
+                            <pre><code class="language-gherkin">E|A|S|eventName+</code></pre>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="section">
+        <h2>
+            <a name="unsubscribe">Unsubscribe</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                Send to unsubscribe to event
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            Client
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <pre><code class="language-gherkin">E|US|eventName+</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Ack
+                        </td>
+                        <td>
+                            <pre><code class="language-gherkin">E|A|US|eventName+</code></pre>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="section">
+        <h2>
+            <a name="publish">Publish</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                Recieved/Sent when an event occurs
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            Client/Server
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <pre><code class="language-gherkin">E|EVT|eventName|JSON+</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Ack
+                        </td>
+                        <td>
+                            <pre><code class="language-gherkin">E|A|EVT|eventName+</code></pre>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="section">
+        <h2>
+            <a name="listenmatch">Listen Match</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                Recieved when a listened to regex is matched
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            Server
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <pre><code class="language-gherkin">E|SP|event\/.*|event/A+</code></pre>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="section">
+        <h2>
+            <a name="invalidmessage">Invalid Message</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <pre><code class="language-gherkin">E|E|INVALID_MESSAGE_DATA|invalidMessage+</code></pre>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="section">
+        <h2>
+            <a name="unknownaction">Unknown Action</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <pre><code class="language-gherkin">E|E|UNKNOWN_ACTION|unknown action actionName+</code></pre>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+<h1>
+    Record
+</h1>
+<link rel="stylesheet" type="text/css" href="../../assets/css/messagestructure.css" />
+<script type="text/javascript" src="../../assets/js/messagestructure.js"></script>
+
+<div class="message-in-depth">
+     <table>
+        <tbody>
+            <tr>
+                <td>Event</td>
+                <td class="event"> C.BLA.BLA </td>
+            </tr>
+            <tr>
+                <td>Action</td>
+                <td class="action"> C.BLA.BLA </td>
+            </tr>
+            <tr>
+                <td>Data</td>
+                <td class="data">['dljnnjvj','dcdjnkjnvfjkvn']</td>
+            </tr>
+            <tr>
+                <td>Message Spec</td>
+                <td class="messageSpec">
+
+<span class="message-format"><span class="message-format-part-0">E</span><span class="message-format-pipe">|</span><span class="message-format-part-1">EVT</span><span class="message-format-pipe">|</span><span class="message-format-part-2">eventName</span><span class="message-format-pipe">|</span><span class="message-format-part-3">JSON</span><span class="message-format-end">+</span></span>
+
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="down-arrow"></div>
+</div>
+    <div class="section">
+        <h2>
+            <a name="listen">Listen</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            Client
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <pre><code class="language-gherkin">R|L|recordPrefix\/.*+</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Ack
+                        </td>
+                        <td>
+                            <pre><code class="language-gherkin">R|A|L|recordPrefix\/.*+</code></pre>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="section">
+        <h2>
+            <a name="unlisten">Unlisten</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            Client
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <pre><code class="language-gherkin">R|UL|recordPrefix\/.*+</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Ack
+                        </td>
+                        <td>
+                            <pre><code class="language-gherkin">R|A|UL|recordPrefix\/.*+</code></pre>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="section">
+        <h2>
+            <a name="listenmatch">Listen Match</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                Recieved when a listened to regex is matched
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            Server
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <pre><code class="language-gherkin">R|SP|recordPrefix\/.*|/A+</code></pre>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="section">
+        <h2>
+            <a name="create">Read/Create</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            Client
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <pre><code class="language-gherkin">R|CR|recordName+</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Ack
+                        </td>
+                        <td>
+                            <pre><code class="language-gherkin">R|A|CR|recordName+</code></pre>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="section">
+        <h2>
+            <a name="update">Update Entire Record</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            Client
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <pre><code class="language-gherkin">R|U|recordName|versionNumber|JSON+</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Ack
+                        </td>
+                        <td>
+                            <pre><code class="language-gherkin">R|A|U|recordName+</code></pre>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="section">
+        <h2>
+            <a name="patch">Patch Record</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            Client
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <pre><code class="language-gherkin">R|P|recordName|versionNumber|path|value+</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Ack
+                        </td>
+                        <td>
+                            <pre><code class="language-gherkin">R|A|P|recordName+</code></pre>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="section">
+        <h2>
+            <a name="delete">Delete Record</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            Client
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <pre><code class="language-gherkin">R|D|recordName+</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Ack
+                        </td>
+                        <td>
+                            <pre><code class="language-gherkin">R|A|D|recordName+</code></pre>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="section">
+        <h2>
+            <a name="recieveupdate">Receive Record Update</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            Client
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <pre><code class="language-gherkin">R|R|recordName|versionNumber|JSON</code></pre>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="section">
+        <h2>
+            <a name="invalidmessage">Invalid Message</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <pre><code class="language-gherkin">R|E|INVALID_MESSAGE_DATA|invalidMessage+</code></pre>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="section">
+        <h2>
+            <a name="unknownaction">Unknown Action</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <pre><code class="language-gherkin">R|E|UNKNOWN_ACTION|unknown action actionName+</code></pre>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+<h1>
+    RPC
+</h1>
+<link rel="stylesheet" type="text/css" href="../../assets/css/messagestructure.css" />
+<script type="text/javascript" src="../../assets/js/messagestructure.js"></script>
+
+<div class="message-in-depth">
+     <table>
+        <tbody>
+            <tr>
+                <td>Event</td>
+                <td class="event"> C.BLA.BLA </td>
+            </tr>
+            <tr>
+                <td>Action</td>
+                <td class="action"> C.BLA.BLA </td>
+            </tr>
+            <tr>
+                <td>Data</td>
+                <td class="data">['dljnnjvj','dcdjnkjnvfjkvn']</td>
+            </tr>
+            <tr>
+                <td>Message Spec</td>
+                <td class="messageSpec">
+
+<span class="message-format"><span class="message-format-part-0">E</span><span class="message-format-pipe">|</span><span class="message-format-part-1">EVT</span><span class="message-format-pipe">|</span><span class="message-format-part-2">eventName</span><span class="message-format-pipe">|</span><span class="message-format-part-3">JSON</span><span class="message-format-end">+</span></span>
+
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="down-arrow"></div>
+</div>
+    <div class="section">
+        <h2>
+            <a name="register">Register as provider</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                Sent when client can recieve RPC events
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            Client
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <pre><code class="language-gherkin">P|S|rpcName+</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Ack
+                        </td>
+                        <td>
+                            <pre><code class="language-gherkin">P|A|S|rpcName+</code></pre>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="section">
+        <h2>
+            <a name="unregister">Unregister as provider</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                Sent when client no longer wishes to recieve RPC events
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            Client
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <pre><code class="language-gherkin">P|US|rpcName+</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Ack
+                        </td>
+                        <td>
+                            <pre><code class="language-gherkin">P|A|US|rpcName+</code></pre>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="section">
+        <h2>
+            <a name="send">Send RPC request</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                Send/Recieve when RPC requested
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            Client/Server
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <pre><code class="language-gherkin">P|REQ|rpcName|rpcID|Arguments+</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Ack
+                        </td>
+                        <td>
+                            <pre><code class="language-gherkin">P|A|REQ|rpcName|rpcID+</code></pre>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="section">
+        <h2>
+            <a name="reject">Reject RPC request</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                Send if client does not want to execute RPC
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            Client
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <pre><code class="language-gherkin">P|REJ|rpcName|rpcID+</code></pre>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="section">
+        <h2>
+            <a name="error">Error RPC request</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            Send if error occurs during execution
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <pre><code class="language-gherkin">P|E|ErrorMessage|rpcName|123+</code></pre>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="section">
+        <h2>
+            <a name="success">Respond to RPC request</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            Send if error occurs when trying to execute rpc
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <pre><code class="language-gherkin">P|RES|rpcName|rpcID|Result+</code></pre>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="section">
+        <h2>
+            <a name="invalidmessage">Invalid Message</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <pre><code class="language-gherkin">P|E|INVALID_MESSAGE_DATA|invalidMessage+</code></pre>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="section">
+        <h2>
+            <a name="unknownaction">Unknown Action</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <pre><code class="language-gherkin">P|E|UNKNOWN_ACTION|unknown action actionName+</code></pre>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+<h1>
+    webRTC
+</h1>
+<link rel="stylesheet" type="text/css" href="../../assets/css/messagestructure.css" />
+<script type="text/javascript" src="../../assets/js/messagestructure.js"></script>
+
+<div class="message-in-depth">
+     <table>
+        <tbody>
+            <tr>
+                <td>Event</td>
+                <td class="event"> C.BLA.BLA </td>
+            </tr>
+            <tr>
+                <td>Action</td>
+                <td class="action"> C.BLA.BLA </td>
+            </tr>
+            <tr>
+                <td>Data</td>
+                <td class="data">['dljnnjvj','dcdjnkjnvfjkvn']</td>
+            </tr>
+            <tr>
+                <td>Message Spec</td>
+                <td class="messageSpec">
+
+<span class="message-format"><span class="message-format-part-0">E</span><span class="message-format-pipe">|</span><span class="message-format-part-1">EVT</span><span class="message-format-pipe">|</span><span class="message-format-part-2">eventName</span><span class="message-format-pipe">|</span><span class="message-format-part-3">JSON</span><span class="message-format-end">+</span></span>
+
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="down-arrow"></div>
+</div>
+    <div class="section">
+        <h2>
+            <a name="listen">Listen to callee changes</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <pre><code class="language-gherkin">W|LC+</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Ack
+                        </td>
+                        <td>
+                            <pre><code class="language-gherkin">W|A|LC+</code></pre>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="section">
+        <h2>
+            <a name="unlisten">Unlisten to callee changes</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <pre><code class="language-gherkin">W|ULC+</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Ack
+                        </td>
+                        <td>
+                            <pre><code class="language-gherkin">W|A|ULC+</code></pre>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="section">
+        <h2>
+            <a name="register">Register callee</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <pre><code class="language-gherkin">W|RC|calleeA+</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Ack
+                        </td>
+                        <td>
+                            <pre><code class="language-gherkin">W|A|RC|calleeA+</code></pre>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="section">
+        <h2>
+            <a name="unregister">Unregister callee</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <pre><code class="language-gherkin">W|URC|calleeA+</code></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Ack
+                        </td>
+                        <td>
+                            <pre><code class="language-gherkin">W|A|URC|calleeA+</code></pre>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="section">
+        <h2>
+            <a name="make">Make call</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <pre><code class="language-gherkin">W|OF|O{sdp:sdp,type:type,meta:metaData}+</code></pre>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="section">
+        <h2>
+            <a name="accept">Accept call</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <pre><code class="language-gherkin">-</code></pre>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="section">
+        <h2>
+            <a name="decline">Decline call</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <pre><code class="language-gherkin">W|CD|localId|remoteId|reason+</code></pre>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="section">
+        <h2>
+            <a name="end">End Call</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <pre><code class="language-gherkin">W|CE|localId|remoteId|null+</code></pre>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="section">
+        <h2>
+            <a name="calleelist">Initial callee list update received</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <pre><code class="language-gherkin">W|WAC|calleeA|calleeB|calleeC+</code></pre>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="section">
+        <h2>
+            <a name="calleeadded">Callee added message received</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <pre><code class="language-gherkin">W|WCA|calleeName+</code></pre>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="section">
+        <h2>
+            <a name="calleeremoved">Callee removed message received</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <pre><code class="language-gherkin">W|WCR|calleeName+</code></pre>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="section">
+        <h2>
+            <a name="invalidmessage">Invalid Message</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <pre><code class="language-gherkin">W|E|INVALID_MESSAGE_DATA|invalidMessage+</code></pre>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="section">
+        <h2>
+            <a name="unknownaction">Unknown Action</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <pre><code class="language-gherkin">W|E|UNKNOWN_ACTION|unknown action actionName+</code></pre>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+			</div>
+		</div>
+		<script type="text/javascript" src="../../assets/js/docs.js"></script>
+	</div>
+	<div id="footer">
+		<ul class="footer-items">
+
+			<li class="footer-right">
+				<ul class="social">
+					<li class="twitter">
+						<a href="https://twitter.com/deepstreamIO">
+							<i class="fa fa-twitter"></i>  Twitter
+						</a>
+					</li>
+					<li class="github">
+						<a href="https://github.com/hoxton-one">
+							<i class="fa fa-github"></i>  Github
+						</a>
+					</li>
+					<li class="stack-overflow">
+						<a href="http://stackoverflow.com/questions/tagged/deepstream.io">
+							<i class="fa fa-stack-overflow"></i>  Stack Overflow
+						</a>
+					</li>
+					<li>
+						<a href="https://deepstream-slack.herokuapp.com/">
+							<i class="fa fa-slack"></i>  Slack
+						</a>
+					</li>
+				</ul>
+			</li>
+
+			<li class="footer-middle">
+				<h4>Browse</h4>
+				<ul>
+					<li ><a href="../..">Home</a></li>
+					<li ><a href="../../download/">Downloads</a></li>
+					<li ><a href="../../tutorials/getting-started.html">Tutorials</a></li>
+					<li ><a href="../../docs/deepstream.html">Documentation</a></li>
+					<li ><a href="../../blog/">Blog</a></li>
+					<li class="active"><a href="../../info/">Info</a></li>
+				</ul>			</li>
+
+			<li class="footer-left">
+				<h4>Contact us</h4>
+				<p>
+					<b>deepstream.io </b>is developed by Hoxton One Ltd. <br>
+				</p>
+				<p>
+					Email us <a href="mailto:info@deepstream.io">info@deepstream.io</a>.<br><br>
+				</p>
+
+				<h4>Star this project on github!</h4>
+				<p>
+					<a class="github-button" href="https://github.com/hoxton-one/deepstream.io" data-icon="octicon-star" data-style="mega" data-count-href="/hoxton-one/deepstream.io/stargazers" data-count-api="/repos/hoxton-one/deepstream.io#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star hoxton-one/deepstream.io on GitHub">Star</a>
+				</p>
+			</li>
+
+		</ul>
+	</div>
+
+
+	<script async defer id="github-bjs" src="https://buttons.github.io/buttons.js"></script>
+</body>
+</html>

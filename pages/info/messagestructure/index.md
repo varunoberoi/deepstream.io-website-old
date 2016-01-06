@@ -12,7 +12,7 @@ Deepstream messages are transmitted using a proprietary, minimal, string-based p
 
 | and + are used in these examples as placeholders, messages are actually separated by invisible Ascii control characters ("record separator" (30) and "group seperator" (31))
 
-Every message has a topic (e.g. RECORD, EVENT, AUTH etc.) and an action ( CREATE, DELETE, SUBSCRIBE etc.). For a full list of available topics and actions please see [docs/constants.html](../docs/constants.html).
+Every message has a topic (e.g. RECORD, EVENT, AUTH etc.) and an action ( CREATE, DELETE, SUBSCRIBE etc.). For a full list of available topics and actions please see [docs/constants.html](../../docs/constants.html).
 
 
 ### Example
@@ -24,7 +24,7 @@ userLisa = ds.record.getRecord( 'user/Lisa' );
 
 would prompt the client to send this message to the server
 
-<img src="../assets/images/message-structure-record-create.png" />
+<img src="../../assets/images/message-structure-record-create.png" />
 
 Messages always start with `topic` and `action`, but can contain an arbitrary amount of data fields afterwards.
 
@@ -36,9 +36,9 @@ userLisa.set( 'lastname', 'Owen' );
 
 would result in this outgoing message
 
-<img src="../assets/images/message-structure-record-patch.png" width="650"/>
+<img src="../../assets/images/message-structure-record-patch.png" width="650"/>
 
-Please note the additional S before `Owen`. This indicates that the remaining part of the message should be treated as a string. Please find a list of available types [here](../docs/constants.html#Data Types).
+Please note the additional S before `Owen`. This indicates that the remaining part of the message should be treated as a string. Please find a list of available types [here](../../docs/constants.html#Data Types).
 
 Both client and server use a message-parser to validate these messages and to convert them into objects looking like this:
 

@@ -1,0 +1,47 @@
+<link rel="stylesheet" type="text/css" href="{{link 'asset' 'css/messagestructure.css'}}" />
+<script type="text/javascript" src="{{link 'asset' 'js/messagestructure.js'}}"></script>
+
+{{> messagestructureindepth}}
+
+{{#each structures}}
+    <div class="section">
+        <h2>
+            <a name="{{id}}">{{action}}</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                {{description}}
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            {{direction}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <pre><code class="language-gherkin">{{message}}</code></pre>
+                        </td>
+                    </tr>
+                    {{#if ack}}
+                    <tr>
+                        <td>
+                            Ack
+                        </td>
+                        <td>
+                            <pre><code class="language-gherkin">{{ack}}</code></pre>
+                        </td>
+                    </tr>
+                    {{/if}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{{/each}}
