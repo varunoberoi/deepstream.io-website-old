@@ -20,11 +20,13 @@
 	</script>
 	<script type="text/javascript" src="../assets/js/jquery.js"></script>
 	<script type="text/javascript" src="../assets/js/menu.js"></script>
+	<script type="text/javascript" src="../assets/js/prism.js"></script>
 
 	<link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Quicksand:300,400,700' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="../assets/css/prism.css" />
 </head>
 
 <body class="category_ ">
@@ -36,7 +38,7 @@
 				<li ><a href="../tutorials/getting-started.html">Tutorials</a></li>
 				<li ><a href="../docs/deepstream.html">Documentation</a></li>
 				<li class="active"><a href="../blog/">Blog</a></li>
-				<li ><a href="../info/">Info</a></li>				
+				<li ><a href="../info/">Info</a></li>
 			</ul>		</div>
 	</div>
 
@@ -52,7 +54,7 @@
 					<li ><a href="../tutorials/getting-started.html">Tutorials</a></li>
 					<li ><a href="../docs/deepstream.html">Documentation</a></li>
 					<li class="active"><a href="../blog/">Blog</a></li>
-					<li ><a href="../info/">Info</a></li>				
+					<li ><a href="../info/">Info</a></li>
 				</ul>			</div>
 			<span class="menu-button menu-icon">
 				<i class="fa fa-bars"></i>
@@ -67,31 +69,6 @@
 
 		<span class="blog-posts">
 
-			<article class="post">
-
-				<header class="post-header">
-					<h2 class="post-title">
-						<a href="introducing-deepstreamhub/">
-							Introducing deepstreamHub
-						</a>
-					</h2>
-				</header>
-
-				<div class="post-thumbnail">
-					<img src="introducing-deepstreamhub/deepstream-hub-750.png">
-				</div>
-
-				<div class="post-excerpt">
-					<p> Ever since we’ve started working on deepstream.io, we’ve been toying with the idea of using it to build something bigger: A platform that makes it easy for developers from all backgrounds to build great real-time apps, using their own data as well as live feeds from a myriad of services. </p>
-					<a class="read-more" href="introducing-deepstreamhub/"> Read more... </a>
-
-					<footer class="post-meta">
-						By Wolfram Hempel
-						<time class="post-date" datetime="December 15th 2015">December 15th 2015</time>
-					</footer>
-				</div>
-
-			</article>
 			<article class="post">
 
 				<header class="post-header">
@@ -118,6 +95,31 @@ There’s one thing though it doesn’t do: send your message directly to web br
 				</div>
 
 			</article>
+			<article class="post">
+
+				<header class="post-header">
+					<h2 class="post-title">
+						<a href="introducing-deepstreamhub/">
+							Introducing deepstreamHub
+						</a>
+					</h2>
+				</header>
+
+				<div class="post-thumbnail">
+					<img src="introducing-deepstreamhub/deepstream-hub-750.png">
+				</div>
+
+				<div class="post-excerpt">
+					<p> Ever since we’ve started working on deepstream.io, we’ve been toying with the idea of using it to build something bigger: A platform that makes it easy for developers from all backgrounds to build great real-time apps, using their own data as well as live feeds from a myriad of services. </p>
+					<a class="read-more" href="introducing-deepstreamhub/"> Read more... </a>
+
+					<footer class="post-meta">
+						By Wolfram Hempel
+						<time class="post-date" datetime="December 15th 2015">December 15th 2015</time>
+					</footer>
+				</div>
+
+			</article>
 
 		</span>
 
@@ -137,7 +139,7 @@ There’s one thing though it doesn’t do: send your message directly to web br
 				<h4 class="sidebar-item-header">Using deepstream?</h4>
 				<div class="share-story community-collaborate-content">
 					<img width="100%" src="../assets/images/ds-stories-background.png" class="share-story-image" >
-					<a class="share-story-content" href="mailto:info@hoxton-one.com">
+					<a class="share-story-content" href="mailto:info@deepstream.io">
 						tell us what you're building with deepstream and get the t-shirt *
 						<span class="comical-warning">
 							* warning: t-shirt actually looks good and is desirable
@@ -169,15 +171,15 @@ There’s one thing though it doesn’t do: send your message directly to web br
 					</h4>
 					<li class="latest-blogs-content">
 						<ul class="latest-blog-article">
-							<a href="introducing-deepstreamhub\">
-								<span class="date">15/12/2015</span>
-								<span class="title">Introducing deepstreamHub</span>
-							</a>
-						</ul>
-						<ul class="latest-blog-article">
 							<a href="publishing-aws-sns-messages-to-browsers-tutorial\">
 								<span class="date">04/01/2016</span>
 								<span class="title">Publishing AWS SNS messages to browsers</span>
+							</a>
+						</ul>
+						<ul class="latest-blog-article">
+							<a href="introducing-deepstreamhub\">
+								<span class="date">15/12/2015</span>
+								<span class="title">Introducing deepstreamHub</span>
 							</a>
 						</ul>
 					</li>
@@ -218,19 +220,15 @@ There’s one thing though it doesn’t do: send your message directly to web br
 			</li>
 
 			<li class="footer-middle">
-				<a class="footer-middle" href="http://www.hoxton-one.com/" title="hoxton-one.com">
-					<p>
-					Handcrafted by
-					</p>
-
-					<div class="footer-hoxton-one">
-					</div>
-
-					<div class="copyright">
-						&copy;2015 Hoxton One Ltd. All rights reserved.
-					</div>
-				</a>
-			</li>
+				<h4>Browse</h4>
+				<ul>
+					<li ><a href="..">Home</a></li>
+					<li ><a href="../download/">Downloads</a></li>
+					<li ><a href="../tutorials/getting-started.html">Tutorials</a></li>
+					<li ><a href="../docs/deepstream.html">Documentation</a></li>
+					<li class="active"><a href="../blog/">Blog</a></li>
+					<li ><a href="../info/">Info</a></li>
+				</ul>			</li>
 
 			<li class="footer-left">
 				<h4>Contact us</h4>
@@ -238,7 +236,7 @@ There’s one thing though it doesn’t do: send your message directly to web br
 					<b>deepstream.io </b>is developed by Hoxton One Ltd. <br>
 				</p>
 				<p>
-					Email us <a href="mailto:info@hoxton-one.com">info@hoxton-one.com</a>.<br><br>
+					Email us <a href="mailto:info@deepstream.io">info@deepstream.io</a>.<br><br>
 				</p>
 
 				<h4>Star this project on github!</h4>

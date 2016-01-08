@@ -20,11 +20,13 @@
 	</script>
 	<script type="text/javascript" src="assets/js/jquery.js"></script>
 	<script type="text/javascript" src="assets/js/menu.js"></script>
+	<script type="text/javascript" src="assets/js/prism.js"></script>
 
 	<link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Quicksand:300,400,700' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/prism.css" />
 </head>
 
 <body class="category_ start-page">
@@ -36,7 +38,7 @@
 				<li ><a href="tutorials/getting-started.html">Tutorials</a></li>
 				<li ><a href="docs/deepstream.html">Documentation</a></li>
 				<li ><a href="blog/">Blog</a></li>
-				<li ><a href="info/">Info</a></li>				
+				<li ><a href="info/">Info</a></li>
 			</ul>		</div>
 	</div>
 
@@ -52,7 +54,7 @@
 					<li ><a href="tutorials/getting-started.html">Tutorials</a></li>
 					<li ><a href="docs/deepstream.html">Documentation</a></li>
 					<li ><a href="blog/">Blog</a></li>
-					<li ><a href="info/">Info</a></li>				
+					<li ><a href="info/">Info</a></li>
 				</ul>			</div>
 			<span class="menu-button menu-icon">
 				<i class="fa fa-bars"></i>
@@ -61,7 +63,6 @@
 			<div class="content main">
 				<link rel="stylesheet" type="text/css" href="assets/css/community.css" />
 <link rel="stylesheet" type="text/css" href="assets/css/startpage.css" />
-<link rel="stylesheet" type="text/css" href="assets/css/syntaxhighlighter.css" />
 
 <div id="segment-header">
 	<div class="header-wrapper">
@@ -91,12 +92,25 @@
 <div id="segment-code">
 	<div class="codes">
 		<div class="code-left">
-		<pre><code><span class="token comment" spellcheck="true">// Server
-</span><span class="token keyword">var</span> DeepstreamServer <span class="token operator">=</span> <span class="token function">require<span class="token punctuation">(</span></span> <span class="token string">'deepstream.io'</span> <span class="token punctuation">)</span><span class="token punctuation">,</span><br />&nbsp;&nbsp;&nbsp;&nbsp;server <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">DeepstreamServer</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br/><br/>server<span class="token punctuation">.</span><span class="token keyword">set</span><span class="token punctuation">(</span> <span class="token string">'host'</span><span class="token punctuation">,</span> <span class="token string">'localhost'</span> <span class="token punctuation">)</span><span class="token punctuation">;</span><br />server<span class="token punctuation">.</span><span class="token keyword">set</span><span class="token punctuation">(</span> <span class="token string">'port'</span><span class="token punctuation">,</span> <span class="token number">6020</span> <span class="token punctuation">)</span><span class="token punctuation">;</span><br /><br />server<span class="token punctuation">.</span><span class="token function">start<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span></div></pre></code>
+<pre><code class="lang-javascript">// Server
+var DeepstreamServer = require( 'deepstream.io' ),
+    server = new DeepstreamServer();
+
+server.set( 'host', 'localhost' );
+server.set( 'port', 6020 );
+
+server.start();</code></pre>
+		</div>
 		<div class="code-seperator">
 		</div>
 		<div class="code-right">
-<pre><code><span class="token comment" spellcheck="true">// Browser / Node Client<br /></span><span class="token keyword">var</span> ds <span class="token operator">=</span> <span class="token function">deepstream<span class="token punctuation">(</span></span> <span class="token string">'localhost:6020'</span> <span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">login<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">,</span><br />&nbsp;&nbsp;&nbsp;&nbsp;record <span class="token operator">=</span>ds<span class="token punctuation">.</span>record<span class="token punctuation">.</span><span class="token function">getRecord<span class="token punctuation">(</span></span> <span class="token string">'stock/hxto'</span> <span class="token punctuation">)</span><span class="token punctuation">;</span><br /><br />record<span class="token punctuation">.</span><span class="token keyword">get</span><span class="token punctuation">(</span> <span class="token string">'name'</span> <span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true"> // Hoxton One</span><br />record<span class="token punctuation">.</span><span class="token keyword">set</span><span class="token punctuation">(</span> <span class="token string">'employees[1].firstname'</span><span class="token punctuation">,</span> <span class="token string">'Zack'</span> <span class="token punctuation">)</span><span class="token punctuation">;</span><br />record<span class="token punctuation">.</span><span class="token function">subscribe<span class="token punctuation">(</span></span> <span class="token string">'price'</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span> price <span class="token punctuation">)</span><span class="token punctuation">{</span> <span class="token comment" spellcheck="true">/***/</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br /><br /></code></pre>
+<pre><code class="lang-javascript">// Browser / Node Client
+var ds = deepstream( 'localhost:6020' ).login(),
+    record =ds.record.getRecord( 'stock/hxto' );
+
+record.get( 'name' ); // Hoxton One
+record.set( 'employees[1].firstname', 'Zack' );
+record.subscribe( 'price', function( price ){ /***/ });</code></pre>
 		</div>
 	</div>
 </div>
@@ -236,15 +250,15 @@
 				</h4>
 				<li class="latest-blogs-content">
 					<ul class="latest-blog-article">
-						<a href="blog\introducing-deepstreamhub\">
-							<span class="date">15/12/2015</span>
-							<span class="title">Introducing deepstreamHub</span>
-						</a>
-					</ul>
-					<ul class="latest-blog-article">
 						<a href="blog\publishing-aws-sns-messages-to-browsers-tutorial\">
 							<span class="date">04/01/2016</span>
 							<span class="title">Publishing AWS SNS messages to browsers</span>
+						</a>
+					</ul>
+					<ul class="latest-blog-article">
+						<a href="blog\introducing-deepstreamhub\">
+							<span class="date">15/12/2015</span>
+							<span class="title">Introducing deepstreamHub</span>
 						</a>
 					</ul>
 				</li>
@@ -261,7 +275,7 @@
 						</h6>
 						<div class="share-story community-collaborate-content">
 							<img width="100%" src="assets/images/ds-stories-background.png" class="share-story-image" >
-							<a class="share-story-content" href="mailto:info@hoxton-one.com">
+							<a class="share-story-content" href="mailto:info@deepstream.io">
 								tell us what you're building with deepstream and get the t-shirt *
 								<span class="comical-warning">
 									* warning: t-shirt actually looks good and is desirable
@@ -369,19 +383,15 @@
 			</li>
 
 			<li class="footer-middle">
-				<a class="footer-middle" href="http://www.hoxton-one.com/" title="hoxton-one.com">
-					<p>
-					Handcrafted by
-					</p>
-
-					<div class="footer-hoxton-one">
-					</div>
-
-					<div class="copyright">
-						&copy;2015 Hoxton One Ltd. All rights reserved.
-					</div>
-				</a>
-			</li>
+				<h4>Browse</h4>
+				<ul>
+					<li class="active"><a href=".">Home</a></li>
+					<li ><a href="download/">Downloads</a></li>
+					<li ><a href="tutorials/getting-started.html">Tutorials</a></li>
+					<li ><a href="docs/deepstream.html">Documentation</a></li>
+					<li ><a href="blog/">Blog</a></li>
+					<li ><a href="info/">Info</a></li>
+				</ul>			</li>
 
 			<li class="footer-left">
 				<h4>Contact us</h4>
@@ -389,7 +399,7 @@
 					<b>deepstream.io </b>is developed by Hoxton One Ltd. <br>
 				</p>
 				<p>
-					Email us <a href="mailto:info@hoxton-one.com">info@hoxton-one.com</a>.<br><br>
+					Email us <a href="mailto:info@deepstream.io">info@deepstream.io</a>.<br><br>
 				</p>
 
 				<h4>Star this project on github!</h4>

@@ -15,18 +15,19 @@
 	<link rel="stylesheet" type="text/css" href="../assets/css/navigation.css" />
 	<link rel="stylesheet" type="text/css" href="../assets/css/screen.css" />
 	<link rel="stylesheet" type="text/css" href="../assets/css/api.css" />
-	<link rel="stylesheet" type="text/css" href="../assets/css/syntaxhighlighter.css" />
 	<script type="text/javascript">
 	document.createElement( 'header' );
 	document.createElement( 'nav' );
 	</script>
 	<script type="text/javascript" src="../assets/js/jquery.js"></script>
 	<script type="text/javascript" src="../assets/js/menu.js"></script>
+	<script type="text/javascript" src="../assets/js/prism.js"></script>
 
 	<link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Quicksand:300,400,700' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="../assets/css/prism.css" />
 </head>
 
 <body class="category_tutorials ">
@@ -38,7 +39,7 @@
 				<li class="active"><a href="../tutorials/getting-started.html">Tutorials</a></li>
 				<li ><a href="../docs/deepstream.html">Documentation</a></li>
 				<li ><a href="../blog/">Blog</a></li>
-				<li ><a href="../info/">Info</a></li>				
+				<li ><a href="../info/">Info</a></li>
 			</ul>		</div>
 	</div>
 
@@ -54,7 +55,7 @@
 					<li class="active"><a href="../tutorials/getting-started.html">Tutorials</a></li>
 					<li ><a href="../docs/deepstream.html">Documentation</a></li>
 					<li ><a href="../blog/">Blog</a></li>
-					<li ><a href="../info/">Info</a></li>				
+					<li ><a href="../info/">Info</a></li>
 				</ul>			</div>
 			<span class="menu-button menu-icon">
 				<i class="fa fa-bars"></i>
@@ -161,69 +162,74 @@
 <li><code>message</code> is a map with four fields: <code>topic</code>, <code>action</code>, <code>data</code> and <code>raw</code></li>
 <li><code>callback</code> is a function that should be called with two arguments: error (or null) and (boolean) <code>isAllowed</code>, e.g. <code>callback( null, true );</code></li>
 </ul>
-<h3>Messages</h3><p>Permissions are based on incoming messages. Every incoming message will be parsed and validated for syntactical correctness, but won&#39;t be processed  until after it is permitted. Parsed messages look like this:</p><pre><code><span class="token punctuation" >{</span>
-    raw<span class="token punctuation" >:</span> <span class="token string" >'R\u001fCR\u001fcurrencies'</span><span class="token punctuation" >,</span>
-    topic<span class="token punctuation" >:</span> <span class="token string" >'R'</span><span class="token punctuation" >,</span>
-    action<span class="token punctuation" >:</span> <span class="token string" >'CR'</span><span class="token punctuation" >,</span>
-    data<span class="token punctuation" >:</span> <span class="token punctuation" >[</span> <span class="token string" >'currencies'</span> <span class="token punctuation" >]</span>
-<span class="token punctuation" >}</span>
-</code></pre><ul>
+<h3>Messages</h3><p>Permissions are based on incoming messages. Every incoming message will be parsed and validated for syntactical correctness, but won&#39;t be processed  until after it is permitted. Parsed messages look like this:</p><pre><code class="lang-javascript">{
+    raw: &#39;R\u001fCR\u001fcurrencies&#39;,
+    topic: &#39;R&#39;,
+    action: &#39;CR&#39;,
+    data: [ &#39;currencies&#39; ]
+}
+</code></pre>
+<ul>
 <li><code>topic</code> is a constant that defines what the message relates to, e.g. <code>RECORD</code>, <code>EVENT</code>, <code>RPC</code>, <code>AUTH</code> etc. Please find a full list of topics <a href="../docs/constants.html#Topic">here</a></li>
 <li><code>action</code> is a constant that defines what should happen to the topic, e.g. &#39;CREATE_OR_READ&#39;, &#39;SUBSCRIBE&#39;, &#39;DELETE&#39; etc. Please find a full list of actions <a href="../docs/constants.html#Actions">here</a></li>
 <li><code>data</code> is an array of values that relate to the action. The number and order of these values depends on the action they relate to. For every record-related message the first value in the data array is always the record name</li>
 </ul>
-<p>If you&#39;d like to learn more about deepstream&#39;s message structure, have a look at the <a href="message-structure.html">message structure page</a></p><h3>Applying permissions</h3><p>Based on the username and the incoming message you can now allow or deny operations. Here are some examples:</p><h3>Allow everything</h3><p>To allow everything, just always pass true to the callback. This is also what the default permissionHandler does.</p><pre><code><span class="token comment" spellcheck="true">//Allow everything
-</span>canPerformAction<span class="token punctuation" >:</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> username<span class="token punctuation" >,</span> message<span class="token punctuation" >,</span> callback <span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
-    <span class="token function" >callback<span class="token punctuation" >(</span></span> <span class="token keyword" >null</span><span class="token punctuation" >,</span> <span class="token keyword" >true</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-<span class="token punctuation" >}</span>
-</code></pre><h3>Prevent a specific user from deleting records</h3><p>To prevent user <code>LisaA</code> from deleting any records, do the following</p><pre><code>canPerformAction<span class="token punctuation" >:</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> username<span class="token punctuation" >,</span> message<span class="token punctuation" >,</span> callback <span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
-    <span class="token keyword" >var</span> isAllowed <span class="token operator" >=</span> <span class="token punctuation" >(</span>
-        username <span class="token operator" >===</span> <span class="token string" >'LisaA'</span> <span class="token operator" >&amp;&amp;</span>
-        message<span class="token punctuation" >.</span>topic <span class="token operator" >===</span> server<span class="token punctuation" >.</span>constants<span class="token punctuation" >.</span>TOPIC<span class="token punctuation" >.</span>RECORD <span class="token operator" >&amp;&amp;</span>
-        message<span class="token punctuation" >.</span>action <span class="token operator" >===</span> server<span class="token punctuation" >.</span>constants<span class="token punctuation" >.</span>ACTIONS<span class="token punctuation" >.</span>DELETE
-    <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+<p>If you&#39;d like to learn more about deepstream&#39;s message structure, have a look at the <a href="message-structure.html">message structure page</a></p><h3>Applying permissions</h3><p>Based on the username and the incoming message you can now allow or deny operations. Here are some examples:</p><h3>Allow everything</h3><p>To allow everything, just always pass true to the callback. This is also what the default permissionHandler does.</p><pre><code class="lang-javascript">//Allow everything
+canPerformAction: function( username, message, callback ) {
+    callback( null, true );
+}
+</code></pre>
+<h3>Prevent a specific user from deleting records</h3><p>To prevent user <code>LisaA</code> from deleting any records, do the following</p><pre><code class="lang-javascript">canPerformAction: function( username, message, callback ) {
+    var isAllowed = (
+        username === &#39;LisaA&#39; &amp;&amp;
+        message.topic === server.constants.TOPIC.RECORD &amp;&amp;
+        message.action === server.constants.ACTIONS.DELETE
+    );
 
-    <span class="token function" >callback<span class="token punctuation" >(</span></span> <span class="token keyword" >null</span><span class="token punctuation" >,</span> isAllowed <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-<span class="token punctuation" >}</span>
-</code></pre><h3>Private records</h3><p>Sometimes it is useful to create records that can only be created, read or manipulated by a specific user. To do this, simply enforce the name of the logged in user as part of the recordname:</p><pre><code>canPerformAction<span class="token punctuation" >:</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> username<span class="token punctuation" >,</span> message<span class="token punctuation" >,</span> callback <span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
-   <span class="token comment" spellcheck="true"> // Allow every non record-related message
-</span>    <span class="token keyword" >if</span><span class="token punctuation" >(</span> message<span class="token punctuation" >.</span>topic <span class="token operator" >!</span><span class="token operator" >==</span> server<span class="token punctuation" >.</span>constants<span class="token punctuation" >.</span>TOPIC<span class="token punctuation" >.</span>RECORD <span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
-        <span class="token function" >callback<span class="token punctuation" >(</span></span> <span class="token keyword" >null</span><span class="token punctuation" >,</span> <span class="token keyword" >true</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-    <span class="token punctuation" >}</span>
-    <span class="token keyword" >else</span> <span class="token punctuation" >{</span>
-        <span class="token keyword" >var</span> recordName <span class="token operator" >=</span> message<span class="token punctuation" >.</span>data<span class="token punctuation" >[</span> <span class="token number" >0</span> <span class="token punctuation" >]</span><span class="token punctuation" >;</span>
-        <span class="token function" >callback<span class="token punctuation" >(</span></span> <span class="token keyword" >null</span><span class="token punctuation" >,</span> recordName<span class="token punctuation" >.</span><span class="token function" >indexOf<span class="token punctuation" >(</span></span> username <span class="token punctuation" >)</span> <span class="token operator" >!</span><span class="token operator" >==</span> <span class="token operator" >-</span><span class="token number" >1</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-    <span class="token punctuation" >}</span>
-<span class="token punctuation" >}</span>
-</code></pre><h3>Validating against record data</h3><p>In the next example we&#39;ll prevent the value of &#39;price&#39; for record &#39;fancyCar&#39; from being set to less than 60,000. Performing checks for specific record values can be a bit tricky for two reasons:</p><ul>
+    callback( null, isAllowed );
+}
+</code></pre>
+<h3>Private records</h3><p>Sometimes it is useful to create records that can only be created, read or manipulated by a specific user. To do this, simply enforce the name of the logged in user as part of the recordname:</p><pre><code class="lang-javascript">canPerformAction: function( username, message, callback ) {
+    // Allow every non record-related message
+    if( message.topic !== server.constants.TOPIC.RECORD ) {
+        callback( null, true );
+    }
+    else {
+        var recordName = message.data[ 0 ];
+        callback( null, recordName.indexOf( username ) !== -1 );
+    }
+}
+</code></pre>
+<h3>Validating against record data</h3><p>In the next example we&#39;ll prevent the value of &#39;price&#39; for record &#39;fancyCar&#39; from being set to less than 60,000. Performing checks for specific record values can be a bit tricky for two reasons:</p><ul>
 <li><p>Record data can be set in two different ways, depending if the user set the entire record, using <code>record.set( value )</code> or just a path within it, using <code>record.set( path, value )</code>.<br /><code>record.set( value )</code> triggers an <code>UPDATE</code> operation and the <code>data</code> array will contain [ recordName, version, JSON-encoded-record ].<br /><code>record.set( path, value )</code> triggers a <code>PATCH</code> operation and the <code>data</code> array will contain [ recordName, version, path, typed-value ].</p></li>
 <li><p>All deepstream messages are strings. To tell the server about their original datatype, the client prefixes certain values (e.g. for PATCH operations, event and rpc data) with an extra character. This means that <code>42</code> turns to <code>N42</code>. These can be converted back to their original value using <code>deepstream.convertTyped( value )</code>.</p></li>
 </ul>
-<pre><code>canPerformAction<span class="token punctuation" >:</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> username<span class="token punctuation" >,</span> message<span class="token punctuation" >,</span> callback <span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
-   <span class="token comment" spellcheck="true"> // Allow every message that isn't a change to the fancy car record
-</span>    <span class="token keyword" >if</span><span class="token punctuation" >(</span>
-        message<span class="token punctuation" >.</span>topic <span class="token operator" >===</span> deepstream<span class="token punctuation" >.</span>constants<span class="token punctuation" >.</span>TOPIC<span class="token punctuation" >.</span>RECORD <span class="token operator" >&amp;&amp;</span>
-        message<span class="token punctuation" >.</span>data<span class="token punctuation" >[</span> <span class="token number" >0</span> <span class="token punctuation" >]</span> <span class="token operator" >===</span> <span class="token string" >'fancyCar'</span> <span class="token operator" >&amp;&amp;</span> <span class="token punctuation" >(</span>
-            message<span class="token punctuation" >.</span>action <span class="token operator" >===</span> deepstream<span class="token punctuation" >.</span>constants<span class="token punctuation" >.</span>ACTIONS<span class="token punctuation" >.</span>PATCH <span class="token operator" >||</span>
-            message<span class="token punctuation" >.</span>action <span class="token operator" >===</span> deepstream<span class="token punctuation" >.</span>constants<span class="token punctuation" >.</span>ACTIONS<span class="token punctuation" >.</span>UPDATE
-        <span class="token punctuation" >)</span>
-    <span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
-        <span class="token keyword" >if</span><span class="token punctuation" >(</span> message<span class="token punctuation" >.</span>action <span class="token operator" >===</span> deepstream<span class="token punctuation" >.</span>constants<span class="token punctuation" >.</span>ACTIONS<span class="token punctuation" >.</span>PATCH <span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
-            <span class="token keyword" >var</span> price <span class="token operator" >=</span> deepstream<span class="token punctuation" >.</span><span class="token function" >convertTyped<span class="token punctuation" >(</span></span> message<span class="token punctuation" >.</span>data<span class="token punctuation" >[</span> <span class="token number" >3</span> <span class="token punctuation" >]</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-        <span class="token punctuation" >}</span> <span class="token keyword" >else</span> <span class="token punctuation" >{</span>
-            <span class="token keyword" >var</span> price <span class="token operator" >=</span> message<span class="token punctuation" >.</span>data<span class="token punctuation" >[</span> <span class="token number" >2</span> <span class="token punctuation" >]</span><span class="token punctuation" >.</span>price<span class="token punctuation" >;</span>
-        <span class="token punctuation" >}</span>
+<pre><code class="lang-javascript">canPerformAction: function( username, message, callback ) {
+    // Allow every message that isn&#39;t a change to the fancy car record
+    if(
+        message.topic === deepstream.constants.TOPIC.RECORD &amp;&amp;
+        message.data[ 0 ] === &#39;fancyCar&#39; &amp;&amp; (
+            message.action === deepstream.constants.ACTIONS.PATCH ||
+            message.action === deepstream.constants.ACTIONS.UPDATE
+        )
+    ) {
+        if( message.action === deepstream.constants.ACTIONS.PATCH ) {
+            var price = deepstream.convertTyped( message.data[ 3 ] );
+        } else {
+            var price = message.data[ 2 ].price;
+        }
 
-        <span class="token keyword" >if</span><span class="token punctuation" >(</span> <span class="token function" >isNaN<span class="token punctuation" >(</span></span> price <span class="token punctuation" >)</span> <span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
-            <span class="token function" >callback<span class="token punctuation" >(</span></span> <span class="token string" >'price is not a number'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-        <span class="token punctuation" >}</span> <span class="token keyword" >else</span> <span class="token punctuation" >{</span>
-            <span class="token function" >callback<span class="token punctuation" >(</span></span> <span class="token keyword" >null</span><span class="token punctuation" >,</span> price <span class="token operator" >>=</span> <span class="token number" >60000</span> <span class="token punctuation" >)</span>
-        <span class="token punctuation" >}</span>
-    <span class="token punctuation" >}</span> <span class="token keyword" >else</span> <span class="token punctuation" >{</span>
-        <span class="token function" >callback<span class="token punctuation" >(</span></span> <span class="token keyword" >null</span><span class="token punctuation" >,</span> <span class="token keyword" >true</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-    <span class="token punctuation" >}</span>
-<span class="token punctuation" >}</span>
+        if( isNaN( price ) ) {
+            callback( &#39;price is not a number&#39; );
+        } else {
+            callback( null, price &gt;= 60000 )
+        }
+    } else {
+        callback( null, true );
+    }
+}
 </code></pre>
+
 			</div>
 		</div>
 		<script type="text/javascript" src="../assets/js/docs.js"></script>
@@ -257,19 +263,15 @@
 			</li>
 
 			<li class="footer-middle">
-				<a class="footer-middle" href="http://www.hoxton-one.com/" title="hoxton-one.com">
-					<p>
-					Handcrafted by
-					</p>
-
-					<div class="footer-hoxton-one">
-					</div>
-
-					<div class="copyright">
-						&copy;2015 Hoxton One Ltd. All rights reserved.
-					</div>
-				</a>
-			</li>
+				<h4>Browse</h4>
+				<ul>
+					<li ><a href="..">Home</a></li>
+					<li ><a href="../download/">Downloads</a></li>
+					<li class="active"><a href="../tutorials/getting-started.html">Tutorials</a></li>
+					<li ><a href="../docs/deepstream.html">Documentation</a></li>
+					<li ><a href="../blog/">Blog</a></li>
+					<li ><a href="../info/">Info</a></li>
+				</ul>			</li>
 
 			<li class="footer-left">
 				<h4>Contact us</h4>
@@ -277,7 +279,7 @@
 					<b>deepstream.io </b>is developed by Hoxton One Ltd. <br>
 				</p>
 				<p>
-					Email us <a href="mailto:info@hoxton-one.com">info@hoxton-one.com</a>.<br><br>
+					Email us <a href="mailto:info@deepstream.io">info@deepstream.io</a>.<br><br>
 				</p>
 
 				<h4>Star this project on github!</h4>

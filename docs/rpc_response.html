@@ -15,18 +15,19 @@
 	<link rel="stylesheet" type="text/css" href="../assets/css/navigation.css" />
 	<link rel="stylesheet" type="text/css" href="../assets/css/screen.css" />
 	<link rel="stylesheet" type="text/css" href="../assets/css/api.css" />
-	<link rel="stylesheet" type="text/css" href="../assets/css/syntaxhighlighter.css" />
 	<script type="text/javascript">
 	document.createElement( 'header' );
 	document.createElement( 'nav' );
 	</script>
 	<script type="text/javascript" src="../assets/js/jquery.js"></script>
 	<script type="text/javascript" src="../assets/js/menu.js"></script>
+	<script type="text/javascript" src="../assets/js/prism.js"></script>
 
 	<link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Quicksand:300,400,700' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="../assets/css/prism.css" />
 </head>
 
 <body class="category_docs ">
@@ -38,7 +39,7 @@
 				<li ><a href="../tutorials/getting-started.html">Tutorials</a></li>
 				<li class="active"><a href="../docs/deepstream.html">Documentation</a></li>
 				<li ><a href="../blog/">Blog</a></li>
-				<li ><a href="../info/">Info</a></li>				
+				<li ><a href="../info/">Info</a></li>
 			</ul>		</div>
 	</div>
 
@@ -54,7 +55,7 @@
 					<li ><a href="../tutorials/getting-started.html">Tutorials</a></li>
 					<li class="active"><a href="../docs/deepstream.html">Documentation</a></li>
 					<li ><a href="../blog/">Blog</a></li>
-					<li ><a href="../info/">Info</a></li>				
+					<li ><a href="../info/">Info</a></li>
 				</ul>			</div>
 			<span class="menu-button menu-icon">
 				<i class="fa fa-bars"></i>
@@ -66,10 +67,12 @@
 	<li >
 		<a href="deepstream.html">Deepstream</a>
 		<div class="isActiveIndicator orangeGradient"></div>
+		
 	</li>
 	<li >
 		<a href="constants.html">Constants</a>
 		<div class="isActiveIndicator orangeGradient"></div>
+		
 	</li>
 
 
@@ -77,6 +80,7 @@
 	<li >
 		<a href="client.html">Client</a>
 		<div class="isActiveIndicator orangeGradient"></div>
+		
 	</li>
 
 	<li >
@@ -97,87 +101,99 @@
 	<li >
 		<a href="event_emitter.html">EventEmitter</a>
 		<div class="isActiveIndicator orangeGradient"></div>
+		
 	</li>
 
 	<li class="de-emphasized">Record</li>
 	<li >
 		<a href="client.record.html">client.record</a>
 		<div class="isActiveIndicator orangeGradient"></div>
+		
 	</li>
 
 	<li >
 		<a href="record.html">Record</a>
 		<div class="isActiveIndicator orangeGradient"></div>
+		
 	</li>
 
 	<li >
 		<a href="list.html">List</a>
 		<div class="isActiveIndicator orangeGradient"></div>
+		
 	</li>
 
 	<li >
 		<a href="anonymous_record.html">Anonymous Record</a>
 		<div class="isActiveIndicator orangeGradient"></div>
+		
 	</li>
 
 	<li class="de-emphasized">RPC</li>
 	<li >
 		<a href="client.rpc.html">client.rpc</a>
 		<div class="isActiveIndicator orangeGradient"></div>
+		
 	</li>
 
 	<li class="active">
 		<a href="rpc_response.html">RpcResponse</a>
 		<div class="isActiveIndicator orangeGradient"></div>
-			<ul class="overview">
-				<li><a href="#RpcResponse">RpcResponse</a></li>
-				<li><a href="#ack()">ack()</a></li>
-				<li><a href="#send( data )">send( data )</a></li>
-				<li><a href="#reject()">reject()</a></li>
-				<li><a href="#error( errorMsg )">error( errorMsg )</a></li>
-			</ul>
+		<ul class="overview">
+		<li><a href="#RpcResponse">RpcResponse</a></li>
+		<li><a href="#ack()">ack()</a></li>
+		<li><a href="#send(data)">send(data)</a></li>
+		<li><a href="#reject()">reject()</a></li>
+		<li><a href="#error(errorMsg)">error(errorMsg)</a></li>
+</ul>
 	</li>
 
 	<li class="de-emphasized">Event</li>
 	<li >
 		<a href="client.event.html">client.event</a>
 		<div class="isActiveIndicator orangeGradient"></div>
+		
 	</li>
 
 	<li class="de-emphasized">WebRTC</li>
 	<li >
 		<a href="client.webrtc.html">client.webrtc</a>
 		<div class="isActiveIndicator orangeGradient"></div>
+		
 	</li>
 	<li >
 		<a href="webrtc_call.html">WebRTC Call</a>
 		<div class="isActiveIndicator orangeGradient"></div>
+		
 	</li>
 </ul>
 
 			<div id="content">
-				<div class="section"><h2><a name="RpcResponse">RpcResponse</a></h2><p>RpcResponse objects are passed to rpc <code>provide</code> callbacks. They allow to explicitely acknowledge, complete or reject requests</p><pre><code>client<span class="token punctuation" >.</span>rpc<span class="token punctuation" >.</span><span class="token function" >provide<span class="token punctuation" >(</span></span> <span class="token string" >'add-two-numbers'</span><span class="token punctuation" >,</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> data<span class="token punctuation" >,</span> response <span class="token punctuation" >)</span><span class="token punctuation" >{</span>
-    response<span class="token punctuation" >.</span><span class="token function" >send<span class="token punctuation" >(</span></span> data<span class="token punctuation" >.</span>numberA <span class="token operator" >+</span> data<span class="token punctuation" >.</span>numberB <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-<span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-</code></pre></div><div class="section"><h2><a name="ack()">ack()</a></h2><p>Once a client receives a RPC request, it acknowledges this fact. This usually happens implicitly, but can be done explicitly using <code>ack()</code>. 
-Doing so might make sense if the client needs to perform an asynchronous operation to determine if it will accept or reject the request.</p><p>Please note: calling <code>send()</code>, <code>reject()</code> or <code>error()</code> completes the request. Calling <code>ack()</code> after any of these methods will not do anything.</p><pre><code>client<span class="token punctuation" >.</span>rpc<span class="token punctuation" >.</span><span class="token function" >provide<span class="token punctuation" >(</span></span> <span class="token string" >'add-two-numbers'</span><span class="token punctuation" >,</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> data<span class="token punctuation" >,</span> response <span class="token punctuation" >)</span><span class="token punctuation" >{</span>
+				<div class="section"><h2><a name="RpcResponse">RpcResponse</a></h2><p>RpcResponse objects are passed to rpc <code>provide</code> callbacks. They allow to explicitely acknowledge, complete or reject requests</p><pre><code class="lang-javascript">client.rpc.provide( &#39;add-two-numbers&#39;, function( data, response ){
+    response.send( data.numberA + data.numberB );
+});
+</code></pre>
+</div><div class="section"><h2><a name="ack()">ack()</a></h2><p>Once a client receives a RPC request, it acknowledges this fact. This usually happens implicitly, but can be done explicitly using <code>ack()</code>. 
+Doing so might make sense if the client needs to perform an asynchronous operation to determine if it will accept or reject the request.</p><p>Please note: calling <code>send()</code>, <code>reject()</code> or <code>error()</code> completes the request. Calling <code>ack()</code> after any of these methods will not do anything.</p><pre><code class="lang-javascript">client.rpc.provide( &#39;add-two-numbers&#39;, function( data, response ){
 
-   <span class="token comment" spellcheck="true"> // Turn of automatic acknowledgements. This needs to happen synchronously
-</span>    response<span class="token punctuation" >.</span>autoAck <span class="token operator" >=</span> <span class="token keyword" >false</span><span class="token punctuation" >;</span>
+    // Turn of automatic acknowledgements. This needs to happen synchronously
+    response.autoAck = false;
 
-   <span class="token comment" spellcheck="true"> // Acknowledge the request yourself
-</span>    response<span class="token punctuation" >.</span><span class="token function" >ack<span class="token punctuation" >(</span></span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-<span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-</code></pre></div><div class="section"><h2><a name="send( data )">send( data )</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">data</td><td class="type">Mixed</td><td class="optional">false</td><td class="default">-</td><td class="description">Any serializable response data</td></tr></tbody></table><p>Send the response to the client</p></div><div class="section"><h2><a name="reject()">reject()</a></h2><p>Reject the request. Rejections are not errors, but merely a means of saying &quot;I&#39;m busy at the moment, try another client&quot;. Upon receiving a rejection deepstream will try to re-route the request to another provider for the same RPC. If there are no more providers left to try, deepstream will send a NO_RPC_PROVIDER error to the client.</p></div><div class="section"><h2><a name="error( errorMsg )">error( errorMsg )</a></h2><p>Send an error to the client. errorMsg will be received as the first argument to the <code>make</code> callback.</p><pre><code><span class="token comment" spellcheck="true">//provider
-</span>client<span class="token punctuation" >.</span>rpc<span class="token punctuation" >.</span><span class="token function" >provide<span class="token punctuation" >(</span></span> <span class="token string" >'add-two-numbers'</span><span class="token punctuation" >,</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> data<span class="token punctuation" >,</span> response <span class="token punctuation" >)</span><span class="token punctuation" >{</span>
-    response<span class="token punctuation" >.</span><span class="token function" >error<span class="token punctuation" >(</span></span> <span class="token string" >'Something went wrong'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-<span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-<span class="token comment" spellcheck="true">
+    // Acknowledge the request yourself
+    response.ack();
+});
+</code></pre>
+</div><div class="section"><h2><a name="send(data)">send( data )</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">data</td><td class="type">Mixed</td><td class="optional">false</td><td class="default">-</td><td class="description">Any serializable response data</td></tr></tbody></table><p>Send the response to the client</p></div><div class="section"><h2><a name="reject()">reject()</a></h2><p>Reject the request. Rejections are not errors, but merely a means of saying &quot;I&#39;m busy at the moment, try another client&quot;. Upon receiving a rejection deepstream will try to re-route the request to another provider for the same RPC. If there are no more providers left to try, deepstream will send a NO_RPC_PROVIDER error to the client.</p></div><div class="section"><h2><a name="error(errorMsg)">error( errorMsg )</a></h2><p>Send an error to the client. errorMsg will be received as the first argument to the <code>make</code> callback.</p><pre><code class="lang-javascript">//provider
+client.rpc.provide( &#39;add-two-numbers&#39;, function( data, response ){
+    response.error( &#39;Something went wrong&#39; );
+});
+
 //requestor
-</span>client<span class="token punctuation" >.</span>rpc<span class="token punctuation" >.</span><span class="token function" >make<span class="token punctuation" >(</span></span> <span class="token string" >'add-two-numbers'</span><span class="token punctuation" >,</span> <span class="token punctuation" >{</span><span class="token punctuation" >}</span><span class="token punctuation" >,</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> error<span class="token punctuation" >,</span> result <span class="token punctuation" >)</span><span class="token punctuation" >{</span>
-   <span class="token comment" spellcheck="true"> // error = 'Something went wrong'
-</span><span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-</code></pre><p></div></p>
+client.rpc.make( &#39;add-two-numbers&#39;, {}, function( error, result ){
+    // error = &#39;Something went wrong&#39;
+});
+</code></pre>
+<p></div></p>
 			</div>
 		</div>
 		<script type="text/javascript" src="../assets/js/docs.js"></script>
@@ -211,19 +227,15 @@ Doing so might make sense if the client needs to perform an asynchronous operati
 			</li>
 
 			<li class="footer-middle">
-				<a class="footer-middle" href="http://www.hoxton-one.com/" title="hoxton-one.com">
-					<p>
-					Handcrafted by
-					</p>
-
-					<div class="footer-hoxton-one">
-					</div>
-
-					<div class="copyright">
-						&copy;2015 Hoxton One Ltd. All rights reserved.
-					</div>
-				</a>
-			</li>
+				<h4>Browse</h4>
+				<ul>
+					<li ><a href="..">Home</a></li>
+					<li ><a href="../download/">Downloads</a></li>
+					<li ><a href="../tutorials/getting-started.html">Tutorials</a></li>
+					<li class="active"><a href="../docs/deepstream.html">Documentation</a></li>
+					<li ><a href="../blog/">Blog</a></li>
+					<li ><a href="../info/">Info</a></li>
+				</ul>			</li>
 
 			<li class="footer-left">
 				<h4>Contact us</h4>
@@ -231,7 +243,7 @@ Doing so might make sense if the client needs to perform an asynchronous operati
 					<b>deepstream.io </b>is developed by Hoxton One Ltd. <br>
 				</p>
 				<p>
-					Email us <a href="mailto:info@hoxton-one.com">info@hoxton-one.com</a>.<br><br>
+					Email us <a href="mailto:info@deepstream.io">info@deepstream.io</a>.<br><br>
 				</p>
 
 				<h4>Star this project on github!</h4>

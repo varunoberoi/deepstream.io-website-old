@@ -15,18 +15,19 @@
 	<link rel="stylesheet" type="text/css" href="../assets/css/navigation.css" />
 	<link rel="stylesheet" type="text/css" href="../assets/css/screen.css" />
 	<link rel="stylesheet" type="text/css" href="../assets/css/api.css" />
-	<link rel="stylesheet" type="text/css" href="../assets/css/syntaxhighlighter.css" />
 	<script type="text/javascript">
 	document.createElement( 'header' );
 	document.createElement( 'nav' );
 	</script>
 	<script type="text/javascript" src="../assets/js/jquery.js"></script>
 	<script type="text/javascript" src="../assets/js/menu.js"></script>
+	<script type="text/javascript" src="../assets/js/prism.js"></script>
 
 	<link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Quicksand:300,400,700' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="../assets/css/prism.css" />
 </head>
 
 <body class="category_tutorials ">
@@ -38,7 +39,7 @@
 				<li class="active"><a href="../tutorials/getting-started.html">Tutorials</a></li>
 				<li ><a href="../docs/deepstream.html">Documentation</a></li>
 				<li ><a href="../blog/">Blog</a></li>
-				<li ><a href="../info/">Info</a></li>				
+				<li ><a href="../info/">Info</a></li>
 			</ul>		</div>
 	</div>
 
@@ -54,7 +55,7 @@
 					<li class="active"><a href="../tutorials/getting-started.html">Tutorials</a></li>
 					<li ><a href="../docs/deepstream.html">Documentation</a></li>
 					<li ><a href="../blog/">Blog</a></li>
-					<li ><a href="../info/">Info</a></li>				
+					<li ><a href="../info/">Info</a></li>
 				</ul>			</div>
 			<span class="menu-button menu-icon">
 				<i class="fa fa-bars"></i>
@@ -160,7 +161,7 @@
 Messaging is based on a publish-subscribe pattern. Any node can broadcast a message to a topic that zero or more subscribers listen to.</p><div class="hint-box fa fa-gears">
     <p>Before writing your own message connector, have a quick look at the <a href="../download/">download section</a>. Maybe there already is an off-the-shelf one you can just pick up and use. <em>If you&#39;re happy with how you&#39;re connector turned out, please consider contributing it. To do so, just <a href="https://github.com/hoxton-one/deepstream.io/issues">raise an issue against deepstream.io</a></em></p></div>
 
-<p>To write a message connector, just clone or fork the message-connector-template below and fill in the blanks. To see if it works, update the <a href="https://github.com/hoxton-one/deepstream.io-msg-connector-template/blob/master/test/connection-data.js">connection data file</a> and run the tests with <code>npm test</code>. Please note: The tests are fairly high level and only test the basic functionality. It might make sense to add additional tests that are specific for your connector.</p><p><a class="mega" href="https://github.com/hoxton-one/deepstream.io-msg-connector-template"><i class="fa fa-github"></i>fork or copy the msg-connector-template</a></p><div class="section"><h2><a name="Some things worth taking into account when building a new message connector">Some things worth taking into account when building a new message connector</a></h2><ul>
+<p>To write a message connector, just clone or fork the message-connector-template below and fill in the blanks. To see if it works, update the <a href="https://github.com/hoxton-one/deepstream.io-msg-connector-template/blob/master/test/connection-data.js">connection data file</a> and run the tests with <code>npm test</code>. Please note: The tests are fairly high level and only test the basic functionality. It might make sense to add additional tests that are specific for your connector.</p><p><a class="mega" href="https://github.com/hoxton-one/deepstream.io-msg-connector-template"><i class="fa fa-github"></i>fork or copy the msg-connector-template</a></p><div class="section"><h2><a name="Somethingsworthtakingintoaccountwhenbuildinganewmessageconnector">Some things worth taking into account when building a new message connector</a></h2><ul>
 <li><p>Deepstream only uses four topics (RECORD, RPC, EVENT plus a private topic),
 but will send and receive large numbers of messages on each of them. If this leads to performance problems
 it might make sense for the message connector to do some custom sub-routing, e.g. based on record namespaces etc.</p></li>
@@ -205,19 +206,15 @@ sender-id to outgoing messages and filter out incoming messages that have the sa
 			</li>
 
 			<li class="footer-middle">
-				<a class="footer-middle" href="http://www.hoxton-one.com/" title="hoxton-one.com">
-					<p>
-					Handcrafted by
-					</p>
-
-					<div class="footer-hoxton-one">
-					</div>
-
-					<div class="copyright">
-						&copy;2015 Hoxton One Ltd. All rights reserved.
-					</div>
-				</a>
-			</li>
+				<h4>Browse</h4>
+				<ul>
+					<li ><a href="..">Home</a></li>
+					<li ><a href="../download/">Downloads</a></li>
+					<li class="active"><a href="../tutorials/getting-started.html">Tutorials</a></li>
+					<li ><a href="../docs/deepstream.html">Documentation</a></li>
+					<li ><a href="../blog/">Blog</a></li>
+					<li ><a href="../info/">Info</a></li>
+				</ul>			</li>
 
 			<li class="footer-left">
 				<h4>Contact us</h4>
@@ -225,7 +222,7 @@ sender-id to outgoing messages and filter out incoming messages that have the sa
 					<b>deepstream.io </b>is developed by Hoxton One Ltd. <br>
 				</p>
 				<p>
-					Email us <a href="mailto:info@hoxton-one.com">info@hoxton-one.com</a>.<br><br>
+					Email us <a href="mailto:info@deepstream.io">info@deepstream.io</a>.<br><br>
 				</p>
 
 				<h4>Star this project on github!</h4>

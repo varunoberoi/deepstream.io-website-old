@@ -15,18 +15,19 @@
 	<link rel="stylesheet" type="text/css" href="../assets/css/navigation.css" />
 	<link rel="stylesheet" type="text/css" href="../assets/css/screen.css" />
 	<link rel="stylesheet" type="text/css" href="../assets/css/api.css" />
-	<link rel="stylesheet" type="text/css" href="../assets/css/syntaxhighlighter.css" />
 	<script type="text/javascript">
 	document.createElement( 'header' );
 	document.createElement( 'nav' );
 	</script>
 	<script type="text/javascript" src="../assets/js/jquery.js"></script>
 	<script type="text/javascript" src="../assets/js/menu.js"></script>
+	<script type="text/javascript" src="../assets/js/prism.js"></script>
 
 	<link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Quicksand:300,400,700' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="../assets/css/prism.css" />
 </head>
 
 <body class="category_docs ">
@@ -38,7 +39,7 @@
 				<li ><a href="../tutorials/getting-started.html">Tutorials</a></li>
 				<li class="active"><a href="../docs/deepstream.html">Documentation</a></li>
 				<li ><a href="../blog/">Blog</a></li>
-				<li ><a href="../info/">Info</a></li>				
+				<li ><a href="../info/">Info</a></li>
 			</ul>		</div>
 	</div>
 
@@ -54,7 +55,7 @@
 					<li ><a href="../tutorials/getting-started.html">Tutorials</a></li>
 					<li class="active"><a href="../docs/deepstream.html">Documentation</a></li>
 					<li ><a href="../blog/">Blog</a></li>
-					<li ><a href="../info/">Info</a></li>				
+					<li ><a href="../info/">Info</a></li>
 				</ul>			</div>
 			<span class="menu-button menu-icon">
 				<i class="fa fa-bars"></i>
@@ -66,10 +67,12 @@
 	<li >
 		<a href="deepstream.html">Deepstream</a>
 		<div class="isActiveIndicator orangeGradient"></div>
+		
 	</li>
 	<li >
 		<a href="constants.html">Constants</a>
 		<div class="isActiveIndicator orangeGradient"></div>
+		
 	</li>
 
 
@@ -77,6 +80,7 @@
 	<li >
 		<a href="client.html">Client</a>
 		<div class="isActiveIndicator orangeGradient"></div>
+		
 	</li>
 
 	<li >
@@ -97,243 +101,251 @@
 	<li >
 		<a href="event_emitter.html">EventEmitter</a>
 		<div class="isActiveIndicator orangeGradient"></div>
+		
 	</li>
 
 	<li class="de-emphasized">Record</li>
 	<li >
 		<a href="client.record.html">client.record</a>
 		<div class="isActiveIndicator orangeGradient"></div>
+		
 	</li>
 
 	<li >
 		<a href="record.html">Record</a>
 		<div class="isActiveIndicator orangeGradient"></div>
+		
 	</li>
 
 	<li >
 		<a href="list.html">List</a>
 		<div class="isActiveIndicator orangeGradient"></div>
+		
 	</li>
 
 	<li >
 		<a href="anonymous_record.html">Anonymous Record</a>
 		<div class="isActiveIndicator orangeGradient"></div>
+		
 	</li>
 
 	<li class="de-emphasized">RPC</li>
 	<li >
 		<a href="client.rpc.html">client.rpc</a>
 		<div class="isActiveIndicator orangeGradient"></div>
+		
 	</li>
 
 	<li >
 		<a href="rpc_response.html">RpcResponse</a>
 		<div class="isActiveIndicator orangeGradient"></div>
+		
 	</li>
 
 	<li class="de-emphasized">Event</li>
 	<li >
 		<a href="client.event.html">client.event</a>
 		<div class="isActiveIndicator orangeGradient"></div>
+		
 	</li>
 
 	<li class="de-emphasized">WebRTC</li>
 	<li >
 		<a href="client.webrtc.html">client.webrtc</a>
 		<div class="isActiveIndicator orangeGradient"></div>
+		
 	</li>
 	<li >
 		<a href="webrtc_call.html">WebRTC Call</a>
 		<div class="isActiveIndicator orangeGradient"></div>
+		
 	</li>
 </ul>
 
 			<div id="content">
-				<div class="section"><h2><a name="Constructor">Constructor</a></h2><p>The constructor takes no arguments.</p><pre><code><span class="token keyword" >var</span> server <span class="token operator" >=</span> <span class="token keyword" >new</span> <span class="token class-name" >Deepstream</span><span class="token punctuation" >(</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-</code></pre></div><div class="section"><h2><a name="Events">Events</a></h2><h3>started</h3><p>Emitted once <code>deepstream.start()</code> has been called and the startup procedure has completed succesfully.</p><h3>stopped</h3><p>Emitted once <code>deepstream.stop()</code> has been called and the server has been completely shut down.</p></div><div class="section"><h2><a name="start()">start()</a></h2><p>Starts the server.</p></div><div class="section"><h2><a name="stop()">stop()</a></h2><p>Stops the server.</p></div><div class="section"><h2><a name="set( key, value )">set( key, value )</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">key</td><td class="type">String</td><td class="optional">false</td><td class="default">-</td><td class="description">The configuration option that should be set</td></tr><tr><td class="argument">value</td><td class="type">various</td><td class="optional">false</td><td class="default">-</td><td class="description">The value that should be used</td></tr></tbody></table><p><code>set( key, value );</code> allows to configure the server before it is started. It supports the following options (with example values):</p><pre><code><span class="token comment" spellcheck="true">/**
+				<div class="section"><h2><a name="Constructor">Constructor</a></h2><p>The constructor takes no arguments.</p><pre><code class="lang-javascript">var server = new Deepstream();
+</code></pre>
+</div><div class="section"><h2><a name="Events">Events</a></h2><h3>started</h3><p>Emitted once <code>deepstream.start()</code> has been called and the startup procedure has completed succesfully.</p><h3>stopped</h3><p>Emitted once <code>deepstream.stop()</code> has been called and the server has been completely shut down.</p></div><div class="section"><h2><a name="start()">start()</a></h2><p>Starts the server.</p></div><div class="section"><h2><a name="stop()">stop()</a></h2><p>Stops the server.</p></div><div class="section"><h2><a name="set(key,value)">set( key, value )</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">key</td><td class="type">String</td><td class="optional">false</td><td class="default">-</td><td class="description">The configuration option that should be set</td></tr><tr><td class="argument">value</td><td class="type">various</td><td class="optional">false</td><td class="default">-</td><td class="description">The value that should be used</td></tr></tbody></table><p><code>set( key, value );</code> allows to configure the server before it is started. It supports the following options (with example values):</p><pre><code class="lang-javascript">/**
 * A unique name for this server
 *
 * @type String
 * @default A random ID
-*/</span>
-server<span class="token punctuation" >.</span><span class="token keyword" >set</span><span class="token punctuation" >(</span> <span class="token string" >'serverName'</span><span class="token punctuation" >,</span> <span class="token string" >'nodeA'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+*/
+server.set( &#39;serverName&#39;, &#39;nodeA&#39; );
 
-<span class="token comment" spellcheck="true">/**
+/**
 * Whether the console output should be in color
 *
 * @type Boolean
 * @default true
-*/</span>
-server<span class="token punctuation" >.</span><span class="token keyword" >set</span><span class="token punctuation" >(</span> <span class="token string" >'colors'</span><span class="token punctuation" >,</span> <span class="token keyword" >false</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+*/
+server.set( &#39;colors&#39;, false );
 
-<span class="token comment" spellcheck="true">/**
+/**
 * Whether the deepstream logo should be displayed on startup
 *
 * @type Boolean
 * @default true
-*/</span>
-server<span class="token punctuation" >.</span><span class="token keyword" >set</span><span class="token punctuation" >(</span> <span class="token string" >'showLogo'</span><span class="token punctuation" >,</span> <span class="token keyword" >false</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+*/
+server.set( &#39;showLogo&#39;, false );
 
-<span class="token comment" spellcheck="true">/**
+/**
 * The public key to use if using ssl
 * Must have an associated sslKey set
 *
 * @type String
-*/</span>
-server<span class="token punctuation" >.</span><span class="token keyword" >set</span><span class="token punctuation" >(</span> <span class="token string" >'sslCert'</span><span class="token punctuation" >,</span> fs<span class="token punctuation" >.</span><span class="token function" >readFileSync<span class="token punctuation" >(</span></span> <span class="token string" >'./keys/cert.pem'</span><span class="token punctuation" >,</span> <span class="token string" >'utf8'</span> <span class="token punctuation" >)</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+*/
+server.set( &#39;sslCert&#39;, fs.readFileSync( &#39;./keys/cert.pem&#39;, &#39;utf8&#39; ) );
 
-<span class="token comment" spellcheck="true">/**
+/**
 * The private key to use if using ssl
 * Must have an associated sslCert set
 *
 * @type String
-*/</span>
-server<span class="token punctuation" >.</span><span class="token keyword" >set</span><span class="token punctuation" >(</span> <span class="token string" >'sslKey'</span><span class="token punctuation" >,</span> fs<span class="token punctuation" >.</span><span class="token function" >readFileSync<span class="token punctuation" >(</span></span> <span class="token string" >'./keys/key.pem'</span><span class="token punctuation" >,</span> <span class="token string" >'utf8'</span> <span class="token punctuation" >)</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+*/
+server.set( &#39;sslKey&#39;, fs.readFileSync( &#39;./keys/key.pem&#39;, &#39;utf8&#39; ) );
 
-<span class="token comment" spellcheck="true">/**
+/**
 * The host that deepstream listens on for incoming connections from browsers
 *
 * @type String
-* @default '0.0.0.0'
-*/</span>
-server<span class="token punctuation" >.</span><span class="token keyword" >set</span><span class="token punctuation" >(</span> <span class="token string" >'host'</span><span class="token punctuation" >,</span> <span class="token string" >'localhost'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+* @default &#39;0.0.0.0&#39;
+*/
+server.set( &#39;host&#39;, &#39;localhost&#39; );
 
-<span class="token comment" spellcheck="true">/**
+/**
 * The port that deepstream listens on for incoming connections from browsers
 *
 * @type Number
 * @default 6020
-*/</span>
-server<span class="token punctuation" >.</span><span class="token keyword" >set</span><span class="token punctuation" >(</span> <span class="token string" >'port'</span><span class="token punctuation" >,</span> <span class="token number" >80</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+*/
+server.set( &#39;port&#39;, 80 );
 
-<span class="token comment" spellcheck="true">/**
+/**
 * The host that deepstream listens on for incoming connections via tcp
 *
 * @type String
-* @default '0.0.0.0'
-*/</span>
-server<span class="token punctuation" >.</span><span class="token keyword" >set</span><span class="token punctuation" >(</span> <span class="token string" >'tcpHost'</span><span class="token punctuation" >,</span> <span class="token string" >'localhost'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+* @default &#39;0.0.0.0&#39;
+*/
+server.set( &#39;tcpHost&#39;, &#39;localhost&#39; );
 
-<span class="token comment" spellcheck="true">/**
+/**
 * The port that deepstream listens on for incoming connections via tcp
 *
 * @type Number
 * @default 6021
-*/</span>
-server<span class="token punctuation" >.</span><span class="token keyword" >set</span><span class="token punctuation" >(</span> <span class="token string" >'tcpPort'</span><span class="token punctuation" >,</span> <span class="token number" >80</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+*/
+server.set( &#39;tcpPort&#39;, 80 );
 
-<span class="token comment" spellcheck="true">/**
-* A class that exposes a isValidUser and canPerformAction method. Please see
-* [open-permission-handler.js](https://github.com/hoxton-one/deepstream.io/blob/master/src/default-plugins/open-permission-handler.js)
-* for the implementation of the (default) open permission handler
+/**
+* A class that exposes a isValidUser and canPerformAction method. 
 *
 * @type PermissionHandler
 * @default OpenPermissionHandler
-*/</span>
-server<span class="token punctuation" >.</span><span class="token keyword" >set</span><span class="token punctuation" >(</span> <span class="token string" >'PermissionHandler'</span><span class="token punctuation" >,</span> <span class="token keyword" >new</span> <span class="token class-name" >LdapPermissionHandler</span><span class="token punctuation" >(</span><span class="token punctuation" >)</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+*/
+server.set( &#39;PermissionHandler&#39;, new LdapPermissionHandler() );
 
-<span class="token comment" spellcheck="true">/**
- * Transforms data before it leaves the server. See http://deepstream.io/tutorials/transforming-data.html for details
- *
- * @type Array
- * @default null
- */</span>
-server<span class="token punctuation" >.</span><span class="token keyword" >set</span><span class="token punctuation" >(</span> <span class="token string" >'dataTransforms'</span><span class="token punctuation" >,</span> <span class="token punctuation" >[</span><span class="token punctuation" >{</span>
-    topic<span class="token punctuation" >:</span> C<span class="token punctuation" >.</span>TOPIC<span class="token punctuation" >.</span>RPC<span class="token punctuation" >,</span>
-    action<span class="token punctuation" >:</span> C<span class="token punctuation" >.</span>ACTIONS<span class="token punctuation" >.</span>REQUEST<span class="token punctuation" >,</span>
-    transform<span class="token punctuation" >:</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> data<span class="token punctuation" >,</span> metaData <span class="token punctuation" >)</span> <span class="token punctuation" >{</span><span class="token punctuation" >}</span>
-<span class="token punctuation" >}</span><span class="token punctuation" >]</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+/**
+* Transforms data before it leaves the server. 
+* See http://deepstream.io/tutorials/transforming-data.html for details
+*
+* @type Array
+* @default null
+ */
+server.set( &#39;dataTransforms&#39;, [{
+    topic: C.TOPIC.RPC,
+    action: C.ACTIONS.REQUEST,
+    transform: function( data, metaData ) {}
+}]);
 
-<span class="token comment" spellcheck="true">/**
+/**
 * A logger, defaults to the STDOUT / STDERROR logger
-* [std-out-logger.js](https://github.com/hoxton-one/deepstream.io/blob/master/src/default-plugins/std-out-logger.js)
-* for implementation
 *
 * @type Logger
 * @default StdOutLogger
-*/</span>
-server<span class="token punctuation" >.</span><span class="token keyword" >set</span><span class="token punctuation" >(</span> <span class="token string" >'Logger'</span><span class="token punctuation" >,</span> <span class="token keyword" >new</span> <span class="token class-name" >FileLogger</span><span class="token punctuation" >(</span><span class="token punctuation" >)</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+*/
+server.set( &#39;logger&#39;, new FileLogger() );
 
-<span class="token comment" spellcheck="true">/**
+/**
 * MessageConnectors connect deepstream to a message bus
 * (e.g. AMQP, Redis, Kafka) thus allowing for clustering.
 *
-* See the "Connectors" section above for details
+* See the &quot;Connectors&quot; section above for details
 *
 * @type MessageConnector
 * @default NoopMessageConnector
-*/</span>
-server<span class="token punctuation" >.</span><span class="token keyword" >set</span><span class="token punctuation" >(</span> <span class="token string" >'messageConnector'</span><span class="token punctuation" >,</span> <span class="token keyword" >new</span> <span class="token class-name" >RedisMessageConnector</span><span class="token punctuation" >(</span><span class="token punctuation" >{</span>
-  port<span class="token punctuation" >:</span> <span class="token number" >6379</span><span class="token punctuation" >,</span>
-  host<span class="token punctuation" >:</span> <span class="token string" >'localhost'</span>
-<span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+*/
+server.set( &#39;messageConnector&#39;, new RedisMessageConnector({
+  port: 6379,
+  host: &#39;localhost&#39;
+}));
 
-<span class="token comment" spellcheck="true">/**
+/**
 * Cache connector connect deepstream to a (distributed) cache
 * (e.g. Redis, Memcached)for temporary data-storage.
 *
-* See the "Connectors" section above for details
+* See the &quot;Connectors&quot; section above for details
 *
 * @type CacheConnector
 * @default LocalCache
-*/</span>
-server<span class="token punctuation" >.</span><span class="token keyword" >set</span><span class="token punctuation" >(</span> <span class="token string" >'cache'</span><span class="token punctuation" >,</span> <span class="token keyword" >new</span> <span class="token class-name" >RedisCacheConnector</span><span class="token punctuation" >(</span><span class="token punctuation" >{</span>
-  port<span class="token punctuation" >:</span> <span class="token number" >6379</span><span class="token punctuation" >,</span>
-  host<span class="token punctuation" >:</span> <span class="token string" >'localhost'</span>
-<span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+*/
+server.set( &#39;cache&#39;, new RedisCacheConnector({
+  port: 6379,
+  host: &#39;localhost&#39;
+}));
 
-<span class="token comment" spellcheck="true">/**
+/**
 * Storage connectors connect deepstream to a database (e.g. RethinkDB, MongoDB)
 * for long term data storage and querying.
 *
-* See the "Connectors" section above for details
+* See the &quot;Connectors&quot; section above for details
 *
 * @type StorageConnector
 * @default NoopStorageConnector
-*/</span>
-server<span class="token punctuation" >.</span><span class="token keyword" >set</span><span class="token punctuation" >(</span> <span class="token string" >'storage'</span><span class="token punctuation" >,</span> <span class="token keyword" >new</span> <span class="token class-name" >RethinkDbConnector</span><span class="token punctuation" >(</span><span class="token punctuation" >{</span>
-  port<span class="token punctuation" >:</span> <span class="token number" >28015</span><span class="token punctuation" >,</span>
-  host<span class="token punctuation" >:</span> <span class="token string" >'localhost'</span><span class="token punctuation" >,</span>
-  splitChar<span class="token punctuation" >:</span> <span class="token string" >'/'</span><span class="token punctuation" >,</span>
-  defaultTable<span class="token punctuation" >:</span> <span class="token string" >'dsTestDefault'</span>
-<span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+*/
+server.set( &#39;storage&#39;, new RethinkDbConnector({
+  port: 28015,
+  host: &#39;localhost&#39;,
+  splitChar: &#39;/&#39;,
+  defaultTable: &#39;dsTestDefault&#39;
+}));
 
-<span class="token comment" spellcheck="true">/**
-* A regular expression that determines which records won't be
+/**
+* A regular expression that determines which records won&#39;t be
 * stored in the database.
 *
 * This is useful to improve performance for fast-updating records
-* that don't need to be stored in the long-term, e.g. stock prices
+* that don&#39;t need to be stored in the long-term, e.g. stock prices
 *
 * Any record whose name matches the specified RegExp will be read / written
 * directly to cache
 *
 * @type RegExp
 * @default null
-*/</span>
-server<span class="token punctuation" >.</span><span class="token keyword" >set</span><span class="token punctuation" >(</span> <span class="token string" >'storageExclusion'</span><span class="token punctuation" >,</span> <span class="token regex" >/^dont-store\/*./</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+*/
+server.set( &#39;storageExclusion&#39;, /^dont-store\/*./ );
 
-<span class="token comment" spellcheck="true">/**
+/**
 * Number of times a client can try to authenticate with invalid credentials
 * before its connection is closed.
 *
 * @type Number
 * @default 3
-*/</span>
-server<span class="token punctuation" >.</span><span class="token keyword" >set</span><span class="token punctuation" >(</span> <span class="token string" >'maxAuthAttempts'</span><span class="token punctuation" >,</span> <span class="token number" >Infinity</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+*/
+server.set( &#39;maxAuthAttempts&#39;, Infinity );
 
-<span class="token comment" spellcheck="true">/**
+/**
 * Whether the data provided for invalid auth attempts should be sent to the
 * logger.
 *
 * @type Boolean
 * @default true
-*/</span>
-server<span class="token punctuation" >.</span><span class="token keyword" >set</span><span class="token punctuation" >(</span> <span class="token string" >'logInvalidAuthData'</span><span class="token punctuation" >,</span> <span class="token keyword" >false</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+*/
+server.set( &#39;logInvalidAuthData&#39;, false );
 
-<span class="token comment" spellcheck="true">/**
+/**
 * The time (in milliseconds) that deepstream allows for RPC providers to
-* respond to queries. (When deepstream is asked to execute a RPC that it doesn't
+* respond to queries. (When deepstream is asked to execute a RPC that it doesn&#39;t
 * have any cached providers for it sends out a query message, asking all
 * connected instances if they can provide this RPC. This is the timeout that
 * determines how long deepstream will wait for their response).
@@ -342,62 +354,63 @@ server<span class="token punctuation" >.</span><span class="token keyword" >set<
 *
 * @type Number
 * @default 1000
-*/</span>
-server<span class="token punctuation" >.</span><span class="token keyword" >set</span><span class="token punctuation" >(</span> <span class="token string" >'rpcProviderQueryTimeout'</span><span class="token punctuation" >,</span> <span class="token number" >5000</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+*/
+server.set( &#39;rpcProviderQueryTimeout&#39;, 5000 );
 
-<span class="token comment" spellcheck="true">/**
-* The time (in milliseconds) that deepstream allows for RPC providers to acknowledge
-* that they've received a request.
+/**
+* The time (in milliseconds) that deepstream allows for RPC providers to 
+* acknowledge that they&#39;ve received a request.
 *
 * @type Number
 * @default 1000
-*/</span>
-server<span class="token punctuation" >.</span><span class="token keyword" >set</span><span class="token punctuation" >(</span> <span class="token string" >'rpcAckTimeout'</span><span class="token punctuation" >,</span> <span class="token number" >200</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+*/
+server.set( &#39;rpcAckTimeout&#39;, 200 );
 
-<span class="token comment" spellcheck="true">/**
+/**
 * The time (in milliseconds) that deepstream allows for RPC providers to send
 * a response.
 *
 * @type Number
 * @default 10000
-*/</span>
-server<span class="token punctuation" >.</span><span class="token keyword" >set</span><span class="token punctuation" >(</span> <span class="token string" >'rpcTimeout'</span><span class="token punctuation" >,</span> <span class="token number" >2000</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+*/
+server.set( &#39;rpcTimeout&#39;, 2000 );
 
-<span class="token comment" spellcheck="true">/**
+/**
 * The time (in milliseconds) that deepstream caches its list of rpcProviders.
 *
 * @type Number
 * @default 60000
-*/</span>
-server<span class="token punctuation" >.</span><span class="token keyword" >set</span><span class="token punctuation" >(</span> <span class="token string" >'rpcProviderCacheTime'</span><span class="token punctuation" >,</span> <span class="token number" >120000</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+*/
+server.set( &#39;rpcProviderCacheTime&#39;, 120000 );
 
-<span class="token comment" spellcheck="true">/**
+/**
 * The time (in milliseconds) that deepstream allows for data to be retrieved
 * from the cache.
 *
 * @type Number
 * @default 1000
-*/</span>
-server<span class="token punctuation" >.</span><span class="token keyword" >set</span><span class="token punctuation" >(</span> <span class="token string" >'cacheRetrievalTimeout'</span><span class="token punctuation" >,</span> <span class="token number" >200</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+*/
+server.set( &#39;cacheRetrievalTimeout&#39;, 200 );
 
-<span class="token comment" spellcheck="true">/**
+/**
 * The time (in milliseconds) that deepstream allows for data to be retrieved
 * from the database.
 *
 * @type Number
 * @default 2000
-*/</span>
-server<span class="token punctuation" >.</span><span class="token keyword" >set</span><span class="token punctuation" >(</span> <span class="token string" >'storageRetrievalTimeout'</span><span class="token punctuation" >,</span> <span class="token number" >4000</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+*/
+server.set( &#39;storageRetrievalTimeout&#39;, 4000 );
 
-<span class="token comment" spellcheck="true">/**
+/**
 * The time (in milliseconds) that deepstream allows for dependencies
 * (Cache Connector, Logger etc.) to complete their initialization.
 *
 * @type Number
 * @default 2000
-*/</span>
-server<span class="token punctuation" >.</span><span class="token keyword" >set</span><span class="token punctuation" >(</span> <span class="token string" >'storageRetrievalTimeout'</span><span class="token punctuation" >,</span> <span class="token number" >4000</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-</code></pre><p></div></p>
+*/
+server.set( &#39;storageRetrievalTimeout&#39;, 4000 );
+</code></pre>
+<p></div></p>
 			</div>
 		</div>
 		<script type="text/javascript" src="../assets/js/docs.js"></script>
@@ -431,19 +444,15 @@ server<span class="token punctuation" >.</span><span class="token keyword" >set<
 			</li>
 
 			<li class="footer-middle">
-				<a class="footer-middle" href="http://www.hoxton-one.com/" title="hoxton-one.com">
-					<p>
-					Handcrafted by
-					</p>
-
-					<div class="footer-hoxton-one">
-					</div>
-
-					<div class="copyright">
-						&copy;2015 Hoxton One Ltd. All rights reserved.
-					</div>
-				</a>
-			</li>
+				<h4>Browse</h4>
+				<ul>
+					<li ><a href="..">Home</a></li>
+					<li ><a href="../download/">Downloads</a></li>
+					<li ><a href="../tutorials/getting-started.html">Tutorials</a></li>
+					<li class="active"><a href="../docs/deepstream.html">Documentation</a></li>
+					<li ><a href="../blog/">Blog</a></li>
+					<li ><a href="../info/">Info</a></li>
+				</ul>			</li>
 
 			<li class="footer-left">
 				<h4>Contact us</h4>
@@ -451,7 +460,7 @@ server<span class="token punctuation" >.</span><span class="token keyword" >set<
 					<b>deepstream.io </b>is developed by Hoxton One Ltd. <br>
 				</p>
 				<p>
-					Email us <a href="mailto:info@hoxton-one.com">info@hoxton-one.com</a>.<br><br>
+					Email us <a href="mailto:info@deepstream.io">info@deepstream.io</a>.<br><br>
 				</p>
 
 				<h4>Star this project on github!</h4>

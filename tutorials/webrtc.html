@@ -15,18 +15,19 @@
 	<link rel="stylesheet" type="text/css" href="../assets/css/navigation.css" />
 	<link rel="stylesheet" type="text/css" href="../assets/css/screen.css" />
 	<link rel="stylesheet" type="text/css" href="../assets/css/api.css" />
-	<link rel="stylesheet" type="text/css" href="../assets/css/syntaxhighlighter.css" />
 	<script type="text/javascript">
 	document.createElement( 'header' );
 	document.createElement( 'nav' );
 	</script>
 	<script type="text/javascript" src="../assets/js/jquery.js"></script>
 	<script type="text/javascript" src="../assets/js/menu.js"></script>
+	<script type="text/javascript" src="../assets/js/prism.js"></script>
 
 	<link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Quicksand:300,400,700' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="../assets/css/prism.css" />
 </head>
 
 <body class="category_tutorials ">
@@ -38,7 +39,7 @@
 				<li class="active"><a href="../tutorials/getting-started.html">Tutorials</a></li>
 				<li ><a href="../docs/deepstream.html">Documentation</a></li>
 				<li ><a href="../blog/">Blog</a></li>
-				<li ><a href="../info/">Info</a></li>				
+				<li ><a href="../info/">Info</a></li>
 			</ul>		</div>
 	</div>
 
@@ -54,7 +55,7 @@
 					<li class="active"><a href="../tutorials/getting-started.html">Tutorials</a></li>
 					<li ><a href="../docs/deepstream.html">Documentation</a></li>
 					<li ><a href="../blog/">Blog</a></li>
-					<li ><a href="../info/">Info</a></li>				
+					<li ><a href="../info/">Info</a></li>
 				</ul>			</div>
 			<span class="menu-button menu-icon">
 				<i class="fa fa-bars"></i>
@@ -209,31 +210,34 @@ But, there’s a catch: WebRTC requires you to dive deeply into the mechanics of
     </div>
 </div>
 
-<h3>How does it work?</h3><p>Clients can register themselves as callees</p><pre><code>ds<span class="token punctuation" >.</span>webrtc<span class="token punctuation" >.</span><span class="token function" >registerCallee<span class="token punctuation" >(</span></span> <span class="token string" >'Peter Venkman'</span><span class="token punctuation" >,</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> call<span class="token punctuation" >,</span> metaData <span class="token punctuation" >)</span><span class="token punctuation" >{</span>
-    <span class="token keyword" >if</span><span class="token punctuation" >(</span> metaData<span class="token punctuation" >.</span>callerName <span class="token operator" >===</span> <span class="token string" >'Walter Peck'</span> <span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
-        call<span class="token punctuation" >.</span><span class="token function" >decline<span class="token punctuation" >(</span></span> <span class="token string" >'Nope, not interested.'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-    <span class="token punctuation" >}</span> <span class="token keyword" >else</span> <span class="token punctuation" >{</span>
-        call<span class="token punctuation" >.</span><span class="token function" >accept<span class="token punctuation" >(</span></span> localStream <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-    <span class="token punctuation" >}</span>
+<h3>How does it work?</h3><p>Clients can register themselves as callees</p><pre><code class="lang-javascript">ds.webrtc.registerCallee( &#39;Peter Venkman&#39;, function( call, metaData ){
+    if( metaData.callerName === &#39;Walter Peck&#39; ) {
+        call.decline( &#39;Nope, not interested.&#39; );
+    } else {
+        call.accept( localStream );
+    }
 
-    call<span class="token punctuation" >.</span><span class="token function" >on<span class="token punctuation" >(</span></span> <span class="token string" >'established'</span><span class="token punctuation" >,</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> remoteStream <span class="token punctuation" >)</span><span class="token punctuation" >{</span>
-        myVideo<span class="token punctuation" >.</span>src <span class="token operator" >=</span> URL<span class="token punctuation" >.</span><span class="token function" >createObjectURL<span class="token punctuation" >(</span></span> remoteStream <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-    <span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-<span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-</code></pre><p>Other clients can subscribe to updates to the list of callees</p><pre><code>ds<span class="token punctuation" >.</span>webrtc<span class="token punctuation" >.</span><span class="token function" >listenForCallees<span class="token punctuation" >(</span></span><span class="token keyword" >function</span><span class="token punctuation" >(</span> callees <span class="token punctuation" >)</span><span class="token punctuation" >{</span>
-   <span class="token comment" spellcheck="true"> // render list of callees
-</span><span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-</code></pre><p>and call each other</p><pre><code><span class="token keyword" >var</span> metaData <span class="token operator" >=</span> <span class="token punctuation" >{</span> callerName<span class="token punctuation" >:</span> <span class="token string" >'Raymond Stantz'</span> <span class="token punctuation" >}</span><span class="token punctuation" >;</span>
-<span class="token keyword" >var</span> call <span class="token operator" >=</span> ds<span class="token punctuation" >.</span>webrtc<span class="token punctuation" >.</span><span class="token function" >makeCall<span class="token punctuation" >(</span></span> <span class="token string" >'Peter Venkman'</span><span class="token punctuation" >,</span> metaData<span class="token punctuation" >,</span> localStream <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+    call.on( &#39;established&#39;, function( remoteStream ){
+        myVideo.src = URL.createObjectURL( remoteStream );
+    });
+});
+</code></pre>
+<p>Other clients can subscribe to updates to the list of callees</p><pre><code class="lang-javascript">ds.webrtc.listenForCallees(function( callees ){
+    // render list of callees
+});
+</code></pre>
+<p>and call each other</p><pre><code class="lang-javascript">var metaData = { callerName: &#39;Raymond Stantz&#39; };
+var call = ds.webrtc.makeCall( &#39;Peter Venkman&#39;, metaData, localStream );
 
-call<span class="token punctuation" >.</span><span class="token function" >on<span class="token punctuation" >(</span></span> <span class="token string" >'established'</span><span class="token punctuation" >,</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> remoteStream <span class="token punctuation" >)</span><span class="token punctuation" >{</span>
-    myVideo<span class="token punctuation" >.</span>src <span class="token operator" >=</span> URL<span class="token punctuation" >.</span><span class="token function" >createObjectURL<span class="token punctuation" >(</span></span> remoteStream <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-<span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+call.on( &#39;established&#39;, function( remoteStream ){
+    myVideo.src = URL.createObjectURL( remoteStream );
+});
 
-call<span class="token punctuation" >.</span><span class="token function" >on<span class="token punctuation" >(</span></span> <span class="token string" >'declined'</span><span class="token punctuation" >,</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> reason <span class="token punctuation" >)</span><span class="token punctuation" >{</span>
-    console<span class="token punctuation" >.</span><span class="token function" >log<span class="token punctuation" >(</span></span> <span class="token string" >'Call declined because of '</span> <span class="token operator" >+</span> reason <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-<span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-</code></pre><h3>Try it out</h3><p>Please find the documentation <a href="../docs/client.webrtc.html">here</a> and have a look at our examples.</p><div class="two-examples">
+call.on( &#39;declined&#39;, function( reason ){
+    console.log( &#39;Call declined because of &#39; + reason );
+});
+</code></pre>
+<h3>Try it out</h3><p>Please find the documentation <a href="../docs/client.webrtc.html">here</a> and have a look at our examples.</p><div class="two-examples">
     <a href="https://github.com/hoxton-one/ds-demo-webtrc/tree/master/simple-example">
         <img width="200" height="125" alt="WebRTC simple example" src="../assets/images/webrtc-simple-example.png" />
         <label>Simple Example</label>
@@ -278,19 +282,15 @@ call<span class="token punctuation" >.</span><span class="token function" >on<sp
 			</li>
 
 			<li class="footer-middle">
-				<a class="footer-middle" href="http://www.hoxton-one.com/" title="hoxton-one.com">
-					<p>
-					Handcrafted by
-					</p>
-
-					<div class="footer-hoxton-one">
-					</div>
-
-					<div class="copyright">
-						&copy;2015 Hoxton One Ltd. All rights reserved.
-					</div>
-				</a>
-			</li>
+				<h4>Browse</h4>
+				<ul>
+					<li ><a href="..">Home</a></li>
+					<li ><a href="../download/">Downloads</a></li>
+					<li class="active"><a href="../tutorials/getting-started.html">Tutorials</a></li>
+					<li ><a href="../docs/deepstream.html">Documentation</a></li>
+					<li ><a href="../blog/">Blog</a></li>
+					<li ><a href="../info/">Info</a></li>
+				</ul>			</li>
 
 			<li class="footer-left">
 				<h4>Contact us</h4>
@@ -298,7 +298,7 @@ call<span class="token punctuation" >.</span><span class="token function" >on<sp
 					<b>deepstream.io </b>is developed by Hoxton One Ltd. <br>
 				</p>
 				<p>
-					Email us <a href="mailto:info@hoxton-one.com">info@hoxton-one.com</a>.<br><br>
+					Email us <a href="mailto:info@deepstream.io">info@deepstream.io</a>.<br><br>
 				</p>
 
 				<h4>Star this project on github!</h4>

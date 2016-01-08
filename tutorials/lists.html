@@ -15,18 +15,19 @@
 	<link rel="stylesheet" type="text/css" href="../assets/css/navigation.css" />
 	<link rel="stylesheet" type="text/css" href="../assets/css/screen.css" />
 	<link rel="stylesheet" type="text/css" href="../assets/css/api.css" />
-	<link rel="stylesheet" type="text/css" href="../assets/css/syntaxhighlighter.css" />
 	<script type="text/javascript">
 	document.createElement( 'header' );
 	document.createElement( 'nav' );
 	</script>
 	<script type="text/javascript" src="../assets/js/jquery.js"></script>
 	<script type="text/javascript" src="../assets/js/menu.js"></script>
+	<script type="text/javascript" src="../assets/js/prism.js"></script>
 
 	<link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Quicksand:300,400,700' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="../assets/css/prism.css" />
 </head>
 
 <body class="category_tutorials ">
@@ -38,7 +39,7 @@
 				<li class="active"><a href="../tutorials/getting-started.html">Tutorials</a></li>
 				<li ><a href="../docs/deepstream.html">Documentation</a></li>
 				<li ><a href="../blog/">Blog</a></li>
-				<li ><a href="../info/">Info</a></li>				
+				<li ><a href="../info/">Info</a></li>
 			</ul>		</div>
 	</div>
 
@@ -54,7 +55,7 @@
 					<li class="active"><a href="../tutorials/getting-started.html">Tutorials</a></li>
 					<li ><a href="../docs/deepstream.html">Documentation</a></li>
 					<li ><a href="../blog/">Blog</a></li>
-					<li ><a href="../info/">Info</a></li>				
+					<li ><a href="../info/">Info</a></li>
 				</ul>			</div>
 			<span class="menu-button menu-icon">
 				<i class="fa fa-bars"></i>
@@ -157,65 +158,66 @@
 
 			<div id="content">
 				<h1>Lists</h1><p><a href="../docs/list.html">Lists</a> provide a way to manage a group of <a href="../docs/record.html">Records</a>. A list is an array of record names
-that can be manipulated and observed.</p><pre><code><span class="token comment" spellcheck="true">//creating or retrieving a list is the same
-</span><span class="token keyword" >var</span> pupils <span class="token operator" >=</span> ds<span class="token punctuation" >.</span>record<span class="token punctuation" >.</span><span class="token function" >getList<span class="token punctuation" >(</span></span> <span class="token string" >'pupils'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-<span class="token comment" spellcheck="true">
-//You can set the entire list's records
-</span><span class="token keyword" >var</span> johnDoe <span class="token operator" >=</span> ds<span class="token punctuation" >.</span>record<span class="token punctuation" >.</span><span class="token function" >getRecord<span class="token punctuation" >(</span></span> <span class="token string" >'johnDoe'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-<span class="token keyword" >var</span> janeDoe <span class="token operator" >=</span> ds<span class="token punctuation" >.</span>record<span class="token punctuation" >.</span><span class="token function" >getRecord<span class="token punctuation" >(</span></span> <span class="token string" >'janeDoe'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-pupils<span class="token punctuation" >.</span><span class="token function" >setEntries<span class="token punctuation" >(</span></span> <span class="token punctuation" >[</span><span class="token string" >'johnDoe'</span><span class="token punctuation" >,</span> <span class="token string" >'janeDoe'</span><span class="token punctuation" >]</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-<span class="token comment" spellcheck="true">
-//And you can add an entry to a list
-</span><span class="token keyword" >var</span> jimDoe <span class="token operator" >=</span> ds<span class="token punctuation" >.</span>record<span class="token punctuation" >.</span><span class="token function" >getRecord<span class="token punctuation" >(</span></span> <span class="token string" >'jimDoe'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-pupils<span class="token punctuation" >.</span><span class="token function" >addEntry<span class="token punctuation" >(</span></span> <span class="token string" >'jimDoe'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-<span class="token comment" spellcheck="true">
-//You can likewise remove entries from a list
-</span>pupils<span class="token punctuation" >.</span><span class="token function" >removeEntry<span class="token punctuation" >(</span></span> <span class="token string" >'jimDoe'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-<span class="token comment" spellcheck="true">
-//And you can remove all entries by reinitialising
-</span><span class="token comment" spellcheck="true">//the list
-</span>pupils<span class="token punctuation" >.</span><span class="token function" >setEntries<span class="token punctuation" >(</span></span> <span class="token punctuation" >[</span><span class="token punctuation" >]</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-<span class="token comment" spellcheck="true">
-//Getting the list of records is simple
-</span>pupils<span class="token punctuation" >.</span><span class="token function" >getEntries<span class="token punctuation" >(</span></span><span class="token punctuation" >)</span><span class="token punctuation" >;</span><span class="token comment" spellcheck="true"> //['johnDoe', 'janeDoe'];
-</span><span class="token comment" spellcheck="true">
-//But be aware, if your record exists already
-</span><span class="token comment" spellcheck="true">//it needs a brief moment to receive its data
-</span>pupils<span class="token punctuation" >.</span><span class="token function" >whenReady<span class="token punctuation" >(</span></span> <span class="token keyword" >function</span><span class="token punctuation" >(</span><span class="token punctuation" >)</span><span class="token punctuation" >{</span>
-    console<span class="token punctuation" >.</span><span class="token function" >log<span class="token punctuation" >(</span></span> <span class="token string" >'Pupils'</span><span class="token punctuation" >,</span> pupils<span class="token punctuation" >.</span><span class="token function" >getEntries<span class="token punctuation" >(</span></span><span class="token punctuation" >)</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-<span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-<span class="token comment" spellcheck="true">
-//So a typical workflow to print all the data
-</span><span class="token comment" spellcheck="true">//from a list would be as follows
-</span>pupils<span class="token punctuation" >.</span><span class="token function" >whenReady<span class="token punctuation" >(</span></span> <span class="token keyword" >function</span> <span class="token function" >onListReady<span class="token punctuation" >(</span></span><span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
-    pupils<span class="token punctuation" >.</span><span class="token function" >getEntries<span class="token punctuation" >(</span></span><span class="token punctuation" >)</span><span class="token punctuation" >.</span><span class="token function" >forEach<span class="token punctuation" >(</span></span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> id <span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
-        <span class="token keyword" >var</span> pupil <span class="token operator" >=</span> ds<span class="token punctuation" >.</span>record<span class="token punctuation" >.</span><span class="token function" >getRecord<span class="token punctuation" >(</span></span> id <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-        pupil<span class="token punctuation" >.</span><span class="token function" >whenReady<span class="token punctuation" >(</span></span> <span class="token keyword" >function</span><span class="token punctuation" >(</span><span class="token punctuation" >)</span><span class="token punctuation" >{</span>
-            console<span class="token punctuation" >.</span><span class="token function" >log<span class="token punctuation" >(</span></span> pupil<span class="token punctuation" >.</span><span class="token keyword" >get</span><span class="token punctuation" >(</span><span class="token punctuation" >)</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-        <span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-    <span class="token punctuation" >}</span><span class="token punctuation" >)</span>
-<span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-<span class="token comment" spellcheck="true">
-//The subscribe feature can be used to be updated
-</span><span class="token comment" spellcheck="true">//whenever the list changes
-</span><span class="token keyword" >var</span> onPupilChange <span class="token operator" >=</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> pupils <span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
-    console<span class="token punctuation" >.</span><span class="token function" >log<span class="token punctuation" >(</span></span> <span class="token string" >'List of pupils is now'</span><span class="token punctuation" >,</span> pupils<span class="token punctuation" >.</span><span class="token function" >getEntries<span class="token punctuation" >(</span></span><span class="token punctuation" >)</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-<span class="token punctuation" >}</span><span class="token punctuation" >;</span>
+that can be manipulated and observed.</p><pre><code class="lang-javascript">//creating or retrieving a list is the same
+var pupils = ds.record.getList( &#39;pupils&#39; );
 
-pupils<span class="token punctuation" >.</span><span class="token function" >subscribe<span class="token punctuation" >(</span></span> onPupilChange <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-<span class="token comment" spellcheck="true">
+//You can set the entire list&#39;s records
+var johnDoe = ds.record.getRecord( &#39;johnDoe&#39; );
+var janeDoe = ds.record.getRecord( &#39;janeDoe&#39; );
+pupils.setEntries( [&#39;johnDoe&#39;, &#39;janeDoe&#39;] );
+
+//And you can add an entry to a list
+var jimDoe = ds.record.getRecord( &#39;jimDoe&#39; );
+pupils.addEntry( &#39;jimDoe&#39; );
+
+//You can likewise remove entries from a list
+pupils.removeEntry( &#39;jimDoe&#39; );
+
+//And you can remove all entries by reinitialising
+//the list
+pupils.setEntries( [] );
+
+//Getting the list of records is simple
+pupils.getEntries(); //[&#39;johnDoe&#39;, &#39;janeDoe&#39;];
+
+//But be aware, if your record exists already
+//it needs a brief moment to receive its data
+pupils.whenReady( function(){
+    console.log( &#39;Pupils&#39;, pupils.getEntries() );
+});
+
+//So a typical workflow to print all the data
+//from a list would be as follows
+pupils.whenReady( function onListReady() {
+    pupils.getEntries().forEach( function( id ) {
+        var pupil = ds.record.getRecord( id );
+        pupil.whenReady( function(){
+            console.log( pupil.get() );
+        });
+    })
+});
+
+//The subscribe feature can be used to be updated
+//whenever the list changes
+var onPupilChange = function( pupils ) {
+    console.log( &#39;List of pupils is now&#39;, pupils.getEntries() );
+};
+
+pupils.subscribe( onPupilChange );
+
 //You can remove subscriptions by unsubscribing, but please be aware 
-</span><span class="token comment" spellcheck="true">//that this only unsubscribes locally, updates will continue to be sent from the server
-</span>pupils<span class="token punctuation" >.</span><span class="token function" >unsubscribe<span class="token punctuation" >(</span></span> onPupilChange <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-<span class="token comment" spellcheck="true">
+//that this only unsubscribes locally, updates will continue to be sent from the server
+pupils.unsubscribe( onPupilChange );
+
 //Once you are no longer interested in receiving
-</span><span class="token comment" spellcheck="true">//updates for this list, call discard, which will
-</span><span class="token comment" spellcheck="true">//stop the server from sending any updates
-</span>pupils<span class="token punctuation" >.</span><span class="token function" >discard<span class="token punctuation" >(</span></span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-<span class="token comment" spellcheck="true">
+//updates for this list, call discard, which will
+//stop the server from sending any updates
+pupils.discard();
+
 //Or delete the list entirely
-</span>pupils<span class="token punctuation" >.</span><span class="token keyword" >delete</span><span class="token punctuation" >(</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+pupils.delete();
 </code></pre>
+
 			</div>
 		</div>
 		<script type="text/javascript" src="../assets/js/docs.js"></script>
@@ -249,19 +251,15 @@ pupils<span class="token punctuation" >.</span><span class="token function" >sub
 			</li>
 
 			<li class="footer-middle">
-				<a class="footer-middle" href="http://www.hoxton-one.com/" title="hoxton-one.com">
-					<p>
-					Handcrafted by
-					</p>
-
-					<div class="footer-hoxton-one">
-					</div>
-
-					<div class="copyright">
-						&copy;2015 Hoxton One Ltd. All rights reserved.
-					</div>
-				</a>
-			</li>
+				<h4>Browse</h4>
+				<ul>
+					<li ><a href="..">Home</a></li>
+					<li ><a href="../download/">Downloads</a></li>
+					<li class="active"><a href="../tutorials/getting-started.html">Tutorials</a></li>
+					<li ><a href="../docs/deepstream.html">Documentation</a></li>
+					<li ><a href="../blog/">Blog</a></li>
+					<li ><a href="../info/">Info</a></li>
+				</ul>			</li>
 
 			<li class="footer-left">
 				<h4>Contact us</h4>
@@ -269,7 +267,7 @@ pupils<span class="token punctuation" >.</span><span class="token function" >sub
 					<b>deepstream.io </b>is developed by Hoxton One Ltd. <br>
 				</p>
 				<p>
-					Email us <a href="mailto:info@hoxton-one.com">info@hoxton-one.com</a>.<br><br>
+					Email us <a href="mailto:info@deepstream.io">info@deepstream.io</a>.<br><br>
 				</p>
 
 				<h4>Star this project on github!</h4>

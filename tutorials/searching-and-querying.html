@@ -15,18 +15,19 @@
 	<link rel="stylesheet" type="text/css" href="../assets/css/navigation.css" />
 	<link rel="stylesheet" type="text/css" href="../assets/css/screen.css" />
 	<link rel="stylesheet" type="text/css" href="../assets/css/api.css" />
-	<link rel="stylesheet" type="text/css" href="../assets/css/syntaxhighlighter.css" />
 	<script type="text/javascript">
 	document.createElement( 'header' );
 	document.createElement( 'nav' );
 	</script>
 	<script type="text/javascript" src="../assets/js/jquery.js"></script>
 	<script type="text/javascript" src="../assets/js/menu.js"></script>
+	<script type="text/javascript" src="../assets/js/prism.js"></script>
 
 	<link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Quicksand:300,400,700' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="../assets/css/prism.css" />
 </head>
 
 <body class="category_tutorials ">
@@ -38,7 +39,7 @@
 				<li class="active"><a href="../tutorials/getting-started.html">Tutorials</a></li>
 				<li ><a href="../docs/deepstream.html">Documentation</a></li>
 				<li ><a href="../blog/">Blog</a></li>
-				<li ><a href="../info/">Info</a></li>				
+				<li ><a href="../info/">Info</a></li>
 			</ul>		</div>
 	</div>
 
@@ -54,7 +55,7 @@
 					<li class="active"><a href="../tutorials/getting-started.html">Tutorials</a></li>
 					<li ><a href="../docs/deepstream.html">Documentation</a></li>
 					<li ><a href="../blog/">Blog</a></li>
-					<li ><a href="../info/">Info</a></li>				
+					<li ><a href="../info/">Info</a></li>
 				</ul>			</div>
 			<span class="menu-button menu-icon">
 				<i class="fa fa-bars"></i>
@@ -156,39 +157,44 @@
 </ul>
 
 			<div id="content">
-				<h1>Searching &amp; Querying</h1><p>Deepstream doesn’t come with build-in search capabilities, but makes it easy to store and query records in a database</p><h3>Storage Connector</h3><p>Deepstream uses a “storage connector” to connect to a database and write records to it. You can read more about the concept in the <a href="connectors-and-deployment.html">connectors and deployment page</a> , browse a list of ready-to-use connectors on the <a href="../download/">download page</a> or read a <a href="writing-storage-cache-connector.html">tutorial on how to write your own</a>.</p><h3>Using deepstream&#39;s RethinkDB realtime search provider</h3><p>At the time of writing (June 2015), <a href="http://rethinkdb.com/">RethinkDB</a> is the only database that natively supports realtime queries. (If you know of another one, <a href="mailto:info@hoxton-one.com">please give us a nudge</a>). Using it, we&#39;ve build a provider that creates dynamically updating lists based on search criteria.</p><p><a class="mega" href="https://github.com/hoxton-one/deepstream.io-provider-search-rethinkdb"><i class="fa fa-github"></i>deepstream.io-provider-search-rethinkdb</a></p><p>How does it work? Given you have a number of records like</p><pre><code>ds<span class="token punctuation" >.</span>record<span class="token punctuation" >.</span><span class="token function" >getRecord<span class="token punctuation" >(</span></span> <span class="token string" >'book/i95ny80q-2bph9txxqxg'</span> <span class="token punctuation" >)</span><span class="token punctuation" >.</span><span class="token keyword" >set</span><span class="token punctuation" >(</span><span class="token punctuation" >{</span>
-    <span class="token string" >'title'</span><span class="token punctuation" >:</span> <span class="token string" >'Harry Potter and the goblet of fire'</span><span class="token punctuation" >,</span>
-    <span class="token string" >'price'</span><span class="token punctuation" >:</span> <span class="token number" >9.99</span>
-<span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-</code></pre><p>and use deepstream.io&#39;s RethinkDb storage connector with a splitChar</p><pre><code><span class="token punctuation" >{</span> splitChar<span class="token punctuation" >:</span> <span class="token string" >'/'</span> <span class="token punctuation" >}</span>
-</code></pre><p>you can search for Harry Potter books that cost less than 15.30 by creating a dynamic list name, e.g.</p><pre><code><span class="token keyword" >var</span> queryString <span class="token operator" >=</span> JSON<span class="token punctuation" >.</span><span class="token function" >stringify<span class="token punctuation" >(</span></span><span class="token punctuation" >{</span>
-    table<span class="token punctuation" >:</span> <span class="token string" >'book'</span><span class="token punctuation" >,</span>
-    query<span class="token punctuation" >:</span> <span class="token punctuation" >[</span>
-        <span class="token punctuation" >[</span> <span class="token string" >'title'</span><span class="token punctuation" >,</span> <span class="token string" >'match'</span><span class="token punctuation" >,</span> <span class="token string" >'^Harry Potter.*'</span> <span class="token punctuation" >]</span><span class="token punctuation" >,</span>
-        <span class="token punctuation" >[</span> <span class="token string" >'price'</span><span class="token punctuation" >,</span> <span class="token string" >'lt'</span><span class="token punctuation" >,</span> <span class="token number" >15.30</span> <span class="token punctuation" >]</span>
-    <span class="token punctuation" >]</span>
-<span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-<span class="token comment" spellcheck="true">
-//search?{"table":"book","query":[["title","match","^Harry Potter.*"],["price","lt",15.3]]}
-</span>ds<span class="token punctuation" >.</span>record<span class="token punctuation" >.</span><span class="token function" >getList<span class="token punctuation" >(</span></span> <span class="token string" >'search?'</span> <span class="token operator" >+</span> queryString <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-</code></pre><h3>Alternatively, here are a few things to consider when building your own search</h3><p><strong><em>splitChar / tables</em></strong>
-Most databases have a concept of a table or a collection. And most storage-providers support a <code>splitChar</code>, a character that is used in recordnames to seperate the record&#39;s id from the table that it should be stored in, e.g.</p><pre><code><span class="token comment" spellcheck="true">// a mongo-db storage-connector with
-</span>deepstream<span class="token punctuation" >.</span><span class="token keyword" >set</span><span class="token punctuation" >(</span> <span class="token string" >'storage'</span><span class="token punctuation" >,</span> <span class="token keyword" >new</span> <span class="token class-name" >MongoDbStorageConnector</span><span class="token punctuation" >{</span>
-    connectionString<span class="token punctuation" >:</span> <span class="token string" >'mongodb://usr:pass@localhost:10087/testdb'</span><span class="token punctuation" >,</span>
-    splitChar<span class="token punctuation" >:</span> <span class="token string" >'/'</span>
-<span class="token punctuation" >}</span><span class="token punctuation" >)</span>
-<span class="token comment" spellcheck="true">
+				<h1>Searching &amp; Querying</h1><p>Deepstream doesn’t come with build-in search capabilities, but makes it easy to store and query records in a database</p><h3>Storage Connector</h3><p>Deepstream uses a “storage connector” to connect to a database and write records to it. You can read more about the concept in the <a href="connectors-and-deployment.html">connectors and deployment page</a> , browse a list of ready-to-use connectors on the <a href="../download/">download page</a> or read a <a href="writing-storage-cache-connector.html">tutorial on how to write your own</a>.</p><h3>Using deepstream&#39;s RethinkDB realtime search provider</h3><p>At the time of writing (June 2015), <a href="http://rethinkdb.com/">RethinkDB</a> is the only database that natively supports realtime queries. (If you know of another one, <a href="mailto:info@deepstream.io">please give us a nudge</a>). Using it, we&#39;ve build a provider that creates dynamically updating lists based on search criteria.</p><p><a class="mega" href="https://github.com/hoxton-one/deepstream.io-provider-search-rethinkdb"><i class="fa fa-github"></i>deepstream.io-provider-search-rethinkdb</a></p><p>How does it work? Given you have a number of records like</p><pre><code class="lang-javascript">ds.record.getRecord( &#39;book/i95ny80q-2bph9txxqxg&#39; ).set({
+    &#39;title&#39;: &#39;Harry Potter and the goblet of fire&#39;,
+    &#39;price&#39;: 9.99
+});
+</code></pre>
+<p>and use deepstream.io&#39;s RethinkDb storage connector with a splitChar</p><pre><code class="lang-javascript">{ splitChar: &#39;/&#39; }
+</code></pre>
+<p>you can search for Harry Potter books that cost less than 15.30 by creating a dynamic list name, e.g.</p><pre><code class="lang-javascript">var queryString = JSON.stringify({
+    table: &#39;book&#39;,
+    query: [
+        [ &#39;title&#39;, &#39;match&#39;, &#39;^Harry Potter.*&#39; ],
+        [ &#39;price&#39;, &#39;lt&#39;, 15.30 ]
+    ]
+});
+
+//search?{&quot;table&quot;:&quot;book&quot;,&quot;query&quot;:[[&quot;title&quot;,&quot;match&quot;,&quot;^Harry Potter.*&quot;],[&quot;price&quot;,&quot;lt&quot;,15.3]]}
+ds.record.getList( &#39;search?&#39; + queryString );
+</code></pre>
+<h3>Alternatively, here are a few things to consider when building your own search</h3><p><strong><em>splitChar / tables</em></strong>
+Most databases have a concept of a table or a collection. And most storage-providers support a <code>splitChar</code>, a character that is used in recordnames to seperate the record&#39;s id from the table that it should be stored in, e.g.</p><pre><code class="lang-javascript">// a mongo-db storage-connector with
+deepstream.set( &#39;storage&#39;, new MongoDbStorageConnector{
+    connectionString: &#39;mongodb://usr:pass@localhost:10087/testdb&#39;,
+    splitChar: &#39;/&#39;
+})
+
 //would store this record
-</span><span class="token keyword" >var</span> rec <span class="token operator" >=</span> ds<span class="token punctuation" >.</span>record<span class="token punctuation" >.</span><span class="token function" >getRecord<span class="token punctuation" >(</span></span> <span class="token string" >'book/i95ny80q-2bph9txxqxg'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-<span class="token comment" spellcheck="true">
-//in a new collection called book</span>
-</code></pre><p><strong><em>data structure</em></strong>
-Records are not stored their raw format, but in the following structure</p><pre><code><span class="token punctuation" >{</span>
-    _v<span class="token punctuation" >:</span> <span class="token number" >1</span><span class="token punctuation" >,</span> <span class="token comment" spellcheck="true"> // version
-</span>    _o<span class="token punctuation" >:</span> <span class="token punctuation" >{</span><span class="token punctuation" >}</span><span class="token punctuation" >,</span><span class="token comment" spellcheck="true"> // options - coming soon
-</span>    _d<span class="token punctuation" >:</span> <span class="token punctuation" >{</span><span class="token punctuation" >}</span><span class="token punctuation" >,</span><span class="token comment" spellcheck="true"> // the actual data
-</span><span class="token punctuation" >}</span>
-</code></pre><p><strong><em>use rpcs instead of lists</em></strong>
+var rec = ds.record.getRecord( &#39;book/i95ny80q-2bph9txxqxg&#39; );
+
+//in a new collection called book
+</code></pre>
+<p><strong><em>data structure</em></strong>
+Records are not stored their raw format, but in the following structure</p><pre><code class="lang-javascript">{
+    _v: 1,  // version
+    _o: {}, // options - coming soon
+    _d: {}, // the actual data
+}
+</code></pre>
+<p><strong><em>use rpcs instead of lists</em></strong>
 Searches are usually a single request-response operation, so it might make more sense to build providers for them as RPC&#39;s, rather than lists.</p>
 			</div>
 		</div>
@@ -223,19 +229,15 @@ Searches are usually a single request-response operation, so it might make more 
 			</li>
 
 			<li class="footer-middle">
-				<a class="footer-middle" href="http://www.hoxton-one.com/" title="hoxton-one.com">
-					<p>
-					Handcrafted by
-					</p>
-
-					<div class="footer-hoxton-one">
-					</div>
-
-					<div class="copyright">
-						&copy;2015 Hoxton One Ltd. All rights reserved.
-					</div>
-				</a>
-			</li>
+				<h4>Browse</h4>
+				<ul>
+					<li ><a href="..">Home</a></li>
+					<li ><a href="../download/">Downloads</a></li>
+					<li class="active"><a href="../tutorials/getting-started.html">Tutorials</a></li>
+					<li ><a href="../docs/deepstream.html">Documentation</a></li>
+					<li ><a href="../blog/">Blog</a></li>
+					<li ><a href="../info/">Info</a></li>
+				</ul>			</li>
 
 			<li class="footer-left">
 				<h4>Contact us</h4>
@@ -243,7 +245,7 @@ Searches are usually a single request-response operation, so it might make more 
 					<b>deepstream.io </b>is developed by Hoxton One Ltd. <br>
 				</p>
 				<p>
-					Email us <a href="mailto:info@hoxton-one.com">info@hoxton-one.com</a>.<br><br>
+					Email us <a href="mailto:info@deepstream.io">info@deepstream.io</a>.<br><br>
 				</p>
 
 				<h4>Star this project on github!</h4>

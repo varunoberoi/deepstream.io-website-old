@@ -15,18 +15,19 @@
 	<link rel="stylesheet" type="text/css" href="../assets/css/navigation.css" />
 	<link rel="stylesheet" type="text/css" href="../assets/css/screen.css" />
 	<link rel="stylesheet" type="text/css" href="../assets/css/api.css" />
-	<link rel="stylesheet" type="text/css" href="../assets/css/syntaxhighlighter.css" />
 	<script type="text/javascript">
 	document.createElement( 'header' );
 	document.createElement( 'nav' );
 	</script>
 	<script type="text/javascript" src="../assets/js/jquery.js"></script>
 	<script type="text/javascript" src="../assets/js/menu.js"></script>
+	<script type="text/javascript" src="../assets/js/prism.js"></script>
 
 	<link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Quicksand:300,400,700' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="../assets/css/prism.css" />
 </head>
 
 <body class="category_tutorials ">
@@ -38,7 +39,7 @@
 				<li class="active"><a href="../tutorials/getting-started.html">Tutorials</a></li>
 				<li ><a href="../docs/deepstream.html">Documentation</a></li>
 				<li ><a href="../blog/">Blog</a></li>
-				<li ><a href="../info/">Info</a></li>				
+				<li ><a href="../info/">Info</a></li>
 			</ul>		</div>
 	</div>
 
@@ -54,7 +55,7 @@
 					<li class="active"><a href="../tutorials/getting-started.html">Tutorials</a></li>
 					<li ><a href="../docs/deepstream.html">Documentation</a></li>
 					<li ><a href="../blog/">Blog</a></li>
-					<li ><a href="../info/">Info</a></li>				
+					<li ><a href="../info/">Info</a></li>
 				</ul>			</div>
 			<span class="menu-button menu-icon">
 				<i class="fa fa-bars"></i>
@@ -156,37 +157,39 @@
 </ul>
 
 			<div id="content">
-				<h1>Events &amp; RPCs</h1><p>In addition to records, deepstream provides means of messaging and request-response communication: events and rpcs.</p><h3>Events</h3><p>Events work just like a common event-emitter, but distributed across all connected clients</p><pre><code><span class="token comment" spellcheck="true">//subscribe to an event
-</span>ds<span class="token punctuation" >.</span>event<span class="token punctuation" >.</span><span class="token function" >subscribe<span class="token punctuation" >(</span></span> <span class="token string" >'someEvent'</span><span class="token punctuation" >,</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> data <span class="token punctuation" >)</span><span class="token punctuation" >{</span> <span class="token comment" spellcheck="true">/****/</span> <span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-<span class="token comment" spellcheck="true">
+				<h1>Events &amp; RPCs</h1><p>In addition to records, deepstream provides means of messaging and request-response communication: events and rpcs.</p><h3>Events</h3><p>Events work just like a common event-emitter, but distributed across all connected clients</p><pre><code class="lang-javascript">//subscribe to an event
+ds.event.subscribe( &#39;someEvent&#39;, function( data ){ /****/ });
+
 //emit an event
-</span>ds<span class="token punctuation" >.</span>event<span class="token punctuation" >.</span><span class="token function" >emit<span class="token punctuation" >(</span></span> <span class="token string" >'someEvent'</span><span class="token punctuation" >,</span> <span class="token string" >'someData'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-<span class="token comment" spellcheck="true">
+ds.event.emit( &#39;someEvent&#39;, &#39;someData&#39; );
+
 //unsubscribe from an event
-</span>ds<span class="token punctuation" >.</span>event<span class="token punctuation" >.</span><span class="token function" >unsubscribe<span class="token punctuation" >(</span></span> <span class="token string" >'someEvent'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-</code></pre><h3>RPCs</h3><p>Remote Procedure Calls allow for Request-Reponse communication. If multiple clients are able to provide the same
-rpc, deepstream will distribute requests evenly between them.</p><pre><code><span class="token comment" spellcheck="true">//register as a provider for a rpc
-</span>ds<span class="token punctuation" >.</span>rpc<span class="token punctuation" >.</span><span class="token function" >provide<span class="token punctuation" >(</span></span> <span class="token string" >'addTwoNumbers'</span><span class="token punctuation" >,</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> data<span class="token punctuation" >,</span> response <span class="token punctuation" >)</span><span class="token punctuation" >{</span>
-
-   <span class="token comment" spellcheck="true"> //you can now either send a response
-</span>    response<span class="token punctuation" >.</span><span class="token function" >send<span class="token punctuation" >(</span></span> data<span class="token punctuation" >.</span>numA <span class="token operator" >+</span> data<span class="token punctuation" >.</span>numB <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-
-   <span class="token comment" spellcheck="true"> //reject the response so that it gets
-</span>   <span class="token comment" spellcheck="true"> //re-routed to another provider
-</span>    response<span class="token punctuation" >.</span><span class="token function" >reject<span class="token punctuation" >(</span></span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-
-   <span class="token comment" spellcheck="true"> //or send an error back
-</span>    response<span class="token punctuation" >.</span><span class="token function" >error<span class="token punctuation" >(</span></span> <span class="token string" >'Something went wrong'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-<span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-<span class="token comment" spellcheck="true">
-//other clients can now call this function using
-</span>ds<span class="token punctuation" >.</span>rpc<span class="token punctuation" >.</span><span class="token function" >make<span class="token punctuation" >(</span></span> <span class="token string" >'addTwoNumbers'</span><span class="token punctuation" >,</span> <span class="token punctuation" >{</span> numA<span class="token punctuation" >:</span> <span class="token number" >4</span><span class="token punctuation" >,</span> numB<span class="token punctuation" >:</span> <span class="token number" >7</span> <span class="token punctuation" >}</span><span class="token punctuation" >,</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> error<span class="token punctuation" >,</span> response <span class="token punctuation" >)</span><span class="token punctuation" >{</span>
-   <span class="token comment" spellcheck="true"> //response is 11 now
-</span><span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-<span class="token comment" spellcheck="true">
-//you can also de-register your provider
-</span>ds<span class="token punctuation" >.</span>rpc<span class="token punctuation" >.</span><span class="token function" >unprovide<span class="token punctuation" >(</span></span> <span class="token string" >'addTwoNumbers'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+ds.event.unsubscribe( &#39;someEvent&#39; );
 </code></pre>
+<h3>RPCs</h3><p>Remote Procedure Calls allow for Request-Reponse communication. If multiple clients are able to provide the same
+rpc, deepstream will distribute requests evenly between them.</p><pre><code class="lang-javascript">//register as a provider for a rpc
+ds.rpc.provide( &#39;addTwoNumbers&#39;, function( data, response ){
+
+    //you can now either send a response
+    response.send( data.numA + data.numB );
+
+    //reject the response so that it gets
+    //re-routed to another provider
+    response.reject();
+
+    //or send an error back
+    response.error( &#39;Something went wrong&#39; );
+});
+
+//other clients can now call this function using
+ds.rpc.make( &#39;addTwoNumbers&#39;, { numA: 4, numB: 7 }, function( error, response ){
+    //response is 11 now
+});
+
+//you can also de-register your provider
+ds.rpc.unprovide( &#39;addTwoNumbers&#39; );
+</code></pre>
+
 			</div>
 		</div>
 		<script type="text/javascript" src="../assets/js/docs.js"></script>
@@ -220,19 +223,15 @@ rpc, deepstream will distribute requests evenly between them.</p><pre><code><spa
 			</li>
 
 			<li class="footer-middle">
-				<a class="footer-middle" href="http://www.hoxton-one.com/" title="hoxton-one.com">
-					<p>
-					Handcrafted by
-					</p>
-
-					<div class="footer-hoxton-one">
-					</div>
-
-					<div class="copyright">
-						&copy;2015 Hoxton One Ltd. All rights reserved.
-					</div>
-				</a>
-			</li>
+				<h4>Browse</h4>
+				<ul>
+					<li ><a href="..">Home</a></li>
+					<li ><a href="../download/">Downloads</a></li>
+					<li class="active"><a href="../tutorials/getting-started.html">Tutorials</a></li>
+					<li ><a href="../docs/deepstream.html">Documentation</a></li>
+					<li ><a href="../blog/">Blog</a></li>
+					<li ><a href="../info/">Info</a></li>
+				</ul>			</li>
 
 			<li class="footer-left">
 				<h4>Contact us</h4>
@@ -240,7 +239,7 @@ rpc, deepstream will distribute requests evenly between them.</p><pre><code><spa
 					<b>deepstream.io </b>is developed by Hoxton One Ltd. <br>
 				</p>
 				<p>
-					Email us <a href="mailto:info@hoxton-one.com">info@hoxton-one.com</a>.<br><br>
+					Email us <a href="mailto:info@deepstream.io">info@deepstream.io</a>.<br><br>
 				</p>
 
 				<h4>Star this project on github!</h4>

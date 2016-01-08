@@ -15,18 +15,19 @@
 	<link rel="stylesheet" type="text/css" href="../assets/css/navigation.css" />
 	<link rel="stylesheet" type="text/css" href="../assets/css/screen.css" />
 	<link rel="stylesheet" type="text/css" href="../assets/css/api.css" />
-	<link rel="stylesheet" type="text/css" href="../assets/css/syntaxhighlighter.css" />
 	<script type="text/javascript">
 	document.createElement( 'header' );
 	document.createElement( 'nav' );
 	</script>
 	<script type="text/javascript" src="../assets/js/jquery.js"></script>
 	<script type="text/javascript" src="../assets/js/menu.js"></script>
+	<script type="text/javascript" src="../assets/js/prism.js"></script>
 
 	<link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Quicksand:300,400,700' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="../assets/css/prism.css" />
 </head>
 
 <body class="category_tutorials ">
@@ -38,7 +39,7 @@
 				<li class="active"><a href="../tutorials/getting-started.html">Tutorials</a></li>
 				<li ><a href="../docs/deepstream.html">Documentation</a></li>
 				<li ><a href="../blog/">Blog</a></li>
-				<li ><a href="../info/">Info</a></li>				
+				<li ><a href="../info/">Info</a></li>
 			</ul>		</div>
 	</div>
 
@@ -54,7 +55,7 @@
 					<li class="active"><a href="../tutorials/getting-started.html">Tutorials</a></li>
 					<li ><a href="../docs/deepstream.html">Documentation</a></li>
 					<li ><a href="../blog/">Blog</a></li>
-					<li ><a href="../info/">Info</a></li>				
+					<li ><a href="../info/">Info</a></li>
 				</ul>			</div>
 			<span class="menu-button menu-icon">
 				<i class="fa fa-bars"></i>
@@ -160,15 +161,18 @@
 &lt;topic&gt;|&lt;action&gt;|&lt;data[0]&gt;|...|&lt;data[n]&gt;+
 </div>
 
-<p>| and + are used in these examples as placeholders, messages are actually separated by invisible Ascii control characters (&quot;record separator&quot; (30) and &quot;group seperator&quot; (31))</p><p>Every message has a topic (e.g. RECORD, EVENT, AUTH etc.) and an action ( CREATE, DELETE, SUBSCRIBE etc.). For a full list of available topics and actions please see <a href="../docs/constants.html">docs/constants.html</a>.</p><h3>Example</h3><p>Here&#39;s an example: creating or reading a record <code>user/Lisa</code></p><pre><code>userLisa <span class="token operator" >=</span> ds<span class="token punctuation" >.</span>record<span class="token punctuation" >.</span><span class="token function" >getRecord<span class="token punctuation" >(</span></span> <span class="token string" >'user/Lisa'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-</code></pre><p>would prompt the client to send this message to the server</p><p><img src="../assets/images/message-structure-record-create.png" /></p><p>Messages always start with <code>topic</code> and <code>action</code>, but can contain an arbitrary amount of data fields afterwards.</p><p>Setting the value of a path within the record for example</p><pre><code>userLisa<span class="token punctuation" >.</span><span class="token keyword" >set</span><span class="token punctuation" >(</span> <span class="token string" >'lastname'</span><span class="token punctuation" >,</span> <span class="token string" >'Owen'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-</code></pre><p>would result in this outgoing message</p><p><img src="../assets/images/message-structure-record-patch.png" width="650"/></p><p>Please note the additional S before <code>Owen</code>. This indicates that the remaining part of the message should be treated as a string. Please find a list of available types <a href="../docs/constants.html#Data Types">here</a>.</p><p>Both client and server use a message-parser to validate these messages and to convert them into objects looking like this:</p><pre><code><span class="token punctuation" >{</span>
-    raw<span class="token punctuation" >:</span> <span class="token string" >'R\u001fP\u001fuser/Lisa\u001f1\u001flastname\u001fSOwen'</span><span class="token punctuation" >,</span>
-    topic<span class="token punctuation" >:</span> <span class="token string" >'R'</span><span class="token punctuation" >,</span>
-    action<span class="token punctuation" >:</span> <span class="token string" >'P'</span><span class="token punctuation" >,</span>
-    data<span class="token punctuation" >:</span> <span class="token punctuation" >[</span> <span class="token string" >'user/Lisa'</span><span class="token punctuation" >,</span> <span class="token string" >'1'</span><span class="token punctuation" >,</span> <span class="token string" >'lastname'</span><span class="token punctuation" >,</span> <span class="token string" >'SOwen'</span> <span class="token punctuation" >]</span>
-<span class="token punctuation" >}</span>
-</code></pre><p>The actual conversion of <code>SOwen</code> into <code>Owen</code> happens further down the line by the part of the application that handles this specific message and knows which fields contain typed data.</p>
+<p>| and + are used in these examples as placeholders, messages are actually separated by invisible Ascii control characters (&quot;record separator&quot; (30) and &quot;group seperator&quot; (31))</p><p>Every message has a topic (e.g. RECORD, EVENT, AUTH etc.) and an action ( CREATE, DELETE, SUBSCRIBE etc.). For a full list of available topics and actions please see <a href="../docs/constants.html">docs/constants.html</a>.</p><h3>Example</h3><p>Here&#39;s an example: creating or reading a record <code>user/Lisa</code></p><pre><code class="lang-javascript">userLisa = ds.record.getRecord( &#39;user/Lisa&#39; );
+</code></pre>
+<p>would prompt the client to send this message to the server</p><p><img src="../assets/images/message-structure-record-create.png" /></p><p>Messages always start with <code>topic</code> and <code>action</code>, but can contain an arbitrary amount of data fields afterwards.</p><p>Setting the value of a path within the record for example</p><pre><code class="lang-javascript">userLisa.set( &#39;lastname&#39;, &#39;Owen&#39; );
+</code></pre>
+<p>would result in this outgoing message</p><p><img src="../assets/images/message-structure-record-patch.png" width="650"/></p><p>Please note the additional S before <code>Owen</code>. This indicates that the remaining part of the message should be treated as a string. Please find a list of available types <a href="../docs/constants.html#Data Types">here</a>.</p><p>Both client and server use a message-parser to validate these messages and to convert them into objects looking like this:</p><pre><code class="lang-javascript">{
+    raw: &#39;R\u001fP\u001fuser/Lisa\u001f1\u001flastname\u001fSOwen&#39;,
+    topic: &#39;R&#39;,
+    action: &#39;P&#39;,
+    data: [ &#39;user/Lisa&#39;, &#39;1&#39;, &#39;lastname&#39;, &#39;SOwen&#39; ]
+}
+</code></pre>
+<p>The actual conversion of <code>SOwen</code> into <code>Owen</code> happens further down the line by the part of the application that handles this specific message and knows which fields contain typed data.</p>
 			</div>
 		</div>
 		<script type="text/javascript" src="../assets/js/docs.js"></script>
@@ -202,19 +206,15 @@
 			</li>
 
 			<li class="footer-middle">
-				<a class="footer-middle" href="http://www.hoxton-one.com/" title="hoxton-one.com">
-					<p>
-					Handcrafted by
-					</p>
-
-					<div class="footer-hoxton-one">
-					</div>
-
-					<div class="copyright">
-						&copy;2015 Hoxton One Ltd. All rights reserved.
-					</div>
-				</a>
-			</li>
+				<h4>Browse</h4>
+				<ul>
+					<li ><a href="..">Home</a></li>
+					<li ><a href="../download/">Downloads</a></li>
+					<li class="active"><a href="../tutorials/getting-started.html">Tutorials</a></li>
+					<li ><a href="../docs/deepstream.html">Documentation</a></li>
+					<li ><a href="../blog/">Blog</a></li>
+					<li ><a href="../info/">Info</a></li>
+				</ul>			</li>
 
 			<li class="footer-left">
 				<h4>Contact us</h4>
@@ -222,7 +222,7 @@
 					<b>deepstream.io </b>is developed by Hoxton One Ltd. <br>
 				</p>
 				<p>
-					Email us <a href="mailto:info@hoxton-one.com">info@hoxton-one.com</a>.<br><br>
+					Email us <a href="mailto:info@deepstream.io">info@deepstream.io</a>.<br><br>
 				</p>
 
 				<h4>Star this project on github!</h4>

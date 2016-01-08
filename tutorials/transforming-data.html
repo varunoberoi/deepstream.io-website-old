@@ -15,18 +15,19 @@
 	<link rel="stylesheet" type="text/css" href="../assets/css/navigation.css" />
 	<link rel="stylesheet" type="text/css" href="../assets/css/screen.css" />
 	<link rel="stylesheet" type="text/css" href="../assets/css/api.css" />
-	<link rel="stylesheet" type="text/css" href="../assets/css/syntaxhighlighter.css" />
 	<script type="text/javascript">
 	document.createElement( 'header' );
 	document.createElement( 'nav' );
 	</script>
 	<script type="text/javascript" src="../assets/js/jquery.js"></script>
 	<script type="text/javascript" src="../assets/js/menu.js"></script>
+	<script type="text/javascript" src="../assets/js/prism.js"></script>
 
 	<link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Quicksand:300,400,700' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="../assets/css/prism.css" />
 </head>
 
 <body class="category_tutorials ">
@@ -38,7 +39,7 @@
 				<li class="active"><a href="../tutorials/getting-started.html">Tutorials</a></li>
 				<li ><a href="../docs/deepstream.html">Documentation</a></li>
 				<li ><a href="../blog/">Blog</a></li>
-				<li ><a href="../info/">Info</a></li>				
+				<li ><a href="../info/">Info</a></li>
 			</ul>		</div>
 	</div>
 
@@ -54,7 +55,7 @@
 					<li class="active"><a href="../tutorials/getting-started.html">Tutorials</a></li>
 					<li ><a href="../docs/deepstream.html">Documentation</a></li>
 					<li ><a href="../blog/">Blog</a></li>
-					<li ><a href="../info/">Info</a></li>				
+					<li ><a href="../info/">Info</a></li>
 				</ul>			</div>
 			<span class="menu-button menu-icon">
 				<i class="fa fa-bars"></i>
@@ -213,29 +214,30 @@
     </tbody>
 </table>
 
-<p>Transform-functions are registered using <code>server.set( &#39;dataTransforms&#39;, [...])</code></p><pre><code><span class="token keyword" >var</span> Deepstream <span class="token operator" >=</span> <span class="token function" >require<span class="token punctuation" >(</span></span> <span class="token string" >'deepstream.io'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-<span class="token keyword" >var</span> server <span class="token operator" >=</span> <span class="token keyword" >new</span> <span class="token class-name" >Deepstream</span><span class="token punctuation" >(</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+<p>Transform-functions are registered using <code>server.set( &#39;dataTransforms&#39;, [...])</code></p><pre><code class="lang-javascript">var Deepstream = require( &#39;deepstream.io&#39; );
+var server = new Deepstream();
 
-server<span class="token punctuation" >.</span><span class="token keyword" >set</span><span class="token punctuation" >(</span> <span class="token string" >'dataTransforms'</span><span class="token punctuation" >,</span> <span class="token punctuation" >[</span><span class="token punctuation" >{</span>
-    topic<span class="token punctuation" >:</span> C<span class="token punctuation" >.</span>TOPIC<span class="token punctuation" >.</span>RPC<span class="token punctuation" >,</span>
-    action<span class="token punctuation" >:</span> C<span class="token punctuation" >.</span>ACTIONS<span class="token punctuation" >.</span>REQUEST<span class="token punctuation" >,</span>
-    transform<span class="token punctuation" >:</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> data<span class="token punctuation" >,</span> metaData <span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
-        <span class="token keyword" >if</span><span class="token punctuation" >(</span> metaData<span class="token punctuation" >.</span>rpcName <span class="token operator" >===</span> <span class="token string" >'get-price'</span> <span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
-            data<span class="token punctuation" >.</span>discount <span class="token operator" >=</span> userDiscounts<span class="token punctuation" >[</span> metaData<span class="token punctuation" >.</span>sender <span class="token punctuation" >]</span><span class="token punctuation" >;</span>
-        <span class="token punctuation" >}</span>
-        <span class="token keyword" >return</span> data<span class="token punctuation" >;</span>
-    <span class="token punctuation" >}</span>
-<span class="token punctuation" >}</span><span class="token punctuation" >,</span><span class="token punctuation" >{</span>
-    topic<span class="token punctuation" >:</span> C<span class="token punctuation" >.</span>TOPIC<span class="token punctuation" >.</span>RECORD<span class="token punctuation" >,</span>
-    action<span class="token punctuation" >:</span> C<span class="token punctuation" >.</span>ACTIONS<span class="token punctuation" >.</span>READ<span class="token punctuation" >,</span>
-    transform<span class="token punctuation" >:</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> data<span class="token punctuation" >,</span> metaData <span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
-        <span class="token keyword" >delete</span> data<span class="token punctuation" >.</span>confidentialInfo<span class="token punctuation" >;</span>
-        <span class="token keyword" >return</span> data<span class="token punctuation" >;</span>
-    <span class="token punctuation" >}</span>
-<span class="token punctuation" >}</span><span class="token punctuation" >]</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+server.set( &#39;dataTransforms&#39;, [{
+    topic: C.TOPIC.RPC,
+    action: C.ACTIONS.REQUEST,
+    transform: function( data, metaData ) {
+        if( metaData.rpcName === &#39;get-price&#39; ) {
+            data.discount = userDiscounts[ metaData.sender ];
+        }
+        return data;
+    }
+},{
+    topic: C.TOPIC.RECORD,
+    action: C.ACTIONS.READ,
+    transform: function( data, metaData ) {
+        delete data.confidentialInfo;
+        return data;
+    }
+}]);
 
-server<span class="token punctuation" >.</span><span class="token function" >start<span class="token punctuation" >(</span></span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-</code></pre><h3>Transforming record data</h3><p>Transforming outgoing record data can be a bit complex, due to the different ways that updates are sent out.</p><ul>
+server.start();
+</code></pre>
+<h3>Transforming record data</h3><p>Transforming outgoing record data can be a bit complex, due to the different ways that updates are sent out.</p><ul>
 <li>When a client calls <code>ds.record.getRecord( recordName )</code> the server responds with a READ action. </li>
 <li>When a record is completely updated, using <code>record.set({})</code> with a single argument, an UPDATE action is sent out. </li>
 <li>In case of partial updates, using <code>record.set(path, value)</code>, a PATCH message is sent out, containing the path and only the updated value. </li>
@@ -244,45 +246,46 @@ server<span class="token punctuation" >.</span><span class="token function" >sta
 <li>record names are structured as item/&lt;id&gt;</li>
 <li>record data looks like { price: &lt;id&gt;, other: &lt;...&gt; }</li>
 </ul>
-<pre><code><span class="token keyword" >var</span> userDiscounts <span class="token operator" >=</span> <span class="token punctuation" >{</span>
-    <span class="token string" >'anne'</span><span class="token punctuation" >:</span> <span class="token number" >0.97</span><span class="token punctuation" >,</span>
-    <span class="token string" >'max'</span><span class="token punctuation" >:</span> <span class="token number" >0.90</span><span class="token punctuation" >,</span>
-    <span class="token string" >'lisa'</span><span class="token punctuation" >:</span> <span class="token number" >0.85</span>
-<span class="token punctuation" >}</span><span class="token punctuation" >;</span>
-<span class="token comment" spellcheck="true">
-// READ and UPDATE have the same signature,
-</span><span class="token comment" spellcheck="true">// so we can use the same function for both
-</span><span class="token keyword" >var</span> transformReadAndUpdate <span class="token operator" >=</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> data<span class="token punctuation" >,</span> metaData <span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
-    <span class="token keyword" >if</span><span class="token punctuation" >(</span> metaData<span class="token punctuation" >.</span>recordName<span class="token punctuation" >.</span><span class="token function" >substr<span class="token punctuation" >(</span></span> <span class="token number" >0</span><span class="token punctuation" >,</span> <span class="token number" >5</span> <span class="token punctuation" >)</span> <span class="token operator" >===</span> <span class="token string" >'item/'</span> <span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
-        data<span class="token punctuation" >.</span>price <span class="token operator" >*</span><span class="token operator" >=</span> userDiscounts<span class="token punctuation" >[</span> metaData<span class="token punctuation" >.</span>receiver <span class="token punctuation" >]</span><span class="token punctuation" >;</span>
-    <span class="token punctuation" >}</span>
-    <span class="token keyword" >return</span> data<span class="token punctuation" >;</span>
-<span class="token punctuation" >}</span><span class="token punctuation" >;</span>
+<pre><code class="lang-javascript">var userDiscounts = {
+    &#39;anne&#39;: 0.97,
+    &#39;max&#39;: 0.90,
+    &#39;lisa&#39;: 0.85
+};
 
-server<span class="token punctuation" >.</span><span class="token keyword" >set</span><span class="token punctuation" >(</span> <span class="token string" >'dataTransforms'</span><span class="token punctuation" >,</span> <span class="token punctuation" >[</span><span class="token punctuation" >{</span>
-    topic<span class="token punctuation" >:</span> C<span class="token punctuation" >.</span>TOPIC<span class="token punctuation" >.</span>RECORD<span class="token punctuation" >,</span>
-    action<span class="token punctuation" >:</span> C<span class="token punctuation" >.</span>ACTIONS<span class="token punctuation" >.</span>READ<span class="token punctuation" >,</span>
-    transform<span class="token punctuation" >:</span> transformReadAndUpdate
-<span class="token punctuation" >}</span><span class="token punctuation" >,</span> <span class="token punctuation" >{</span>
-    topic<span class="token punctuation" >:</span> C<span class="token punctuation" >.</span>TOPIC<span class="token punctuation" >.</span>RECORD<span class="token punctuation" >,</span>
-    action<span class="token punctuation" >:</span> C<span class="token punctuation" >.</span>ACTIONS<span class="token punctuation" >.</span>UPDATE<span class="token punctuation" >,</span>
-    transform<span class="token punctuation" >:</span> transformReadAndUpdate
-<span class="token punctuation" >}</span><span class="token punctuation" >,</span><span class="token punctuation" >{</span>
-    topic<span class="token punctuation" >:</span> C<span class="token punctuation" >.</span>TOPIC<span class="token punctuation" >.</span>RECORD<span class="token punctuation" >,</span>
-    action<span class="token punctuation" >:</span> C<span class="token punctuation" >.</span>ACTIONS<span class="token punctuation" >.</span>PATCH<span class="token punctuation" >,</span>
-    transform<span class="token punctuation" >:</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> data<span class="token punctuation" >,</span> metaData <span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
-        <span class="token keyword" >if</span><span class="token punctuation" >(</span> 
-            metaData<span class="token punctuation" >.</span>recordName<span class="token punctuation" >.</span><span class="token function" >substr<span class="token punctuation" >(</span></span> <span class="token number" >0</span><span class="token punctuation" >,</span> <span class="token number" >5</span> <span class="token punctuation" >)</span> <span class="token operator" >===</span> <span class="token string" >'item/'</span> <span class="token operator" >&amp;&amp;</span>
-            metaData<span class="token punctuation" >.</span>path <span class="token operator" >===</span> <span class="token string" >'price'</span>
-        <span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
-           <span class="token comment" spellcheck="true"> //data for PATCH is just the price
-</span>            <span class="token keyword" >return</span> data <span class="token operator" >*</span> userDiscounts<span class="token punctuation" >[</span> metaData<span class="token punctuation" >.</span>receiver <span class="token punctuation" >]</span><span class="token punctuation" >;</span>
-        <span class="token punctuation" >}</span> <span class="token keyword" >else</span> <span class="token punctuation" >{</span>
-            <span class="token keyword" >return</span> data<span class="token punctuation" >;</span>
-        <span class="token punctuation" >}</span>
-    <span class="token punctuation" >}</span>
-<span class="token punctuation" >}</span><span class="token punctuation" >]</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-</code></pre><div class="hint-box fa fa-gears">
+// READ and UPDATE have the same signature,
+// so we can use the same function for both
+var transformReadAndUpdate = function( data, metaData ) {
+    if( metaData.recordName.substr( 0, 5 ) === &#39;item/&#39; ) {
+        data.price *= userDiscounts[ metaData.receiver ];
+    }
+    return data;
+};
+
+server.set( &#39;dataTransforms&#39;, [{
+    topic: C.TOPIC.RECORD,
+    action: C.ACTIONS.READ,
+    transform: transformReadAndUpdate
+}, {
+    topic: C.TOPIC.RECORD,
+    action: C.ACTIONS.UPDATE,
+    transform: transformReadAndUpdate
+},{
+    topic: C.TOPIC.RECORD,
+    action: C.ACTIONS.PATCH,
+    transform: function( data, metaData ) {
+        if( 
+            metaData.recordName.substr( 0, 5 ) === &#39;item/&#39; &amp;&amp;
+            metaData.path === &#39;price&#39;
+        ) {
+            //data for PATCH is just the price
+            return data * userDiscounts[ metaData.receiver ];
+        } else {
+            return data;
+        }
+    }
+}]);
+</code></pre>
+<div class="hint-box fa fa-gears">
     <h3>BUT!...</h3>
     <p>Transforming data slows deepstream down quite a bit. Usually, messages are constructed once and
     fanned out to all subscribed clients. If a transform function is registered however, messages are constructed
@@ -322,19 +325,15 @@ server<span class="token punctuation" >.</span><span class="token keyword" >set<
 			</li>
 
 			<li class="footer-middle">
-				<a class="footer-middle" href="http://www.hoxton-one.com/" title="hoxton-one.com">
-					<p>
-					Handcrafted by
-					</p>
-
-					<div class="footer-hoxton-one">
-					</div>
-
-					<div class="copyright">
-						&copy;2015 Hoxton One Ltd. All rights reserved.
-					</div>
-				</a>
-			</li>
+				<h4>Browse</h4>
+				<ul>
+					<li ><a href="..">Home</a></li>
+					<li ><a href="../download/">Downloads</a></li>
+					<li class="active"><a href="../tutorials/getting-started.html">Tutorials</a></li>
+					<li ><a href="../docs/deepstream.html">Documentation</a></li>
+					<li ><a href="../blog/">Blog</a></li>
+					<li ><a href="../info/">Info</a></li>
+				</ul>			</li>
 
 			<li class="footer-left">
 				<h4>Contact us</h4>
@@ -342,7 +341,7 @@ server<span class="token punctuation" >.</span><span class="token keyword" >set<
 					<b>deepstream.io </b>is developed by Hoxton One Ltd. <br>
 				</p>
 				<p>
-					Email us <a href="mailto:info@hoxton-one.com">info@hoxton-one.com</a>.<br><br>
+					Email us <a href="mailto:info@deepstream.io">info@deepstream.io</a>.<br><br>
 				</p>
 
 				<h4>Star this project on github!</h4>

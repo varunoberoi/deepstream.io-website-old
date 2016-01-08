@@ -201,6 +201,11 @@ body{
 	box-shadow: inset 0px 5px 10px 0px rgba(0,0,0,0.3);
 }
 
+#segment-code pre[class*="language-"] {
+	background: none;
+	overflow: hidden;
+}
+
 #segment-code * {
 	box-sizing: border-box;
 }
@@ -240,7 +245,7 @@ body{
 }
 
 @media( max-width: 899px ) {
-	#segment-code {
+	#segment-code pre code {
 		font-size: 11px;
 		padding: 20px 0;
 	}

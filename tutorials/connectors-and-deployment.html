@@ -15,18 +15,19 @@
 	<link rel="stylesheet" type="text/css" href="../assets/css/navigation.css" />
 	<link rel="stylesheet" type="text/css" href="../assets/css/screen.css" />
 	<link rel="stylesheet" type="text/css" href="../assets/css/api.css" />
-	<link rel="stylesheet" type="text/css" href="../assets/css/syntaxhighlighter.css" />
 	<script type="text/javascript">
 	document.createElement( 'header' );
 	document.createElement( 'nav' );
 	</script>
 	<script type="text/javascript" src="../assets/js/jquery.js"></script>
 	<script type="text/javascript" src="../assets/js/menu.js"></script>
+	<script type="text/javascript" src="../assets/js/prism.js"></script>
 
 	<link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Quicksand:300,400,700' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="../assets/css/prism.css" />
 </head>
 
 <body class="category_tutorials ">
@@ -38,7 +39,7 @@
 				<li class="active"><a href="../tutorials/getting-started.html">Tutorials</a></li>
 				<li ><a href="../docs/deepstream.html">Documentation</a></li>
 				<li ><a href="../blog/">Blog</a></li>
-				<li ><a href="../info/">Info</a></li>				
+				<li ><a href="../info/">Info</a></li>
 			</ul>		</div>
 	</div>
 
@@ -54,7 +55,7 @@
 					<li class="active"><a href="../tutorials/getting-started.html">Tutorials</a></li>
 					<li ><a href="../docs/deepstream.html">Documentation</a></li>
 					<li ><a href="../blog/">Blog</a></li>
-					<li ><a href="../info/">Info</a></li>				
+					<li ><a href="../info/">Info</a></li>
 				</ul>			</div>
 			<span class="menu-button menu-icon">
 				<i class="fa fa-bars"></i>
@@ -156,49 +157,51 @@
 </ul>
 
 			<div id="content">
-				<h1>Connectors and Deployment</h1><p>Deepstream can connect to three different systems: A (distributed) cache, a database and a messaging system. There are a number of <a href="../download/">pre-build connectors</a> that make integration easy, but it&#39;s also straight forward to write your own <a href="writing-messaging-connector.html">message</a> or <a href="writing-storage-cache-connector.html">storage and cache connector</a>.</p><p>Connectors can be used using deepstream&#39;s <code>set()</code> method.</p><pre><code><span class="token keyword" >var</span> RedisCacheConnector <span class="token operator" >=</span> <span class="token function" >require<span class="token punctuation" >(</span></span> <span class="token string" >'deepstream.io-cache-redis'</span> <span class="token punctuation" >)</span><span class="token punctuation" >,</span>
-    AmqpMessageConnector <span class="token operator" >=</span> <span class="token function" >require<span class="token punctuation" >(</span></span> <span class="token string" >'deepstream.io-msg-amqp'</span> <span class="token punctuation" >)</span><span class="token punctuation" >,</span>
-    RethinkDbConnector <span class="token operator" >=</span> <span class="token function" >require<span class="token punctuation" >(</span></span> <span class="token string" >'deepstream.io-storage-rethinkdb'</span> <span class="token punctuation" >)</span><span class="token punctuation" >,</span>
-    Deepstream <span class="token operator" >=</span> <span class="token function" >require<span class="token punctuation" >(</span></span> <span class="token string" >'deepstream.io'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+				<h1>Connectors and Deployment</h1><p>Deepstream can connect to three different systems: A (distributed) cache, a database and a messaging system. There are a number of <a href="../download/">pre-build connectors</a> that make integration easy, but it&#39;s also straight forward to write your own <a href="writing-messaging-connector.html">message</a> or <a href="writing-storage-cache-connector.html">storage and cache connector</a>.</p><p>Connectors can be used using deepstream&#39;s <code>set()</code> method.</p><pre><code class="lang-javascript">var RedisCacheConnector = require( &#39;deepstream.io-cache-redis&#39; ),
+    AmqpMessageConnector = require( &#39;deepstream.io-msg-amqp&#39; ),
+    RethinkDbConnector = require( &#39;deepstream.io-storage-rethinkdb&#39; ),
+    Deepstream = require( &#39;deepstream.io&#39; );
 
-<span class="token keyword" >var</span> server <span class="token operator" >=</span> <span class="token keyword" >new</span> <span class="token class-name" >Deepstream</span><span class="token punctuation" >(</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+var server = new Deepstream();
 
-server<span class="token punctuation" >.</span><span class="token keyword" >set</span><span class="token punctuation" >(</span> <span class="token string" >'cache'</span><span class="token punctuation" >,</span> <span class="token keyword" >new</span> <span class="token class-name" >RedisCacheConnector</span><span class="token punctuation" >(</span><span class="token punctuation" >{</span>
-    port<span class="token punctuation" >:</span> <span class="token number" >6379</span><span class="token punctuation" >,</span>
-    host<span class="token punctuation" >:</span> <span class="token string" >'localhost'</span> 
-<span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+server.set( &#39;cache&#39;, new RedisCacheConnector({
+    port: 6379,
+    host: &#39;localhost&#39; 
+}));
 
-server<span class="token punctuation" >.</span><span class="token keyword" >set</span><span class="token punctuation" >(</span> <span class="token string" >'messageConnector'</span><span class="token punctuation" >,</span> <span class="token keyword" >new</span> <span class="token class-name" >AmqpMessageConnector</span><span class="token punctuation" >(</span><span class="token punctuation" >{</span>
-    port<span class="token punctuation" >:</span> <span class="token number" >5672</span><span class="token punctuation" >,</span>
-    host<span class="token punctuation" >:</span> <span class="token string" >'localhost'</span> 
-<span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+server.set( &#39;messageConnector&#39;, new AmqpMessageConnector({
+    port: 5672,
+    host: &#39;localhost&#39; 
+}));
 
-server<span class="token punctuation" >.</span><span class="token keyword" >set</span><span class="token punctuation" >(</span> <span class="token string" >'storage'</span><span class="token punctuation" >,</span> <span class="token keyword" >new</span> <span class="token class-name" >RethinkDbConnector</span><span class="token punctuation" >(</span><span class="token punctuation" >{</span>
-    port<span class="token punctuation" >:</span> <span class="token number" >28015</span><span class="token punctuation" >,</span>
-    host<span class="token punctuation" >:</span> <span class="token string" >'localhost'</span><span class="token punctuation" >,</span>
-    splitChar<span class="token punctuation" >:</span> <span class="token string" >'/'</span><span class="token punctuation" >,</span>
-    defaultTable<span class="token punctuation" >:</span> <span class="token string" >'ds-records'</span>
-<span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+server.set( &#39;storage&#39;, new RethinkDbConnector({
+    port: 28015,
+    host: &#39;localhost&#39;,
+    splitChar: &#39;/&#39;,
+    defaultTable: &#39;ds-records&#39;
+}));
 
-server<span class="token punctuation" >.</span><span class="token function" >start<span class="token punctuation" >(</span></span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-</code></pre><h3>Cache</h3><p>In production, deepstream instances don’t hold any data. Instead they connect to an external, distributed cache (e.g. Redis or Memcached). This makes them stateless, quick to spin up and allows for clustering.</p><h3>Storage</h3><p>In addition to a cache, deepstream can store records in a database. This happens outside the performance critical path and has two benefits: It provides a way to store data persistently when used in conjunction with an in-memory only cache (e.g. Memcached) and it allows to utilise the database’s query features to run complex searches against the data. Due to the way deepstream structures its data (JSON blobs, identified by a primary key) it is recommendable to use an Object oriented or schema-less database (e.g. MongoDB or RethinkDB), rather than a relational database like MySQL.</p><h3>Messaging</h3><p>deepstream instances can share updates with each other via a message-bus. This enables horizontal scalability and allows to cater for a large number of clients at the same time. Small clusters (e.g. 3-4 instances) can connect directly to each other via TCP using the <a href="../download/">direct connector</a> whereas it makes sense for larger clusters to use a message broker or Pub-Sub system instead (e.g. AMQP, Redis or Apache Kafka.)</p><h3>Performance</h3><p>The most performance-critical path of deepstream’s architecture is the connection between it and its cache and messaging system. Both are constantly in use and any millisecond in network latency can lead to a noticeable decline in performance. It’s therefore recommendable to host deepstream and its cache and messaging system in close network proximity, e.g. within the same data centre, server or aws-region.</p><h3>What’s the simplest production-ready setup?</h3><p>Good question, simple answer: Redis and 2-3 deepstream instances. Redis provides a fast cache, persists its data to disk and offers a pub-sub mechanism that can be used for messaging. The whole setup would look like this:</p><pre><code><span class="token keyword" >var</span> RedisCacheConnector <span class="token operator" >=</span> <span class="token function" >require<span class="token punctuation" >(</span></span> <span class="token string" >'deepstream.io-cache-redis'</span> <span class="token punctuation" >)</span><span class="token punctuation" >,</span>
-    RedisMessageConnector <span class="token operator" >=</span> <span class="token function" >require<span class="token punctuation" >(</span></span> <span class="token string" >'deepstream.io-msg-redis'</span> <span class="token punctuation" >)</span><span class="token punctuation" >,</span>
-    Deepstream <span class="token operator" >=</span> <span class="token function" >require<span class="token punctuation" >(</span></span> <span class="token string" >'deepstream.io'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-
-<span class="token keyword" >var</span> server <span class="token operator" >=</span> <span class="token keyword" >new</span> <span class="token class-name" >Deepstream</span><span class="token punctuation" >(</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-
-server<span class="token punctuation" >.</span><span class="token keyword" >set</span><span class="token punctuation" >(</span> <span class="token string" >'cache'</span><span class="token punctuation" >,</span> <span class="token keyword" >new</span> <span class="token class-name" >RedisCacheConnector</span><span class="token punctuation" >(</span><span class="token punctuation" >{</span>
-    port<span class="token punctuation" >:</span> <span class="token number" >6379</span><span class="token punctuation" >,</span>
-    host<span class="token punctuation" >:</span> <span class="token string" >'localhost'</span> 
-<span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-
-server<span class="token punctuation" >.</span><span class="token keyword" >set</span><span class="token punctuation" >(</span> <span class="token string" >'messageConnector'</span><span class="token punctuation" >,</span> <span class="token keyword" >new</span> <span class="token class-name" >RedisMessageConnector</span><span class="token punctuation" >(</span><span class="token punctuation" >{</span>
-    port<span class="token punctuation" >:</span> <span class="token number" >6379</span><span class="token punctuation" >,</span>
-    host<span class="token punctuation" >:</span> <span class="token string" >'localhost'</span> 
-<span class="token punctuation" >}</span><span class="token punctuation" >)</span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-
-server<span class="token punctuation" >.</span><span class="token function" >start<span class="token punctuation" >(</span></span><span class="token punctuation" >)</span><span class="token punctuation" >;</span>
+server.start();
 </code></pre>
+<h3>Cache</h3><p>In production, deepstream instances don’t hold any data. Instead they connect to an external, distributed cache (e.g. Redis or Memcached). This makes them stateless, quick to spin up and allows for clustering.</p><h3>Storage</h3><p>In addition to a cache, deepstream can store records in a database. This happens outside the performance critical path and has two benefits: It provides a way to store data persistently when used in conjunction with an in-memory only cache (e.g. Memcached) and it allows to utilise the database’s query features to run complex searches against the data. Due to the way deepstream structures its data (JSON blobs, identified by a primary key) it is recommendable to use an Object oriented or schema-less database (e.g. MongoDB or RethinkDB), rather than a relational database like MySQL.</p><h3>Messaging</h3><p>deepstream instances can share updates with each other via a message-bus. This enables horizontal scalability and allows to cater for a large number of clients at the same time. Small clusters (e.g. 3-4 instances) can connect directly to each other via TCP using the <a href="../download/">direct connector</a> whereas it makes sense for larger clusters to use a message broker or Pub-Sub system instead (e.g. AMQP, Redis or Apache Kafka.)</p><h3>Performance</h3><p>The most performance-critical path of deepstream’s architecture is the connection between it and its cache and messaging system. Both are constantly in use and any millisecond in network latency can lead to a noticeable decline in performance. It’s therefore recommendable to host deepstream and its cache and messaging system in close network proximity, e.g. within the same data centre, server or aws-region.</p><h3>What’s the simplest production-ready setup?</h3><p>Good question, simple answer: Redis and 2-3 deepstream instances. Redis provides a fast cache, persists its data to disk and offers a pub-sub mechanism that can be used for messaging. The whole setup would look like this:</p><pre><code class="lang-javascript">var RedisCacheConnector = require( &#39;deepstream.io-cache-redis&#39; ),
+    RedisMessageConnector = require( &#39;deepstream.io-msg-redis&#39; ),
+    Deepstream = require( &#39;deepstream.io&#39; );
+
+var server = new Deepstream();
+
+server.set( &#39;cache&#39;, new RedisCacheConnector({
+    port: 6379,
+    host: &#39;localhost&#39; 
+}));
+
+server.set( &#39;messageConnector&#39;, new RedisMessageConnector({
+    port: 6379,
+    host: &#39;localhost&#39; 
+}));
+
+server.start();
+</code></pre>
+
 			</div>
 		</div>
 		<script type="text/javascript" src="../assets/js/docs.js"></script>
@@ -232,19 +235,15 @@ server<span class="token punctuation" >.</span><span class="token function" >sta
 			</li>
 
 			<li class="footer-middle">
-				<a class="footer-middle" href="http://www.hoxton-one.com/" title="hoxton-one.com">
-					<p>
-					Handcrafted by
-					</p>
-
-					<div class="footer-hoxton-one">
-					</div>
-
-					<div class="copyright">
-						&copy;2015 Hoxton One Ltd. All rights reserved.
-					</div>
-				</a>
-			</li>
+				<h4>Browse</h4>
+				<ul>
+					<li ><a href="..">Home</a></li>
+					<li ><a href="../download/">Downloads</a></li>
+					<li class="active"><a href="../tutorials/getting-started.html">Tutorials</a></li>
+					<li ><a href="../docs/deepstream.html">Documentation</a></li>
+					<li ><a href="../blog/">Blog</a></li>
+					<li ><a href="../info/">Info</a></li>
+				</ul>			</li>
 
 			<li class="footer-left">
 				<h4>Contact us</h4>
@@ -252,7 +251,7 @@ server<span class="token punctuation" >.</span><span class="token function" >sta
 					<b>deepstream.io </b>is developed by Hoxton One Ltd. <br>
 				</p>
 				<p>
-					Email us <a href="mailto:info@hoxton-one.com">info@hoxton-one.com</a>.<br><br>
+					Email us <a href="mailto:info@deepstream.io">info@deepstream.io</a>.<br><br>
 				</p>
 
 				<h4>Star this project on github!</h4>

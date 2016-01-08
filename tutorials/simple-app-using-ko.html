@@ -15,18 +15,19 @@
 	<link rel="stylesheet" type="text/css" href="../assets/css/navigation.css" />
 	<link rel="stylesheet" type="text/css" href="../assets/css/screen.css" />
 	<link rel="stylesheet" type="text/css" href="../assets/css/api.css" />
-	<link rel="stylesheet" type="text/css" href="../assets/css/syntaxhighlighter.css" />
 	<script type="text/javascript">
 	document.createElement( 'header' );
 	document.createElement( 'nav' );
 	</script>
 	<script type="text/javascript" src="../assets/js/jquery.js"></script>
 	<script type="text/javascript" src="../assets/js/menu.js"></script>
+	<script type="text/javascript" src="../assets/js/prism.js"></script>
 
 	<link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Quicksand:300,400,700' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="../assets/css/prism.css" />
 </head>
 
 <body class="category_tutorials ">
@@ -38,7 +39,7 @@
 				<li class="active"><a href="../tutorials/getting-started.html">Tutorials</a></li>
 				<li ><a href="../docs/deepstream.html">Documentation</a></li>
 				<li ><a href="../blog/">Blog</a></li>
-				<li ><a href="../info/">Info</a></li>				
+				<li ><a href="../info/">Info</a></li>
 			</ul>		</div>
 	</div>
 
@@ -54,7 +55,7 @@
 					<li class="active"><a href="../tutorials/getting-started.html">Tutorials</a></li>
 					<li ><a href="../docs/deepstream.html">Documentation</a></li>
 					<li ><a href="../blog/">Blog</a></li>
-					<li ><a href="../info/">Info</a></li>				
+					<li ><a href="../info/">Info</a></li>
 				</ul>			</div>
 			<span class="menu-button menu-icon">
 				<i class="fa fa-bars"></i>
@@ -175,21 +176,22 @@
     </tbody>
 </table>
 
-<p>Knockout has observable properties and observable arrays. Deepstream has observable lists and records with path bindings. Our tool maps the two together.</p><pre><code><span class="token comment" spellcheck="true">// Create a list that's two-way bound to a ko.observableArray
-</span>AppViewModel <span class="token operator" >=</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span><span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
-    <span class="token keyword" >var</span> userList <span class="token operator" >=</span> ds<span class="token punctuation" >.</span>record<span class="token punctuation" >.</span><span class="token function" >getList<span class="token punctuation" >(</span></span> <span class="token string" >'users'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-    <span class="token keyword" >this</span><span class="token punctuation" >.</span>users <span class="token operator" >=</span> koTools<span class="token punctuation" >.</span><span class="token function" >getViewList<span class="token punctuation" >(</span></span>  UserViewModel<span class="token punctuation" >,</span> userList <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-<span class="token punctuation" >}</span><span class="token punctuation" >;</span>
-<span class="token comment" spellcheck="true">
+<p>Knockout has observable properties and observable arrays. Deepstream has observable lists and records with path bindings. Our tool maps the two together.</p><pre><code class="lang-javascript">// Create a list that&#39;s two-way bound to a ko.observableArray
+AppViewModel = function() {
+    var userList = ds.record.getList( &#39;users&#39; );
+    this.users = koTools.getViewList(  UserViewModel, userList );
+};
+
 // Create a record and create two-way bound ko.observables
-</span>UserViewModel <span class="token operator" >=</span> <span class="token keyword" >function</span><span class="token punctuation" >(</span> userRecordName<span class="token punctuation" >,</span> viewList <span class="token punctuation" >)</span> <span class="token punctuation" >{</span>
-    <span class="token keyword" >this</span><span class="token punctuation" >.</span>record <span class="token operator" >=</span> ds<span class="token punctuation" >.</span>record<span class="token punctuation" >.</span><span class="token function" >getRecord<span class="token punctuation" >(</span></span> userRecordName <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-    <span class="token keyword" >this</span><span class="token punctuation" >.</span>viewList <span class="token operator" >=</span> viewList<span class="token punctuation" >;</span>
-    <span class="token keyword" >this</span><span class="token punctuation" >.</span>firstname <span class="token operator" >=</span> koTools<span class="token punctuation" >.</span><span class="token function" >getObservable<span class="token punctuation" >(</span></span> <span class="token keyword" >this</span><span class="token punctuation" >.</span>record<span class="token punctuation" >,</span> <span class="token string" >'firstname'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-    <span class="token keyword" >this</span><span class="token punctuation" >.</span>lastname <span class="token operator" >=</span> koTools<span class="token punctuation" >.</span><span class="token function" >getObservable<span class="token punctuation" >(</span></span> <span class="token keyword" >this</span><span class="token punctuation" >.</span>record<span class="token punctuation" >,</span> <span class="token string" >'lastname'</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-    <span class="token keyword" >this</span><span class="token punctuation" >.</span>isActive <span class="token operator" >=</span> ko<span class="token punctuation" >.</span><span class="token function" >observable<span class="token punctuation" >(</span></span> <span class="token keyword" >false</span> <span class="token punctuation" >)</span><span class="token punctuation" >;</span>
-<span class="token punctuation" >}</span><span class="token punctuation" >;</span>
-</code></pre><h3>Example App</h3><div class="img-container">
+UserViewModel = function( userRecordName, viewList ) {
+    this.record = ds.record.getRecord( userRecordName );
+    this.viewList = viewList;
+    this.firstname = koTools.getObservable( this.record, &#39;firstname&#39; );
+    this.lastname = koTools.getObservable( this.record, &#39;lastname&#39; );
+    this.isActive = ko.observable( false );
+};
+</code></pre>
+<h3>Example App</h3><div class="img-container">
     <img class="tutorial" width="602" height="302" src="../assets/images/simple-app.png" alt="Simple App Screenshot" />
 </div>
 
@@ -227,19 +229,15 @@
 			</li>
 
 			<li class="footer-middle">
-				<a class="footer-middle" href="http://www.hoxton-one.com/" title="hoxton-one.com">
-					<p>
-					Handcrafted by
-					</p>
-
-					<div class="footer-hoxton-one">
-					</div>
-
-					<div class="copyright">
-						&copy;2015 Hoxton One Ltd. All rights reserved.
-					</div>
-				</a>
-			</li>
+				<h4>Browse</h4>
+				<ul>
+					<li ><a href="..">Home</a></li>
+					<li ><a href="../download/">Downloads</a></li>
+					<li class="active"><a href="../tutorials/getting-started.html">Tutorials</a></li>
+					<li ><a href="../docs/deepstream.html">Documentation</a></li>
+					<li ><a href="../blog/">Blog</a></li>
+					<li ><a href="../info/">Info</a></li>
+				</ul>			</li>
 
 			<li class="footer-left">
 				<h4>Contact us</h4>
@@ -247,7 +245,7 @@
 					<b>deepstream.io </b>is developed by Hoxton One Ltd. <br>
 				</p>
 				<p>
-					Email us <a href="mailto:info@hoxton-one.com">info@hoxton-one.com</a>.<br><br>
+					Email us <a href="mailto:info@deepstream.io">info@deepstream.io</a>.<br><br>
 				</p>
 
 				<h4>Star this project on github!</h4>
