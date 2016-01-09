@@ -113,3 +113,7 @@ pre[class*="language-"] {
 .token.entity {
 	cursor: help;
 }
+.token.message-format {
+	color: #a6e22e;
+	cursor: help;
+}

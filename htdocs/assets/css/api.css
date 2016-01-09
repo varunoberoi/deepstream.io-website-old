@@ -308,7 +308,7 @@ nav{
 	font-family: "Courier New", monospace !important;
  }
 
-#wrapper > #content pre code{
+pre code{
 	color: #fff;
 }
 

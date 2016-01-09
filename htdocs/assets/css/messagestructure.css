@@ -84,8 +84,11 @@ tr .action {
 	background-color: #fff;
 	z-index: 2;
 	border-radius: 2px;
-	height: 122px;
 	border: 2px solid #D3D3D3;
+}
+
+.message-in-depth td:first-child {
+	width: 100px;
 }
 
 .message-in-depth .down-arrow {
@@ -103,10 +106,6 @@ tr .action {
 .message-in-depth td, .message-in-depth th {
 	padding: 5px;
 	border: 1px solid #eee;
-}
-
-.message-in-depth td:first-child {
-	width: 100px;
 }
 
 @media print {
