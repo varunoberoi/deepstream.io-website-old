@@ -20,7 +20,7 @@
 			{{#with @key}}
 			<a href="{{link 'page' 'info/messagestructure/{{this}}.html'}}">
 			{{/with}}
-			{{@key}} Features</a>
+			{{capitalizeFirstLetter @key}} Features</a>
 			<div class="isActiveIndicator orangeGradient"></div>
 			{{#activeSpecPage @key}}
 				<ul class="overview">

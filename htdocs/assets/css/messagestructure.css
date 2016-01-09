@@ -1,3 +1,7 @@
+#wrapper > #content {
+    width: 710px;
+}
+
 table {
 	width: 100%;
 }
@@ -71,11 +75,6 @@ tr .direction {
 
 tr .action {
     width: 125px;
-}
-
-
-#subnav li a {
-    text-transform: capitalize;
 }
 
 .message-in-depth {

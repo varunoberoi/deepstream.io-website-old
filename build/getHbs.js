@@ -31,6 +31,10 @@ hbs.registerHelper( 'link', function( type, target ) {
 	return path.join( url, target ).replace( /\\/g, '/');
 });
 
+hbs.registerHelper( 'capitalizeFirstLetter', function( string ){
+    return string.charAt(0).toUpperCase() + string.slice(1);
+});
+
 hbs.registerHelper( 'issue', function( number ){
 	var html = '<a class="githubIssue"'+
 			' href="https://github.com/hoxton-one/deepstream.io/issues/'+

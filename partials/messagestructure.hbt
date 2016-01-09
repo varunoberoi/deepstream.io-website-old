@@ -27,7 +27,7 @@
                             Message
                         </td>
                         <td>
-                            <pre><code class="language-gherkin">{{message}}</code></pre>
+                            <span class="message-format">{{message}}</span>
                         </td>
                     </tr>
                     {{#if ack}}
@@ -35,8 +35,8 @@
                         <td>
                             Ack
                         </td>
-                        <td>
-                            <pre><code class="language-gherkin">{{ack}}</code></pre>
+                        <td class="message-format">
+                            <span class="message-format">{{ack}}</span>
                         </td>
                     </tr>
                     {{/if}}

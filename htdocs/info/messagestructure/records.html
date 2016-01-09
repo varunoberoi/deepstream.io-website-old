@@ -81,28 +81,29 @@
 	
 		<li >
 			<a href="../../info/messagestructure/connectivity.html">
-			connectivity Features</a>
+			Connectivity Features</a>
 			<div class="isActiveIndicator orangeGradient"></div>
 		</li>
 		<li >
 			<a href="../../info/messagestructure/parsing.html">
-			parsing Features</a>
+			Parsing Features</a>
 			<div class="isActiveIndicator orangeGradient"></div>
 		</li>
 		<li >
 			<a href="../../info/messagestructure/rpc.html">
-			rpc Features</a>
+			Rpc Features</a>
 			<div class="isActiveIndicator orangeGradient"></div>
 		</li>
 		<li class="active">
 			<a href="../../info/messagestructure/records.html">
-			records Features</a>
+			Records Features</a>
 			<div class="isActiveIndicator orangeGradient"></div>
 				<ul class="overview">
 					<li><a href="#Record Conflicts">Record Conflicts</a></li>
 					<li><a href="#Record Connectivity">Record Connectivity</a></li>
 					<li><a href="#Record Listen Timeouts">Record Listen Timeouts</a></li>
 					<li><a href="#Record Listen">Record Listen</a></li>
+					<li><a href="#Record">Record</a></li>
 					<li><a href="#Record Subscription">Record Subscription</a></li>
 					<li><a href="#Record Timeouts">Record Timeouts</a></li>
 					<li><a href="#Record">Record</a></li>
@@ -110,7 +111,7 @@
 		</li>
 		<li >
 			<a href="../../info/messagestructure/events.html">
-			events Features</a>
+			Events Features</a>
 			<div class="isActiveIndicator orangeGradient"></div>
 		</li>
 	
@@ -153,11 +154,21 @@
         <a name="Record Conflicts"></a>
         <pre><code class="language-gherkin">@records
 Feature: Record Conflicts
+	Record conflicts occur most often when the client disconnects, 
+	does offline work and then reconnects resulting in a merge issue 
+	with other potential edits, but can also occur in rare conditions 
+	as part of a race condition. If a conflict does occur, the client 
+	should recieve a VERSION_EXISTS error.
+
+	Please note this will change as part of the MERGE epic planned, 
+	and users will be notified instead that the write failed and be 
+	allowed to effectively merge/rebase it as needed. When 
+	implementing please let the core team know so we can collabarate.
 
 Scenario: The client is connected
 	Given the test server is ready
 		And the client is initialised
-		And the client logs in with username XXX and password YYY
+		And the client logs in with username &quot;XXX&quot; and password &quot;YYY&quot;
 		And the server sends the message A|A+
 
 Scenario: The server requests a record
@@ -169,7 +180,7 @@ Scenario: The server responds with ack and read
 
  Scenario: The client recieves an out of sync update
  	When the server sends the message R|U|mergeRecord|102|{&quot;key&quot;:&quot;value3&quot;}+
- 	Then the client throws a VERSION_EXISTS error with message mergeRecord
+ 	Then the client throws a &quot;VERSION_EXISTS&quot; error with message &quot;mergeRecord&quot;
  
  Scenario: The client sends an partial update
  	When the client sets the record &quot;mergeRecord&quot; &quot;key&quot; to &quot;value4&quot;
@@ -178,17 +189,24 @@ Scenario: The server responds with ack and read
  
  Scenario: The client recieves an error saying version already exists
  	When the server sends the message R|E|VERSION_EXISTS|mergeRecord|102+
- 	Then the client throws a VERSION_EXISTS error with message mergeRecord</code></pre>
+ 	Then the client throws a &quot;VERSION_EXISTS&quot; error with message &quot;mergeRecord&quot;</code></pre>
     </div>
     <div class="section">  
         <a name="Record Connectivity"></a>
         <pre><code class="language-gherkin">@records
 Feature: Record Connectivity
+	Record connectivity is slightly more complicated than the other 
+	types. We must resubscribe listen patterns, however
+	the when rerequesting the read action to resubscribe to records 
+	the result from the server must be executed as an update
+	rather than an initial read. This is because possible merge 
+	conflicts may occur if versions are not in sync while the 
+	connection was lost.
 
 Scenario: The client is connected
 	Given the test server is ready
 		And the client is initialised
-		And the client logs in with username XXX and password YYY
+		And the client logs in with username &quot;XXX&quot; and password &quot;YYY&quot;
 		And the server sends the message A|A+
 
 Scenario: The client creates a record
@@ -209,19 +227,19 @@ Scenario: The server responds with an ACK
 Scenario: The client loses it connection to the server
 	When the connection to the server is lost
 	Given some time passes
-	Then the clients connection state is RECONNECTING
+	Then the clients connection state is &quot;RECONNECTING&quot;
 
 Scenario: The client sends an partial update
 	When the client sets the record &quot;connectionRecord&quot; &quot;pets.0.name&quot; to &quot;Max&quot;
 	
 Scenario: The client reconnects to the server
 	When the connection to the server is reestablished
-	Then the clients connection state is AUTHENTICATING
+	Then the clients connection state is &quot;AUTHENTICATING&quot;
 
 Scenario: The client is connected
-	Given the client logs in with username XXX and password YYY
+	Given the client logs in with username &quot;XXX&quot; and password &quot;YYY&quot;
 		And the server sends the message A|A+
-	Then the clients connection state is OPEN
+	Then the clients connection state is &quot;OPEN&quot;
 
 Scenario: The client resends the record subscription
 	Then the server received the message R|CR|connectionRecord+
@@ -237,11 +255,14 @@ Scenario: The client sends offline changes
         <a name="Record Listen Timeouts"></a>
         <pre><code class="language-gherkin">@records
 Feature: Record Listen Timeouts
+	Whenever a listen subscribe or unsubscribe event does not recieve 
+	an acknolowdgement from the server the client should emit an ack 
+	timeout error so that the client can attempt to retry.
 
 Scenario: The client is connected
 	Given the test server is ready
 		And the client is initialised
-		And the client logs in with username XXX and password YYY
+		And the client logs in with username &quot;XXX&quot; and password &quot;YYY&quot;
 		And the server sends the message A|A+
 
 Scenario: The client listens to recordPrefix
@@ -251,7 +272,7 @@ Scenario: The client listens to recordPrefix
 @timeout
 Scenario: The server does not respond in time with an ACK
 	When some time passes
-	Then the client throws a ACK_TIMEOUT error with message No ACK message received in time for recordPrefix/.*
+	Then the client throws a &quot;ACK_TIMEOUT&quot; error with message &quot;No ACK message received in time for recordPrefix/.*&quot;
 
 Scenario: The client unlistens to recordPrefix
 	When the client unlistens to a record matching &quot;recordPrefix/.*&quot;
@@ -260,17 +281,28 @@ Scenario: The client unlistens to recordPrefix
 @timeout
 Scenario: The server does not respond in time with an ACK
 	#When some time passes
-	#Then the client throws a ACK_TIMEOUT error with message No ACK message received in time for recordPrefix/.*</code></pre>
+	#Then the client throws a &quot;ACK_TIMEOUT&quot; error with message &quot;No ACK message received in time for recordPrefix/.*&quot;</code></pre>
     </div>
     <div class="section">  
         <a name="Record Listen"></a>
         <pre><code class="language-gherkin">@records
 Feature: Record Listen
+	Listening to Record usage allows the client to reduce the amount 
+	of records it needs to update. If a client requests a record that 
+	matches your pattern or when all the clients discard it you&#x27;ll be 
+	told so you can only need to update records that you know are 
+	being listened used.
+
+	This helps reduce the amount of updates you have in the system at 
+	any time. Please note,  when using records to update values within
+	the deepstream database which is also queried you will need to 
+	ensure those records are requested for the query to work with the 
+	latest data, or avoid using listen for those records.
 
 Scenario: The client is connected
 	Given the test server is ready
 		And the client is initialised
-		And the client logs in with username XXX and password YYY
+		And the client logs in with username &quot;XXX&quot; and password &quot;YYY&quot;
 		And the server sends the message A|A+
 
 Scenario: The client listens to recordPrefix
@@ -299,17 +331,57 @@ Scenario: The server responds with an ACK
 Scenario: Following server updates will throw an error
 	Given the server sends the message R|SP|recordPrefix/.*|recordPrefix/foundAMatch+
 	#TODO: This error message isn&#x27;t great
-	And the client throws a UNSOLICITED_MESSAGE error with message recordPrefix/.* </code></pre>
+	And the client throws a &quot;UNSOLICITED_MESSAGE&quot; error with message &quot;recordPrefix/.*&quot;</code></pre>
+    </div>
+    <div class="section">  
+        <a name="Record"></a>
+        <pre><code class="language-gherkin">@records
+Feature: Record
+	This feature covers other possible scenarios that can occur, such 
+	as the client requesting the same record multiple times.
+
+Scenario: The client is connected
+	Given the test server is ready
+		And the client is initialised
+		And the client logs in with username &quot;XXX&quot; and password &quot;YYY&quot;
+		And the server sends the message A|A+
+
+Scenario: The client attempts to request the same record multiple times. This should still
+		only trigger a single subscribe message to the server and the incoming events should
+		be multiplexed on the client
+
+	Given the server resets its message count
+	When the client creates a record named &quot;doubleRecord&quot;
+		And the server sends the message R|A|S|doubleRecord+
+		And the server sends the message R|R|doubleRecord|100|{&quot;name&quot;:&quot;John&quot;, &quot;pets&quot;: [{&quot;name&quot;:&quot;Ruffles&quot;, &quot;type&quot;:&quot;dog&quot;,&quot;age&quot;:2}]}+
+		And the client creates a record named &quot;doubleRecord&quot;
+	Then the last message the server recieved is R|CR|doubleRecord+
+		And the server has received 1 messages</code></pre>
     </div>
     <div class="section">  
         <a name="Record Subscription"></a>
         <pre><code class="language-gherkin">@records
 Feature: Record Subscription
+	Record subscriptions is done purely on the client side. Whenever 
+	an update is recieved for a record, you should find out if anyone 
+	is interested and then notify them. When implementing, please keep
+	in mind the difference between an update and a patch.
+
+	Updates mean you should fully discard the data that you had, and 
+	replace it with the data recieved. 
+
+	Patch means you should apply the diff onto the data you currently 
+	have.
+
+	From the clients callback perspective there isn&#x27;t really a 
+	difference when recieving updates or patches, since the 
+	new data is compared against the old and only the differences 
+	are provided to the callback
 
 Scenario: The client is connected
 	Given the test server is ready
 		And the client is initialised
-		And the client logs in with username XXX and password YYY
+		And the client logs in with username &quot;XXX&quot; and password &quot;YYY&quot;
 		And the server sends the message A|A+
 
 Scenario: The client creates a record
@@ -370,27 +442,50 @@ Scenario: The client will no longer get notified after it unsubscribes to the pa
         <a name="Record Timeouts"></a>
         <pre><code class="language-gherkin">@records
 Feature: Record Timeouts
+	Records have multiple different actions they can be made, and each
+	of those actions have their own timeouts.
+	
+	These timeouts allow you to notify the user if an error has 
+	occured due to connection issues and gives you granular events to 
+	allow different reactions to different situations.
+
+	The timeouts are:
+
+	ACK_TIMEOUT 
+		If the user does not recieve a timeout when initially 
+		requesting a record or discarding it.
+
+	RESPONSE_TIMEOUT
+		If the user does not recieve the data in a timely fashion.
+
+	DELETE_TIMEOUT
+		This is when the backend does not respond when a record is deleted.
+	
+	CACHE_RETRIEVAL_TIMEOUT 
+	STORAGE_RETRIEVAL_TIMEOUT
+		This is a specific backend issue and does not need to be 
+		exposed to the user, but helps with logging issues.
 
 Scenario: The client is connected
 	Given the test server is ready
 		And the client is initialised
-		And the client logs in with username XXX and password YYY
+		And the client logs in with username &quot;XXX&quot; and password &quot;YYY&quot;
 		And the server sends the message A|A+
 
 @timeout
 Scenario: The server does not respond in time with an ACK
 	When the client creates a record named &quot;unhappyRecord&quot;
 		And some time passes
-	Then the client throws a ACK_TIMEOUT error with message unhappyRecord
+	Then the client throws a &quot;ACK_TIMEOUT&quot; error with message &quot;unhappyRecord&quot;
 
 @timeout
 Scenario: The server does not recieve initial record data in time
  	When the server sends the message R|A|S|unhappyRecord+
  		And some time passes
  	#TODO: readtimeout?
- 	# ACK_TIMEOUT is not too bad here, as it is the subscription that&#x27;s beeing acknowledget
- 	# Response timeout is for RPC responses. Let&#x27;s discuss
- 	Then the client throws a RESPONSE_TIMEOUT error with message unhappyRecord
+ 	# ACK_TIMEOUT is not too bad here, as it is the subscription that&#x27;s being acknowledged
+ 	# Response timeout is for rpc responses. Let&#x27;s discuss
+ 	Then the client throws a &quot;RESPONSE_TIMEOUT&quot; error with message &quot;unhappyRecord&quot;
 
 Scenario: The server then recieves the initial record data
 	When the server sends the message R|R|unhappyRecord|100|{&quot;reasons&quot;:[&quot;Because.&quot;]}+
@@ -408,12 +503,12 @@ Scenario: The client sends an partial update
 @timeout
 Scenario: The server send a cache retrieval timeout
  	When the server sends the message R|E|CACHE_RETRIEVAL_TIMEOUT|unhappyRecord+
- 	Then the client throws a CACHE_RETRIEVAL_TIMEOUT error with message unhappyRecord
+ 	Then the client throws a &quot;CACHE_RETRIEVAL_TIMEOUT&quot; error with message &quot;unhappyRecord&quot;
  
  @timeout
 Scenario: The server send a storage retrieval timeout
  	When the server sends the message R|E|STORAGE_RETRIEVAL_TIMEOUT|unhappyRecord+
- 	Then the client throws a STORAGE_RETRIEVAL_TIMEOUT error with message unhappyRecord
+ 	Then the client throws a &quot;STORAGE_RETRIEVAL_TIMEOUT&quot; error with message &quot;unhappyRecord&quot;
 
 Scenario: The client discards record
 	When the client discards the record named &quot;unhappyRecord&quot;
@@ -422,7 +517,7 @@ Scenario: The client discards record
 @timeout
 Scenario: The server does not respond in time with an ACK
 	When some time passes
-	Then the client throws a ACK_TIMEOUT error with message unhappyRecord
+	Then the client throws a &quot;ACK_TIMEOUT&quot; error with message &quot;unhappyRecord&quot;
 
 Scenario: The client deletes the record
 	Given the client creates a record named &quot;unhappyRecord&quot;
@@ -434,17 +529,26 @@ Scenario: The client deletes the record
 @timeout
 Scenario: The server does not recieve an ack
 	When some time passes
-	Then the client throws a DELETE_TIMEOUT error with message unhappyRecord</code></pre>
+	Then the client throws a &quot;DELETE_TIMEOUT&quot; error with message &quot;unhappyRecord&quot;</code></pre>
     </div>
     <div class="section">  
         <a name="Record"></a>
         <pre><code class="language-gherkin">@records
 Feature: Record
+	Records are arbitrary JSON structures that can be manipulated and 
+	subscribed to. Every change to a record is synced accross all 
+	subscribed clients. 
+
+	The actions that can be performed on a record are:
+	- Request a record to recieve the current state and subcribe
+	- Send or Recieve updates to the record
+	- Discard the record when no longer needed on the client
+	- Delete the record if no longer needed in the system
 
 Scenario: The client is connected
 	Given the test server is ready
 		And the client is initialised
-		And the client logs in with username XXX and password YYY
+		And the client logs in with username &quot;XXX&quot; and password &quot;YYY&quot;
 		And the server sends the message A|A+
 
 Scenario: The client creates a record
@@ -497,19 +601,7 @@ Scenario: The client deletes the record
 	Then the last message the server recieved is R|D|happyRecord+
 
 Scenario: The server responds with a delete ACK
-	When the server sends the message R|A|D|happyRecord+
-
-Scenario: The client attempts to request the same record multiple times. This should still
-		only trigger a single subscribe message to the server and the incoming events should
-		be multiplexed on the client
-
-	Given the server resets its message count
-	When the client creates a record named &quot;doubleRecord&quot;
-		And the server sends the message R|A|S|doubleRecord+
-		And the server sends the message R|R|doubleRecord|100|{&quot;name&quot;:&quot;John&quot;, &quot;pets&quot;: [{&quot;name&quot;:&quot;Ruffles&quot;, &quot;type&quot;:&quot;dog&quot;,&quot;age&quot;:2}]}+
-		And the client creates a record named &quot;doubleRecord&quot;
-	Then the last message the server recieved is R|CR|doubleRecord+
-		And the server has received 1 messages</code></pre>
+	When the server sends the message R|A|D|happyRecord+</code></pre>
     </div>
 
 			</div>

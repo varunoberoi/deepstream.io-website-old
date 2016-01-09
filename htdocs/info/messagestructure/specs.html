@@ -81,27 +81,27 @@
 	
 		<li >
 			<a href="../../info/messagestructure/connectivity.html">
-			connectivity Features</a>
+			Connectivity Features</a>
 			<div class="isActiveIndicator orangeGradient"></div>
 		</li>
 		<li >
 			<a href="../../info/messagestructure/parsing.html">
-			parsing Features</a>
+			Parsing Features</a>
 			<div class="isActiveIndicator orangeGradient"></div>
 		</li>
 		<li >
 			<a href="../../info/messagestructure/rpc.html">
-			rpc Features</a>
+			Rpc Features</a>
 			<div class="isActiveIndicator orangeGradient"></div>
 		</li>
 		<li >
 			<a href="../../info/messagestructure/records.html">
-			records Features</a>
+			Records Features</a>
 			<div class="isActiveIndicator orangeGradient"></div>
 		</li>
 		<li >
 			<a href="../../info/messagestructure/events.html">
-			events Features</a>
+			Events Features</a>
 			<div class="isActiveIndicator orangeGradient"></div>
 		</li>
 	
@@ -212,15 +212,15 @@
                             Message
                         </td>
                         <td>
-                            <pre><code class="language-gherkin">A|REQ|loginData+</code></pre>
+                            <span class="message-format">A|REQ|loginData+</span>
                         </td>
                     </tr>
                     <tr>
                         <td>
                             Ack
                         </td>
-                        <td>
-                            <pre><code class="language-gherkin">A|A</code></pre>
+                        <td class="message-format">
+                            <span class="message-format">A|A</span>
                         </td>
                     </tr>
                 </tbody>
@@ -250,7 +250,7 @@
                             Message
                         </td>
                         <td>
-                            <pre><code class="language-gherkin">A|E|INVALID_AUTH_DATA|unknown user+</code></pre>
+                            <span class="message-format">A|E|INVALID_AUTH_DATA|unknown user+</span>
                         </td>
                     </tr>
                 </tbody>
@@ -280,7 +280,7 @@
                             Message
                         </td>
                         <td>
-                            <pre><code class="language-gherkin">A|E|TOO_MANY_AUTH_ATTEMPTS+</code></pre>
+                            <span class="message-format">A|E|TOO_MANY_AUTH_ATTEMPTS+</span>
                         </td>
                     </tr>
                 </tbody>
@@ -310,7 +310,7 @@
                             Message
                         </td>
                         <td>
-                            <pre><code class="language-gherkin">X|E|INVALID_MESSAGE_DATA|invalidMessage+</code></pre>
+                            <span class="message-format">X|E|INVALID_MESSAGE_DATA|invalidMessage+</span>
                         </td>
                     </tr>
                 </tbody>
@@ -340,7 +340,7 @@
                             Message
                         </td>
                         <td>
-                            <pre><code class="language-gherkin">X|E|UNKNOWN_ACTION|unknown action actionName+</code></pre>
+                            <span class="message-format">X|E|UNKNOWN_ACTION|unknown action actionName+</span>
                         </td>
                     </tr>
                 </tbody>
@@ -396,15 +396,15 @@
                             Message
                         </td>
                         <td>
-                            <pre><code class="language-gherkin">E|L|event\/.*+</code></pre>
+                            <span class="message-format">E|L|event\/.*+</span>
                         </td>
                     </tr>
                     <tr>
                         <td>
                             Ack
                         </td>
-                        <td>
-                            <pre><code class="language-gherkin">E|A|L|event\/.*+</code></pre>
+                        <td class="message-format">
+                            <span class="message-format">E|A|L|event\/.*+</span>
                         </td>
                     </tr>
                 </tbody>
@@ -434,15 +434,15 @@
                             Message
                         </td>
                         <td>
-                            <pre><code class="language-gherkin">E|UL|event\/.*+</code></pre>
+                            <span class="message-format">E|UL|event\/.*+</span>
                         </td>
                     </tr>
                     <tr>
                         <td>
                             Ack
                         </td>
-                        <td>
-                            <pre><code class="language-gherkin">E|A|UL|event\/.*+</code></pre>
+                        <td class="message-format">
+                            <span class="message-format">E|A|UL|event\/.*+</span>
                         </td>
                     </tr>
                 </tbody>
@@ -472,15 +472,15 @@
                             Message
                         </td>
                         <td>
-                            <pre><code class="language-gherkin">E|S|eventName+</code></pre>
+                            <span class="message-format">E|S|eventName+</span>
                         </td>
                     </tr>
                     <tr>
                         <td>
                             Ack
                         </td>
-                        <td>
-                            <pre><code class="language-gherkin">E|A|S|eventName+</code></pre>
+                        <td class="message-format">
+                            <span class="message-format">E|A|S|eventName+</span>
                         </td>
                     </tr>
                 </tbody>
@@ -510,15 +510,15 @@
                             Message
                         </td>
                         <td>
-                            <pre><code class="language-gherkin">E|US|eventName+</code></pre>
+                            <span class="message-format">E|US|eventName+</span>
                         </td>
                     </tr>
                     <tr>
                         <td>
                             Ack
                         </td>
-                        <td>
-                            <pre><code class="language-gherkin">E|A|US|eventName+</code></pre>
+                        <td class="message-format">
+                            <span class="message-format">E|A|US|eventName+</span>
                         </td>
                     </tr>
                 </tbody>
@@ -548,15 +548,15 @@
                             Message
                         </td>
                         <td>
-                            <pre><code class="language-gherkin">E|EVT|eventName|JSON+</code></pre>
+                            <span class="message-format">E|EVT|eventName|JSON+</span>
                         </td>
                     </tr>
                     <tr>
                         <td>
                             Ack
                         </td>
-                        <td>
-                            <pre><code class="language-gherkin">E|A|EVT|eventName+</code></pre>
+                        <td class="message-format">
+                            <span class="message-format">E|A|EVT|eventName+</span>
                         </td>
                     </tr>
                 </tbody>
@@ -586,7 +586,7 @@
                             Message
                         </td>
                         <td>
-                            <pre><code class="language-gherkin">E|SP|event\/.*|event/A+</code></pre>
+                            <span class="message-format">E|SP|event\/.*|event/A+</span>
                         </td>
                     </tr>
                 </tbody>
@@ -616,7 +616,7 @@
                             Message
                         </td>
                         <td>
-                            <pre><code class="language-gherkin">E|E|INVALID_MESSAGE_DATA|invalidMessage+</code></pre>
+                            <span class="message-format">E|E|INVALID_MESSAGE_DATA|invalidMessage+</span>
                         </td>
                     </tr>
                 </tbody>
@@ -646,7 +646,7 @@
                             Message
                         </td>
                         <td>
-                            <pre><code class="language-gherkin">E|E|UNKNOWN_ACTION|unknown action actionName+</code></pre>
+                            <span class="message-format">E|E|UNKNOWN_ACTION|unknown action actionName+</span>
                         </td>
                     </tr>
                 </tbody>
@@ -702,15 +702,15 @@
                             Message
                         </td>
                         <td>
-                            <pre><code class="language-gherkin">R|L|recordPrefix\/.*+</code></pre>
+                            <span class="message-format">R|L|recordPrefix\/.*+</span>
                         </td>
                     </tr>
                     <tr>
                         <td>
                             Ack
                         </td>
-                        <td>
-                            <pre><code class="language-gherkin">R|A|L|recordPrefix\/.*+</code></pre>
+                        <td class="message-format">
+                            <span class="message-format">R|A|L|recordPrefix\/.*+</span>
                         </td>
                     </tr>
                 </tbody>
@@ -740,15 +740,15 @@
                             Message
                         </td>
                         <td>
-                            <pre><code class="language-gherkin">R|UL|recordPrefix\/.*+</code></pre>
+                            <span class="message-format">R|UL|recordPrefix\/.*+</span>
                         </td>
                     </tr>
                     <tr>
                         <td>
                             Ack
                         </td>
-                        <td>
-                            <pre><code class="language-gherkin">R|A|UL|recordPrefix\/.*+</code></pre>
+                        <td class="message-format">
+                            <span class="message-format">R|A|UL|recordPrefix\/.*+</span>
                         </td>
                     </tr>
                 </tbody>
@@ -778,7 +778,7 @@
                             Message
                         </td>
                         <td>
-                            <pre><code class="language-gherkin">R|SP|recordPrefix\/.*|/A+</code></pre>
+                            <span class="message-format">R|SP|recordPrefix\/.*|/A+</span>
                         </td>
                     </tr>
                 </tbody>
@@ -808,15 +808,15 @@
                             Message
                         </td>
                         <td>
-                            <pre><code class="language-gherkin">R|CR|recordName+</code></pre>
+                            <span class="message-format">R|CR|recordName+</span>
                         </td>
                     </tr>
                     <tr>
                         <td>
                             Ack
                         </td>
-                        <td>
-                            <pre><code class="language-gherkin">R|A|CR|recordName+</code></pre>
+                        <td class="message-format">
+                            <span class="message-format">R|A|CR|recordName+</span>
                         </td>
                     </tr>
                 </tbody>
@@ -846,15 +846,15 @@
                             Message
                         </td>
                         <td>
-                            <pre><code class="language-gherkin">R|U|recordName|versionNumber|JSON+</code></pre>
+                            <span class="message-format">R|U|recordName|versionNumber|JSON+</span>
                         </td>
                     </tr>
                     <tr>
                         <td>
                             Ack
                         </td>
-                        <td>
-                            <pre><code class="language-gherkin">R|A|U|recordName+</code></pre>
+                        <td class="message-format">
+                            <span class="message-format">R|A|U|recordName+</span>
                         </td>
                     </tr>
                 </tbody>
@@ -884,15 +884,15 @@
                             Message
                         </td>
                         <td>
-                            <pre><code class="language-gherkin">R|P|recordName|versionNumber|path|value+</code></pre>
+                            <span class="message-format">R|P|recordName|versionNumber|path|value+</span>
                         </td>
                     </tr>
                     <tr>
                         <td>
                             Ack
                         </td>
-                        <td>
-                            <pre><code class="language-gherkin">R|A|P|recordName+</code></pre>
+                        <td class="message-format">
+                            <span class="message-format">R|A|P|recordName+</span>
                         </td>
                     </tr>
                 </tbody>
@@ -922,15 +922,15 @@
                             Message
                         </td>
                         <td>
-                            <pre><code class="language-gherkin">R|D|recordName+</code></pre>
+                            <span class="message-format">R|D|recordName+</span>
                         </td>
                     </tr>
                     <tr>
                         <td>
                             Ack
                         </td>
-                        <td>
-                            <pre><code class="language-gherkin">R|A|D|recordName+</code></pre>
+                        <td class="message-format">
+                            <span class="message-format">R|A|D|recordName+</span>
                         </td>
                     </tr>
                 </tbody>
@@ -960,7 +960,7 @@
                             Message
                         </td>
                         <td>
-                            <pre><code class="language-gherkin">R|R|recordName|versionNumber|JSON</code></pre>
+                            <span class="message-format">R|R|recordName|versionNumber|JSON</span>
                         </td>
                     </tr>
                 </tbody>
@@ -990,7 +990,7 @@
                             Message
                         </td>
                         <td>
-                            <pre><code class="language-gherkin">R|E|INVALID_MESSAGE_DATA|invalidMessage+</code></pre>
+                            <span class="message-format">R|E|INVALID_MESSAGE_DATA|invalidMessage+</span>
                         </td>
                     </tr>
                 </tbody>
@@ -1020,7 +1020,7 @@
                             Message
                         </td>
                         <td>
-                            <pre><code class="language-gherkin">R|E|UNKNOWN_ACTION|unknown action actionName+</code></pre>
+                            <span class="message-format">R|E|UNKNOWN_ACTION|unknown action actionName+</span>
                         </td>
                     </tr>
                 </tbody>
@@ -1076,15 +1076,15 @@
                             Message
                         </td>
                         <td>
-                            <pre><code class="language-gherkin">P|S|rpcName+</code></pre>
+                            <span class="message-format">P|S|rpcName+</span>
                         </td>
                     </tr>
                     <tr>
                         <td>
                             Ack
                         </td>
-                        <td>
-                            <pre><code class="language-gherkin">P|A|S|rpcName+</code></pre>
+                        <td class="message-format">
+                            <span class="message-format">P|A|S|rpcName+</span>
                         </td>
                     </tr>
                 </tbody>
@@ -1114,15 +1114,15 @@
                             Message
                         </td>
                         <td>
-                            <pre><code class="language-gherkin">P|US|rpcName+</code></pre>
+                            <span class="message-format">P|US|rpcName+</span>
                         </td>
                     </tr>
                     <tr>
                         <td>
                             Ack
                         </td>
-                        <td>
-                            <pre><code class="language-gherkin">P|A|US|rpcName+</code></pre>
+                        <td class="message-format">
+                            <span class="message-format">P|A|US|rpcName+</span>
                         </td>
                     </tr>
                 </tbody>
@@ -1152,15 +1152,15 @@
                             Message
                         </td>
                         <td>
-                            <pre><code class="language-gherkin">P|REQ|rpcName|rpcID|Arguments+</code></pre>
+                            <span class="message-format">P|REQ|rpcName|rpcID|Arguments+</span>
                         </td>
                     </tr>
                     <tr>
                         <td>
                             Ack
                         </td>
-                        <td>
-                            <pre><code class="language-gherkin">P|A|REQ|rpcName|rpcID+</code></pre>
+                        <td class="message-format">
+                            <span class="message-format">P|A|REQ|rpcName|rpcID+</span>
                         </td>
                     </tr>
                 </tbody>
@@ -1190,7 +1190,7 @@
                             Message
                         </td>
                         <td>
-                            <pre><code class="language-gherkin">P|REJ|rpcName|rpcID+</code></pre>
+                            <span class="message-format">P|REJ|rpcName|rpcID+</span>
                         </td>
                     </tr>
                 </tbody>
@@ -1220,7 +1220,7 @@
                             Message
                         </td>
                         <td>
-                            <pre><code class="language-gherkin">P|E|ErrorMessage|rpcName|123+</code></pre>
+                            <span class="message-format">P|E|ErrorMessage|rpcName|123+</span>
                         </td>
                     </tr>
                 </tbody>
@@ -1250,7 +1250,7 @@
                             Message
                         </td>
                         <td>
-                            <pre><code class="language-gherkin">P|RES|rpcName|rpcID|Result+</code></pre>
+                            <span class="message-format">P|RES|rpcName|rpcID|Result+</span>
                         </td>
                     </tr>
                 </tbody>
@@ -1280,7 +1280,7 @@
                             Message
                         </td>
                         <td>
-                            <pre><code class="language-gherkin">P|E|INVALID_MESSAGE_DATA|invalidMessage+</code></pre>
+                            <span class="message-format">P|E|INVALID_MESSAGE_DATA|invalidMessage+</span>
                         </td>
                     </tr>
                 </tbody>
@@ -1310,7 +1310,7 @@
                             Message
                         </td>
                         <td>
-                            <pre><code class="language-gherkin">P|E|UNKNOWN_ACTION|unknown action actionName+</code></pre>
+                            <span class="message-format">P|E|UNKNOWN_ACTION|unknown action actionName+</span>
                         </td>
                     </tr>
                 </tbody>
@@ -1366,15 +1366,15 @@
                             Message
                         </td>
                         <td>
-                            <pre><code class="language-gherkin">W|LC+</code></pre>
+                            <span class="message-format">W|LC+</span>
                         </td>
                     </tr>
                     <tr>
                         <td>
                             Ack
                         </td>
-                        <td>
-                            <pre><code class="language-gherkin">W|A|LC+</code></pre>
+                        <td class="message-format">
+                            <span class="message-format">W|A|LC+</span>
                         </td>
                     </tr>
                 </tbody>
@@ -1404,15 +1404,15 @@
                             Message
                         </td>
                         <td>
-                            <pre><code class="language-gherkin">W|ULC+</code></pre>
+                            <span class="message-format">W|ULC+</span>
                         </td>
                     </tr>
                     <tr>
                         <td>
                             Ack
                         </td>
-                        <td>
-                            <pre><code class="language-gherkin">W|A|ULC+</code></pre>
+                        <td class="message-format">
+                            <span class="message-format">W|A|ULC+</span>
                         </td>
                     </tr>
                 </tbody>
@@ -1442,15 +1442,15 @@
                             Message
                         </td>
                         <td>
-                            <pre><code class="language-gherkin">W|RC|calleeA+</code></pre>
+                            <span class="message-format">W|RC|calleeA+</span>
                         </td>
                     </tr>
                     <tr>
                         <td>
                             Ack
                         </td>
-                        <td>
-                            <pre><code class="language-gherkin">W|A|RC|calleeA+</code></pre>
+                        <td class="message-format">
+                            <span class="message-format">W|A|RC|calleeA+</span>
                         </td>
                     </tr>
                 </tbody>
@@ -1480,15 +1480,15 @@
                             Message
                         </td>
                         <td>
-                            <pre><code class="language-gherkin">W|URC|calleeA+</code></pre>
+                            <span class="message-format">W|URC|calleeA+</span>
                         </td>
                     </tr>
                     <tr>
                         <td>
                             Ack
                         </td>
-                        <td>
-                            <pre><code class="language-gherkin">W|A|URC|calleeA+</code></pre>
+                        <td class="message-format">
+                            <span class="message-format">W|A|URC|calleeA+</span>
                         </td>
                     </tr>
                 </tbody>
@@ -1518,7 +1518,7 @@
                             Message
                         </td>
                         <td>
-                            <pre><code class="language-gherkin">W|OF|O{sdp:sdp,type:type,meta:metaData}+</code></pre>
+                            <span class="message-format">W|OF|O{sdp:sdp,type:type,meta:metaData}+</span>
                         </td>
                     </tr>
                 </tbody>
@@ -1548,7 +1548,7 @@
                             Message
                         </td>
                         <td>
-                            <pre><code class="language-gherkin">-</code></pre>
+                            <span class="message-format">-</span>
                         </td>
                     </tr>
                 </tbody>
@@ -1578,7 +1578,7 @@
                             Message
                         </td>
                         <td>
-                            <pre><code class="language-gherkin">W|CD|localId|remoteId|reason+</code></pre>
+                            <span class="message-format">W|CD|localId|remoteId|reason+</span>
                         </td>
                     </tr>
                 </tbody>
@@ -1608,7 +1608,7 @@
                             Message
                         </td>
                         <td>
-                            <pre><code class="language-gherkin">W|CE|localId|remoteId|null+</code></pre>
+                            <span class="message-format">W|CE|localId|remoteId|null+</span>
                         </td>
                     </tr>
                 </tbody>
@@ -1638,7 +1638,7 @@
                             Message
                         </td>
                         <td>
-                            <pre><code class="language-gherkin">W|WAC|calleeA|calleeB|calleeC+</code></pre>
+                            <span class="message-format">W|WAC|calleeA|calleeB|calleeC+</span>
                         </td>
                     </tr>
                 </tbody>
@@ -1668,7 +1668,7 @@
                             Message
                         </td>
                         <td>
-                            <pre><code class="language-gherkin">W|WCA|calleeName+</code></pre>
+                            <span class="message-format">W|WCA|calleeName+</span>
                         </td>
                     </tr>
                 </tbody>
@@ -1698,7 +1698,7 @@
                             Message
                         </td>
                         <td>
-                            <pre><code class="language-gherkin">W|WCR|calleeName+</code></pre>
+                            <span class="message-format">W|WCR|calleeName+</span>
                         </td>
                     </tr>
                 </tbody>
@@ -1728,7 +1728,7 @@
                             Message
                         </td>
                         <td>
-                            <pre><code class="language-gherkin">W|E|INVALID_MESSAGE_DATA|invalidMessage+</code></pre>
+                            <span class="message-format">W|E|INVALID_MESSAGE_DATA|invalidMessage+</span>
                         </td>
                     </tr>
                 </tbody>
@@ -1758,7 +1758,7 @@
                             Message
                         </td>
                         <td>
-                            <pre><code class="language-gherkin">W|E|UNKNOWN_ACTION|unknown action actionName+</code></pre>
+                            <span class="message-format">W|E|UNKNOWN_ACTION|unknown action actionName+</span>
                         </td>
                     </tr>
                 </tbody>

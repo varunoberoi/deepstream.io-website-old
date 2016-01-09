@@ -74,8 +74,9 @@
 
 	$( document ).ready(function() {
 
-		$( 'code' ).on( 'mouseenter', '.message-format', function( e ) {
+		$( '#content' ).on( 'mouseenter', '.message-format', function( e ) {
 			var destination = $( e.target ).offset();
+			console.log( destination )
 			var message = parseMessageSpec( $( e.target).text() );
 
 			$( '.message-in-depth .event' ).text( message.topic );
@@ -85,13 +86,14 @@
 			$( '.message-in-depth .data' ).html( '[ ' + ml + message.data.join( ',</br>' ) + ml + ' ]' );
 
 			var height = $( '.message-in-depth' ).height() + 10;
-			var width = $( '.message-in-depth' ).width();
+			var width = $( e.target ).width();
+			console.log( width )
 			$( '.message-in-depth' )
-				.css({top: destination.top - height, left: destination.left - (width/2) })
+				.css({top: destination.top - height, left: destination.left })
 				.show();
 		} );
 
-		$( 'code' ).on( 'mouseleave', '.message-format', function( e ) {
+		$( '#content' ).on( 'mouseleave', '.message-format', function( e ) {
 			$( '.message-in-depth' )
 				.hide();
 		} );
