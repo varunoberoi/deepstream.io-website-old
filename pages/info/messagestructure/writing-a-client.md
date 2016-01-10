@@ -4,12 +4,12 @@
     "description": "An introduction into how to write a client"
 }
 
-Writing a Client - Theory
+Writing a Client
 ========================================
 
 Writing a deepstream client only requires a TCP connection, basic string manipulation and for convienience a JSON parser/builder if it isn't supported natively. What this means is that it can run using any programming language and with very basic hardware requirements.
 
-What we will be covering here are the things to keep in mind when writing a client and an overview on some design decisions.
+What we will be covering here are the things to keep in mind when writing a client and an overview on some design approaches.
 
 I would recommend you to first read how deepstream [message structure works](./index.html).
 
@@ -19,7 +19,7 @@ You can now view all the different message structures [here](./specs.html) as a 
 
 # Features
 
-Making sure your client works in the exact way the server expects it can be quite challenging when running against a real server. Because of this, we covered all the features offered using [cucumber](https://cucumber.io/), a format that is supported by most of the popular programming languages.
+Making sure your client works in the exact way the server expects it to can be quite challenging when running against a real server. Because of this, we covered all the features offered using [cucumber](https://cucumber.io/), a format that is supported by most of the popular programming languages.
 
 What this means is you can test your client continuously while developing it using prewritten integration tests. These tests are continuously run against current clients and when you get them all passing provides the guarantee you're using the procotol correctly.
 
@@ -105,16 +105,16 @@ Messages recieved that are unexpected should throw an UNSOLICITATED_MESSAGE erro
     <h3>Edge Case</h3>
     <ul>
         <li>
-            In the case of race conditions this could occur if the server sends a message to the client the exact same time it unsubscribed from the message. This can't be avoided, but should only happy very very rarely.
+            In the case of race conditions this could occur if the server sends a message to the client the exact same time it unsubscribed from the message. This can't be avoided, but should only happen very rarely.
         </li>
     </ul>
 </div>
 
 # Errors
 
-The last major thing to keep in consideration are error scenarios. If you look at the [event constants](../../docs/constants.html#Event) you'll notice that there are quite a few different unhappy scenarios that may occur. Many of these are expected behaviour, such as MESSAGE_PERMISSION_ERROR or TOO_MANY_AUTH_ATTEMPTS. Others are errors returned by deepsteam incase the message protocol was not correctly used, such as INVALID_MESSAGE_DATA, MESSAGE_PARSE_ERROR or UNKNOWN_TOPIC.
+The last major thing to keep in consideration are error scenarios. If you look at the [event constants](../../docs/constants.html#Event) you'll notice that there are quite a few different unhappy scenarios that may occur. Many of these are expected behaviour, such as MESSAGE_PERMISSION_ERROR or TOO_MANY_AUTH_ATTEMPTS. Others are errors returned by deepsteam incase the message protocol was not correctly used, such as INVALID_MESSAGE_DATA, MESSAGE_PARSE_ERROR or UNKNOWN_TOPIC and some are to expose internal issues, such as CACHE_RETRIEVAL_TIMEOUT or STORAGE_RETRIEVAL_TIMEOUT.
 
-It's best practice to:
+It's important to:
 * Not let the application die when an error occurs
 
 Always recover from them as gracefully as possible. 

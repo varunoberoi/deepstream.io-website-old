@@ -12,7 +12,7 @@ Deepstream messages are transmitted using a proprietary, minimal, string-based p
 
 | and + are used in these examples as placeholders, messages are actually separated by invisible Ascii control characters ("record separator" (30) and "group seperator" (31))
 
-Every message has a topic (e.g. RECORD, EVENT, AUTH etc.) and an action ( CREATE, DELETE, SUBSCRIBE etc.). For a full list of available topics and actions please see [docs/constants.html](../../docs/constants.html).
+Every message has a topic (e.g. RECORD, EVENT, AUTH etc.) and an action ( CREATE, DELETE, SUBSCRIBE etc.). For a full list of available topics and actions please see the list of constants [here](../../docs/constants.html).
 
 
 ### Example

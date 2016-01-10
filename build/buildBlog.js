@@ -200,7 +200,7 @@ var writeBlogIndex = function( next ) {
 	var fileContent = fse.readFileSync(data.srcFilePath, fileOptions );
 	fileBuilder.hbs.build( fileContent, data, function( error, innerHtml ) {
 		data.contextVars.pageContent = new hbs.SafeString( innerHtml );
-		fse.writeFileSync( data.targetFilePath, mainTemplate( data.contextVars ) );
+		fse.outputFileSync( data.targetFilePath, mainTemplate( data.contextVars ) );
 		next();
 	});
 };
@@ -212,7 +212,7 @@ var writeBlogs = function( next ) {
 		hbs.cwd = path.dirname( contextVars.targetFilePath );
 		hbs.outputDir = path.join( __dirname, '../htdocs' );
 
-		fse.writeFileSync( contextVars.targetFilePath, mainTemplate( contextVars ), fileOptions );
+		fse.outputFileSync( contextVars.targetFilePath, mainTemplate( contextVars ), fileOptions );
 		callback();
 	}, next );
 };
