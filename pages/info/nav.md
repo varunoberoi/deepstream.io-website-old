@@ -10,11 +10,16 @@
 	</li>
 
 	<li class="head first">Message Specification</li>
-	<li {{#if fileIs_messagestructure}}class="active"{{/if}}>
+	<li {{#activeSpecPage 'index'}}class="active"{{/activeSpecPage}}>
 		<a href="{{link 'page' 'info/messagestructure/index.html'}}">Overview</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>	
 	
+	<li {{#activeSpecPage 'writing-a-client-theory'}}class="active"{{/activeSpecPage}}>
+		<a href="{{link 'page' 'info/messagestructure/writing-a-client-theory.html'}}">Writing a Client Theory</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>	
+
 	{{#each messageSpecs.features}}	
 		<li {{#activeSpecPage @key}}class="active"{{/activeSpecPage}}>
 			{{#with @key}}
