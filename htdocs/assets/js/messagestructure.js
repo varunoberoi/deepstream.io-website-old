@@ -63,7 +63,9 @@
 		var data = parts.slice( 2 );
 		for( var i=0; i<data.length;i++) {
 			data[ i ] = C.ACTIONS[ data[ i ] ] || C.EVENT[ data[ i ] ] || data[ i ];
+			data[ i ] = data[ i ].replace( /\</g, '&lt;' ).replace( /\>/g, '&gt;' )
 		}
+
 		return {
 			raw: message,
 			topic: C.TOPIC[ parts[ 0 ] ],
@@ -76,7 +78,6 @@
 
 		$( '#content' ).on( 'mouseenter', '.message-format', function( e ) {
 			var destination = $( e.target ).offset();
-			console.log( destination )
 			var message = parseMessageSpec( $( e.target).text() );
 
 			$( '.message-in-depth .event' ).text( message.topic );
@@ -86,8 +87,6 @@
 			$( '.message-in-depth .data' ).html( '[ ' + ml + message.data.join( ',</br>' ) + ml + ' ]' );
 
 			var height = $( '.message-in-depth' ).height() + 10;
-			var width = $( e.target ).width();
-			console.log( width )
 			$( '.message-in-depth' )
 				.css({top: destination.top - height, left: destination.left })
 				.show();

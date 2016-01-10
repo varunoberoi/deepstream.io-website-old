@@ -15,8 +15,8 @@
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>	
 	
-	<li {{#activeSpecPage 'writing-a-client-theory'}}class="active"{{/activeSpecPage}}>
-		<a href="{{link 'page' 'info/messagestructure/writing-a-client-theory.html'}}">Writing a Client Theory</a>
+	<li {{#activeSpecPage 'writing-a-client'}}class="active"{{/activeSpecPage}}>
+		<a href="{{link 'page' 'info/messagestructure/writing-a-client.html'}}">Writing a Client</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>	
 

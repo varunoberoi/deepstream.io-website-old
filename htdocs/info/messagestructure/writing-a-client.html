@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>deepstream.io | Writing a client Theory</title>
+	<title>deepstream.io | Writing a client</title>
 
 	
 
@@ -80,7 +80,7 @@
 	</li>	
 	
 	<li class="active">
-		<a href="../../info/messagestructure/writing-a-client-theory.html">Writing a Client Theory</a>
+		<a href="../../info/messagestructure/writing-a-client.html">Writing a Client</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>	
 
@@ -127,12 +127,21 @@
     </ul>
 </div>
 
+<p>Since the tests will be run in the language the client is being written in you would also need to setup a very simple TCP server.</p><p>The best place to start would be looking at the <a href="https://raw.githubusercontent.com/hoxton-one/deepstream.io-client-specs/master/step-definitions-server/step-definition-server.js">server step definitions</a> and its <a href="https://raw.githubusercontent.com/hoxton-one/deepstream.io-client-specs/master/step-definitions-server/tcp-server.js">TCP server</a> and applying the same logic in your language of choice.</p><div class="hint-box fa fa-gears">
+    <h3>Remember to catch errors</h3>
+    <ul>
+        <li>
+            In order to guarantee no errors are being ignored you can add a <a href="https://github.com/cucumber/cucumber/wiki/Hooks">cucumber hook</a> to run after each feature and ensure no unexpected errors were thrown.
+        </li>
+    </ul>
+</div>
+
 <h1>Connection States</h1><p>Next on is the <a href="../../docs/connection_states.html">connection states</a>. The connection starts off in an AWAITING_AUTHENTICATION mode, in which you are required to login in order to be able to send and recieve messages through the server. Once you do the client should be in AUTHENTICATING, and if the login is successful the connection will end up in OPEN, which means everything is working fine.</p><p>If the connection does drop, clients are expected to go into reconnecting mode to allow them to try and reestablish the connection, in which it can either go back to AWAITING_AUTHENTICATION or result in the client closing after too many failed attempts.</p><p><img width="100%" src="../../assets/images/connection-state-diagram.png" /></p><h1>TCP Buffering</h1><p>Since clients are expected to have a very high throughput it&#39;s good practice to buffer messages within the program and then send it out once at the end of a CPU cycle.</p><p>For example, let us say I have a loop that generates lots of events:</p><pre><code class="lang-javascript">while( i &lt; 10000 ) {
     deepstreamClient.event.emit( &#39;value&#39;, Math.random() );
     i++;
 }
 </code></pre>
-<p>If I was to send the message through directly to the TCP socket for every iteration it would create an overhead having to interact with the socket directly so often. Instead, we can concatenate the messages within the client and then send them in one go. Because of the use of message seperation character the server can then split the package up and process them in the same order.</p><pre><code class="lang-javascript">connection.prototype.send = function( message ) {
+<p>If I was to send the message through directly to the TCP socket for every iteration it would create an overhead having to interact with the socket directly so often. Instead, we can concatenate the messages within the client and then send them in one go. Because of the use of the message seperation character the server can then split the package up and process them in the same order.</p><pre><code class="lang-javascript">connection.prototype.send = function( message ) {
     bufferedSendMessage += message;
     if( !flushTimeout ) {
         flushTimeout = setTimeout( flushMessage );
@@ -147,26 +156,26 @@
     processMessages( messages );
 }
 </code></pre>
-<h1>Acks</h1><p>Unfortunately timeouts can always occur when internet connections become so slow they might as well not work. Because of this deepstream has ack messages to let the client know the server has recieved the messages sent.</p><p>Ack timeouts are the clients responsibility to keep track of. When a message that can get an associated ack is sent out, you need to set a timer which can be removed once the server replies. If not the application will be notified which depending on the situation can allow you to try the same action again, or notify the user their desired behaviour might not have gone occurred successfully.</p><h1>Unsoliciated Messages</h1><p>Messages recieved that are unexpected should throw an UNSOLICITATED_MESSAGE error. If it occurs often it&#39;s usually a useful indication something might be leaking subscriptions.</p><div class="hint-box fa fa-gears">
+<h1>Acks</h1><p>Unfortunately timeouts can always occur when internet connections become so slow they might as well not work. Because of this deepstream has ack messages to let the client know the server has recieved the messages sent.</p><p>Ack timeouts are the clients responsibility to keep track of. When a message that can get an associated ack is sent out, you need to set a timer which can be removed once the server replies. If not the application will be notified which depending on the situation can allow you to try the same action again, or notify the user their desired behaviour might not have gone occurred successfully.</p><h1>Unsoliciated Messages</h1><p>Messages recieved that are unexpected should throw an UNSOLICITATED_MESSAGE error. If it occurs often it&#39;s usually a useful indication something might be leaking or not have unsubscribed properly.</p><div class="hint-box fa fa-gears">
     <h3>Edge Case</h3>
     <ul>
         <li>
-            In the case of extreme race conditions this could occur if the server sends a message to the client the exact same time it unsubscribed from the message. 
+            In the case of race conditions this could occur if the server sends a message to the client the exact same time it unsubscribed from the message. This can&#39;t be avoided, but should only happy very very rarely.
         </li>
     </ul>
 </div>
 
-<h1>Errors</h1><p>The last major thing to keep in consideration are error scenarios. If you look at the <a href="../../docs/constants.html#Event">constants</a> you&#39;ll notice that there are quite a few different unhappy scenarios that may occur. Many of these are expected behaviour, such as MESSAGE_PERMISSION_ERROR or TOO_MANY_AUTH_ATTEMPTS. Others are errors returned by deepsteam incase the message protocol was not correctly used, such as INVALID_MESSAGE_DATA, MESSAGE_PARSE_ERROR or UNKNOWN_TOPIC.</p><p>It&#39;s best practice to:</p><ul>
-<li>Not let the application die when an error occurs
-  Try and recover from them as gracefully as possible.</li>
-<li>Not to swallow errors
-  Errors occur because something went wrong. Having an empty catch statement
-  is only a stop gap and you should always make sure to log the issues that occur</li>
-<li>Prevent users from doing things they are not permissioned to
-  If a user is not permissioned to do a certain action it is advisable to stop him him from attempting to. Otherwise it could result in inconsistencies on the server where the data was ignored and on the client where the changes either have to be reverted once the MESSAGE_DENIED
-  is recieved or remain out of sync otherwise.</li>
+<h1>Errors</h1><p>The last major thing to keep in consideration are error scenarios. If you look at the <a href="../../docs/constants.html#Event">event constants</a> you&#39;ll notice that there are quite a few different unhappy scenarios that may occur. Many of these are expected behaviour, such as MESSAGE_PERMISSION_ERROR or TOO_MANY_AUTH_ATTEMPTS. Others are errors returned by deepsteam incase the message protocol was not correctly used, such as INVALID_MESSAGE_DATA, MESSAGE_PARSE_ERROR or UNKNOWN_TOPIC.</p><p>It&#39;s best practice to:</p><ul>
+<li>Not let the application die when an error occurs</li>
 </ul>
-
+<p>Always recover from them as gracefully as possible.</p><ul>
+<li>Not swallow errors</li>
+</ul>
+<p>Errors occur because something went wrong. Having an empty catch statement
+is only a stop gap solution and you should always make sure to log the issues that occur</p><ul>
+<li>Prevent users from doing things they are not permissioned to</li>
+</ul>
+<p>If a user is not permissioned to do a certain action it is advisable to stop them from attempting to. Otherwise it could result in inconsistencies on the server where the data was ignored and on the client where the changes either have to be reverted once the MESSAGE_DENIED is recieved or remain out of sync otherwise.</p>
 			</div>
 		</div>
 		<script type="text/javascript" src="../../assets/js/docs.js"></script>

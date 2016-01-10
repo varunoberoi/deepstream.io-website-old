@@ -1,6 +1,6 @@
 
 {
-    "title": "Writing a client Theory",
+    "title": "Writing a client",
     "description": "An introduction into how to write a client"
 }
 
@@ -34,6 +34,19 @@ Before reading on, take a quick peek at [the connectivity feature](./connectivit
     </ul>
 </div>
 
+Since the tests will be run in the language the client is being written in you would also need to setup a very simple TCP server.
+
+The best place to start would be looking at the [server step definitions](https://raw.githubusercontent.com/hoxton-one/deepstream.io-client-specs/master/step-definitions-server/step-definition-server.js) and its [TCP server](https://raw.githubusercontent.com/hoxton-one/deepstream.io-client-specs/master/step-definitions-server/tcp-server.js) and applying the same logic in your language of choice.
+
+<div class="hint-box fa fa-gears">
+    <h3>Remember to catch errors</h3>
+    <ul>
+        <li>
+            In order to guarantee no errors are being ignored you can add a [cucumber hook](https://github.com/cucumber/cucumber/wiki/Hooks) to run after each feature and ensure no unexpected errors were thrown.
+        </li>
+    </ul>
+</div>
+
 # Connection States
 
 Next on is the [connection states](../../docs/connection_states.html). The connection starts off in an AWAITING_AUTHENTICATION mode, in which you are required to login in order to be able to send and recieve messages through the server. Once you do the client should be in AUTHENTICATING, and if the login is successful the connection will end up in OPEN, which means everything is working fine.
@@ -55,7 +68,7 @@ while( i < 10000 ) {
 }
 ```
 
-If I was to send the message through directly to the TCP socket for every iteration it would create an overhead having to interact with the socket directly so often. Instead, we can concatenate the messages within the client and then send them in one go. Because of the use of message seperation character the server can then split the package up and process them in the same order.
+If I was to send the message through directly to the TCP socket for every iteration it would create an overhead having to interact with the socket directly so often. Instead, we can concatenate the messages within the client and then send them in one go. Because of the use of the message seperation character the server can then split the package up and process them in the same order.
 
 ```javascript
 connection.prototype.send = function( message ) {
@@ -86,31 +99,32 @@ Ack timeouts are the clients responsibility to keep track of. When a message tha
 
 # Unsoliciated Messages
 
-Messages recieved that are unexpected should throw an UNSOLICITATED_MESSAGE error. If it occurs often it's usually a useful indication something might be leaking subscriptions.
+Messages recieved that are unexpected should throw an UNSOLICITATED_MESSAGE error. If it occurs often it's usually a useful indication something might be leaking or not have unsubscribed properly.
 
 <div class="hint-box fa fa-gears">
     <h3>Edge Case</h3>
     <ul>
         <li>
-            In the case of extreme race conditions this could occur if the server sends a message to the client the exact same time it unsubscribed from the message. 
+            In the case of race conditions this could occur if the server sends a message to the client the exact same time it unsubscribed from the message. This can't be avoided, but should only happy very very rarely.
         </li>
     </ul>
 </div>
 
 # Errors
 
-The last major thing to keep in consideration are error scenarios. If you look at the [constants](../../docs/constants.html#Event) you'll notice that there are quite a few different unhappy scenarios that may occur. Many of these are expected behaviour, such as MESSAGE_PERMISSION_ERROR or TOO_MANY_AUTH_ATTEMPTS. Others are errors returned by deepsteam incase the message protocol was not correctly used, such as INVALID_MESSAGE_DATA, MESSAGE_PARSE_ERROR or UNKNOWN_TOPIC.
+The last major thing to keep in consideration are error scenarios. If you look at the [event constants](../../docs/constants.html#Event) you'll notice that there are quite a few different unhappy scenarios that may occur. Many of these are expected behaviour, such as MESSAGE_PERMISSION_ERROR or TOO_MANY_AUTH_ATTEMPTS. Others are errors returned by deepsteam incase the message protocol was not correctly used, such as INVALID_MESSAGE_DATA, MESSAGE_PARSE_ERROR or UNKNOWN_TOPIC.
 
 It's best practice to:
-
 * Not let the application die when an error occurs
-    Try and recover from them as gracefully as possible.
-* Not to swallow errors
-    Errors occur because something went wrong. Having an empty catch statement
-    is only a stop gap and you should always make sure to log the issues that occur
+
+Always recover from them as gracefully as possible. 
+* Not swallow errors
+
+Errors occur because something went wrong. Having an empty catch statement
+is only a stop gap solution and you should always make sure to log the issues that occur
 * Prevent users from doing things they are not permissioned to
-    If a user is not permissioned to do a certain action it is advisable to stop him him from attempting to. Otherwise it could result in inconsistencies on the server where the data was ignored and on the client where the changes either have to be reverted once the MESSAGE_DENIED
-    is recieved or remain out of sync otherwise.
+
+If a user is not permissioned to do a certain action it is advisable to stop them from attempting to. Otherwise it could result in inconsistencies on the server where the data was ignored and on the client where the changes either have to be reverted once the MESSAGE_DENIED is recieved or remain out of sync otherwise.
 
 
 

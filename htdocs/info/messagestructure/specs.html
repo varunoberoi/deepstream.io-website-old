@@ -80,7 +80,7 @@
 	</li>	
 	
 	<li >
-		<a href="../../info/messagestructure/writing-a-client-theory.html">Writing a Client Theory</a>
+		<a href="../../info/messagestructure/writing-a-client.html">Writing a Client</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>	
 
@@ -116,10 +116,9 @@
 			<ul class="overview">
 					<li class="de-emphasized">auth</li>
 						<li><a href="#auth-login">Login</a></li>
+						<li><a href="#auth-loginsuccess">Login Success</a></li>
 						<li><a href="#auth-invalidlogin">Invalid Login</a></li>
 						<li><a href="#auth-toomanyauthattempts">Too many login attempts</a></li>
-						<li><a href="#auth-invalidmessage">Invalid Message</a></li>
-						<li><a href="#auth-unknownaction">Unknown Action</a></li>
 					<li class="de-emphasized">event</li>
 						<li><a href="#event-listen">Listen</a></li>
 						<li><a href="#event-unlisten">Unlisten</a></li>
@@ -127,19 +126,19 @@
 						<li><a href="#event-unsubscribe">Unsubscribe</a></li>
 						<li><a href="#event-publish">Publish</a></li>
 						<li><a href="#event-listenmatch">Listen Match</a></li>
-						<li><a href="#event-invalidmessage">Invalid Message</a></li>
-						<li><a href="#event-unknownaction">Unknown Action</a></li>
+						<li><a href="#event-listenunmatch">Listen UnMatched</a></li>
 					<li class="de-emphasized">record</li>
 						<li><a href="#record-listen">Listen</a></li>
 						<li><a href="#record-unlisten">Unlisten</a></li>
 						<li><a href="#record-listenmatch">Listen Match</a></li>
+						<li><a href="#record-listenunmatch">Listen UnMatched</a></li>
 						<li><a href="#record-create">Read/Create</a></li>
 						<li><a href="#record-update">Update Entire Record</a></li>
 						<li><a href="#record-patch">Patch Record</a></li>
 						<li><a href="#record-delete">Delete Record</a></li>
-						<li><a href="#record-recieveupdate">Receive Record Update</a></li>
-						<li><a href="#record-invalidmessage">Invalid Message</a></li>
-						<li><a href="#record-unknownaction">Unknown Action</a></li>
+						<li><a href="#record-recieveread">Receive Record Read</a></li>
+						<li><a href="#record-cachetimeout">Cache Read Timeout</a></li>
+						<li><a href="#record-databasetimeout">Database Read Timeout</a></li>
 					<li class="de-emphasized">rpc</li>
 						<li><a href="#rpc-register">Register as provider</a></li>
 						<li><a href="#rpc-unregister">Unregister as provider</a></li>
@@ -147,8 +146,6 @@
 						<li><a href="#rpc-reject">Reject RPC request</a></li>
 						<li><a href="#rpc-error">Error RPC request</a></li>
 						<li><a href="#rpc-success">Respond to RPC request</a></li>
-						<li><a href="#rpc-invalidmessage">Invalid Message</a></li>
-						<li><a href="#rpc-unknownaction">Unknown Action</a></li>
 					<li class="de-emphasized">webRTC</li>
 						<li><a href="#webRTC-listen">Listen to callee changes</a></li>
 						<li><a href="#webRTC-unlisten">Unlisten to callee changes</a></li>
@@ -161,8 +158,6 @@
 						<li><a href="#webRTC-calleelist">Initial callee list update received</a></li>
 						<li><a href="#webRTC-calleeadded">Callee added message received</a></li>
 						<li><a href="#webRTC-calleeremoved">Callee removed message received</a></li>
-						<li><a href="#webRTC-invalidmessage">Invalid Message</a></li>
-						<li><a href="#webRTC-unknownaction">Unknown Action</a></li>
 			</ul>
 	</li>
 
@@ -220,12 +215,34 @@
                             <span class="message-format">A|REQ|loginData+</span>
                         </td>
                     </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="section">
+        <h2>
+            <a name="auth-loginsuccess">Login Success</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                Recieved when login passes
+            </p>
+            <table>
+                <tbody>
                     <tr>
                         <td>
-                            Ack
+                            Direction
                         </td>
-                        <td class="message-format">
-                            <span class="message-format">A|A</span>
+                        <td>
+                            Server
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <span class="message-format">A|A+</span>
                         </td>
                     </tr>
                 </tbody>
@@ -286,66 +303,6 @@
                         </td>
                         <td>
                             <span class="message-format">A|E|TOO_MANY_AUTH_ATTEMPTS+</span>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <div class="section">
-        <h2>
-            <a name="auth-invalidmessage">Invalid Message</a>
-        </h2>
-        <div class="action-content">
-            <p class="description">
-                
-            </p>
-            <table>
-                <tbody>
-                    <tr>
-                        <td>
-                            Direction
-                        </td>
-                        <td>
-                            
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Message
-                        </td>
-                        <td>
-                            <span class="message-format">X|E|INVALID_MESSAGE_DATA|invalidMessage+</span>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <div class="section">
-        <h2>
-            <a name="auth-unknownaction">Unknown Action</a>
-        </h2>
-        <div class="action-content">
-            <p class="description">
-                
-            </p>
-            <table>
-                <tbody>
-                    <tr>
-                        <td>
-                            Direction
-                        </td>
-                        <td>
-                            
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Message
-                        </td>
-                        <td>
-                            <span class="message-format">X|E|UNKNOWN_ACTION|unknown action actionName+</span>
                         </td>
                     </tr>
                 </tbody>
@@ -574,7 +531,7 @@
         </h2>
         <div class="action-content">
             <p class="description">
-                Recieved when a listened to regex is matched
+                Recieved when a listened to regex is has a single intrested client
             </p>
             <table>
                 <tbody>
@@ -600,11 +557,11 @@
     </div>
     <div class="section">
         <h2>
-            <a name="event-invalidmessage">Invalid Message</a>
+            <a name="event-listenunmatch">Listen UnMatched</a>
         </h2>
         <div class="action-content">
             <p class="description">
-                
+                Recieved when a listened to regex no longer has any interested clients
             </p>
             <table>
                 <tbody>
@@ -621,37 +578,7 @@
                             Message
                         </td>
                         <td>
-                            <span class="message-format">E|E|INVALID_MESSAGE_DATA|invalidMessage+</span>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <div class="section">
-        <h2>
-            <a name="event-unknownaction">Unknown Action</a>
-        </h2>
-        <div class="action-content">
-            <p class="description">
-                
-            </p>
-            <table>
-                <tbody>
-                    <tr>
-                        <td>
-                            Direction
-                        </td>
-                        <td>
-                            
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Message
-                        </td>
-                        <td>
-                            <span class="message-format">E|E|UNKNOWN_ACTION|unknown action actionName+</span>
+                            <span class="message-format">E|SR|event\/.*|event/A+</span>
                         </td>
                     </tr>
                 </tbody>
@@ -792,11 +719,41 @@
     </div>
     <div class="section">
         <h2>
+            <a name="record-listenunmatch">Listen UnMatched</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                Recieved when a listened to regex no longer has any interested clients
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            Server
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <span class="message-format">R|SR|RecordPrefix\/.*|recordPrefix/recordName+</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="section">
+        <h2>
             <a name="record-create">Read/Create</a>
         </h2>
         <div class="action-content">
             <p class="description">
-                
+                Send to request the record data, automatically subscribing to all changes and creates record if it does not exist
             </p>
             <table>
                 <tbody>
@@ -834,7 +791,7 @@
         </h2>
         <div class="action-content">
             <p class="description">
-                
+                Send/Recieved when the entire record data is replaced with a new image
             </p>
             <table>
                 <tbody>
@@ -872,7 +829,7 @@
         </h2>
         <div class="action-content">
             <p class="description">
-                
+                Send/Recieved when the record is partially changed
             </p>
             <table>
                 <tbody>
@@ -910,7 +867,7 @@
         </h2>
         <div class="action-content">
             <p class="description">
-                
+                Send/Recieved when an object is deleted. This leads to all clients discarding the client since updates are no longer available
             </p>
             <table>
                 <tbody>
@@ -944,11 +901,11 @@
     </div>
     <div class="section">
         <h2>
-            <a name="record-recieveupdate">Receive Record Update</a>
+            <a name="record-recieveread">Receive Record Read</a>
         </h2>
         <div class="action-content">
             <p class="description">
-                
+                When requesting a record you will get a read which is the current state of the record, similar to the update data
             </p>
             <table>
                 <tbody>
@@ -957,7 +914,7 @@
                             Direction
                         </td>
                         <td>
-                            Client
+                            Server
                         </td>
                     </tr>
                     <tr>
@@ -974,11 +931,11 @@
     </div>
     <div class="section">
         <h2>
-            <a name="record-invalidmessage">Invalid Message</a>
+            <a name="record-cachetimeout">Cache Read Timeout</a>
         </h2>
         <div class="action-content">
             <p class="description">
-                
+                If the object can&#x27;t be read from the cache within a certain time the server will respond with this error
             </p>
             <table>
                 <tbody>
@@ -987,7 +944,7 @@
                             Direction
                         </td>
                         <td>
-                            
+                            Server
                         </td>
                     </tr>
                     <tr>
@@ -995,7 +952,7 @@
                             Message
                         </td>
                         <td>
-                            <span class="message-format">R|E|INVALID_MESSAGE_DATA|invalidMessage+</span>
+                            <span class="message-format">R|E|CACHE_RETRIEVAL_TIMEOUT|recordName+</span>
                         </td>
                     </tr>
                 </tbody>
@@ -1004,11 +961,11 @@
     </div>
     <div class="section">
         <h2>
-            <a name="record-unknownaction">Unknown Action</a>
+            <a name="record-databasetimeout">Database Read Timeout</a>
         </h2>
         <div class="action-content">
             <p class="description">
-                
+                If the object can&#x27;t be read from storage within a certain time the server will respond with this error
             </p>
             <table>
                 <tbody>
@@ -1017,7 +974,7 @@
                             Direction
                         </td>
                         <td>
-                            
+                            Server
                         </td>
                     </tr>
                     <tr>
@@ -1025,7 +982,7 @@
                             Message
                         </td>
                         <td>
-                            <span class="message-format">R|E|UNKNOWN_ACTION|unknown action actionName+</span>
+                            <span class="message-format">R|E|STORAGE_RETRIEVAL_TIMEOUT|recordName+</span>
                         </td>
                     </tr>
                 </tbody>
@@ -1064,7 +1021,7 @@
         </h2>
         <div class="action-content">
             <p class="description">
-                Sent when client can recieve RPC events
+                Send when client can recieve RPC events
             </p>
             <table>
                 <tbody>
@@ -1102,7 +1059,7 @@
         </h2>
         <div class="action-content">
             <p class="description">
-                Sent when client no longer wishes to recieve RPC events
+                Send when client no longer wishes to recieve RPC events
             </p>
             <table>
                 <tbody>
@@ -1208,7 +1165,7 @@
         </h2>
         <div class="action-content">
             <p class="description">
-                
+                Send/Recieved if an error occurs while attempting to execute rpc
             </p>
             <table>
                 <tbody>
@@ -1217,7 +1174,7 @@
                             Direction
                         </td>
                         <td>
-                            Send if error occurs during execution
+                            Client/Server
                         </td>
                     </tr>
                     <tr>
@@ -1238,7 +1195,7 @@
         </h2>
         <div class="action-content">
             <p class="description">
-                
+                Send/Recieve when RPC is executed succesfully with the resulting data
             </p>
             <table>
                 <tbody>
@@ -1247,7 +1204,7 @@
                             Direction
                         </td>
                         <td>
-                            Send if error occurs when trying to execute rpc
+                            Client/Server
                         </td>
                     </tr>
                     <tr>
@@ -1256,66 +1213,6 @@
                         </td>
                         <td>
                             <span class="message-format">P|RES|rpcName|rpcID|Result+</span>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <div class="section">
-        <h2>
-            <a name="rpc-invalidmessage">Invalid Message</a>
-        </h2>
-        <div class="action-content">
-            <p class="description">
-                
-            </p>
-            <table>
-                <tbody>
-                    <tr>
-                        <td>
-                            Direction
-                        </td>
-                        <td>
-                            
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Message
-                        </td>
-                        <td>
-                            <span class="message-format">P|E|INVALID_MESSAGE_DATA|invalidMessage+</span>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <div class="section">
-        <h2>
-            <a name="rpc-unknownaction">Unknown Action</a>
-        </h2>
-        <div class="action-content">
-            <p class="description">
-                
-            </p>
-            <table>
-                <tbody>
-                    <tr>
-                        <td>
-                            Direction
-                        </td>
-                        <td>
-                            
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Message
-                        </td>
-                        <td>
-                            <span class="message-format">P|E|UNKNOWN_ACTION|unknown action actionName+</span>
                         </td>
                     </tr>
                 </tbody>
@@ -1363,7 +1260,7 @@
                             Direction
                         </td>
                         <td>
-                            
+                            Client
                         </td>
                     </tr>
                     <tr>
@@ -1401,7 +1298,7 @@
                             Direction
                         </td>
                         <td>
-                            
+                            Client
                         </td>
                     </tr>
                     <tr>
@@ -1439,7 +1336,7 @@
                             Direction
                         </td>
                         <td>
-                            
+                            Client
                         </td>
                     </tr>
                     <tr>
@@ -1477,7 +1374,7 @@
                             Direction
                         </td>
                         <td>
-                            
+                            Client
                         </td>
                     </tr>
                     <tr>
@@ -1515,7 +1412,7 @@
                             Direction
                         </td>
                         <td>
-                            
+                            Client
                         </td>
                     </tr>
                     <tr>
@@ -1545,7 +1442,7 @@
                             Direction
                         </td>
                         <td>
-                            
+                            Client
                         </td>
                     </tr>
                     <tr>
@@ -1575,7 +1472,7 @@
                             Direction
                         </td>
                         <td>
-                            
+                            Client
                         </td>
                     </tr>
                     <tr>
@@ -1605,7 +1502,7 @@
                             Direction
                         </td>
                         <td>
-                            
+                            Client
                         </td>
                     </tr>
                     <tr>
@@ -1635,7 +1532,7 @@
                             Direction
                         </td>
                         <td>
-                            
+                            Server
                         </td>
                     </tr>
                     <tr>
@@ -1665,7 +1562,7 @@
                             Direction
                         </td>
                         <td>
-                            
+                            Server
                         </td>
                     </tr>
                     <tr>
@@ -1695,7 +1592,7 @@
                             Direction
                         </td>
                         <td>
-                            
+                            Server
                         </td>
                     </tr>
                     <tr>
@@ -1704,66 +1601,6 @@
                         </td>
                         <td>
                             <span class="message-format">W|WCR|calleeName+</span>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <div class="section">
-        <h2>
-            <a name="webRTC-invalidmessage">Invalid Message</a>
-        </h2>
-        <div class="action-content">
-            <p class="description">
-                
-            </p>
-            <table>
-                <tbody>
-                    <tr>
-                        <td>
-                            Direction
-                        </td>
-                        <td>
-                            
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Message
-                        </td>
-                        <td>
-                            <span class="message-format">W|E|INVALID_MESSAGE_DATA|invalidMessage+</span>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <div class="section">
-        <h2>
-            <a name="webRTC-unknownaction">Unknown Action</a>
-        </h2>
-        <div class="action-content">
-            <p class="description">
-                
-            </p>
-            <table>
-                <tbody>
-                    <tr>
-                        <td>
-                            Direction
-                        </td>
-                        <td>
-                            
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Message
-                        </td>
-                        <td>
-                            <span class="message-format">W|E|UNKNOWN_ACTION|unknown action actionName+</span>
                         </td>
                     </tr>
                 </tbody>
