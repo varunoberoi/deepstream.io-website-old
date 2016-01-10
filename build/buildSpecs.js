@@ -27,6 +27,7 @@ function readMessageStructures( next ) {
 					structures: []
 				};	
 			} 
+			entry.id = entry.type + '-' + entry.id;
 			specs[ entry.type ].structures.push( entry );
 		} )
 		walkFeatureTree( next );
