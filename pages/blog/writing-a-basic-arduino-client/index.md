@@ -15,7 +15,7 @@ Let's first set the requirements:
 * Arduino can authenticate
 * Arduino can recieve events telling it to switch the LED on or off
 * Arduino can listen if any clients are subscribed to temperature events
-* Ardruino can send out the temperature whenever it changes
+* Arduino can send out the temperature whenever it changes
 * Bonus: Setup another client to recieve/send events
 
 # The board
