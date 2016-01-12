@@ -1,0 +1,1684 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>deepstream.io | A Scalable Server for Realtime Web Apps</title>
+
+	
+
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="keywords" content="deepstream, deepstream.io, streaming, realtime, server, socket" />
+	<meta name="description" content="A node.js realtime server, supporting data-sync, RPCs, events and WebRTC" />
+	<meta name="author" content="Wolfram Hempel" />
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="stylesheet" type="text/css" href="../../assets/css/navigation.css" />
+	<link rel="stylesheet" type="text/css" href="../../assets/css/screen.css" />
+	<link rel="stylesheet" type="text/css" href="../../assets/css/api.css" />
+	<script type="text/javascript">
+	document.createElement( 'header' );
+	document.createElement( 'nav' );
+	</script>
+	<script type="text/javascript" src="../../assets/js/jquery.js"></script>
+	<script type="text/javascript" src="../../assets/js/menu.js"></script>
+	<script type="text/javascript" src="../../assets/js/prism.js"></script>
+
+	<link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Quicksand:300,400,700' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="../../assets/css/prism.css" />
+</head>
+
+<body class="category_info ">
+	<div class="mobile-menu">
+		<div class="nav mobile-nav">
+			<ul>
+				<li ><a href="../..">Home</a></li>
+				<li ><a href="../../download/">Downloads</a></li>
+				<li ><a href="../../tutorials/getting-started.html">Tutorials</a></li>
+				<li ><a href="../../docs/deepstream.html">Documentation</a></li>
+				<li ><a href="../../blog/">Blog</a></li>
+				<li class="active"><a href="../../info/">Info</a></li>
+			</ul>		</div>
+	</div>
+
+	<div id="outer-wrapper">
+		<div id="header" class="compact-header">
+			<div class="header-tiny-logo">
+				<h1><a href="../..">deepstream.io - a scalable server for realtime web apps</a></h1>
+			</div>
+			<div class="nav desktop-nav">
+				<ul>
+					<li ><a href="../..">Home</a></li>
+					<li ><a href="../../download/">Downloads</a></li>
+					<li ><a href="../../tutorials/getting-started.html">Tutorials</a></li>
+					<li ><a href="../../docs/deepstream.html">Documentation</a></li>
+					<li ><a href="../../blog/">Blog</a></li>
+					<li class="active"><a href="../../info/">Info</a></li>
+				</ul>			</div>
+			<span class="menu-button menu-icon">
+				<i class="fa fa-bars"></i>
+			</span>
+		</div>
+		<div id="wrapper" class="main">
+			<ul id="subnav">
+	<li class="head first">Performance</li>
+	<li >
+		<a href="../../info/performance-overview.html">Overview</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>	
+	<li >
+		<a href="../../info/performance-single-node-vs-cluster.html">Single Node vs Cluster</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li class="head first">Message Specification</li>
+	<li >
+		<a href="../../info/messagestructure/index.html">Overview</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>	
+	
+	<li >
+		<a href="../../info/messagestructure/writing-a-client.html">Writing a Client</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>	
+
+		<li >
+			<a href="../../info/messagestructure/connectivity.html">
+			Connectivity Features</a>
+			<div class="isActiveIndicator orangeGradient"></div>
+		</li>
+		<li >
+			<a href="../../info/messagestructure/parsing.html">
+			Parsing Features</a>
+			<div class="isActiveIndicator orangeGradient"></div>
+		</li>
+		<li >
+			<a href="../../info/messagestructure/rpc.html">
+			Rpc Features</a>
+			<div class="isActiveIndicator orangeGradient"></div>
+		</li>
+		<li >
+			<a href="../../info/messagestructure/records.html">
+			Records Features</a>
+			<div class="isActiveIndicator orangeGradient"></div>
+		</li>
+		<li >
+			<a href="../../info/messagestructure/events.html">
+			Events Features</a>
+			<div class="isActiveIndicator orangeGradient"></div>
+		</li>
+	
+	<li class="active">
+		<a href="../../info/messagestructure/specs.html">Detailed Specs</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+			<ul class="overview">
+					<li class="de-emphasized">auth</li>
+						<li><a href="#auth-login">Login</a></li>
+						<li><a href="#auth-loginsuccess">Login Success</a></li>
+						<li><a href="#auth-invalidlogin">Invalid Login</a></li>
+						<li><a href="#auth-toomanyauthattempts">Too many login attempts</a></li>
+					<li class="de-emphasized">event</li>
+						<li><a href="#event-listen">Listen</a></li>
+						<li><a href="#event-unlisten">Unlisten</a></li>
+						<li><a href="#event-subscribe">Susbcribe</a></li>
+						<li><a href="#event-unsubscribe">Unsubscribe</a></li>
+						<li><a href="#event-publish">Publish</a></li>
+						<li><a href="#event-listenmatch">Listen Match</a></li>
+						<li><a href="#event-listenunmatch">Listen UnMatched</a></li>
+					<li class="de-emphasized">record</li>
+						<li><a href="#record-listen">Listen</a></li>
+						<li><a href="#record-unlisten">Unlisten</a></li>
+						<li><a href="#record-listenmatch">Listen Match</a></li>
+						<li><a href="#record-listenunmatch">Listen UnMatched</a></li>
+						<li><a href="#record-create">Read/Create</a></li>
+						<li><a href="#record-update">Update Entire Record</a></li>
+						<li><a href="#record-patch">Patch Record</a></li>
+						<li><a href="#record-delete">Delete Record</a></li>
+						<li><a href="#record-recieveread">Receive Record Read</a></li>
+						<li><a href="#record-cachetimeout">Cache Read Timeout</a></li>
+						<li><a href="#record-databasetimeout">Database Read Timeout</a></li>
+					<li class="de-emphasized">rpc</li>
+						<li><a href="#rpc-register">Register as provider</a></li>
+						<li><a href="#rpc-unregister">Unregister as provider</a></li>
+						<li><a href="#rpc-send">Send RPC request</a></li>
+						<li><a href="#rpc-reject">Reject RPC request</a></li>
+						<li><a href="#rpc-error">Error RPC request</a></li>
+						<li><a href="#rpc-success">Respond to RPC request</a></li>
+					<li class="de-emphasized">webRTC</li>
+						<li><a href="#webRTC-listen">Listen to callee changes</a></li>
+						<li><a href="#webRTC-unlisten">Unlisten to callee changes</a></li>
+						<li><a href="#webRTC-register">Register callee</a></li>
+						<li><a href="#webRTC-unregister">Unregister callee</a></li>
+						<li><a href="#webRTC-make">Make call</a></li>
+						<li><a href="#webRTC-accept">Accept call</a></li>
+						<li><a href="#webRTC-decline">Decline call</a></li>
+						<li><a href="#webRTC-end">End Call</a></li>
+						<li><a href="#webRTC-calleelist">Initial callee list update received</a></li>
+						<li><a href="#webRTC-calleeadded">Callee added message received</a></li>
+						<li><a href="#webRTC-calleeremoved">Callee removed message received</a></li>
+			</ul>
+	</li>
+
+</ul>
+
+			<div id="content">
+				<h1>
+    Auth
+</h1>
+<link rel="stylesheet" type="text/css" href="../../assets/css/messagestructure.css" />
+<script type="text/javascript" src="../../assets/js/messagestructure.js"></script>
+
+<div class="message-in-depth">
+     <table>
+        <tbody>
+            <tr>
+                <td>Event</td>
+                <td class="event"></td>
+            </tr>
+            <tr>
+                <td>Action</td>
+                <td class="action"></td>
+            </tr>
+            <tr>
+                <td>Data</td>
+                <td class="data"></td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="down-arrow"></div>
+</div>
+    <div class="section">
+        <h2>
+            <a name="auth-login">Login</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                Sent to authenticate user
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            Client
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <span class="message-format">A|REQ|loginData+</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="section">
+        <h2>
+            <a name="auth-loginsuccess">Login Success</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                Recieved when login passes
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            Server
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <span class="message-format">A|A+</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="section">
+        <h2>
+            <a name="auth-invalidlogin">Invalid Login</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                Recieved if login fails
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            Server
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <span class="message-format">A|E|INVALID_AUTH_DATA|unknown user+</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="section">
+        <h2>
+            <a name="auth-toomanyauthattempts">Too many login attempts</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                Recieved if login fails more than the maximum allowed attempts and closes the client connection
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            Server
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <span class="message-format">A|E|TOO_MANY_AUTH_ATTEMPTS+</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+<h1>
+    Events
+</h1>
+<link rel="stylesheet" type="text/css" href="../../assets/css/messagestructure.css" />
+<script type="text/javascript" src="../../assets/js/messagestructure.js"></script>
+
+<div class="message-in-depth">
+     <table>
+        <tbody>
+            <tr>
+                <td>Event</td>
+                <td class="event"></td>
+            </tr>
+            <tr>
+                <td>Action</td>
+                <td class="action"></td>
+            </tr>
+            <tr>
+                <td>Data</td>
+                <td class="data"></td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="down-arrow"></div>
+</div>
+    <div class="section">
+        <h2>
+            <a name="event-listen">Listen</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                Send when listening to event matching regex
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            Client
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <span class="message-format">E|L|event\/.*+</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Ack
+                        </td>
+                        <td class="message-format">
+                            <span class="message-format">E|A|L|event\/.*+</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="section">
+        <h2>
+            <a name="event-unlisten">Unlisten</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                Send when no longer interested in listening to event
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            Client
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <span class="message-format">E|UL|event\/.*+</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Ack
+                        </td>
+                        <td class="message-format">
+                            <span class="message-format">E|A|UL|event\/.*+</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="section">
+        <h2>
+            <a name="event-subscribe">Susbcribe</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                Send to subscribe to event
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            Client
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <span class="message-format">E|S|eventName+</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Ack
+                        </td>
+                        <td class="message-format">
+                            <span class="message-format">E|A|S|eventName+</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="section">
+        <h2>
+            <a name="event-unsubscribe">Unsubscribe</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                Send to unsubscribe to event
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            Client
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <span class="message-format">E|US|eventName+</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Ack
+                        </td>
+                        <td class="message-format">
+                            <span class="message-format">E|A|US|eventName+</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="section">
+        <h2>
+            <a name="event-publish">Publish</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                Recieved/Sent when an event occurs
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            Client/Server
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <span class="message-format">E|EVT|eventName|JSON+</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Ack
+                        </td>
+                        <td class="message-format">
+                            <span class="message-format">E|A|EVT|eventName+</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="section">
+        <h2>
+            <a name="event-listenmatch">Listen Match</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                Recieved when a listened to regex is has a single intrested client
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            Server
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <span class="message-format">E|SP|event\/.*|event/A+</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="section">
+        <h2>
+            <a name="event-listenunmatch">Listen UnMatched</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                Recieved when a listened to regex no longer has any interested clients
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <span class="message-format">E|SR|event\/.*|event/A+</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+<h1>
+    Record
+</h1>
+<link rel="stylesheet" type="text/css" href="../../assets/css/messagestructure.css" />
+<script type="text/javascript" src="../../assets/js/messagestructure.js"></script>
+
+<div class="message-in-depth">
+     <table>
+        <tbody>
+            <tr>
+                <td>Event</td>
+                <td class="event"></td>
+            </tr>
+            <tr>
+                <td>Action</td>
+                <td class="action"></td>
+            </tr>
+            <tr>
+                <td>Data</td>
+                <td class="data"></td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="down-arrow"></div>
+</div>
+    <div class="section">
+        <h2>
+            <a name="record-listen">Listen</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            Client
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <span class="message-format">R|L|recordPrefix\/.*+</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Ack
+                        </td>
+                        <td class="message-format">
+                            <span class="message-format">R|A|L|recordPrefix\/.*+</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="section">
+        <h2>
+            <a name="record-unlisten">Unlisten</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            Client
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <span class="message-format">R|UL|recordPrefix\/.*+</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Ack
+                        </td>
+                        <td class="message-format">
+                            <span class="message-format">R|A|UL|recordPrefix\/.*+</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="section">
+        <h2>
+            <a name="record-listenmatch">Listen Match</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                Recieved when a listened to regex is matched
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            Server
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <span class="message-format">R|SP|recordPrefix\/.*|/A+</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="section">
+        <h2>
+            <a name="record-listenunmatch">Listen UnMatched</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                Recieved when a listened to regex no longer has any interested clients
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            Server
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <span class="message-format">R|SR|RecordPrefix\/.*|recordPrefix/recordName+</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="section">
+        <h2>
+            <a name="record-create">Read/Create</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                Send to request the record data, automatically subscribing to all changes and creates record if it does not exist
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            Client
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <span class="message-format">R|CR|recordName+</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Ack
+                        </td>
+                        <td class="message-format">
+                            <span class="message-format">R|A|CR|recordName+</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="section">
+        <h2>
+            <a name="record-update">Update Entire Record</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                Send/Recieved when the entire record data is replaced with a new image
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            Client
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <span class="message-format">R|U|recordName|versionNumber|JSON+</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Ack
+                        </td>
+                        <td class="message-format">
+                            <span class="message-format">R|A|U|recordName+</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="section">
+        <h2>
+            <a name="record-patch">Patch Record</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                Send/Recieved when the record is partially changed
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            Client
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <span class="message-format">R|P|recordName|versionNumber|path|value+</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Ack
+                        </td>
+                        <td class="message-format">
+                            <span class="message-format">R|A|P|recordName+</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="section">
+        <h2>
+            <a name="record-delete">Delete Record</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                Send/Recieved when an object is deleted. This leads to all clients discarding the client since updates are no longer available
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            Client
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <span class="message-format">R|D|recordName+</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Ack
+                        </td>
+                        <td class="message-format">
+                            <span class="message-format">R|A|D|recordName+</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="section">
+        <h2>
+            <a name="record-recieveread">Receive Record Read</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                When requesting a record you will get a read which is the current state of the record, similar to the update data
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            Server
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <span class="message-format">R|R|recordName|versionNumber|JSON</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="section">
+        <h2>
+            <a name="record-cachetimeout">Cache Read Timeout</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                If the object can&#x27;t be read from the cache within a certain time the server will respond with this error
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            Server
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <span class="message-format">R|E|CACHE_RETRIEVAL_TIMEOUT|recordName+</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="section">
+        <h2>
+            <a name="record-databasetimeout">Database Read Timeout</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                If the object can&#x27;t be read from storage within a certain time the server will respond with this error
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            Server
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <span class="message-format">R|E|STORAGE_RETRIEVAL_TIMEOUT|recordName+</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+<h1>
+    RPC
+</h1>
+<link rel="stylesheet" type="text/css" href="../../assets/css/messagestructure.css" />
+<script type="text/javascript" src="../../assets/js/messagestructure.js"></script>
+
+<div class="message-in-depth">
+     <table>
+        <tbody>
+            <tr>
+                <td>Event</td>
+                <td class="event"></td>
+            </tr>
+            <tr>
+                <td>Action</td>
+                <td class="action"></td>
+            </tr>
+            <tr>
+                <td>Data</td>
+                <td class="data"></td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="down-arrow"></div>
+</div>
+    <div class="section">
+        <h2>
+            <a name="rpc-register">Register as provider</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                Send when client can recieve RPC events
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            Client
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <span class="message-format">P|S|rpcName+</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Ack
+                        </td>
+                        <td class="message-format">
+                            <span class="message-format">P|A|S|rpcName+</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="section">
+        <h2>
+            <a name="rpc-unregister">Unregister as provider</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                Send when client no longer wishes to recieve RPC events
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            Client
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <span class="message-format">P|US|rpcName+</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Ack
+                        </td>
+                        <td class="message-format">
+                            <span class="message-format">P|A|US|rpcName+</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="section">
+        <h2>
+            <a name="rpc-send">Send RPC request</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                Send/Recieve when RPC requested
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            Client/Server
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <span class="message-format">P|REQ|rpcName|rpcID|Arguments+</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Ack
+                        </td>
+                        <td class="message-format">
+                            <span class="message-format">P|A|REQ|rpcName|rpcID+</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="section">
+        <h2>
+            <a name="rpc-reject">Reject RPC request</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                Send if client does not want to execute RPC
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            Client
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <span class="message-format">P|REJ|rpcName|rpcID+</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="section">
+        <h2>
+            <a name="rpc-error">Error RPC request</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                Send/Recieved if an error occurs while attempting to execute rpc
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            Client/Server
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <span class="message-format">P|E|ErrorMessage|rpcName|123+</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="section">
+        <h2>
+            <a name="rpc-success">Respond to RPC request</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                Send/Recieve when RPC is executed succesfully with the resulting data
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            Client/Server
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <span class="message-format">P|RES|rpcName|rpcID|Result+</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+<h1>
+    webRTC
+</h1>
+<link rel="stylesheet" type="text/css" href="../../assets/css/messagestructure.css" />
+<script type="text/javascript" src="../../assets/js/messagestructure.js"></script>
+
+<div class="message-in-depth">
+     <table>
+        <tbody>
+            <tr>
+                <td>Event</td>
+                <td class="event"></td>
+            </tr>
+            <tr>
+                <td>Action</td>
+                <td class="action"></td>
+            </tr>
+            <tr>
+                <td>Data</td>
+                <td class="data"></td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="down-arrow"></div>
+</div>
+    <div class="section">
+        <h2>
+            <a name="webRTC-listen">Listen to callee changes</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            Client
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <span class="message-format">W|LC+</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Ack
+                        </td>
+                        <td class="message-format">
+                            <span class="message-format">W|A|LC+</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="section">
+        <h2>
+            <a name="webRTC-unlisten">Unlisten to callee changes</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            Client
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <span class="message-format">W|ULC+</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Ack
+                        </td>
+                        <td class="message-format">
+                            <span class="message-format">W|A|ULC+</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="section">
+        <h2>
+            <a name="webRTC-register">Register callee</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            Client
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <span class="message-format">W|RC|calleeA+</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Ack
+                        </td>
+                        <td class="message-format">
+                            <span class="message-format">W|A|RC|calleeA+</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="section">
+        <h2>
+            <a name="webRTC-unregister">Unregister callee</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            Client
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <span class="message-format">W|URC|calleeA+</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Ack
+                        </td>
+                        <td class="message-format">
+                            <span class="message-format">W|A|URC|calleeA+</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="section">
+        <h2>
+            <a name="webRTC-make">Make call</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            Client
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <span class="message-format">W|OF|O{sdp:sdp,type:type,meta:metaData}+</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="section">
+        <h2>
+            <a name="webRTC-accept">Accept call</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            Client
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <span class="message-format">-</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="section">
+        <h2>
+            <a name="webRTC-decline">Decline call</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            Client
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <span class="message-format">W|CD|localId|remoteId|reason+</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="section">
+        <h2>
+            <a name="webRTC-end">End Call</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            Client
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <span class="message-format">W|CE|localId|remoteId|null+</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="section">
+        <h2>
+            <a name="webRTC-calleelist">Initial callee list update received</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            Server
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <span class="message-format">W|WAC|calleeA|calleeB|calleeC+</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="section">
+        <h2>
+            <a name="webRTC-calleeadded">Callee added message received</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            Server
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <span class="message-format">W|WCA|calleeName+</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="section">
+        <h2>
+            <a name="webRTC-calleeremoved">Callee removed message received</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            Server
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <span class="message-format">W|WCR|calleeName+</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+			</div>
+		</div>
+		<script type="text/javascript" src="../../assets/js/docs.js"></script>
+	</div>
+	<div id="footer">
+		<ul class="footer-items">
+
+			<li class="footer-right">
+				<ul class="social">
+					<li class="twitter">
+						<a href="https://twitter.com/deepstreamIO">
+							<i class="fa fa-twitter"></i>  Twitter
+						</a>
+					</li>
+					<li class="github">
+						<a href="https://github.com/hoxton-one">
+							<i class="fa fa-github"></i>  Github
+						</a>
+					</li>
+					<li class="stack-overflow">
+						<a href="http://stackoverflow.com/questions/tagged/deepstream.io">
+							<i class="fa fa-stack-overflow"></i>  Stack Overflow
+						</a>
+					</li>
+					<li>
+						<a href="https://deepstream-slack.herokuapp.com/">
+							<i class="fa fa-slack"></i>  Slack
+						</a>
+					</li>
+				</ul>
+			</li>
+
+			<li class="footer-middle">
+				<h4>Browse</h4>
+				<ul>
+					<li ><a href="../..">Home</a></li>
+					<li ><a href="../../download/">Downloads</a></li>
+					<li ><a href="../../tutorials/getting-started.html">Tutorials</a></li>
+					<li ><a href="../../docs/deepstream.html">Documentation</a></li>
+					<li ><a href="../../blog/">Blog</a></li>
+					<li class="active"><a href="../../info/">Info</a></li>
+				</ul>			</li>
+
+			<li class="footer-left">
+				<h4>Contact us</h4>
+				<p>
+					<b>deepstream.io </b>is developed by Hoxton One Ltd. <br>
+				</p>
+				<p>
+					Email us <a href="mailto:info@deepstream.io">info@deepstream.io</a>.<br><br>
+				</p>
+
+				<h4>Star this project on github!</h4>
+				<p>
+					<a class="github-button" href="https://github.com/hoxton-one/deepstream.io" data-icon="octicon-star" data-style="mega" data-count-href="/hoxton-one/deepstream.io/stargazers" data-count-api="/repos/hoxton-one/deepstream.io#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star hoxton-one/deepstream.io on GitHub">Star</a>
+				</p>
+			</li>
+
+		</ul>
+	</div>
+
+
+	<script>
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+		ga('create', 'UA-63583386-1', 'auto');
+		ga('send', 'pageview');
+	</script>
+	<script async defer id="github-bjs" src="https://buttons.github.io/buttons.js"></script>
+</body>
+</html>
