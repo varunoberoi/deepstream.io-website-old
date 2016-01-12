@@ -181,7 +181,12 @@ Scenario: The client attempts to subscribe to the same event multiple times
 #Scenario: The client tries to unsubscribe from an event it wasn&#x27;t previously subscribed to
 #	When the client unsubscribes from an event named &quot;test3&quot;
 #		And the server sends the message E|E|NOT_SUBSCRIBED|test3+
-#	Then the client throws a &quot;NOT_SUBSCRIBED&quot; error with message &quot;test3&quot;</code></pre>
+#	Then the client throws a &quot;NOT_SUBSCRIBED&quot; error with message &quot;test3&quot;
+
+#TODO Eventhandler needs to pass the client to convert typed
+#Scenario: The client receives a message with typed data, but an unknown type
+	#When the server sends the message E|EVT|someEvent|QXX+
+	#Then the client throws a MESSAGE_PARSE_ERROR error with message Unknown type XXX</code></pre>
     </div>
     <div class="section">  
         <a name="Events Connectivity"></a>
@@ -237,7 +242,6 @@ Scenario: The client resends the event listen
 	Then the server received the message E|L|eventPrefix/.*+
 
 Scenario: The client sends offline events
-	#TODO: Is this actually expected?
 	Then the server received the message E|EVT|test1|SyetAnotherValue+
 </code></pre>
     </div>

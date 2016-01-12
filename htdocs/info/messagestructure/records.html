@@ -189,8 +189,6 @@ Scenario: The server responds with ack and read
  
  Scenario: The client sends an partial update
  	When the client sets the record &quot;mergeRecord&quot; &quot;key&quot; to &quot;value4&quot;
- 	#TODO:  this doesn&#x27;t exist
- 	#And the server sends the message R|A|P|test1+
  
  Scenario: The client recieves an error saying version already exists
  	When the server sends the message R|E|VERSION_EXISTS|mergeRecord|102+
@@ -487,9 +485,7 @@ Scenario: The server does not respond in time with an ACK
 Scenario: The server does not recieve initial record data in time
  	When the server sends the message R|A|S|unhappyRecord+
  		And some time passes
- 	#TODO: readtimeout?
- 	# ACK_TIMEOUT is not too bad here, as it is the subscription that&#x27;s being acknowledged
- 	# Response timeout is for rpc responses. Let&#x27;s discuss
+ 	# TODO: Should this use another error code?
  	Then the client throws a &quot;RESPONSE_TIMEOUT&quot; error with message &quot;unhappyRecord&quot;
 
 Scenario: The server then recieves the initial record data
@@ -498,12 +494,6 @@ Scenario: The server then recieves the initial record data
 Scenario: The client sends an partial update
 	When the client sets the record &quot;unhappyRecord&quot; to {&quot;reasons&quot;:[&quot;Just Because.&quot;]}
 	Then the last message the server recieved is R|U|unhappyRecord|101|{&quot;reasons&quot;:[&quot;Just Because.&quot;]}+
-
-#@timeout
-#Scenario: The server does not respond in time with an ACK
-	#Given some time passes
-	#TODO: Do write acks actually exists?
-	#Then the client throws a ACK_TIMEOUT error with message unhappyRecord
 
 @timeout
 Scenario: The server send a cache retrieval timeout
@@ -579,17 +569,9 @@ Scenario: The client sends an partial update
 	When the client sets the record &quot;happyRecord&quot; &quot;pets.0.name&quot; to &quot;Max&quot;
 	Then the last message the server recieved is R|P|happyRecord|103|pets.0.name|SMax+
 
-Scenario: The server sends a write ACK message for happyRecord
-	#TODO:  this doesn&#x27;t exist
-	#Given the server sends the message R|A|P|happyRecord+
-
 Scenario: The client receives a full update
 	When the client sets the record &quot;happyRecord&quot; to {&quot;name&quot;:&quot;Smith&quot;,&quot;pets&quot;:[{&quot;name&quot;:&quot;Ruffus&quot;,&quot;type&quot;:&quot;dog&quot;,&quot;age&quot;:5}]}
 	Then the last message the server recieved is R|U|happyRecord|104|{&quot;name&quot;:&quot;Smith&quot;,&quot;pets&quot;:[{&quot;name&quot;:&quot;Ruffus&quot;,&quot;type&quot;:&quot;dog&quot;,&quot;age&quot;:5}]}+
-
-Scenario: The server sends a write ACK message for happyRecord
-	#TODO:  this doesn&#x27;t exist
-	#Given the server sends the message R|A|U|happyRecord+
 
 Scenario: The client discards the record
 	When the client discards the record named &quot;happyRecord&quot;
