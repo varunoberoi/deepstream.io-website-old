@@ -1,6 +1,6 @@
 {
-    "title": "Writing a basic Arduino deepstream client",
-    "dateISO": "20160111",
+    "title": "Controlling an Arduino from the browser using deepstream.io",
+    "dateISO": "20160112",
     "author": "yasserf",
     "thumbnail": "deepstream-clients.png"
 }

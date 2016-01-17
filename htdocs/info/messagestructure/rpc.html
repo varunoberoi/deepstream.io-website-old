@@ -173,8 +173,9 @@ Scenario: The client gets an ACK
 
 Scenario: The client loses it connection to the server
 	When the connection to the server is lost
-	Given some time passes
-	Then the clients connection state is &quot;RECONNECTING&quot;
+	Given two seconds later
+	Then the client throws a &quot;connectionError&quot; error with message &quot;Can&#x27;t connect! Deepstream server unreachable on localhost:7777&quot;
+		And the clients connection state is &quot;RECONNECTING&quot;
 	
 Scenario: The client reconnects to the server
 	When the connection to the server is reestablished
