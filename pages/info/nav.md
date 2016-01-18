@@ -9,36 +9,20 @@
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
 
-	<li class="head first">Message Specification</li>
-	<li {{#activeSpecPage 'index'}}class="active"{{/activeSpecPage}}>
-		<a href="{{link 'page' 'info/messagestructure/index.html'}}">Overview</a>
-		<div class="isActiveIndicator orangeGradient"></div>
-	</li>	
+	<li class="head">Protocol</li>
 	
 	<li {{#activeSpecPage 'writing-a-client'}}class="active"{{/activeSpecPage}}>
 		<a href="{{link 'page' 'info/messagestructure/writing-a-client.html'}}">Writing a Client</a>
 		<div class="isActiveIndicator orangeGradient"></div>
-	</li>	
+	</li>
 
-	{{#each messageSpecs.features}}	
-		<li {{#activeSpecPage @key}}class="active"{{/activeSpecPage}}>
-			{{#with @key}}
-			<a href="{{link 'page' 'info/messagestructure/{{this}}.html'}}">
-			{{/with}}
-			{{capitalizeFirstLetter @key}} Features</a>
-			<div class="isActiveIndicator orangeGradient"></div>
-			{{#activeSpecPage @key}}
-				<ul class="overview">
-					{{#each ../subNav}}
-					<li><a href="#{{this}}">{{this}}</a></li>
-					{{/each}}
-				</ul>
-			{{/activeSpecPage}}
-		</li>
-	{{/each}}
-	
+	<li {{#activeSpecPage 'index'}}class="active"{{/activeSpecPage}}>
+		<a href="{{link 'page' 'info/messagestructure/index.html'}}">Message Structure</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
 	<li {{#activeSpecPage 'spec'}}class="active"{{/activeSpecPage}}>
-		<a href="{{link 'page' 'info/messagestructure/specs.html'}}">Detailed Specs</a>
+		<a href="{{link 'page' 'info/messagestructure/specs.html'}}">All Messages</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 		{{#activeSpecPage 'spec'}}
 			<ul class="overview">
@@ -51,6 +35,26 @@
 			</ul>
 		{{/activeSpecPage}}
 	</li>
+
+	<li class="head">Client Specs</li>
+	{{#each messageSpecs.features}}	
+		<li {{#activeSpecPage @key}}class="active"{{/activeSpecPage}}>
+			{{#with @key}}
+			<a href="{{link 'page' 'info/messagestructure/{{this}}.html'}}">
+			{{/with}}
+			{{capitalizeFirstLetter @key}}</a>
+			<div class="isActiveIndicator orangeGradient"></div>
+			{{#activeSpecPage @key}}
+				<ul class="overview">
+					{{#each ../subNav}}
+					<li><a href="#{{this}}">{{this}}</a></li>
+					{{/each}}
+				</ul>
+			{{/activeSpecPage}}
+		</li>
+	{{/each}}
+	
+	
 
 {{!--
 	<li class="head first">Release Notes</li>

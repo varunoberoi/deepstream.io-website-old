@@ -73,52 +73,80 @@
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
 
-	<li class="head first">Message Specification</li>
-	<li >
-		<a href="../../info/messagestructure/index.html">Overview</a>
-		<div class="isActiveIndicator orangeGradient"></div>
-	</li>	
+	<li class="head">Protocol</li>
 	
 	<li class="active">
 		<a href="../../info/messagestructure/writing-a-client.html">Writing a Client</a>
 		<div class="isActiveIndicator orangeGradient"></div>
-	</li>	
+	</li>
 
+	<li >
+		<a href="../../info/messagestructure/index.html">Message Structure</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li >
+		<a href="../../info/messagestructure/specs.html">All Messages</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li class="head">Client Specs</li>
 		<li >
 			<a href="../../info/messagestructure/connectivity.html">
-			Connectivity Features</a>
+			Connectivity</a>
 			<div class="isActiveIndicator orangeGradient"></div>
 		</li>
 		<li >
 			<a href="../../info/messagestructure/parsing.html">
-			Parsing Features</a>
+			Parsing</a>
 			<div class="isActiveIndicator orangeGradient"></div>
 		</li>
 		<li >
 			<a href="../../info/messagestructure/rpc.html">
-			Rpc Features</a>
+			Rpc</a>
 			<div class="isActiveIndicator orangeGradient"></div>
 		</li>
 		<li >
 			<a href="../../info/messagestructure/records.html">
-			Records Features</a>
+			Records</a>
 			<div class="isActiveIndicator orangeGradient"></div>
 		</li>
 		<li >
 			<a href="../../info/messagestructure/events.html">
-			Events Features</a>
+			Events</a>
 			<div class="isActiveIndicator orangeGradient"></div>
 		</li>
 	
-	<li >
-		<a href="../../info/messagestructure/specs.html">Detailed Specs</a>
-		<div class="isActiveIndicator orangeGradient"></div>
-	</li>
+	
 
 </ul>
 
 			<div id="content">
-				<h1>Writing a Client</h1><p>Writing a deepstream client only requires a TCP connection, basic string manipulation and for convienience a JSON parser/builder if it isn&#39;t supported natively. What this means is that it can run using any programming language and with very basic hardware requirements.</p><p>What we will be covering here are the things to keep in mind when writing a client and an overview on some design approaches.</p><p>I would recommend you to first read how deepstream <a href="./index.html">message structure works</a>.</p><h1>Message Specifications</h1><p>You can now view all the different message structures <a href="./specs.html">here</a> as a reference for all the different messages on the system. If your not sure what a message you recieved means, want to find out if it has an associated ack or want a quick introduction into the low level protocol it&#39;s the perfect place to bookmark.</p><h1>Features</h1><p>Making sure your client works in the exact way the server expects it to can be quite challenging when running against a real server. Because of this, we covered all the features offered using <a href="https://cucumber.io/">cucumber</a>, a format that is supported by most of the popular programming languages.</p><p>What this means is you can test your client continuously while developing it using prewritten integration tests. These tests are continuously run against current clients and when you get them all passing provides the guarantee you&#39;re using the procotol correctly.</p><p>Before reading on, take a quick peek at <a href="./connectivity">the connectivity feature</a> to see how they look like.</p><div class="hint-box fa fa-gears">
+				<h1>Writing a deepstream client</h1><p>Deepstream is an open platform that uses a minimal, text-based protocol to communicate between server and client. Here’s an example of what this looks like.</p><pre><code class="lang-gherkin"># Connection established
+# Clients sends authentication request
+&gt; A|REQ|{&quot;username&quot;:&quot;XXX&quot;,&quot;password&quot;:&quot;YYY&quot;}+
+
+# Server acknowledges authentication
+&lt; A|A+
+
+# Client subscribes to some event
+&gt; E|S|someEvent+
+
+# Server acknowledges the subscription
+&lt; E|A|S|someEvent+
+
+# Server sends a message for this event
+# (the S in SmoreDetails indicates type:String)
+&lt; E|EVT|someEvent|Smore details+
+</code></pre>
+<p>Deepstream communicates via <a href="https://github.com/socketio/engine.io">engine.io</a> with browsers and via TCP for all other programming languages. Using a low level protocol like TCP means that pretty much everything, from basic Arduinos to enterprise Java servers can communicate with deepstream.</p><p>If you&#39;d like to write a client for your language of choice, have a look if there&#39;s <a href="https://github.com/hoxton-one/deepstream.io/labels/new-client">already an issue for it</a> and get in touch! We&#39;d be more than happy to help.</p><h1>Where to start?</h1><p>Here&#39;s how to tackle writing a deepstream client:</p><ul>
+<li>Have a look at the page on message structure (./index.html)</li>
+<li>Establish a TCP connection to a deepstream server</li>
+<li>Send an <a href="connectivity.html">auth message and parse the response</a></li>
+<li>Start by implementing <a href="events.html#Events">events</a> as they are the simplest feature</li>
+<li>Add Records, RPCs and - if supported - WebRTC</li>
+</ul>
+<p>Here are some more ressources and considerations that will prove useful in writing new clients.</p><h1>Message Specifications</h1><p>You can now view all the different message structures <a href="./specs.html">here</a> as a reference for all the different messages on the system. If your not sure what a message you recieved means, want to find out if it has an associated ack or want a quick introduction into the low level protocol it&#39;s the perfect place to bookmark.</p><h1>Features</h1><p>Making sure your client works in the exact way the server expects it to can be quite challenging when running against a real server. Because of this, we covered all the features offered using <a href="https://cucumber.io/">cucumber</a>, a format that is supported by most of the popular programming languages.</p><p>What this means is you can test your client continuously while developing it using prewritten integration tests. These tests are continuously run against current clients and when you get them all passing provides the guarantee you&#39;re using the procotol correctly.</p><p>Before reading on, take a quick peek at <a href="./connectivity">the connectivity feature</a> to see how they look like.</p><div class="hint-box fa fa-gears">
     <h3>Hint</h3>
     <ul>
         <li>

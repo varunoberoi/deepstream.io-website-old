@@ -4,14 +4,42 @@
     "description": "An introduction into how to write a client"
 }
 
-Writing a Client
+Writing a deepstream client
 ========================================
+Deepstream is an open platform that uses a minimal, text-based protocol to communicate between server and client. Here’s an example of what this looks like.
 
-Writing a deepstream client only requires a TCP connection, basic string manipulation and for convienience a JSON parser/builder if it isn't supported natively. What this means is that it can run using any programming language and with very basic hardware requirements.
+```gherkin
+# Connection established
+# Clients sends authentication request
+> A|REQ|{"username":"XXX","password":"YYY"}+
 
-What we will be covering here are the things to keep in mind when writing a client and an overview on some design approaches.
+# Server acknowledges authentication
+< A|A+
 
-I would recommend you to first read how deepstream [message structure works](./index.html).
+# Client subscribes to some event
+> E|S|someEvent+
+
+# Server acknowledges the subscription
+< E|A|S|someEvent+
+
+# Server sends a message for this event
+# (the S in SmoreDetails indicates type:String)
+< E|EVT|someEvent|Smore details+
+```
+
+Deepstream communicates via [engine.io](https://github.com/socketio/engine.io) with browsers and via TCP for all other programming languages. Using a low level protocol like TCP means that pretty much everything, from basic Arduinos to enterprise Java servers can communicate with deepstream.
+
+If you'd like to write a client for your language of choice, have a look if there's [already an issue for it](https://github.com/hoxton-one/deepstream.io/labels/new-client) and get in touch! We'd be more than happy to help.
+
+# Where to start?
+Here's how to tackle writing a deepstream client:
+- Have a look at the page on message structure (./index.html)
+- Establish a TCP connection to a deepstream server
+- Send an [auth message and parse the response](connectivity.html)
+- Start by implementing [events](events.html#Events) as they are the simplest feature
+- Add Records, RPCs and - if supported - WebRTC
+
+Here are some more ressources and considerations that will prove useful in writing new clients.
 
 # Message Specifications
 
