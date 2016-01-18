@@ -36,6 +36,7 @@ I would argue that the IoT has always been big, it’s the personalized IoT that
 - Producing faster microprocessors more cheaply enables IoT devices to run high level programming languages like Node that have a wider degree of adoption
 
 #### But it’s not like the old IoT has stagnated either
+<br />
 
 
 - It is now almost completely based on open protocols, rather than the proprietary ones of the past that were used to tie customers to a specific vendor.
@@ -49,6 +50,10 @@ However, at the moment, there is still a huge chasm dividing both IoT’s. The r
 
 There is, however, enormous opportunity in crossing this chasm. The new IoT provides valuable data about its users, their habits, daily routines and preferences. The old IoT generates detailed information about the environment they interact in. Combining both with big data crunching technology will lead to unprecedented (and slightly scary) insights into individual user’s behavioral patterns as well as into the systems they compose.
 
-#### Shameless plug
-Why is all this on my mind right now? Because we are currently looking into integrating with the old IoT. [deepstreamHub](http://deepstreamhub.com/), our upcoming realtime data platform has a concept of channels: pre-built integrations with third party services that allow you to directly stream e.g. Slack Messages or Stock Prices into your app. But channels are bidirectional and we’ve just started to investigate the possibility of developing channels for building management systems, process automation or even integrated healthcare. If you’ve got experience in the space and feel that this is either an absolutely superb or completely terrible idea: We’re very eager to hear your thoughts!
+#### What does it take to unite both IoTs?
+There are a number of possible integration and normalisation approaches for aggregating both IoTs.
+For [deepstreamHub](http://deepstreamhub.com/), our upcoming realtime data platform we use a concept of channels: pre-built integrations with third party services that allow you to directly stream realtime data, say Slack Messages or Stock Prices into your app. 
+But channels are bidirectional and could as well be used to control building management systems, process automation or even integrated healthcare. As long as you have a TCP endpoint, all it takes is to point your deepstreamHub channel towards it and its data and commands become available as a high level API within all connected browsers and backend processes.
+
+We’ve only just started looking into the possibilities of interfacing with the old IoT. If you’ve got experience in the space and feel that this is either an absolutely superb or completely terrible idea: we’re very eager to hear your thoughts! ([@deepstreamIO](https://twitter.com/deepstreamIO))
 
