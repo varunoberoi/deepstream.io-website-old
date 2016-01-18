@@ -267,6 +267,25 @@ h1.post-title {
     background: rgba(224, 224, 224, 0.15);
 }
 
+.post .img-box{
+	position: relative;
+	margin: 20px 0;
+}
+.post .img-box img{
+	display: block;
+}
+
+.post .img-box label{
+	font-size: 12px;
+	position: absolute;
+	bottom: 0;
+	display: block;
+	right: 0;
+	background: rgba( 0, 0, 0, 0.8 );
+	z-index: 1;
+	padding: 2px 10px;
+	color: #fff;
+}
 /*****
 * Side Bar
 ****/

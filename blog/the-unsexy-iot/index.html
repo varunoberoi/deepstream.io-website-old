@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>deepstream.io | Introducing deepstreamHub</title>
+	<title>deepstream.io | The unsexy IoT</title>
 
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<meta name="keywords" content="deepstream, deepstream.io, streaming, realtime, server, socket" />
-	<meta name="description" content="Ever since we’ve started working on deepstream.io, we’ve been toying with the idea of using it to build something bigger: A platform that makes it easy for developers from all backgrounds to build great real-time apps, using their own data as well as live feeds from a myriad of services." />
+	<meta name="description" content="A few years ago, when the first Rasperry Pi’s hit the scene, I was working at a tech company building trading apps. Like so many, the company had a strong focus on engineering with about 70 developers pitted against just 4 designers." />
 	<meta name="author" content="Wolfram Hempel" />
 	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 	<link rel="icon" href="/favicon.ico" type="image/x-icon">
@@ -29,7 +29,7 @@
 	<link rel="stylesheet" type="text/css" href="../../assets/css/prism.css" />
 </head>
 
-<body class="category_introducing-deepstreamhub ">
+<body class="category_the-unsexy-iot ">
 	<div class="mobile-menu">
 		<div class="nav mobile-nav">
 			<ul>
@@ -68,15 +68,35 @@
 	<div class="post">
 
 		<header class="post-header">
-			<h1 class="post-title">Introducing deepstreamHub</h1>
+			<h1 class="post-title">The unsexy IoT</h1>
 			<section class="post-meta">
 				By Wolfram Hempel
-				<span class="post-date">December 15th 2015</span>
+				<span class="post-date">January 18th 2016</span>
 			</section>
 		</header>
 
 		<section class="post-content">
-<p>Ever since we’ve started working on deepstream.io, we’ve been toying with the idea of using it to build something bigger: A platform that makes it easy for developers from all backgrounds to build great real-time apps, using their own data as well as live feeds from a myriad of services.</p><p>Today, we’re ready to announce that we’ve started developing just that: <strong>deepstreamHub</strong>.</p><p><a href="./deepstream-hub-750.png"><img src="deepstream-hub-750.png" alt="deepstreamHub"></a></p><p>deepstreamHub will be a hosted deepstream cluster in the cloud, comparable to Firebase, Pusher or realtime.co, but offering the full deepstream feature set of data-sync, pub-sub, request-response and WebRTC.</p><p>Where it gets really interesting though are deepstreamHub’s <strong>Channels</strong>. Channels let you stream data from third party services directly into your frontend – without any integration code.</p><h3>Here’s how it works:</h3><p>Channels let you connect to a wide array of services. Collaboration tools (e.g. Trello, Google Docs), communication (e.g. Slack), dev-tools (e.g. Github), social networks, content management systems etc…</p><p>We&#39;re also planning premium channels for Financial Data, Sports Results, Payment, CRM systems and so on. Whichever channels you add to your app, the process is always the same:</p><p>1) Select one or more channels:</p><p><a href="./dshub-select-channel.png"><img src="dshub-select-channel.png" alt="Selecting a channel"></a></p><p>2) Add the channel:</p><p>View the channel description to get a clear view on the type of data the channel provides</p><p><a href="./dshub-add-channel.png"><img src="dshub-add-channel.png" alt="Adding a channel"></a></p><p>3) Authenticate:</p><p>Authenticate with the third party service to work with deepstreamHub</p><p><a href="./dshub-authenticate-channel.png"><img src="dshub-authenticate-channel.png" alt="Authenticate a channel"></a></p><p>4) Use it</p><p>And that’s it! From here on your channel’s real-time data is available to all connected front or backend services as ds-records, lists or events.</p><p>If you’d like to learn more, follow us on <a href="https://twitter.com/deepstreamIO">twitter</a> or subscribe to our newsletter. And of course, give deepstream.io a try…it’s actually quite neat.</p>
+<p>A few years ago, when the first Rasperry Pi’s hit the scene, I was working at a tech company building trading apps. Like so many, the company had a strong focus on engineering with about 70 developers pitted against just 4 designers.</p><p>One day, a package arrived. Naturally, the man that came to pick it up had a beard - but a well groomed one. He - of course - wore a checkered shirt - but I couldn’t help notice that it was not only ironed, but also matched his shoes. And yes, he carried a laptop everywhere. But the laptop he carried was a Mac and the bag he carried it in was vintage leather. In short, he was a designer - and the package contained the first Raspberry PI I’ve ever seen.</p><p>Surprisingly few of the techies cared about this strange machine at first, but the UX team got excited straight away, started playing with it and argued about its cool new use cases.</p><h4>How come?</h4><p>Raspberry PIs are part of a new generation of clever IoT devices: Arduinos, Nest Thermostats or Philip’s remote controllable light bulbs - easily accessible, well designed and sleek (ok, maybe not Arduinos).
+They appeal to a wide audience and spark the imagination of users, founders and investors alike. And most importantly, they excite us about what&#39;s to come: smart homes, self driving cars and connected everything - in short: the sexy IoT.</p><p>But, the Internet of Things isn’t new. At all. And while more than five million Rasperry PIs or a potentially even bigger number of Arduino copies sold around the world make for impressive numbers, they are severely dwarfed by the other IoT. The older IoT. The unsexy one.</p><div class="img-box">
+    <img src="thermostats.png" alt="Thermostats" />
+    <label>Nest Thermostat and Siemens Climatix 600 Controller</label>
+</div>
+
+<h4>The other IoT</h4><p>Many of the IoT’s core use cases: Building and home automation, environmental monitoring or infrastructure management not only precede the current generation of devices, they precede the World Wide Web itself. 
+BACnet, still one of the most widely used building automation protocols was developed in 1987, LonTalk in 1988 and X10, a granddaddy of modern smart home protocols like ZigBee or Z-Wave goes back as far as 1975.</p><p>So, how come the IoT only recently became the “next big thing”?
+I would argue that the IoT has always been big, it’s the personalized IoT that has taken the spotlight lately. This is fueled by the alignment of a number of trends</p><ul>
+<li><p>Hardware production costs dropped significantly, making the IoT cheaper and facilitating micro-appliances like Amazon’s Dash button or Roost’s smart batteries</p></li>
+<li><p>We have become more comfortable with sharing personal data, e.g. when it comes to incorporating wearables or fitness trackers into our daily routine.</p></li>
+<li><p>Producing faster microprocessors more cheaply enables IoT devices to run high level programming languages like Node that have a wider degree of adoption</p></li>
+</ul>
+<h4>But it’s not like the old IoT has stagnated either</h4><p><br /></p><ul>
+<li><p>It is now almost completely based on open protocols, rather than the proprietary ones of the past that were used to tie customers to a specific vendor.</p></li>
+<li><p>IPv6 has massively increased the number of available IPs, allowing every sensor and relay within a system to be addressable from the public internet</p></li>
+<li><p>UX and Usability is playing an increasing role in the design of Management Systems. (It’s still a long way away from e.g. Nest’s products, but there is a clear trend)</p></li>
+</ul>
+<h4>Crossing the chasm</h4><p>However, at the moment, there is still a huge chasm dividing both IoT’s. The reasons for this are complex, but amongst them are the differences in culture, technology, agility and enterprise-suitability that distinguish the companies in both spaces.</p><p>There is, however, enormous opportunity in crossing this chasm. The new IoT provides valuable data about its users, their habits, daily routines and preferences. The old IoT generates detailed information about the environment they interact in. Combining both with big data crunching technology will lead to unprecedented (and slightly scary) insights into individual user’s behavioral patterns as well as into the systems they compose.</p><h4>What does it take to unite both IoTs?</h4><p>There are a number of possible integration and normalisation approaches for aggregating both IoTs.
+For <a href="http://deepstreamhub.com/">deepstreamHub</a>, our upcoming realtime data platform we use a concept of channels: pre-built integrations with third party services that allow you to directly stream realtime data, say Slack Messages or Stock Prices into your app. 
+But channels are bidirectional and could as well be used to control building management systems, process automation or even integrated healthcare. As long as you have a TCP endpoint, all it takes is to point your deepstreamHub channel towards it and its data and commands become available as a high level API within all connected browsers and backend processes.</p><p>We’ve only just started looking into the possibilities of interfacing with the old IoT. If you’ve got experience in the space and feel that this is either an absolutely superb or completely terrible idea: we’re very eager to hear your thoughts! (<a href="https://twitter.com/deepstreamIO">@deepstreamIO</a>)</p>
 		</section>
 
 		<footer class="post-footer">
@@ -108,7 +128,7 @@
 				<h4>Share this post</h4>
 				<ul class="icons">
 					<li>
-						<a class="icon fa fa-twitter" href="https://twitter.com/share?text=Introducing deepstreamHub @deepstreamhub&amp;url="
+						<a class="icon fa fa-twitter" href="https://twitter.com/share?text=The unsexy IoT @deepstreamhub&amp;url="
 							onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
 							<span class="label">Twitter</span>
 						</a>
@@ -135,7 +155,7 @@
 			</h4>
 			<li class="latest-blogs-content">
 				<ul class="latest-blog-article">
-					<a href="..\the-unsexy-iot\">
+					<a href="">
 						<span class="date">18/01/2016</span>
 						<span class="title">The unsexy IoT</span>
 					</a>
@@ -153,7 +173,7 @@
 					</a>
 				</ul>
 				<ul class="latest-blog-article">
-					<a href="">
+					<a href="..\introducing-deepstreamhub\">
 						<span class="date">15/12/2015</span>
 						<span class="title">Introducing deepstreamHub</span>
 					</a>
@@ -210,7 +230,7 @@
 				</h4>
 				<li class="latest-blogs-content">
 					<ul class="latest-blog-article">
-						<a href="..\the-unsexy-iot\">
+						<a href="">
 							<span class="date">18/01/2016</span>
 							<span class="title">The unsexy IoT</span>
 						</a>
@@ -228,7 +248,7 @@
 						</a>
 					</ul>
 					<ul class="latest-blog-article">
-						<a href="">
+						<a href="..\introducing-deepstreamhub\">
 							<span class="date">15/12/2015</span>
 							<span class="title">Introducing deepstreamHub</span>
 						</a>
