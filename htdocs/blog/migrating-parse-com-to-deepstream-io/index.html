@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>deepstream.io | Introducing deepstreamHub</title>
+	<title>deepstream.io | Migrating from Parse.com to deepstream.io</title>
 
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<meta name="keywords" content="deepstream, deepstream.io, streaming, realtime, server, socket" />
-	<meta name="description" content="Ever since we’ve started working on deepstream.io, we’ve been toying with the idea of using it to build something bigger: A platform that makes it easy for developers from all backgrounds to build great real-time apps, using their own data as well as live feeds from a myriad of services." />
+	<meta name="description" content="Writing this feels almost irreverent. Parse.com was a great platform and despite its stability issues one of the most innovative and clever technologies in the realtime space. It was one of the great inspirations for deepstream.io and it took us very much by surprise to " />
 	<meta name="author" content="Wolfram Hempel" />
 	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 	<link rel="icon" href="/favicon.ico" type="image/x-icon">
@@ -29,7 +29,7 @@
 	<link rel="stylesheet" type="text/css" href="../../assets/css/prism.css" />
 </head>
 
-<body class="category_introducing-deepstreamhub ">
+<body class="category_migrating-parse-com-to-deepstream-io ">
 	<div class="mobile-menu">
 		<div class="nav mobile-nav">
 			<ul>
@@ -68,15 +68,74 @@
 	<div class="post">
 
 		<header class="post-header">
-			<h1 class="post-title">Introducing deepstreamHub</h1>
+			<h1 class="post-title">Migrating from Parse.com to deepstream.io</h1>
 			<section class="post-meta">
 				By Wolfram Hempel
-				<span class="post-date">December 15th 2015</span>
+				<span class="post-date">January 29th 2016</span>
 			</section>
 		</header>
 
 		<section class="post-content">
-<p>Ever since we’ve started working on deepstream.io, we’ve been toying with the idea of using it to build something bigger: A platform that makes it easy for developers from all backgrounds to build great real-time apps, using their own data as well as live feeds from a myriad of services.</p><p>Today, we’re ready to announce that we’ve started developing just that: <strong>deepstreamHub</strong>.</p><p><a href="./deepstream-hub-750.png"><img src="deepstream-hub-750.png" alt="deepstreamHub"></a></p><p>deepstreamHub will be a hosted deepstream cluster in the cloud, comparable to Firebase, Pusher or realtime.co, but offering the full deepstream feature set of data-sync, pub-sub, request-response and WebRTC.</p><p>Where it gets really interesting though are deepstreamHub’s <strong>Channels</strong>. Channels let you stream data from third party services directly into your frontend – without any integration code.</p><h3>Here’s how it works:</h3><p>Channels let you connect to a wide array of services. Collaboration tools (e.g. Trello, Google Docs), communication (e.g. Slack), dev-tools (e.g. Github), social networks, content management systems etc…</p><p>We&#39;re also planning premium channels for Financial Data, Sports Results, Payment, CRM systems and so on. Whichever channels you add to your app, the process is always the same:</p><p>1) Select one or more channels:</p><p><a href="./dshub-select-channel.png"><img src="dshub-select-channel.png" alt="Selecting a channel"></a></p><p>2) Add the channel:</p><p>View the channel description to get a clear view on the type of data the channel provides</p><p><a href="./dshub-add-channel.png"><img src="dshub-add-channel.png" alt="Adding a channel"></a></p><p>3) Authenticate:</p><p>Authenticate with the third party service to work with deepstreamHub</p><p><a href="./dshub-authenticate-channel.png"><img src="dshub-authenticate-channel.png" alt="Authenticate a channel"></a></p><p>4) Use it</p><p>And that’s it! From here on your channel’s real-time data is available to all connected front or backend services as ds-records, lists or events.</p><p>If you’d like to learn more, follow us on <a href="https://twitter.com/deepstreamIO">twitter</a> or subscribe to our newsletter. And of course, give deepstream.io a try…it’s actually quite neat.</p>
+<p>Writing this feels almost irreverent. Parse.com was a great platform and despite its stability issues one of the most innovative and clever technologies in the realtime space. It was one of the great inspirations for deepstream.io and it took us very much by surprise to <a href="http://blog.parse.com/announcements/moving-on/">see it being shut down</a>.</p><p><img src="parse-deepstream.png" alt="parse.com and deepstream.io"></p><h4>What’s deepstream.io and how can it help with my parse.com app?</h4><p><a href="http://deepstream.io/">deepstream.io</a> is a scalable open source realtime server written in NodeJS. It can be used in both browsers and backend services through client SDKs, offers powerful user handling and permissioning, can be connected to databases, caches and message queues and scales horizontally via clustering.</p><p>Deepstream clients are small, self-contained and framework agnostic. They can easily be used with <a href="http://deepstream.io/tutorials/simple-app-using-react.html">React</a>, <a href="http://deepstream.io/tutorials/simple-app-using-angular.html">Angular</a>, <a href="http://deepstream.io/tutorials/simple-app-using-ko.html">Knockout</a>, <a href="http://backbonejs.org/">Backbone</a> or whatever else your heart desires.</p><h4>What do deepstream.io and parse.com have in common?</h4><p>deepstream.io offers data-sync via <code>records</code> which are very similar to <code>Parse.Object</code>. Records have a unique ID, <code>get()</code> and <code>set()</code> methods and can be used to store, manipulate and observe data in schemaless JSON structures.</p><p>deepstream.io is designed as a modular platform, which makes it possible to replicate parse.com’s more advanced features using deepstream connectors. This means that advanced realtime queries and GeoPoints are supported through <a href="http://deepstream.io/download/">deepstream’s RethinkDB integration</a> and mobile push notifications can be achieved <a href="http://deepstream.io/blog/publishing-aws-sns-messages-to-browsers-tutorial/">via AWS SNS</a></p><h4>What does deepstream.io support that parse.com does not</h4><p>Deepstream doesn&#39;t just offer data-sync via <code>records</code>, but also publish-subscribe (comparable to Pusher or PubNub) via <code>events</code>, request-response via <code>RPC</code> (remote procedure call) and even WebRTC video call management.</p><h4>What does parse.com support that deepstream.io does not.</h4><p>deepstream.io is a server, not a service. Things like data browsing, permissions or active sessions are done programmatically, rather than trough a dashboard.
+Whilst deepstream record’s can be bigger than Parse.Objects, (1MB instead of 128k), it does not support binary files. So there is no substitute for <code>Parse.File</code>.
+Finally, Parse.com offers a significantly wider range of available client&#39;s and SDKs for different languages. <a href="https://github.com/hoxton-one/deepstream.io/issues?q=is%3Aissue+is%3Aopen+label%3Anew-client">This is something we are actively working on, any help is very much appreciated</a></p><h4>Migrating from Parse.Object to deepstream records</h4><p>Records are the key concept for deepstream&#39;s data-sync. They are a unit of schemaless JSON data that&#39;s synced between clients.
+Records are simply meant to be used, rather than extended. Each deepstream record is identified by a unique name. In difference to parse, these names have to be created explicitly. It&#39;s also worth noting that there is no difference between creating a new record and retrieving an existing one, you always just use <code>getRecord()</code></p><pre><code class="lang-javascript">//parse.com
+GameScore = Parse.Object.extend(&quot;GameScore&quot;);
+gameScore = new GameScore();
+
+//deepstream.io
+gameScore = ds.record.getRecord( &#39;gamescore/yankees-vs-mets-2015&#39; );
+gameScore = ds.record.getRecord( &#39;gamescore/&#39; + ds.getUid() ); // or just generate a Unique ID
+</code></pre>
+<p>This highlights an important difference between parse and deepstream. Following backbone.js principles, Parse automatically arranges objects in collections. You create a class of a type <code>GameScore</code> and every new instance is part of a GameScore collection. 
+<a href="http://deepstream.io/tutorials/lists.html">Deepstream also offers a concept of collections, called <code>List</code></a>, but records have to be explicitly added to them.</p><h4>Getting values</h4><p>Both <code>Parse.Object</code> and deepstream records have a method called <code>get()</code> that works almost identically.</p><pre><code class="lang-javascript">//deepstream.io
+data = gameScore.get(); //returns the entire data
+playerName = gameScore.get( &#39;playerName&#39; ); //retrieves a value
+</code></pre>
+<p>As deepstream records can be any JSON structure, deepstream&#39;s <code>get()</code> can be used with paths in JSON notation as well, e.g.</p><pre><code class="lang-javascript">firstname = gameScore.get( &#39;player.firstname&#39; ); //Use dot notation to traverse objects
+lastSpouse = gameScore.get( &#39;player.spouses[0]&#39; ); //Arrays work as well
+</code></pre>
+<h4>Setting values</h4><p>Setting values is pretty much the same between Parse and deepstream. Both have a <code>set()</code> method that takes a key (or even a JSON path in deepstream) and a value. <strong><em>The main difference is that deepstream sends a small, atomic update message every time <code>set()</code> is called to immediately sync the state between all connected clients. So there is no equivalent of Parse&#39;s <code>save()</code> call</em></strong></p><pre><code class="lang-javascript">
+//Calling set() with one parameter sets the entire data
+gameScore.set({
+    player: {
+        firstname: &#39;Sergio&#39;,
+        lastname: &#39;Santos&#39;
+    },
+    spouses: [ &#39;Kristen Santos&#39; ]
+});
+
+//Calling set with a key or path and a value
+gameScore.set( &#39;result&#39;, &#39;3-0&#39; );
+gameScore.set( &#39;player.middleName&#39;, &#39;Jose&#39;); //If a path doesn&#39;t exist, it willb e created
+</code></pre>
+<h4>Listening for changes</h4><p>deepstream records update in realtime. Any change made by any client is immediately synced across all connected clients. To listen for changes, use <code>subscribe()</code></p><pre><code class="lang-javascript">//Using subscribe with just a callback function calls this function for any change
+gameScore.subscribe(function( data ){});
+
+//Using a path notifies you whenever that path&#39;s value has changed
+gameScore.subscribe( &#39;homeTeam&#39;, function( homeTeamScore ){});
+</code></pre>
+<h4>Discarding and Deleting Objects</h4><p>Deepstream records have a <code>delete()</code> method which works similar to Parse&#39;s <code>destroy()</code>: It deletes the record from the database. Once the record is deleted, all connected clients will receive a <code>delete</code> event on their records.</p><p>Not to be confused with <code>delete()</code> is <code>discard()</code>. Calling <code>discard()</code> frees up bandwidth by telling the deepstream server that you are no longer interested in updates for this record.</p><h4>Relational Data</h4><p>deepstream let&#39;s you create trees of relational data by combining lists and records. List&#39;s don&#39;t contain data themselves, but are observable collections of record names. As records can reference lists and lists can point to records this allows you to create and manipulate one-to-many and many-to-many structures that are synced across all connected clients.</p><h4>Users, Roles &amp; Permissions</h4><p>deepstream is build to interface with other user management systems, e.g. databases, single-sign-on systems or active directories. As a result, it uses a functional style of authentication and permissioning, rather than Parse&#39;s configuration based approach. 
+There is a lot to be said about permissioning. To gain a good understanding, have a look at the <a href="http://deepstream.io/tutorials/authentication.html">authentication</a> and <a href="http://deepstream.io/tutorials/permissioning.html">permissioning</a> tutorials.</p><p>The center of deepstream&#39;s permissioning is a <code>permission-handler</code>, a class that can be registered with your server and exposes three methods</p><pre><code class="lang-javascript">server.set( &#39;permissionHandler&#39;, {
+    isValidUser: function( connectionData, authData, callback ) {
+        //authorize or reject incoming client connections here
+    },
+    canPerformAction: function( username, message, callback ) {
+        //permission individual operations here
+    },
+    onClientDisconnect: function( username ){
+        //optional clean-up once a client has disconnected
+    }
+});
+</code></pre>
+<p>Every time a client establishes a new connection to the server, it needs to login:</p><pre><code class="lang-javascript">ds.login({
+    user: &#39;LisaA&#39;,
+    password: &#39;sesame&#39;
+}, function( success, errorCode, errorMessage ){
+    //...
+});
+</code></pre>
+<h4>Where to go from here</h4><p>To get a feel for how deepstream.io works and if it might be a good fit for your application&#39;s realtime backend, give the <a href="http://deepstream.io/tutorials/getting-started.html">getting started</a> tutorial a go.</p><p>If you have any questions, just raise them on <a href="http://stackoverflow.com/questions/tagged/deepstream.io">StackOverflow</a>, join our <a href="https://deepstream-slack.herokuapp.com/">Slack Channel</a> or get in touch via Twitter (<a href="https://twitter.com/deepstreamIO">@deepstreamIO</a>)</p>
 		</section>
 
 		<footer class="post-footer">
@@ -108,7 +167,7 @@
 				<h4>Share this post</h4>
 				<ul class="icons">
 					<li>
-						<a class="icon fa fa-twitter" href="https://twitter.com/share?text=Introducing deepstreamHub @deepstreamhub&amp;url="
+						<a class="icon fa fa-twitter" href="https://twitter.com/share?text=Migrating from Parse.com to deepstream.io @deepstreamhub&amp;url="
 							onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
 							<span class="label">Twitter</span>
 						</a>
@@ -135,7 +194,7 @@
 			</h4>
 			<li class="latest-blogs-content">
 				<ul class="latest-blog-article">
-					<a href="..\migrating-parse-com-to-deepstream-io\">
+					<a href="">
 						<span class="date">29/01/2016</span>
 						<span class="title">Migrating from Parse.com to deepstream.io</span>
 					</a>
@@ -159,7 +218,7 @@
 					</a>
 				</ul>
 				<ul class="latest-blog-article">
-					<a href="">
+					<a href="..\introducing-deepstreamhub\">
 						<span class="date">15/12/2015</span>
 						<span class="title">Introducing deepstreamHub</span>
 					</a>
@@ -216,7 +275,7 @@
 				</h4>
 				<li class="latest-blogs-content">
 					<ul class="latest-blog-article">
-						<a href="..\migrating-parse-com-to-deepstream-io\">
+						<a href="">
 							<span class="date">29/01/2016</span>
 							<span class="title">Migrating from Parse.com to deepstream.io</span>
 						</a>
@@ -240,7 +299,7 @@
 						</a>
 					</ul>
 					<ul class="latest-blog-article">
-						<a href="">
+						<a href="..\introducing-deepstreamhub\">
 							<span class="date">15/12/2015</span>
 							<span class="title">Introducing deepstreamHub</span>
 						</a>
