@@ -2,14 +2,13 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>deepstream.io | Publishing AWS SNS messages to browsers</title>
+	<title>deepstream.io | Migrating from Parse.com to deepstream.io</title>
 
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<meta name="keywords" content="deepstream, deepstream.io, streaming, realtime, server, socket" />
-	<meta name="description" content="Sending the same message to Smartphones, Email inboxes and VoIP clients on an Amazon scale? Sounds great! And that’s exactly what AWS’ Simple Notification Service lets you do. It’s a realtime-pub-sub-hub that lets you fan out the same data to AWS services like SQS or Lambda as well as to a wide range of connected devices. 
-There’s one thing though it doesn’t do: send your message directly to web browsers. Here’s how to close this gap with a bit of deepstream.io." />
+	<meta name="description" content="Writing this feels almost irreverent. Parse.com was a great platform and despite its stability issues one of the most innovative and clever technologies in the realtime space. It was one of the great inspirations for deepstream.io and it took us very much by surprise to " />
 	<meta name="author" content="Wolfram Hempel" />
 	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 	<link rel="icon" href="/favicon.ico" type="image/x-icon">
@@ -30,7 +29,7 @@ There’s one thing though it doesn’t do: send your message directly to web br
 	<link rel="stylesheet" type="text/css" href="../../assets/css/prism.css" />
 </head>
 
-<body class="category_publishing-aws-sns-messages-to-browsers-tutorial ">
+<body class="category_migrating-parse-com-to-deepstream-io ">
 	<div class="mobile-menu">
 		<div class="nav mobile-nav">
 			<ul>
@@ -69,114 +68,74 @@ There’s one thing though it doesn’t do: send your message directly to web br
 	<div class="post">
 
 		<header class="post-header">
-			<h1 class="post-title">Publishing AWS SNS messages to browsers</h1>
+			<h1 class="post-title">Migrating from Parse.com to deepstream.io</h1>
 			<section class="post-meta">
 				By Wolfram Hempel
-				<span class="post-date">January 4th 2016</span>
+				<span class="post-date">January 29th 2016</span>
 			</section>
 		</header>
 
 		<section class="post-content">
-<p>Sending the same message to Smartphones, Email inboxes and VoIP clients on an Amazon scale? Sounds great! And that’s exactly what AWS’ Simple Notification Service lets you do. It’s a realtime-pub-sub-hub that lets you fan out the same data to AWS services like SQS or Lambda as well as to a wide range of connected devices. 
-There’s one thing though it doesn’t do: send your message directly to web browsers. Here’s how to close this gap with a bit of deepstream.io.</p><h3>The basic setup</h3><p>In this tutorial, we’ll build a “sns-provider”, a node process that subscribes to a SNS topic and forwards its messages as deepstream events. For this to work, our provider needs to</p><ul>
-<li>Authenticate against AWS</li>
-<li>Become a SNS HTTP endpoint</li>
-<li>Subscribe to a SNS topic</li>
-<li>Connect to deepstream</li>
-<li>Forward incoming messages as deepstream events</li>
-</ul>
-<p>Phew, that sounds like a lot! But, it’s actually not that bad. Here’s what our setup will look like</p><p><img src="aws-sns-to-deepstream.png" alt="Basic Setup"></p><p>If you prefer diving right into the code, check out the <a href="https://github.com/hoxton-one/ds-tutorial-aws-sns">github repo</a></p><h3>A bit of a disclaimer</h3><p>For brevities sake, this tutorial skimps on security. AWS security is extremely powerful, but also complex enough to have <a href="http://media.amazonwebservices.com/AWS_Security_Best_Practices.pdf">whole books written about it</a>. We’ll be using http instead of https, temporary security tokens (which is a good idea), but store them as plain text in our code (which is not) and a deepstream.io server that’s open to the world, instead of <a href="http://deepstream.io/tutorials/authentication.html">properly permissioned</a>.
-This tutorial also assumes that you&#39;re already familiar with deepstream&#39;s basic concepts. If not, quickly head over to the <a href="http://deepstream.io/tutorials/getting-started.html">getting started</a> tutorial - don&#39;t worry, I&#39;ll wait.</p><h3>Let’s get started: Creating a topic.</h3><p>We’ll start by creating a topic via the AWS console. Topics are the fundamental concept for message routing in a pub-sub architecture: Many subscribers listen to a topic and are notified whenever something publishes a message on that topic. Basically, it’s like JavaScript events, but you have to create a topic before you can subscribe.
-Let’s create a topic called “news” via the console:</p><p><img src="create-sns-topic.png" alt="Creating a SNS topic via the console"></p><h3>Create the http server</h3><p>Next up, we need to start an http server. Why? The way SNS notifies your application of incoming messages is via HTTP.  For this to work, your application needs to:</p><ul>
-<li>Start a HTTP server</li>
-<li>Subscribe to a topic and tell SNS which URL it should send updates to</li>
-<li>Receive a “do you really want to receive updates?” message on that URL</li>
-<li>Confirm that message</li>
-</ul>
-<p>And from there on, it receives all updates as incoming http requests. A few things to note about these requests:</p><ul>
-<li>All incoming requests are POST requests</li>
-<li>The message data is JSON encoded</li>
-<li>Each message contains a &quot; x-amz-sns-message-type” header that tells you which kind of message it is (e.g. “SubscriptionConfirmation” or “Notification”)</li>
-</ul>
-<p>With this in mind, here’s what our http server looks like</p><pre><code class="lang-javascript">function createHttpServer() {
-    var server = new http.Server();
-    server.on( &#39;request&#39;, function( request, response ){
-        request.setEncoding( &#39;utf8&#39; );
+<p>Writing this feels almost irreverent. Parse.com was a great platform and despite its stability issues one of the most innovative and clever technologies in the realtime space. It was one of the great inspirations for deepstream.io and it took us very much by surprise to <a href="http://blog.parse.com/announcements/moving-on/">see it being shut down</a>.</p><p><img src="parse-deepstream.png" alt="parse.com and deepstream.io"></p><h4>What’s deepstream.io and how can it help with my parse.com app?</h4><p><a href="http://deepstream.io/">deepstream.io</a> is a scalable open source realtime server written in NodeJS. It can be used in both browsers and backend services through client SDKs, offers powerful user handling and permissioning, can be connected to databases, caches and message queues and scales horizontally via clustering.</p><p>Deepstream clients are small, self-contained and framework agnostic. They can easily be used with <a href="http://deepstream.io/tutorials/simple-app-using-react.html">React</a>, <a href="http://deepstream.io/tutorials/simple-app-using-angular.html">Angular</a>, <a href="http://deepstream.io/tutorials/simple-app-using-ko.html">Knockout</a>, <a href="http://backbonejs.org/">Backbone</a> or whatever else your heart desires.</p><h4>What do deepstream.io and parse.com have in common?</h4><p>deepstream.io offers data-sync via <code>records</code> which are very similar to <code>Parse.Object</code>. Records have a unique ID, <code>get()</code> and <code>set()</code> methods and can be used to store, manipulate and observe data in schemaless JSON structures.</p><p>deepstream.io is designed as a modular platform, which makes it possible to replicate parse.com’s more advanced features using deepstream connectors. This means that advanced realtime queries and GeoPoints are supported through <a href="http://deepstream.io/download/">deepstream’s RethinkDB integration</a> and mobile push notifications can be achieved <a href="http://deepstream.io/blog/publishing-aws-sns-messages-to-browsers-tutorial/">via AWS SNS</a></p><h4>What does deepstream.io support that parse.com does not</h4><p>Deepstream doesn&#39;t just offer data-sync via <code>records</code>, but also publish-subscribe (comparable to Pusher or PubNub) via <code>events</code>, request-response via <code>RPC</code> (remote procedure call) and even WebRTC video call management.</p><h4>What does parse.com support that deepstream.io does not.</h4><p>deepstream.io is a server, not a service. Things like data browsing, permissions or active sessions are done programmatically, rather than trough a dashboard.
+Whilst deepstream record’s can be bigger than Parse.Objects, (1MB instead of 128k), it does not support binary files. So there is no substitute for <code>Parse.File</code>.
+Finally, Parse.com offers a significantly wider range of available client&#39;s and SDKs for different languages. <a href="https://github.com/hoxton-one/deepstream.io/issues?q=is%3Aissue+is%3Aopen+label%3Anew-client">This is something we are actively working on, any help is very much appreciated</a></p><h4>Migrating from Parse.Object to deepstream records</h4><p>Records are the key concept for deepstream&#39;s data-sync. They are a unit of schemaless JSON data that&#39;s synced between clients.
+Records are simply meant to be used, rather than extended. Each deepstream record is identified by a unique name. In difference to parse, these names have to be created explicitly. It&#39;s also worth noting that there is no difference between creating a new record and retrieving an existing one, you always just use <code>getRecord()</code></p><pre><code class="lang-javascript">//parse.com
+GameScore = Parse.Object.extend(&quot;GameScore&quot;);
+gameScore = new GameScore();
 
-        //concatenate POST data
-        var msgBody = &#39;&#39;;
-        request.on( &#39;data&#39;, function( data ){ 
-            msgBody += data;
-        });
-        request.on( &#39;end&#39;, function(){
-            var msgData = parseJSON( msgBody );
-            var msgType = request.headers[ &#39;x-amz-sns-message-type&#39; ];
-            handleIncomingMessage( msgType, msgData );
-        });
-
-        // SNS doesn&#39;t care about our response as long as it comes
-        // with a HTTP statuscode of 200
-        response.end( &#39;OK&#39; );
-    });
-
-    server.listen( 6001, subscribeToSnS );
-}
+//deepstream.io
+gameScore = ds.record.getRecord( &#39;gamescore/yankees-vs-mets-2015&#39; );
+gameScore = ds.record.getRecord( &#39;gamescore/&#39; + ds.getUid() ); // or just generate a Unique ID
 </code></pre>
-<p>Oh, and before I forget: Your http server needs to be accessible from the internet. If you&#39;re running it locally, you might want to use a tool like <a href="https://ngrok.com/">ngrok</a> to make this possible.</p><h3>Subscribing to a topic</h3><p>Using the <a href="https://aws.amazon.com/sdk-for-node-js/">AWS-SDK for NodeJS</a>, subscribing to a topic is as easy as</p><pre><code class="lang-javascript">var AWS = require(&#39;aws-sdk&#39;);
-var sns = new AWS.SNS();
-
-sns.subscribe({
-    Protocol: &#39;http&#39;,
-    //You don&#39;t just subscribe to &quot;news&quot;, but the whole Amazon Resource Name (ARN)
-    TopicArn: &#39;arn:aws:sns:eu-central-1:792569207202:news&#39;,
-    Endpoint: &#39;http://your-endpoint-url.com&#39;
-}, function( error, data ) {
-    console.log( error || data );
+<p>This highlights an important difference between parse and deepstream. Following backbone.js principles, Parse automatically arranges objects in collections. You create a class of a type <code>GameScore</code> and every new instance is part of a GameScore collection. 
+<a href="http://deepstream.io/tutorials/lists.html">Deepstream also offers a concept of collections, called <code>List</code></a>, but records have to be explicitly added to them.</p><h4>Getting values</h4><p>Both <code>Parse.Object</code> and deepstream records have a method called <code>get()</code> that works almost identically.</p><pre><code class="lang-javascript">//deepstream.io
+data = gameScore.get(); //returns the entire data
+playerName = gameScore.get( &#39;playerName&#39; ); //retrieves a value
+</code></pre>
+<p>As deepstream records can be any JSON structure, deepstream&#39;s <code>get()</code> can be used with paths in JSON notation as well, e.g.</p><pre><code class="lang-javascript">firstname = gameScore.get( &#39;player.firstname&#39; ); //Use dot notation to traverse objects
+lastSpouse = gameScore.get( &#39;player.spouses[0]&#39; ); //Arrays work as well
+</code></pre>
+<h4>Setting values</h4><p>Setting values is pretty much the same between Parse and deepstream. Both have a <code>set()</code> method that takes a key (or even a JSON path in deepstream) and a value. <strong><em>The main difference is that deepstream sends a small, atomic update message every time <code>set()</code> is called to immediately sync the state between all connected clients. So there is no equivalent of Parse&#39;s <code>save()</code> call</em></strong></p><pre><code class="lang-javascript">
+//Calling set() with one parameter sets the entire data
+gameScore.set({
+    player: {
+        firstname: &#39;Sergio&#39;,
+        lastname: &#39;Santos&#39;
+    },
+    spouses: [ &#39;Kristen Santos&#39; ]
 });
+
+//Calling set with a key or path and a value
+gameScore.set( &#39;result&#39;, &#39;3-0&#39; );
+gameScore.set( &#39;player.middleName&#39;, &#39;Jose&#39;); //If a path doesn&#39;t exist, it willb e created
 </code></pre>
-<p>But for this to work, we need to get two security steps out of the way first: Permission a user to use SNS and add its credentials to the Node SDK.</p><p>Here&#39;s how to permission a user via the AWS console:</p><p><img src="attaching-SNS-policy.png" alt="Attaching SNS user policy"></p><p>Next, we need to create a security token for this user. Using the <a href="https://aws.amazon.com/cli/">AWS command line tool</a> this is as simple as</p><pre><code class="lang-text">aws sts get-session-token
+<h4>Listening for changes</h4><p>deepstream records update in realtime. Any change made by any client is immediately synced across all connected clients. To listen for changes, use <code>subscribe()</code></p><pre><code class="lang-javascript">//Using subscribe with just a callback function calls this function for any change
+gameScore.subscribe(function( data ){});
+
+//Using a path notifies you whenever that path&#39;s value has changed
+gameScore.subscribe( &#39;homeTeam&#39;, function( homeTeamScore ){});
 </code></pre>
-<p>This will display a set of credentials that we can use to configure our SDK.</p><pre><code class="lang-javascript">var AWS = require(&#39;aws-sdk&#39;);
-AWS.config.update({
-    &quot;secretAccessKey&quot;: &quot;...&quot;,
-    &quot;sessionToken&quot;: &quot;...&quot;,
-    &quot;accessKeyId&quot;: &quot;...&quot;,
-    &quot;region&quot;: &quot;eu-central-1&quot;
-});
-var sns = new AWS.SNS();
-</code></pre>
-<p>As mentioned before, embedding your credentials into the code might be easy, but it isn&#39;t safe. Have a look at the <a href="http://docs.aws.amazon.com/AWSJavaScriptSDK/guide/node-configuring.html">config documentation</a> to find a better way to store credentials.</p><h3>Confirming your subscription</h3><p>Great, now our call to <code>sns.subscribe</code> should work. A few milliseconds after we&#39;ve made it, our http server should receive a message, asking it to confirm the subscription. To process it, it&#39;s time to fill in the <code>handleIncomingMessage( msgType, msgData );</code> method from the http-server snippet.</p><pre><code class="lang-javascript">function handleIncomingMessage( msgType, msgData ) {
-    if( msgType === &#39;SubscriptionConfirmation&#39;) {
-        //confirm the subscription.
-        sns.confirmSubscription({
-            Token: msgData.Token,
-            TopicArn: msgData.TopicArn
-        }, onAwsResponse );
-    } else if ( msgType === &#39;Notification&#39; ) {
-        // That&#39;s where the actual messages will arrive
-    } else {
-        console.log( &#39;Unexpected message type &#39; + msgType );
+<h4>Discarding and Deleting Objects</h4><p>Deepstream records have a <code>delete()</code> method which works similar to Parse&#39;s <code>destroy()</code>: It deletes the record from the database. Once the record is deleted, all connected clients will receive a <code>delete</code> event on their records.</p><p>Not to be confused with <code>delete()</code> is <code>discard()</code>. Calling <code>discard()</code> frees up bandwidth by telling the deepstream server that you are no longer interested in updates for this record.</p><h4>Relational Data</h4><p>deepstream let&#39;s you create trees of relational data by combining lists and records. List&#39;s don&#39;t contain data themselves, but are observable collections of record names. As records can reference lists and lists can point to records this allows you to create and manipulate one-to-many and many-to-many structures that are synced across all connected clients.</p><h4>Users, Roles &amp; Permissions</h4><p>deepstream is build to interface with other user management systems, e.g. databases, single-sign-on systems or active directories. As a result, it uses a functional style of authentication and permissioning, rather than Parse&#39;s configuration based approach. 
+There is a lot to be said about permissioning. To gain a good understanding, have a look at the <a href="http://deepstream.io/tutorials/authentication.html">authentication</a> and <a href="http://deepstream.io/tutorials/permissioning.html">permissioning</a> tutorials.</p><p>The center of deepstream&#39;s permissioning is a <code>permission-handler</code>, a class that can be registered with your server and exposes three methods</p><pre><code class="lang-javascript">server.set( &#39;permissionHandler&#39;, {
+    isValidUser: function( connectionData, authData, callback ) {
+        //authorize or reject incoming client connections here
+    },
+    canPerformAction: function( username, message, callback ) {
+        //permission individual operations here
+    },
+    onClientDisconnect: function( username ){
+        //optional clean-up once a client has disconnected
     }
-}
+});
 </code></pre>
-<h3>Starting a deepstream.io server</h3><p>Now it&#39;s time to start our deepstream server. Just create a separate js file (e.g. start-server.js) with</p><pre><code class="lang-javascript">var DeepstreamServer = require( &#39;deepstream.io&#39; ),
-    server = new DeepstreamServer();
-
-server.start();
-</code></pre>
-<p>and run it</p><p><img src="deepstream-startup.png" alt="Deepstream.io startup"></p><p>As the console shows, the server is now listening for TCP connections (e.g. from a node client) on port <code>6021</code> and for browser connections on port <code>6020</code>. If you&#39;d prefer different hosts/ports, please have a look at the <a href="http://deepstream.io/docs/deepstream.html">configuration docs</a>.</p><p>All that&#39;s left now is to connect our SNS-provider to the deepstream server:</p><pre><code class="lang-javascript">var deepstreamClient = require( &#39;deepstream.io-client-js&#39; );
-var ds = deepstreamClient( &#39;localhost:6021&#39; ).login();
-</code></pre>
-<h3>Forwarding SNS messages as deepstream events</h3><p>Ok, time for the last piece of the puzzle. Every time we receive a message from SNS, we want to forward it as a deepstream event. (Events are deepstream&#39;s pub-sub mechanism. They work exactly like a JavaScript event emitter, distributed across many clients).</p><p>Each SNS message has a &quot;Subject&quot; and a &quot;Message&quot; - both of which are plain text. This leaves us with a couple of choices: We could use the topic as an event name, send JSON as the message body or come up with a totally different mechanism. But for now, let&#39;s keep things simple: Every time we receive a message, we&#39;ll use the Subject as an event-name and send the message content as event-data... or in code, inside our <code>handleIncomingMessage</code> method:</p><pre><code class="lang-javascript">else if ( msgType === &#39;Notification&#39; ) {
-    ds.event.emit( msgData.Subject, msgData.Message );
-}
-</code></pre>
-<p>Subscribing to this event from a browser is now as easy as</p><pre><code class="lang-javascript">ds.event.subscribe( &#39;someEvent&#39;, function( data ){
+<p>Every time a client establishes a new connection to the server, it needs to login:</p><pre><code class="lang-javascript">ds.login({
+    user: &#39;LisaA&#39;,
+    password: &#39;sesame&#39;
+}, function( success, errorCode, errorMessage ){
     //...
 });
 </code></pre>
-<p>And that&#39;s it. Thanks for holding out with me for so long. If you&#39;d like to learn more about events in deepstream, head over to the <a href="http://deepstream.io/tutorials/events-and-rpcs.html">Events &amp; RPC tutorial</a>
-or have a look at the <a href="http://deepstream.io/docs/client.event.html">event documentation</a></p>
+<h4>Where to go from here</h4><p>To get a feel for how deepstream.io works and if it might be a good fit for your application&#39;s realtime backend, give the <a href="http://deepstream.io/tutorials/getting-started.html">getting started</a> tutorial a go.</p><p>If you have any questions, just raise them on <a href="http://stackoverflow.com/questions/tagged/deepstream.io">StackOverflow</a>, join our <a href="https://deepstream-slack.herokuapp.com/">Slack Channel</a> or get in touch via Twitter (<a href="https://twitter.com/deepstreamIO">@deepstreamIO</a>)</p>
 		</section>
 
 		<footer class="post-footer">
@@ -208,7 +167,7 @@ or have a look at the <a href="http://deepstream.io/docs/client.event.html">even
 				<h4>Share this post</h4>
 				<ul class="icons">
 					<li>
-						<a class="icon fa fa-twitter" href="https://twitter.com/share?text=Publishing AWS SNS messages to browsers @deepstreamhub&amp;url="
+						<a class="icon fa fa-twitter" href="https://twitter.com/share?text=Migrating from Parse.com to deepstream.io @deepstreamhub&amp;url="
 							onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
 							<span class="label">Twitter</span>
 						</a>
@@ -235,7 +194,7 @@ or have a look at the <a href="http://deepstream.io/docs/client.event.html">even
 			</h4>
 			<li class="latest-blogs-content">
 				<ul class="latest-blog-article">
-					<a href="..\migrating-parse-com-to-deepstream-io\">
+					<a href="">
 						<span class="date">29/01/2016</span>
 						<span class="title">Migrating from Parse.com to deepstream.io</span>
 					</a>
@@ -253,7 +212,7 @@ or have a look at the <a href="http://deepstream.io/docs/client.event.html">even
 					</a>
 				</ul>
 				<ul class="latest-blog-article">
-					<a href="">
+					<a href="..\publishing-aws-sns-messages-to-browsers-tutorial\">
 						<span class="date">04/01/2016</span>
 						<span class="title">Publishing AWS SNS messages to browsers</span>
 					</a>
@@ -316,7 +275,7 @@ or have a look at the <a href="http://deepstream.io/docs/client.event.html">even
 				</h4>
 				<li class="latest-blogs-content">
 					<ul class="latest-blog-article">
-						<a href="..\migrating-parse-com-to-deepstream-io\">
+						<a href="">
 							<span class="date">29/01/2016</span>
 							<span class="title">Migrating from Parse.com to deepstream.io</span>
 						</a>
@@ -334,7 +293,7 @@ or have a look at the <a href="http://deepstream.io/docs/client.event.html">even
 						</a>
 					</ul>
 					<ul class="latest-blog-article">
-						<a href="">
+						<a href="..\publishing-aws-sns-messages-to-browsers-tutorial\">
 							<span class="date">04/01/2016</span>
 							<span class="title">Publishing AWS SNS messages to browsers</span>
 						</a>
