@@ -14,21 +14,21 @@ Writing this feels almost irreverent. Parse.com was a great platform and despite
 Deepstream clients are small, self-contained and framework agnostic. They can easily be used with [React](http://deepstream.io/tutorials/simple-app-using-react.html), [Angular](http://deepstream.io/tutorials/simple-app-using-angular.html), [Knockout](http://deepstream.io/tutorials/simple-app-using-ko.html), [Backbone](http://backbonejs.org/) or whatever else your heart desires.
 
 #### What do deepstream.io and parse.com have in common?
-deepstream.io offers data-sync via `records` which are very similar to `Parse.Object`. Records have a unique ID, `get()` and `set()` methods and can be used to store, manipulate and observe data in schemaless JSON structures.
+deepstream.io offers data-sync via `records` which are very similar to `Parse.Objects`. Records have a unique ID, `get()` and `set()` methods and can be used to store, manipulate and observe data in schemaless JSON structures.
 
-deepstream.io is designed as a modular platform, which makes it possible to replicate parse.com’s more advanced features using deepstream connectors. This means that advanced realtime queries and GeoPoints are supported through [deepstream’s RethinkDB integration](http://deepstream.io/download/) and mobile push notifications can be achieved [via AWS SNS](http://deepstream.io/blog/publishing-aws-sns-messages-to-browsers-tutorial/)
+deepstream.io is designed as a modular platform, which makes it possible to replicate Parse.com’s more advanced features using deepstream connectors. This means that advanced realtime queries and GeoPoints are supported through [deepstream’s RethinkDB integration](http://deepstream.io/download/) and mobile push notifications can be achieved [via AWS SNS](http://deepstream.io/blog/publishing-aws-sns-messages-to-browsers-tutorial/)
 
-#### What does deepstream.io support that parse.com does not
+#### What does deepstream.io support that Parse.com does not?
 Deepstream doesn't just offer data-sync via `records`, but also publish-subscribe (comparable to Pusher or PubNub) via `events`, request-response via `RPC` (remote procedure call) and even WebRTC video call management.
 
-#### What does parse.com support that deepstream.io does not.
+#### What does Parse.com support that deepstream.io does not?
 deepstream.io is a server, not a service. Things like data browsing, permissions or active sessions are done programmatically, rather than trough a dashboard.
-Whilst deepstream record’s can be bigger than Parse.Objects, (1MB instead of 128k), it does not support binary files. So there is no substitute for `Parse.File`.
+Whilst deepstream record’s can be bigger than `Parse.Objects`, (1MB instead of 128k), it does not support binary files. So there is no substitute for `Parse.File`.
 Finally, Parse.com offers a significantly wider range of available client's and SDKs for different languages. [This is something we are actively working on, any help is very much appreciated](https://github.com/hoxton-one/deepstream.io/issues?q=is%3Aissue+is%3Aopen+label%3Anew-client)
 
 #### Migrating from Parse.Object to deepstream records
 Records are the key concept for deepstream's data-sync. They are a unit of schemaless JSON data that's synced between clients.
-Records are simply meant to be used, rather than extended. Each deepstream record is identified by a unique name. In difference to parse, these names have to be created explicitly. It's also worth noting that there is no difference between creating a new record and retrieving an existing one, you always just use `getRecord()`
+Records are simply meant to be used, rather than extended. Each deepstream record is identified by a unique name. In difference to Parse, these names have to be created explicitly. It's also worth noting that there is no difference between creating a new record and retrieving an existing one, you always just use `getRecord()`
 
 ```javascript
 //parse.com
@@ -40,8 +40,8 @@ gameScore = ds.record.getRecord( 'gamescore/yankees-vs-mets-2015' );
 gameScore = ds.record.getRecord( 'gamescore/' + ds.getUid() ); // or just generate a Unique ID
 ```
 
-This highlights an important difference between parse and deepstream. Following backbone.js principles, Parse automatically arranges objects in collections. You create a class of a type `GameScore` and every new instance is part of a GameScore collection. 
-[Deepstream also offers a concept of collections, called `List`](http://deepstream.io/tutorials/lists.html), but records have to be explicitly added to them.
+This highlights an important difference between Parse and deepstream. Following Backbone.js principles, Parse automatically organises objects in collections. When you specify a class of type `GameScore`, Parse saves every new instance automatically to the GameScore collection. 
+[Deepstream also offers a concept of collections, called `Lists`](http://deepstream.io/tutorials/lists.html), but records have to be explicitly added to them.
 
 #### Getting values
 Both `Parse.Object` and deepstream records have a method called `get()` that works almost identically.
@@ -59,7 +59,7 @@ lastSpouse = gameScore.get( 'player.spouses[0]' ); //Arrays work as well
 ```
 
 #### Setting values
-Setting values is pretty much the same between Parse and deepstream. Both have a `set()` method that takes a key (or even a JSON path in deepstream) and a value. ***The main difference is that deepstream sends a small, atomic update message every time `set()` is called to immediately sync the state between all connected clients. So there is no equivalent of Parse's `save()` call***
+Setting values is pretty much the same between Parse and deepstream. Both have a `set()` method that takes a key (or even a JSON path in deepstream) and a value. **The main difference is that deepstream sends a small, atomic update message every time `set()` is called to immediately sync the state between all connected clients. So there is no equivalent of Parse's `save()` call**
 
 ```javascript
 
@@ -94,11 +94,10 @@ Deepstream records have a `delete()` method which works similar to Parse's `dest
 Not to be confused with `delete()` is `discard()`. Calling `discard()` frees up bandwidth by telling the deepstream server that you are no longer interested in updates for this record.
 
 #### Relational Data
-deepstream let's you create trees of relational data by combining lists and records. List's don't contain data themselves, but are observable collections of record names. As records can reference lists and lists can point to records this allows you to create and manipulate one-to-many and many-to-many structures that are synced across all connected clients. 
+deepstream let's you create trees of relational data by combining lists and records. Lists don't contain data themselves, but are observable collections of record names. As records can reference lists and lists can point to records this allows you to create and manipulate one-to-many and many-to-many relationships that are synced between all connected clients. 
 
 #### Users, Roles & Permissions
-deepstream is build to interface with other user management systems, e.g. databases, single-sign-on systems or active directories. As a result, it uses a functional style of authentication and permissioning, rather than Parse's configuration based approach. 
-There is a lot to be said about permissioning. To gain a good understanding, have a look at the [authentication](http://deepstream.io/tutorials/authentication.html) and [permissioning](http://deepstream.io/tutorials/permissioning.html) tutorials. 
+deepstream is built to interface with other user management systems, e.g. databases, single-sign-on systems or active directories. As a result, it uses a functional style of authentication and permissioning, rather than Parse's configuration based approach. 
 
 The center of deepstream's permissioning is a `permission-handler`, a class that can be registered with your server and exposes three methods
 
@@ -127,7 +126,9 @@ ds.login({
 });
 ```
 
-#### Where to go from here
-To get a feel for how deepstream.io works and if it might be a good fit for your application's realtime backend, give the [getting started](http://deepstream.io/tutorials/getting-started.html) tutorial a go.
+There is a lot to be said about permissioning. To gain a good understanding, have a look at the [authentication](http://deepstream.io/tutorials/authentication.html) and [permissioning](http://deepstream.io/tutorials/permissioning.html) tutorials. 
 
-If you have any questions, just raise them on [StackOverflow](http://stackoverflow.com/questions/tagged/deepstream.io), join our [Slack Channel](https://deepstream-slack.herokuapp.com/) or get in touch via Twitter ([@deepstreamIO](https://twitter.com/deepstreamIO))
+#### Where to go from here
+To get a feel for how deepstream.io works and if it might be a good fit for your application's realtime backend, head over to the [getting started tutorial](http://deepstream.io/tutorials/getting-started.html).
+
+If you have any questions, just raise them on [StackOverflow](http://stackoverflow.com/questions/tagged/deepstream.io), join our [Slack Channel](https://deepstream-slack.herokuapp.com/) or get in touch via Twitter ([@deepstreamIO](https://twitter.com/deepstreamIO)).
