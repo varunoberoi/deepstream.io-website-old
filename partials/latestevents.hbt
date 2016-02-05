@@ -14,12 +14,10 @@
 					</div>
 					<div class="community-event-title">
 						{{{ eventName }}}
-					</div>
-					{{#if locationName }}
+					</div>					
 					<div class="community-event-location">
 						{{{ locationName }}}
 					</div>
-					{{/if}}
 				</div>
 			</a>
 		  {{/each}}
