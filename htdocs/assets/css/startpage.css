@@ -542,6 +542,10 @@ body{
 	font-size: 17px;
 }
 
+.community-collaborate-content > a > .fa {
+	width: 17px;
+}
+
 @media ( min-width: 1000px ) {
 	.segment-community-wrapper-first-column {
 		float: left;
