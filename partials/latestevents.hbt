@@ -6,18 +6,20 @@
 		{{#each communityEvents}}
 			<a class="community-event" target="_blank" href="{{ this.link }}">
 				<div class="community-event-image-wrapper">
-					<img src="{{eventImage.url}}" class="community-event-image" alt="{{eventImage.description}}">
+					<img src="assets/images/events/{{ eventImage }}" class="community-event-image" alt="{{ eventImage }}">
 				</div>
 				<div class="community-event-content">
 					<div class="community-event-date">
 						{{{ date }}}
 					</div>
 					<div class="community-event-title">
-						{{{ eventName}}}
+						{{{ eventName }}}
 					</div>
+					{{#if locationName }}
 					<div class="community-event-location">
 						{{{ locationName }}}
 					</div>
+					{{/if}}
 				</div>
 			</a>
 		  {{/each}}

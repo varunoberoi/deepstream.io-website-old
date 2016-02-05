@@ -19,7 +19,7 @@ var fileBuilder = {
 	'hbs': require( './fileBuilder/HbsBuilder' ),
 	'md': require( './fileBuilder/MdBuilder' )
 };
-var communityEvents = require( '../events.json' );
+var communityEvents = require( '../data/events.json' );
 
 exports.action = function( done ) {
 	async.waterfall([
