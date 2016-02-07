@@ -2,23 +2,75 @@
 		<h4 class="community-events-title">
 			Events &amp; Workshops 
 		</h4>
-
-		{{#each communityEvents}}
-			<a class="community-event" target="_blank" href="{{ this.link }}">
-				<div class="community-event-image-wrapper">
-					<img src="assets/images/events/{{ eventImage }}" class="community-event-image" alt="{{ eventImage }}">
-				</div>
-				<div class="community-event-content">
-					<div class="community-event-date">
-						{{{ date }}}
+		<div class="events">
+			<div class="inner">
+			{{#each communityEvents}}
+				<a class="community-event" target="_blank" href="{{ this.link }}">
+					<div class="community-event-image-wrapper">
+						<img src="assets/images/events/{{ eventImage }}" class="community-event-image" alt="{{ eventImage }}">
 					</div>
-					<div class="community-event-title">
-						{{{ eventName }}}
-					</div>					
-					<div class="community-event-location">
-						{{{ locationName }}}
+					<div class="community-event-content">
+						<div class="community-event-date">
+							{{{ date }}}
+						</div>
+						<div class="community-event-title">
+							{{{ eventName }}}
+						</div>					
+						<div class="community-event-location">
+							{{{ locationName }}}
+						</div>
 					</div>
-				</div>
-			</a>
-		  {{/each}}
+				</a>
+			  {{/each}}
+		  	</div>
+		  </div>
+		  <ul class="pagination">
+			  <li class="fa fa-caret-left left"></li>
+			 
+			  <li class="fa fa-caret-right right"></li>
+		  </ul>
 </div>
+<script type="text/javascript">
+$(window).load(function(){
+	var eventsPerPage = 3;
+	var currentPage = 1;
+	var eventsHeight = $( '.community-event:first' ).outerHeight();
+	var pages = $( '.community-event' ).length / eventsPerPage;
+	var li, i;
+
+	$( '.events' ).css( 'height', eventsPerPage * eventsHeight );
+	
+	for( i = 0; i < pages; i++ ) {
+		li = $( '<li class="page">' + ( i + 1 ) + '</li>' );
+		li.click( setCurrentPage.bind( this, i + 1 ) );
+		$( '.pagination .right' ).before( li );
+	}
+
+	$( '.pagination .right' ).click(function(){
+		if( $( this ).hasClass( 'active' ) ) {
+			setCurrentPage( currentPage + 1 );
+		}
+	});
+
+	$( '.pagination .left' ).click(function(){
+		if( $( this ).hasClass( 'active' ) ) {
+			setCurrentPage( currentPage - 1 );
+		}
+	});
+
+	function setCurrentPage( page ) {
+		currentPage = page;
+		setPage();
+	}
+
+	function setPage() {
+		$( '.pagination li.active' ).removeClass( 'active' );
+		$( '.pagination li:nth-child(' + ( currentPage + 1 ) + ')' ).addClass( 'active' );
+		$( '.events .inner' ).css( 'top', eventsHeight * eventsPerPage * ( currentPage - 1 ) * -1 );
+		$( '.pagination .left' )[ currentPage <= 1 ? 'removeClass' : 'addClass' ]( 'active' );
+		$( '.pagination .right' )[ currentPage >= pages ? 'removeClass' : 'addClass' ]( 'active' );
+	}
+
+	setPage();
+});
+</script>

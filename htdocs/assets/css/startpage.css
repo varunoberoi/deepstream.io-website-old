@@ -421,7 +421,6 @@ body{
 }
 
 .community-event {
-	margin: 5px 0;
 	padding: 5px;  
 	display: inline-block;
 	text-decoration: none;
@@ -498,6 +497,53 @@ body{
 	max-width: 425px;
 }
 
+/************************************
+* Pagination
+* **********************************/
+.community-events .events{
+	overflow: hidden;
+	height: 316px;
+}
+
+.community-events .pagination{
+	float: right;
+	overflow: hidden;
+}
+
+.community-events .pagination li{
+	float: left;
+	width: 20px;
+	text-align: center;
+	cursor: pointer;
+	color: #222;
+}
+
+.community-events .pagination li.page{
+	font-family: 'Quicksand', sans-serif;
+    font-size: 12px;
+    position: relative;
+    top: 2px;
+}
+
+.community-events .pagination li.active{
+	font-weight: bold;
+}
+
+.community-events .pagination li.left,
+.community-events .pagination li.right{
+	color: #BBB;
+	cursor: default;
+}
+.community-events .pagination .left.active,
+.community-events .pagination .right.active{
+	font-weight: normal;
+	cursor: pointer;
+	color: #222;
+}
+.community-events .events .inner{
+	position: relative;
+	transition: top 500ms ease;
+}
 .latest-blog-article {
 	margin: 2px 0;
 	padding: 3px 0;
@@ -547,6 +593,9 @@ body{
 }
 
 @media ( min-width: 1000px ) {
+	.community-event{
+		height: 100px;
+	}
 	.segment-community-wrapper-first-column {
 		float: left;
 	}
@@ -558,6 +607,9 @@ body{
 }
 
 @media ( max-width: 999px ) {
+	.community-event{
+		height: 190px;
+	}
 	.segment-community-wrapper > div {
 		margin: 0 auto;
 		width: 300px;
