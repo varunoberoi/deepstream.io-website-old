@@ -21,7 +21,7 @@ Phew, that sounds like a lot! But, it’s actually not that bad. Here’s what o
 
 ![Basic Setup](aws-sns-to-deepstream.png)
 
-If you prefer diving right into the code, check out the [github repo](https://github.com/hoxton-one/ds-tutorial-aws-sns)
+If you prefer diving right into the code, check out the [github repo](https://github.com/deepstreamIO/ds-tutorial-aws-sns)
 
 ### A bit of a disclaimer
 For brevities sake, this tutorial skimps on security. AWS security is extremely powerful, but also complex enough to have [whole books written about it](http://media.amazonwebservices.com/AWS_Security_Best_Practices.pdf). We’ll be using http instead of https, temporary security tokens (which is a good idea), but store them as plain text in our code (which is not) and a deepstream.io server that’s open to the world, instead of [properly permissioned](http://deepstream.io/tutorials/authentication.html).

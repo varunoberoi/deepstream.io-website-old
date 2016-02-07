@@ -44,7 +44,7 @@ your console should now show this
 
 ### Client
 
-Install the javascript client via bower or npm or download it [here](https://raw.githubusercontent.com/hoxton-one/deepstream.io-client-js/master/dist/deepstream.min.js)
+Install the javascript client via bower or npm or download it [here](https://raw.githubusercontent.com/deepstreamIO/deepstream.io-client-js/master/dist/deepstream.min.js)
 
 ```bash
 bower install deepstream.io-client-js

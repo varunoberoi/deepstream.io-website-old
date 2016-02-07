@@ -45,7 +45,7 @@ To put this statement into numbers, please see the performance test results for 
 
 ### How to run the tests yourself
 
-When running these tests, we're using a [performance test harness that's available on github](https://github.com/hoxton-one/deepstream.io-performance). It makes it easy to quickly spin up large numbers of deepstream servers and clients.
+When running these tests, we're using a [performance test harness that's available on github](https://github.com/deepstreamIO/deepstream.io-performance). It makes it easy to quickly spin up large numbers of deepstream servers and clients.
 
 Clients are created in pairs that send messages back and forth on a unique record in order to calculate latency and keep track of updates.
 Each client increments the same field of a record in turns ( even and odd ) until the configured number of messages for the test case is reached.

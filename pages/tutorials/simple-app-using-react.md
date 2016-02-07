@@ -39,4 +39,4 @@ the object is no longer in the dom.
 
 An example application using [React](https://facebook.github.io/react/) can be found at here:
 
-<a class="mega" href="https://github.com/hoxton-one/ds-demo-simple-app-react"><i class="fa fa-github"></i>https://github.com/hoxton-one/ds-demo-simple-app-react</a>
+<a class="mega" href="https://github.com/deepstreamIO/ds-demo-simple-app-react"><i class="fa fa-github"></i>react example app</a>
