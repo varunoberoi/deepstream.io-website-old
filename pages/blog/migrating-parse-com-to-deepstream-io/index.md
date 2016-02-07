@@ -24,7 +24,7 @@ Deepstream doesn't just offer data-sync via `records`, but also publish-subscrib
 #### What does Parse.com support that deepstream.io does not?
 deepstream.io is a server, not a service. Things like data browsing, permissions or active sessions are done programmatically, rather than trough a dashboard.
 Whilst deepstream record’s can be bigger than `Parse.Objects`, (1MB instead of 128k), it does not support binary files. So there is no substitute for `Parse.File`.
-Finally, Parse.com offers a significantly wider range of available client's and SDKs for different languages. [This is something we are actively working on, any help is very much appreciated](https://github.com/hoxton-one/deepstream.io/issues?q=is%3Aissue+is%3Aopen+label%3Anew-client)
+Finally, Parse.com offers a significantly wider range of available client's and SDKs for different languages. [This is something we are actively working on, any help is very much appreciated](https://github.com/deepstreamIO/deepstream.io/issues?q=is%3Aissue+is%3Aopen+label%3Anew-client)
 
 #### Migrating from Parse.Object to deepstream records
 Records are the key concept for deepstream's data-sync. They are a unit of schemaless JSON data that's synced between clients.

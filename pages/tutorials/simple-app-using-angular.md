@@ -65,4 +65,4 @@ service( 'bindFields', function(){
 
 Please find an example application using deepstream and angular here:
 
-<a class="mega" href="https://github.com/hoxton-one/ds-demo-simple-app-ng"><i class="fa fa-github"></i>https://github.com/hoxton-one/ds-demo-simple-app-ng</a>
+<a class="mega" href="https://github.com/deepstreamIO/ds-demo-simple-app-ng"><i class="fa fa-github"></i>angular example app</a>

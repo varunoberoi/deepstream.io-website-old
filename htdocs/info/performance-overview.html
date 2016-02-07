@@ -144,7 +144,7 @@
   Generating large amounts of clients or traffic in a very small amount of time and ensuring that the system does not fail.</li>
 </ul>
 <h3>How can you improve results?</h3><p>About deepstream’s performance
-Deepstream is designed as a distributed system. Individual nodes can multiplex updates amongst each other. This means that it’s possible to keep message latency and throughput rates steady whilst catering for an ever increasing number of simultaneously connected clients – simply by spinning up additional deepstream nodes as needed.</p><p>To put this statement into numbers, please see the performance test results for <a href="./performance-single-node-vs-cluster.html">a single node in comparison to a three instance cluster</a>.</p><h3>How to run the tests yourself</h3><p>When running these tests, we&#39;re using a <a href="https://github.com/hoxton-one/deepstream.io-performance">performance test harness that&#39;s available on github</a>. It makes it easy to quickly spin up large numbers of deepstream servers and clients.</p><p>Clients are created in pairs that send messages back and forth on a unique record in order to calculate latency and keep track of updates.
+Deepstream is designed as a distributed system. Individual nodes can multiplex updates amongst each other. This means that it’s possible to keep message latency and throughput rates steady whilst catering for an ever increasing number of simultaneously connected clients – simply by spinning up additional deepstream nodes as needed.</p><p>To put this statement into numbers, please see the performance test results for <a href="./performance-single-node-vs-cluster.html">a single node in comparison to a three instance cluster</a>.</p><h3>How to run the tests yourself</h3><p>When running these tests, we&#39;re using a <a href="https://github.com/deepstreamIO/deepstream.io-performance">performance test harness that&#39;s available on github</a>. It makes it easy to quickly spin up large numbers of deepstream servers and clients.</p><p>Clients are created in pairs that send messages back and forth on a unique record in order to calculate latency and keep track of updates.
 Each client increments the same field of a record in turns ( even and odd ) until the configured number of messages for the test case is reached.</p><p>Using a combination of the following environment variables you can adjust the test harness to either run high throughput, high concurrency or long duration tests.</p><table class="mini">
     <thead>
         <tr>
@@ -224,7 +224,7 @@ Each client increments the same field of a record in turns ( even and odd ) unti
 						</a>
 					</li>
 					<li class="github">
-						<a href="https://github.com/hoxton-one">
+						<a href="https://github.com/deepstreamIO">
 							<i class="fa fa-github"></i>  Github
 						</a>
 					</li>
@@ -263,7 +263,7 @@ Each client increments the same field of a record in turns ( even and odd ) unti
 
 				<h4>Star this project on github!</h4>
 				<p>
-					<a class="github-button" href="https://github.com/hoxton-one/deepstream.io" data-icon="octicon-star" data-style="mega" data-count-href="/hoxton-one/deepstream.io/stargazers" data-count-api="/repos/hoxton-one/deepstream.io#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star hoxton-one/deepstream.io on GitHub">Star</a>
+					<a class="github-button" href="https://github.com/deepstreamIO/deepstream.io" data-icon="octicon-star" data-style="mega" data-count-href="/deepstreamIO/deepstream.io/stargazers" data-count-api="/repos/deepstreamIO/deepstream.io#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star deepstreamIO/deepstream.io on GitHub">Star</a>
 				</p>
 			</li>
 

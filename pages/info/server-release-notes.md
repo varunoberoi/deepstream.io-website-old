@@ -5,9 +5,9 @@
 Deepstream.io server releases
 
 * **0.4.1** _(29.7.2015)_ Maintance release
-	- fixed issue [#25](https://github.com/hoxton-one/deepstream.io/issues/25) Bug in record deletion
-	- fixed issue [#30](https://github.com/hoxton-one/deepstream.io/issues/30) Race condition under heavy load
-	- fixed client issue [#14](https://github.com/hoxton-one/deepstream.io-client-js/issues/14) RpcResponse.error() missing
+	- fixed issue [#25](https://github.com/deepstreamIO/deepstream.io/issues/25) Bug in record deletion
+	- fixed issue [#30](https://github.com/deepstreamIO/deepstream.io/issues/30) Race condition under heavy load
+	- fixed client issue [#14](https://github.com/deepstreamIO/deepstream.io-client-js/issues/14) RpcResponse.error() missing
 
 * **0.4.0** _(20.7.2015)_ Data Transformations
 	- deepstream now supports transformations for outgoing data

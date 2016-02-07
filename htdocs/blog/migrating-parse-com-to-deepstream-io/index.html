@@ -78,7 +78,7 @@
 		<section class="post-content">
 <p>Writing this feels almost irreverent. Parse.com was a great platform and despite its stability issues one of the most innovative and clever technologies in the realtime space. It was one of the great inspirations for deepstream.io and it took us very much by surprise to <a href="http://blog.parse.com/announcements/moving-on/">see it being shut down</a>.</p><p><img src="parse-deepstream.png" alt="parse.com and deepstream.io"></p><h4>What’s deepstream.io and how can it help with my parse.com app?</h4><p><a href="http://deepstream.io/">deepstream.io</a> is a scalable open source realtime server written in NodeJS. It can be used in both browsers and backend services through client SDKs, offers powerful user handling and permissioning, can be connected to databases, caches and message queues and scales horizontally via clustering.</p><p>Deepstream clients are small, self-contained and framework agnostic. They can easily be used with <a href="http://deepstream.io/tutorials/simple-app-using-react.html">React</a>, <a href="http://deepstream.io/tutorials/simple-app-using-angular.html">Angular</a>, <a href="http://deepstream.io/tutorials/simple-app-using-ko.html">Knockout</a>, <a href="http://backbonejs.org/">Backbone</a> or whatever else your heart desires.</p><h4>What do deepstream.io and parse.com have in common?</h4><p>deepstream.io offers data-sync via <code>records</code> which are very similar to <code>Parse.Objects</code>. Records have a unique ID, <code>get()</code> and <code>set()</code> methods and can be used to store, manipulate and observe data in schemaless JSON structures.</p><p>deepstream.io is designed as a modular platform, which makes it possible to replicate Parse.com’s more advanced features using deepstream connectors. This means that advanced realtime queries and GeoPoints are supported through <a href="http://deepstream.io/download/">deepstream’s RethinkDB integration</a> and mobile push notifications can be achieved <a href="http://deepstream.io/blog/publishing-aws-sns-messages-to-browsers-tutorial/">via AWS SNS</a></p><h4>What does deepstream.io support that Parse.com does not?</h4><p>Deepstream doesn&#39;t just offer data-sync via <code>records</code>, but also publish-subscribe (comparable to Pusher or PubNub) via <code>events</code>, request-response via <code>RPC</code> (remote procedure call) and even WebRTC video call management.</p><h4>What does Parse.com support that deepstream.io does not?</h4><p>deepstream.io is a server, not a service. Things like data browsing, permissions or active sessions are done programmatically, rather than trough a dashboard.
 Whilst deepstream record’s can be bigger than <code>Parse.Objects</code>, (1MB instead of 128k), it does not support binary files. So there is no substitute for <code>Parse.File</code>.
-Finally, Parse.com offers a significantly wider range of available client&#39;s and SDKs for different languages. <a href="https://github.com/hoxton-one/deepstream.io/issues?q=is%3Aissue+is%3Aopen+label%3Anew-client">This is something we are actively working on, any help is very much appreciated</a></p><h4>Migrating from Parse.Object to deepstream records</h4><p>Records are the key concept for deepstream&#39;s data-sync. They are a unit of schemaless JSON data that&#39;s synced between clients.
+Finally, Parse.com offers a significantly wider range of available client&#39;s and SDKs for different languages. <a href="https://github.com/deepstreamIO/deepstream.io/issues?q=is%3Aissue+is%3Aopen+label%3Anew-client">This is something we are actively working on, any help is very much appreciated</a></p><h4>Migrating from Parse.Object to deepstream records</h4><p>Records are the key concept for deepstream&#39;s data-sync. They are a unit of schemaless JSON data that&#39;s synced between clients.
 Records are simply meant to be used, rather than extended. Each deepstream record is identified by a unique name. In difference to Parse, these names have to be created explicitly. It&#39;s also worth noting that there is no difference between creating a new record and retrieving an existing one, you always just use <code>getRecord()</code></p><pre><code class="lang-javascript">//parse.com
 GameScore = Parse.Object.extend(&quot;GameScore&quot;);
 gameScore = new GameScore();
@@ -263,7 +263,7 @@ gameScore.subscribe( &#39;homeTeam&#39;, function( homeTeamScore ){});
 			</p>
 			
 			<p>
-				<a class="github-button" href="https://github.com/hoxton-one/deepstream.io" data-icon="octicon-star" data-style="mega" data-count-href="/hoxton-one/deepstream.io/stargazers" data-count-api="/repos/hoxton-one/deepstream.io#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star hoxton-one/deepstream.io on GitHub">Star</a>
+				<a class="github-button" href="https://github.com/deepstreamIO/deepstream.io" data-icon="octicon-star" data-style="mega" data-count-href="/deepstreamIO/deepstream.io/stargazers" data-count-api="/repos/deepstreamIO/deepstream.io#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star deepstreamIO/deepstream.io on GitHub">Star</a>
 			</p>
 		</div>
 	
@@ -318,7 +318,7 @@ gameScore.subscribe( &#39;homeTeam&#39;, function( homeTeamScore ){});
 						</a>
 					</li>
 					<li class="github">
-						<a href="https://github.com/hoxton-one">
+						<a href="https://github.com/deepstreamIO">
 							<i class="fa fa-github"></i>  Github
 						</a>
 					</li>
@@ -357,7 +357,7 @@ gameScore.subscribe( &#39;homeTeam&#39;, function( homeTeamScore ){});
 
 				<h4>Star this project on github!</h4>
 				<p>
-					<a class="github-button" href="https://github.com/hoxton-one/deepstream.io" data-icon="octicon-star" data-style="mega" data-count-href="/hoxton-one/deepstream.io/stargazers" data-count-api="/repos/hoxton-one/deepstream.io#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star hoxton-one/deepstream.io on GitHub">Star</a>
+					<a class="github-button" href="https://github.com/deepstreamIO/deepstream.io" data-icon="octicon-star" data-style="mega" data-count-href="/deepstreamIO/deepstream.io/stargazers" data-count-api="/repos/deepstreamIO/deepstream.io#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star deepstreamIO/deepstream.io on GitHub">Star</a>
 				</p>
 			</li>
 

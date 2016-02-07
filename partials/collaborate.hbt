@@ -12,7 +12,7 @@
 
 		<div class="community-collaborate community-collaborate-git">
 			<h6>
-				Raise an issue, request a feature or browse the source at <a href="https://github.com/hoxton-one">github</a>.
+				Raise an issue, request a feature or browse the source at <a href="https://github.com/deepstreamIO">github</a>.
 			</h6>
 			<div class="community-collaborate-content">
 				{{githubstar}}

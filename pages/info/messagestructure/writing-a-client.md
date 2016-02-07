@@ -29,7 +29,7 @@ Deepstream is an open platform that uses a minimal, text-based protocol to commu
 
 Deepstream communicates via [engine.io](https://github.com/socketio/engine.io) with browsers and via TCP for all other programming languages. Using a low level protocol like TCP means that pretty much everything, from basic Arduinos to enterprise Java servers can communicate with deepstream.
 
-If you'd like to write a client for your language of choice, have a look if there's [already an issue for it](https://github.com/hoxton-one/deepstream.io/labels/new-client) and get in touch! We'd be more than happy to help.
+If you'd like to write a client for your language of choice, have a look if there's [already an issue for it](https://github.com/deepstreamIO/deepstream.io/labels/new-client) and get in touch! We'd be more than happy to help.
 
 # Where to start?
 Here's how to tackle writing a deepstream client:
@@ -64,7 +64,7 @@ Before reading on, take a quick peek at [the connectivity feature](./connectivit
 
 Since the tests will be run in the language the client is being written in you would also need to setup a very simple TCP server.
 
-The best place to start would be looking at the [server step definitions](https://raw.githubusercontent.com/hoxton-one/deepstream.io-client-specs/master/step-definitions-server/step-definition-server.js) and its [TCP server](https://raw.githubusercontent.com/hoxton-one/deepstream.io-client-specs/master/step-definitions-server/tcp-server.js) and applying the same logic in your language of choice.
+The best place to start would be looking at the [server step definitions](https://raw.githubusercontent.com/deepstreamIO/deepstream.io-client-specs/master/step-definitions-server/step-definition-server.js) and its [TCP server](https://raw.githubusercontent.com/deepstreamIO/deepstream.io-client-specs/master/step-definitions-server/tcp-server.js) and applying the same logic in your language of choice.
 
 <div class="hint-box fa fa-gears">
     <h3>Remember to catch errors</h3>

@@ -37,18 +37,18 @@ hbs.registerHelper( 'capitalizeFirstLetter', function( string ){
 
 hbs.registerHelper( 'issue', function( number ){
 	var html = '<a class="githubIssue"'+
-			' href="https://github.com/hoxton-one/deepstream.io/issues/'+
+			' href="https://github.com/deepstreamIO/deepstream.io/issues/'+
 			number +'">#'+ number +'</a>';
 
 	return new hbs.SafeString( html );
 });
 
 hbs.registerHelper( 'githubstar', function( number ){
-	var html = '<a class="github-button" href="https://github.com/hoxton-one/deepstream.io" ' + 
-	'data-icon="octicon-star" data-style="mega" data-count-href="/hoxton-one/deepstream.io/stargazers" ' +
-	'data-count-api="/repos/hoxton-one/deepstream.io#stargazers_count" ' + 
+	var html = '<a class="github-button" href="https://github.com/deepstreamIO/deepstream.io" ' + 
+	'data-icon="octicon-star" data-style="mega" data-count-href="/deepstreamIO/deepstream.io/stargazers" ' +
+	'data-count-api="/repos/deepstreamIO/deepstream.io#stargazers_count" ' + 
 	'data-count-aria-label="# stargazers on GitHub" ' + 
-	'aria-label="Star hoxton-one/deepstream.io on GitHub">Star</a>';
+	'aria-label="Star deepstreamIO/deepstream.io on GitHub">Star</a>';
 	return new hbs.SafeString( html );
 });
 
@@ -69,7 +69,7 @@ hbs.registerHelper( 'downloadItem', function( name, packageName, hasBower, icon 
 			html += '<a class="bower download-link" title="get from bower" href="http://bower.io/search/?q=' + packageName + '"><i></i><span>Bower</span></a>';
 		}
 
-		html +=	'<a class="github download-link" title="see on github" href="https://github.com/hoxton-one/' + packageName + '"><i></i><span>Github</span></a>' +
+		html +=	'<a class="github download-link" title="see on github" href="https://github.com/deepstreamIO/' + packageName + '"><i></i><span>Github</span></a>' +
 		'</li>';
 
 	return new hbs.SafeString( html );
