@@ -85,7 +85,7 @@ There’s one thing though it doesn’t do: send your message directly to web br
 <li>Connect to deepstream</li>
 <li>Forward incoming messages as deepstream events</li>
 </ul>
-<p>Phew, that sounds like a lot! But, it’s actually not that bad. Here’s what our setup will look like</p><p><img src="aws-sns-to-deepstream.png" alt="Basic Setup"></p><p>If you prefer diving right into the code, check out the <a href="https://github.com/hoxton-one/ds-tutorial-aws-sns">github repo</a></p><h3>A bit of a disclaimer</h3><p>For brevities sake, this tutorial skimps on security. AWS security is extremely powerful, but also complex enough to have <a href="http://media.amazonwebservices.com/AWS_Security_Best_Practices.pdf">whole books written about it</a>. We’ll be using http instead of https, temporary security tokens (which is a good idea), but store them as plain text in our code (which is not) and a deepstream.io server that’s open to the world, instead of <a href="http://deepstream.io/tutorials/authentication.html">properly permissioned</a>.
+<p>Phew, that sounds like a lot! But, it’s actually not that bad. Here’s what our setup will look like</p><p><img src="aws-sns-to-deepstream.png" alt="Basic Setup"></p><p>If you prefer diving right into the code, check out the <a href="https://github.com/deepstreamIO/ds-tutorial-aws-sns">github repo</a></p><h3>A bit of a disclaimer</h3><p>For brevities sake, this tutorial skimps on security. AWS security is extremely powerful, but also complex enough to have <a href="http://media.amazonwebservices.com/AWS_Security_Best_Practices.pdf">whole books written about it</a>. We’ll be using http instead of https, temporary security tokens (which is a good idea), but store them as plain text in our code (which is not) and a deepstream.io server that’s open to the world, instead of <a href="http://deepstream.io/tutorials/authentication.html">properly permissioned</a>.
 This tutorial also assumes that you&#39;re already familiar with deepstream&#39;s basic concepts. If not, quickly head over to the <a href="http://deepstream.io/tutorials/getting-started.html">getting started</a> tutorial - don&#39;t worry, I&#39;ll wait.</p><h3>Let’s get started: Creating a topic.</h3><p>We’ll start by creating a topic via the AWS console. Topics are the fundamental concept for message routing in a pub-sub architecture: Many subscribers listen to a topic and are notified whenever something publishes a message on that topic. Basically, it’s like JavaScript events, but you have to create a topic before you can subscribe.
 Let’s create a topic called “news” via the console:</p><p><img src="create-sns-topic.png" alt="Creating a SNS topic via the console"></p><h3>Create the http server</h3><p>Next up, we need to start an http server. Why? The way SNS notifies your application of incoming messages is via HTTP.  For this to work, your application needs to:</p><ul>
 <li>Start a HTTP server</li>
@@ -305,7 +305,7 @@ or have a look at the <a href="http://deepstream.io/docs/client.event.html">even
 			</p>
 			
 			<p>
-				<a class="github-button" href="https://github.com/hoxton-one/deepstream.io" data-icon="octicon-star" data-style="mega" data-count-href="/hoxton-one/deepstream.io/stargazers" data-count-api="/repos/hoxton-one/deepstream.io#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star hoxton-one/deepstream.io on GitHub">Star</a>
+				<a class="github-button" href="https://github.com/deepstreamIO/deepstream.io" data-icon="octicon-star" data-style="mega" data-count-href="/deepstreamIO/deepstream.io/stargazers" data-count-api="/repos/deepstreamIO/deepstream.io#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star deepstreamIO/deepstream.io on GitHub">Star</a>
 			</p>
 		</div>
 	
@@ -360,7 +360,7 @@ or have a look at the <a href="http://deepstream.io/docs/client.event.html">even
 						</a>
 					</li>
 					<li class="github">
-						<a href="https://github.com/hoxton-one">
+						<a href="https://github.com/deepstreamIO">
 							<i class="fa fa-github"></i>  Github
 						</a>
 					</li>
@@ -399,7 +399,7 @@ or have a look at the <a href="http://deepstream.io/docs/client.event.html">even
 
 				<h4>Star this project on github!</h4>
 				<p>
-					<a class="github-button" href="https://github.com/hoxton-one/deepstream.io" data-icon="octicon-star" data-style="mega" data-count-href="/hoxton-one/deepstream.io/stargazers" data-count-api="/repos/hoxton-one/deepstream.io#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star hoxton-one/deepstream.io on GitHub">Star</a>
+					<a class="github-button" href="https://github.com/deepstreamIO/deepstream.io" data-icon="octicon-star" data-style="mega" data-count-href="/deepstreamIO/deepstream.io/stargazers" data-count-api="/repos/deepstreamIO/deepstream.io#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star deepstreamIO/deepstream.io on GitHub">Star</a>
 				</p>
 			</li>
 
