@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>deepstream.io | The unsexy IoT</title>
+	<title>deepstream.io | What is realtime?</title>
 
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<meta name="keywords" content="deepstream, deepstream.io, streaming, realtime, server, socket" />
-	<meta name="description" content="A few years ago, when the first Rasperry Pi’s hit the scene, I was working at a tech company building trading apps. Like so many, the company had a strong focus on engineering with about 70 developers pitted against just 4 designers." />
+	<meta name="description" content="As the guys behind deepstream.io we spent an awful lot of time at conferences and meetups with cool names like up.front, 12min.me or HackNTell. And we talk to an awful lot of people. What do we talk about? You’ve guessed it: Realtime technologies." />
 	<meta name="author" content="Wolfram Hempel" />
 	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 	<link rel="icon" href="/favicon.ico" type="image/x-icon">
@@ -29,7 +29,7 @@
 	<link rel="stylesheet" type="text/css" href="../../assets/css/prism.css" />
 </head>
 
-<body class="category_the-unsexy-iot ">
+<body class="category_what-is-realtime ">
 	<div class="mobile-menu">
 		<div class="nav mobile-nav">
 			<ul>
@@ -68,35 +68,33 @@
 	<div class="post">
 
 		<header class="post-header">
-			<h1 class="post-title">The unsexy IoT</h1>
+			<h1 class="post-title">What is realtime?</h1>
 			<section class="post-meta">
 				By Wolfram Hempel
-				<span class="post-date">January 18th 2016</span>
+				<span class="post-date">February 8th 2016</span>
 			</section>
 		</header>
 
 		<section class="post-content">
-<p>A few years ago, when the first Rasperry Pi’s hit the scene, I was working at a tech company building trading apps. Like so many, the company had a strong focus on engineering with about 70 developers pitted against just 4 designers.</p><p>One day, a package arrived. Naturally, the man that came to pick it up had a beard - but a well groomed one. He - of course - wore a checkered shirt - but I couldn’t help notice that it was not only ironed, but also matched his shoes. And yes, he carried a laptop everywhere. But the laptop he carried was a Mac and the bag he carried it in was vintage leather. In short, he was a designer - and the package contained the first Raspberry PI I’ve ever seen.</p><p>Surprisingly few of the techies cared about this strange machine at first, but the UX team got excited straight away, started playing with it and argued about its cool new use cases.</p><h4>How come?</h4><p>Raspberry PIs are part of a new generation of clever IoT devices: Arduinos, Nest Thermostats or Philip’s remote controllable light bulbs - easily accessible, well designed and sleek (ok, maybe not Arduinos).
-They appeal to a wide audience and spark the imagination of users, founders and investors alike. And most importantly, they excite us about what&#39;s to come: smart homes, self driving cars and connected everything - in short: the sexy IoT.</p><p>But, the Internet of Things isn’t new. At all. And while more than five million Rasperry PIs or a potentially even bigger number of Arduino copies sold around the world make for impressive numbers, they are severely dwarfed by the other IoT. The older IoT. The unsexy one.</p><div class="img-box">
-    <img src="thermostats.png" alt="Thermostats" />
-    <label>Nest Thermostat and Siemens Climatix 600 Controller</label>
+<p>As the guys behind deepstream.io we spent an awful lot of time at conferences and meetups with cool names like up.front, 12min.me or HackNTell. And we talk to an awful lot of people. What do we talk about? You’ve guessed it: Realtime technologies.</p><p>But every couple of conferences, we run into the same statement. Usually made by someone who’s very clever, very technical and feels strongly about a lot of things. The statement is:</p><blockquote>“There’s no such thing as realtime!”</blockquote>
+
+<p>Really? Is there not? Let’s look into this.</p><h3>The philosophical answer</h3><p>Ok, philosophically they’re right. There is no such thing as realtime. Just as there is no such thing as “presence” or “now”. Every information we receive is delayed. Every ray of light that reaches our eyes has bounced of its source a few nanoseconds before, every soundwave that penetrates our ears needed to travel there first. And even once the information is received by our senses, it needs to be processed by our brain. So when exactly is “now” in this equation? Stretched out over numerous transmission, relaying and processing steps.</p><h3>The technical answer</h3><p>But the sort of realtime we’re talking about is not a philosophical concept, it’s a technical one. And in technology, there is very much such a thing as realtime. Here’s a good definition:</p><blockquote>“We speak of ‘realtime’ when information triggered<br /> by an event is delivered in a timeframe in which said information is still relevant”</blockquote>
+
+<p>Ah, now that makes more sense. The key concepts here are “events”, something that creates information, “delivery”, the act of getting the information to where it’s needed and “deadlines”, a point in time after which said information becomes useless.</p><p>The last concept is the most challenging one as different kinds of information come with very different deadlines. You might have noticed that Twitter, Facebook and LinkedIn made their walls realtime - they update every once a while when someone publishes a new post. There is however not much urgency in getting this information to you. Your colleague’s career move or your friend’s birthday pictures will still be as interesting to you in ten minutes as they are now.</p><p>Other realtime use-cases however require a more speedy delivery. Seeing your Uber-driver approach on the map needs to happen within just seconds. And if your friend’s Google-Docs changes aren’t synced with your document quickly, things get messy very soon.</p><div class="img-box">
+    <img src="the-merchant.png" alt="Trading Platform" />
+    <label>Realtime Trading has some of the most demanding latency requirements</label>
 </div>
 
-<h4>The other IoT</h4><p>Many of the IoT’s core use cases: Building and home automation, environmental monitoring or infrastructure management not only precede the current generation of devices, they precede the World Wide Web itself. 
-BACnet, still one of the most widely used building automation protocols was developed in 1987, LonTalk in 1988 and X10, a granddaddy of modern smart home protocols like ZigBee or Z-Wave goes back as far as 1975.</p><p>So, how come the IoT only recently became the “next big thing”?
-I would argue that the IoT has always been big, it’s the personalized IoT that has taken the spotlight lately. This is fueled by the alignment of a number of trends</p><ul>
-<li><p>Hardware production costs dropped significantly, making the IoT cheaper and facilitating micro-appliances like Amazon’s Dash button or Roost’s smart batteries</p></li>
-<li><p>We have become more comfortable with sharing personal data, e.g. when it comes to incorporating wearables or fitness trackers into our daily routine.</p></li>
-<li><p>Producing faster microprocessors more cheaply enables IoT devices to run high level programming languages like Node that have a wider degree of adoption</p></li>
-</ul>
-<h4>But it’s not like the old IoT has stagnated either</h4><p><br /></p><ul>
-<li><p>It is now almost completely based on open protocols, rather than the proprietary ones of the past that were used to tie customers to a specific vendor.</p></li>
-<li><p>IPv6 has massively increased the number of available IPs, allowing every sensor and relay within a system to be addressable from the public internet</p></li>
-<li><p>UX and Usability is playing an increasing role in the design of Management Systems. (It’s still a long way away from e.g. Nest’s products, but there is a clear trend)</p></li>
-</ul>
-<h4>Crossing the chasm</h4><p>However, at the moment, there is still a huge chasm dividing both IoT’s. The reasons for this are complex, but amongst them are the differences in culture, technology, agility and enterprise-suitability that distinguish the companies in both spaces.</p><p>There is, however, enormous opportunity in crossing this chasm. The new IoT provides valuable data about its users, their habits, daily routines and preferences. The old IoT generates detailed information about the environment they interact in. Combining both with big data crunching technology will lead to unprecedented (and slightly scary) insights into individual user’s behavioral patterns as well as into the systems they compose.</p><h4>What does it take to unite both IoTs?</h4><p>There are a number of possible integration and normalisation approaches for aggregating both IoTs.
-For <a href="http://deepstreamhub.com/">deepstreamHub</a>, our upcoming realtime data platform we use a concept of channels: pre-built integrations with third party services that allow you to directly stream realtime data, say Slack Messages or Stock Prices into your app. 
-But channels are bidirectional and could as well be used to control building management systems, process automation or even integrated healthcare. As long as you have a TCP endpoint, all it takes is to point your deepstreamHub channel towards it and its data and commands become available as a high level API within all connected browsers and backend processes.</p><p>We’ve only just started looking into the possibilities of interfacing with the old IoT. If you’ve got experience in the space and feel that this is either an absolutely superb or completely terrible idea: we’re very eager to hear your thoughts! (<a href="https://twitter.com/deepstreamIO">@deepstreamIO</a>)</p>
+<p>But then there are also the classical fields of proper, adult, no-nonsense realtime: Finance and IoT. In Markets where a lot of people are trading a tiny set of things, e.g. Foreign Exchange, prices update many times a second. And there’s only ever one valid price at a time. So the moment the next price becomes available, the last price becomes meaningless - and so does your realtime system if it fails to keep up.</p><p>Realtime reporting for the Internet of Things might not be quite as fast, but the consequences of missing an update or loosing a message can be all that much graver. If you’re running a storage facility for flammable gases, stored in high pressure tanks, you want your sensor’s pressure readings delivered without delay. Always.</p><div class="img-box">
+    <img src="gastanks.jpg" alt="IoT" />
+    <label>The industrial IoT is one of the earliest realtime usecases</label>
+</div>
+
+<h3>On to the “realtime web”</h3><p>Continuously sending event-streams over persistent connections and processing them as they happen has been done in multiplayer-gaming, manufacturing and finance for many years, but it has also increasingly found its way into apps, browser-software and websites
+.
+The techies amongst you might now be thinking “Ah, Websockets!”. And you are right. WebSockets provide a proper and standardized method of bidirectional communication between browser and server - meaning both can send messages to each other whenever they choose to. But the same has been possible for quite a while, utilizing a series of Hacks known as “Comet”. Comet allowed you to achieve WebSocket-like behaviour - albeit in a clunky and error prone fashion.</p><p>So, how come the realtime web is only recently gaining so much traction?
+Because there’s more to it than bi-directional communication. Much more.</p><p>Changing expectations for instance: Wouldn’t it feel strange if gmail made you hit a refresh button to find out if you have new mails? If you had to reload the page every time to see if your Trello board has updated? 
+Yet the Amazon shopping basket in my browser remains at a stoic zero, even though I’ve been piling items into it using the mobile app. That would have been perfectly normal just years ago, but now it starts to feel almost broken…</p><p>What we’re experiencing is the natural progression of Technology: It becomes more lifelike. Just as movies started in black and white, added sound, color, 3D (and hopefully soon actual 3D) the world wide web started as a humble document management system, added forms, page reloads, Ajax and as a next step realtime communication.</p>
 		</section>
 
 		<footer class="post-footer">
@@ -128,7 +126,7 @@ But channels are bidirectional and could as well be used to control building man
 				<h4>Share this post</h4>
 				<ul class="icons">
 					<li>
-						<a class="icon fa fa-twitter" href="https://twitter.com/share?text=The unsexy IoT @deepstreamhub&amp;url="
+						<a class="icon fa fa-twitter" href="https://twitter.com/share?text=What is realtime? @deepstreamhub&amp;url="
 							onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
 							<span class="label">Twitter</span>
 						</a>
@@ -155,7 +153,7 @@ But channels are bidirectional and could as well be used to control building man
 			</h4>
 			<ul class="latest-blogs-content">
 					<li class="latest-blog-article">
-						<a href="..\what-is-realtime\">
+						<a href="">
 							<span class="date">08/02/2016</span>
 							<span class="title">What is realtime?</span>
 						</a>
@@ -167,7 +165,7 @@ But channels are bidirectional and could as well be used to control building man
 						</a>
 					</li>
 					<li class="latest-blog-article">
-						<a href="">
+						<a href="..\the-unsexy-iot\">
 							<span class="date">18/01/2016</span>
 							<span class="title">The unsexy IoT</span>
 						</a>
@@ -230,7 +228,7 @@ But channels are bidirectional and could as well be used to control building man
 				</h4>
 				<ul class="latest-blogs-content">
 						<li class="latest-blog-article">
-							<a href="..\what-is-realtime\">
+							<a href="">
 								<span class="date">08/02/2016</span>
 								<span class="title">What is realtime?</span>
 							</a>
@@ -242,7 +240,7 @@ But channels are bidirectional and could as well be used to control building man
 							</a>
 						</li>
 						<li class="latest-blog-article">
-							<a href="">
+							<a href="..\the-unsexy-iot\">
 								<span class="date">18/01/2016</span>
 								<span class="title">The unsexy IoT</span>
 							</a>

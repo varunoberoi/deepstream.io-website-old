@@ -2,14 +2,16 @@
 	<h4 class="latest-blogs-header">
 		Latest Blog Articles
 	</h4>
-	<li class="latest-blogs-content">
+	<ul class="latest-blogs-content">
 		{{#each blogPosts}}
-		<ul class="latest-blog-article">
-			<a href="{{link 'blogpost' blogPath}}">
-				<span class="date">{{shortDate}}</span>
-				<span class="title">{{title}}</span>
-			</a>
-		</ul>
+			{{#if isLatest}}
+			<li class="latest-blog-article">
+				<a href="{{link 'blogpost' blogPath}}">
+					<span class="date">{{shortDate}}</span>
+					<span class="title">{{title}}</span>
+				</a>
+			</li>
+			{{/if}}
 		{{/each}}
-	</li>
+	</ul>
 </div>

@@ -159,7 +159,6 @@ var buildBlogPost = function( data, fileContent, next ) {
 		data.contextVars.blogPath =  data.contextVars.category + '/';
 		data.contextVars.thumbnail = data.contextVars.blogPath + metaData.thumbnail;
 		data.contextVars.pageContent = pageContent;
-
 		blogPosts.push( data.contextVars );
 
 		next();
@@ -169,7 +168,10 @@ var buildBlogPost = function( data, fileContent, next ) {
 var sortBlogs = function( next ) {
 	blogPosts.sort( function( blogA, blogB ) {
 		return blogB.dateISO > blogA.dateISO;
-	} );
+	});
+	for( var i = 0; i < blogPosts.length; i++ ) {
+		blogPosts[ i ].isLatest = i < 4;
+	}
 	next();
 	module.exports.blogPosts = blogPosts;
 };
