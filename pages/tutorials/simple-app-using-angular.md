@@ -8,7 +8,7 @@ Building a simple app with deepstream and angular
 Angulars services and powerful inline html bindings allows you to integrate easily
 with deepstream.
 
-To conenct to deepstream you can connect initialise it within a service:
+To connect to deepstream you can connect initialise it within a service:
 
 ```javascript
 angular.service( 'deepstream', function() {
