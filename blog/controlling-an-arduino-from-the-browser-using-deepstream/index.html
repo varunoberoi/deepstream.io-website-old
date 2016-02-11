@@ -22,9 +22,9 @@
 	<script type="text/javascript" src="../../assets/js/menu.js"></script>
 	<script type="text/javascript" src="../../assets/js/prism.js"></script>
 
-	<link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
-	<link href='http://fonts.googleapis.com/css?family=Quicksand:300,400,700' rel='stylesheet' type='text/css'>
-	<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+	<link href='//fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+	<link href='//fonts.googleapis.com/css?family=Quicksand:300,400,700' rel='stylesheet' type='text/css'>
+	<link href='//fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="../../assets/css/prism.css" />
 </head>
@@ -85,13 +85,13 @@
 <li>Bonus: Setup another client to recieve/send events</li>
 </ul>
 <h1>The board</h1><p>You&#39;ll need the following components:</p><ul>
-<li>A W5100 <a href="https://www.Arduino.cc/en/Main/ArduinoBoardEthernet">ethernet shield</a></li>
-<li>An Arduino <a href="https://www.Arduino.cc/en/Main/ArduinoBoardUno">uno</a></li>
+<li>A W5100 <a href="//www.Arduino.cc/en/Main/ArduinoBoardEthernet">ethernet shield</a></li>
+<li>An Arduino <a href="//www.Arduino.cc/en/Main/ArduinoBoardUno">uno</a></li>
 <li>A red LED</li>
 <li>A temperature sensor</li>
 </ul>
-<p>You can easily use different communication components such as <a href="https://www.Arduino.cc/en/Guide/ArduinoWiFiShield101">WiFi</a> or <a href="https://www.Arduino.cc/en/Reference/YunClientConstructor">bridge</a>, but make sure to use their associated libraries instead.</p><p>Wiring it all together the board ended up looking like this:</p><p><img width="100%" src="./basic-deepstream-arduino-setup.jpg" /></p><p>Forgive me for not using the correct color cables, I ran out of a few
-in a soldering accident =(</p><p>Now for the fun part!</p><h1>Connecting</h1><p>The first thing we need to do is to be able to get the Arduino board to connect to deepstream. Since I&#39;m using a W5100 <a href="https://www.Arduino.cc/en/Main/ArduinoBoardEthernet">ethernet shield</a> all I have to do is include the library and call <code>ethernet.begin( mac )</code> inside of the setup.</p><pre><code class="lang-clike">log(&quot;Getting IP...&quot;);
+<p>You can easily use different communication components such as <a href="//www.Arduino.cc/en/Guide/ArduinoWiFiShield101">WiFi</a> or <a href="//www.Arduino.cc/en/Reference/YunClientConstructor">bridge</a>, but make sure to use their associated libraries instead.</p><p>Wiring it all together the board ended up looking like this:</p><p><img width="100%" src="./basic-deepstream-arduino-setup.jpg" /></p><p>Forgive me for not using the correct color cables, I ran out of a few
+in a soldering accident =(</p><p>Now for the fun part!</p><h1>Connecting</h1><p>The first thing we need to do is to be able to get the Arduino board to connect to deepstream. Since I&#39;m using a W5100 <a href="//www.Arduino.cc/en/Main/ArduinoBoardEthernet">ethernet shield</a> all I have to do is include the library and call <code>ethernet.begin( mac )</code> inside of the setup.</p><pre><code class="lang-clike">log(&quot;Getting IP...&quot;);
 //Each shield has a different IP, you can find them on a sticker
 //on new ones on the back
 Ethernet.begin( mac );
@@ -175,7 +175,7 @@ if( state == &quot;OPEN&quot; &amp;&amp; message == createMessage( &quot;E&quot;
     log( &quot;Clients are no longer interested in the temperature&quot; );
 }
 </code></pre>
-<p>Since we don&#39;t actually have to recieve anything to send the values, the logic to send the data is outside the Ethernet <a href="https://www.arduino.cc/en/Reference/ClientAvailable"><code>client.available()</code></a>.</p><p>Sending an event just requires a message to be sent with the correct fields. Note the use of <a href="../../docs/constants.html#DataTypes">type</a> N in the data-payload. This lets clients who recieve the event to a number to know it&#39;s a number.</p><pre><code class="lang-clike">if( publishingTemperature == true ) {
+<p>Since we don&#39;t actually have to recieve anything to send the values, the logic to send the data is outside the Ethernet <a href="//www.arduino.cc/en/Reference/ClientAvailable"><code>client.available()</code></a>.</p><p>Sending an event just requires a message to be sent with the correct fields. Note the use of <a href="../../docs/constants.html#DataTypes">type</a> N in the data-payload. This lets clients who recieve the event to a number to know it&#39;s a number.</p><pre><code class="lang-clike">if( publishingTemperature == true ) {
     client.print( createMessage( &quot;E&quot;, &quot;EVT&quot;, &quot;temperature&quot;, String( &quot;N&quot; + newTemp ) ) );
 }
 </code></pre>
@@ -191,7 +191,7 @@ if( state == &quot;OPEN&quot; &amp;&amp; message == createMessage( &quot;E&quot;
 
 			<section class="author">
 
-				<img class="author-gravatar" src="https://s.gravatar.com/avatar/47342a117d8faf101cc6022488958ca1?s&#x3D;80">
+				<img class="author-gravatar" src="//s.gravatar.com/avatar/47342a117d8faf101cc6022488958ca1?s&#x3D;80">
 				
 				<span class="author-description">
 					<h4>About the author</h4>
@@ -216,19 +216,19 @@ if( state == &quot;OPEN&quot; &amp;&amp; message == createMessage( &quot;E&quot;
 				<h4>Share this post</h4>
 				<ul class="icons">
 					<li>
-						<a class="icon fa fa-twitter" href="https://twitter.com/share?text=Controlling an Arduino from the browser using deepstream.io @deepstreamhub&amp;url="
+						<a class="icon fa fa-twitter" href="//twitter.com/share?text=Controlling an Arduino from the browser using deepstream.io @deepstreamhub&amp;url="
 							onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
 							<span class="label">Twitter</span>
 						</a>
 					</li>
 					<li>
-						<a class="icon fa fa-facebook" href="https://www.facebook.com/sharer/sharer.php?u="
+						<a class="icon fa fa-facebook" href="//www.facebook.com/sharer/sharer.php?u="
 						onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
 						<span class="label">Facebook</span>
 						</a>
 					</li>
 					<li>
-						<a class="icon fa fa-google-plus" href="https://plus.google.com/share?url="
+						<a class="icon fa fa-google-plus" href="//plus.google.com/share?url="
 					   onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
 						<span class="label">Google+</span>
 					</a>
@@ -307,7 +307,7 @@ if( state == &quot;OPEN&quot; &amp;&amp; message == createMessage( &quot;E&quot;
 			</p>
 			
 			<p>
-				<a class="github-button" href="https://github.com/deepstreamIO/deepstream.io" data-icon="octicon-star" data-style="mega" data-count-href="/deepstreamIO/deepstream.io/stargazers" data-count-api="/repos/deepstreamIO/deepstream.io#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star deepstreamIO/deepstream.io on GitHub">Star</a>
+				<a class="github-button" href="//github.com/deepstreamIO/deepstream.io" data-icon="octicon-star" data-style="mega" data-count-href="/deepstreamIO/deepstream.io/stargazers" data-count-api="/repos/deepstreamIO/deepstream.io#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star deepstreamIO/deepstream.io on GitHub">Star</a>
 			</p>
 		</div>
 	
@@ -351,16 +351,16 @@ if( state == &quot;OPEN&quot; &amp;&amp; message == createMessage( &quot;E&quot;
 			<li class="footer-right">
 				<ul class="social">
 					<li class="twitter">
-						<a href="https://twitter.com/deepstreamIO">
+						<a href="//twitter.com/deepstreamIO">
 							<i class="fa fa-twitter"></i>  Twitter
 						</a>
 					</li>
 					<li class="github">
-						<a href="https://github.com/deepstreamIO">
+						<a href="//github.com/deepstreamIO">
 							<i class="fa fa-github"></i>  Github
 						</a>
 					</li>
-					<a href="https://www.facebook.com/deepstreamIO/">
+					<a href="//www.facebook.com/deepstreamIO/">
 						<i class="fa fa-facebook"></i>  Facebook
 					</a>
 					<li class="stack-overflow">
@@ -369,7 +369,7 @@ if( state == &quot;OPEN&quot; &amp;&amp; message == createMessage( &quot;E&quot;
 						</a>
 					</li>
 					<li>
-						<a href="https://deepstream-slack.herokuapp.com/">
+						<a href="//deepstream-slack.herokuapp.com/">
 							<i class="fa fa-slack"></i>  Slack
 						</a>
 					</li>
@@ -390,7 +390,7 @@ if( state == &quot;OPEN&quot; &amp;&amp; message == createMessage( &quot;E&quot;
 			<li class="footer-left">
 				<h4>Star this project on github!</h4>
 				<p>
-					<a class="github-button" href="https://github.com/deepstreamIO/deepstream.io" data-icon="octicon-star" data-style="mega" data-count-href="/deepstreamIO/deepstream.io/stargazers" data-count-api="/repos/deepstreamIO/deepstream.io#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star deepstreamIO/deepstream.io on GitHub">Star</a>
+					<a class="github-button" href="//github.com/deepstreamIO/deepstream.io" data-icon="octicon-star" data-style="mega" data-count-href="/deepstreamIO/deepstream.io/stargazers" data-count-api="/repos/deepstreamIO/deepstream.io#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star deepstreamIO/deepstream.io on GitHub">Star</a>
 				</p>
 
 				<h4>Contact the team</h4>
@@ -418,6 +418,6 @@ if( state == &quot;OPEN&quot; &amp;&amp; message == createMessage( &quot;E&quot;
 		ga('create', 'UA-63583386-1', 'auto');
 		ga('send', 'pageview');
 	</script>
-	<script async defer id="github-bjs" src="https://buttons.github.io/buttons.js"></script>
+	<script async defer id="github-bjs" src="//buttons.github.io/buttons.js"></script>
 </body>
 </html>

@@ -23,9 +23,9 @@
 	<script type="text/javascript" src="../assets/js/menu.js"></script>
 	<script type="text/javascript" src="../assets/js/prism.js"></script>
 
-	<link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
-	<link href='http://fonts.googleapis.com/css?family=Quicksand:300,400,700' rel='stylesheet' type='text/css'>
-	<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+	<link href='//fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+	<link href='//fonts.googleapis.com/css?family=Quicksand:300,400,700' rel='stylesheet' type='text/css'>
+	<link href='//fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="../assets/css/prism.css" />
 </head>
@@ -144,7 +144,7 @@
   Generating large amounts of clients or traffic in a very small amount of time and ensuring that the system does not fail.</li>
 </ul>
 <h3>How can you improve results?</h3><p>About deepstream’s performance
-Deepstream is designed as a distributed system. Individual nodes can multiplex updates amongst each other. This means that it’s possible to keep message latency and throughput rates steady whilst catering for an ever increasing number of simultaneously connected clients – simply by spinning up additional deepstream nodes as needed.</p><p>To put this statement into numbers, please see the performance test results for <a href="./performance-single-node-vs-cluster.html">a single node in comparison to a three instance cluster</a>.</p><h3>How to run the tests yourself</h3><p>When running these tests, we&#39;re using a <a href="https://github.com/deepstreamIO/deepstream.io-performance">performance test harness that&#39;s available on github</a>. It makes it easy to quickly spin up large numbers of deepstream servers and clients.</p><p>Clients are created in pairs that send messages back and forth on a unique record in order to calculate latency and keep track of updates.
+Deepstream is designed as a distributed system. Individual nodes can multiplex updates amongst each other. This means that it’s possible to keep message latency and throughput rates steady whilst catering for an ever increasing number of simultaneously connected clients – simply by spinning up additional deepstream nodes as needed.</p><p>To put this statement into numbers, please see the performance test results for <a href="./performance-single-node-vs-cluster.html">a single node in comparison to a three instance cluster</a>.</p><h3>How to run the tests yourself</h3><p>When running these tests, we&#39;re using a <a href="//github.com/deepstreamIO/deepstream.io-performance">performance test harness that&#39;s available on github</a>. It makes it easy to quickly spin up large numbers of deepstream servers and clients.</p><p>Clients are created in pairs that send messages back and forth on a unique record in order to calculate latency and keep track of updates.
 Each client increments the same field of a record in turns ( even and odd ) until the configured number of messages for the test case is reached.</p><p>Using a combination of the following environment variables you can adjust the test harness to either run high throughput, high concurrency or long duration tests.</p><table class="mini">
     <thead>
         <tr>
@@ -219,16 +219,16 @@ Each client increments the same field of a record in turns ( even and odd ) unti
 			<li class="footer-right">
 				<ul class="social">
 					<li class="twitter">
-						<a href="https://twitter.com/deepstreamIO">
+						<a href="//twitter.com/deepstreamIO">
 							<i class="fa fa-twitter"></i>  Twitter
 						</a>
 					</li>
 					<li class="github">
-						<a href="https://github.com/deepstreamIO">
+						<a href="//github.com/deepstreamIO">
 							<i class="fa fa-github"></i>  Github
 						</a>
 					</li>
-					<a href="https://www.facebook.com/deepstreamIO/">
+					<a href="//www.facebook.com/deepstreamIO/">
 						<i class="fa fa-facebook"></i>  Facebook
 					</a>
 					<li class="stack-overflow">
@@ -237,7 +237,7 @@ Each client increments the same field of a record in turns ( even and odd ) unti
 						</a>
 					</li>
 					<li>
-						<a href="https://deepstream-slack.herokuapp.com/">
+						<a href="//deepstream-slack.herokuapp.com/">
 							<i class="fa fa-slack"></i>  Slack
 						</a>
 					</li>
@@ -258,7 +258,7 @@ Each client increments the same field of a record in turns ( even and odd ) unti
 			<li class="footer-left">
 				<h4>Star this project on github!</h4>
 				<p>
-					<a class="github-button" href="https://github.com/deepstreamIO/deepstream.io" data-icon="octicon-star" data-style="mega" data-count-href="/deepstreamIO/deepstream.io/stargazers" data-count-api="/repos/deepstreamIO/deepstream.io#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star deepstreamIO/deepstream.io on GitHub">Star</a>
+					<a class="github-button" href="//github.com/deepstreamIO/deepstream.io" data-icon="octicon-star" data-style="mega" data-count-href="/deepstreamIO/deepstream.io/stargazers" data-count-api="/repos/deepstreamIO/deepstream.io#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star deepstreamIO/deepstream.io on GitHub">Star</a>
 				</p>
 
 				<h4>Contact the team</h4>
@@ -286,6 +286,6 @@ Each client increments the same field of a record in turns ( even and odd ) unti
 		ga('create', 'UA-63583386-1', 'auto');
 		ga('send', 'pageview');
 	</script>
-	<script async defer id="github-bjs" src="https://buttons.github.io/buttons.js"></script>
+	<script async defer id="github-bjs" src="//buttons.github.io/buttons.js"></script>
 </body>
 </html>
