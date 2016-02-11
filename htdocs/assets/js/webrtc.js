@@ -1,5 +1,5 @@
 function start() {
-    var ds = deepstream( 'https://52.28.240.163:6020' );
+    var ds = deepstream( '//52.28.240.163:6020' );
     var iam = ds.getUid();
     ds.login( {
         username: 'ds-webrtc-example-' + iam

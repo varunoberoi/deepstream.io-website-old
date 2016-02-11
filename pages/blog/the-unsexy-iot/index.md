@@ -52,8 +52,8 @@ There is, however, enormous opportunity in crossing this chasm. The new IoT prov
 
 #### What does it take to unite both IoTs?
 There are a number of possible integration and normalisation approaches for aggregating both IoTs.
-For [deepstreamHub](https://deepstreamhub.com/), our upcoming realtime data platform we use a concept of channels: pre-built integrations with third party services that allow you to directly stream realtime data, say Slack Messages or Stock Prices into your app. 
+For [deepstreamHub](//deepstreamhub.com/), our upcoming realtime data platform we use a concept of channels: pre-built integrations with third party services that allow you to directly stream realtime data, say Slack Messages or Stock Prices into your app. 
 But channels are bidirectional and could as well be used to control building management systems, process automation or even integrated healthcare. As long as you have a TCP endpoint, all it takes is to point your deepstreamHub channel towards it and its data and commands become available as a high level API within all connected browsers and backend processes.
 
-We’ve only just started looking into the possibilities of interfacing with the old IoT. If you’ve got experience in the space and feel that this is either an absolutely superb or completely terrible idea: we’re very eager to hear your thoughts! ([@deepstreamIO](https://twitter.com/deepstreamIO))
+We’ve only just started looking into the possibilities of interfacing with the old IoT. If you’ve got experience in the space and feel that this is either an absolutely superb or completely terrible idea: we’re very eager to hear your thoughts! ([@deepstreamIO](//twitter.com/deepstreamIO))
 

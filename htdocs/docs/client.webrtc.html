@@ -185,7 +185,7 @@
     });
 });
 </code></pre>
-</div><div class="section"><h2><a name="client.webrtc.unregisterCallee(calleeName)">client.webrtc.unregisterCallee( calleeName )</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">calleeName</td><td class="type">String</td><td class="optional">false</td><td class="default">-</td><td class="description">the name of the previously registered callee</td></tr></tbody></table><p>Un-register a callee that was previously registered using <code>client.webrtc.registerCallee</code></p></div><div class="section"><h2><a name="client.webrtc.makeCall(calleeName,metaData,localStream)">client.webrtc.makeCall( calleeName, metaData, localStream ) </a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">calleeName</td><td class="type">String</td><td class="optional">false</td><td class="default">-</td><td class="description">the name of a callee that another client registered</td></tr><tr><td class="argument">metaData</td><td class="type">Mixed</td><td class="optional">true</td><td class="default">-</td><td class="description">Arbitrary data that&#39;s send to the callee to help identify the caller and decide whether to accept or decline the call</td></tr><tr><td class="argument">localStream</td><td class="type">MediaStream</td><td class="optional">false</td><td class="default">-</td><td class="description">An instance of a <a href="https://developer.mozilla.org/en/docs/Web/API/MediaStream">HTML5 MediaStream</a></td></tr></tbody></table><p>Establishes a call with <code>calleeName</code> and returns an instance of <a href="webrtc_call.html">WebRTCCall</a></p><pre><code class="lang-javascript">getUserMedia({ video: true, audio: true }, function( localStream ){
+</div><div class="section"><h2><a name="client.webrtc.unregisterCallee(calleeName)">client.webrtc.unregisterCallee( calleeName )</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">calleeName</td><td class="type">String</td><td class="optional">false</td><td class="default">-</td><td class="description">the name of the previously registered callee</td></tr></tbody></table><p>Un-register a callee that was previously registered using <code>client.webrtc.registerCallee</code></p></div><div class="section"><h2><a name="client.webrtc.makeCall(calleeName,metaData,localStream)">client.webrtc.makeCall( calleeName, metaData, localStream ) </a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">calleeName</td><td class="type">String</td><td class="optional">false</td><td class="default">-</td><td class="description">the name of a callee that another client registered</td></tr><tr><td class="argument">metaData</td><td class="type">Mixed</td><td class="optional">true</td><td class="default">-</td><td class="description">Arbitrary data that&#39;s send to the callee to help identify the caller and decide whether to accept or decline the call</td></tr><tr><td class="argument">localStream</td><td class="type">MediaStream</td><td class="optional">false</td><td class="default">-</td><td class="description">An instance of a <a href="//developer.mozilla.org/en/docs/Web/API/MediaStream">HTML5 MediaStream</a></td></tr></tbody></table><p>Establishes a call with <code>calleeName</code> and returns an instance of <a href="webrtc_call.html">WebRTCCall</a></p><pre><code class="lang-javascript">getUserMedia({ video: true, audio: true }, function( localStream ){
     var metaData = { callerName: &#39;Raymond Stantz&#39; };
     var call = ds.webrtc.makeCall( &#39;Peter Venkman&#39;, metaData, localStream );
 
@@ -226,16 +226,16 @@ of currently registered calleeNames and from thereon with an updated list of cal
 			<li class="footer-right">
 				<ul class="social">
 					<li class="twitter">
-						<a href="https://twitter.com/deepstreamIO">
+						<a href="//twitter.com/deepstreamIO">
 							<i class="fa fa-twitter"></i>  Twitter
 						</a>
 					</li>
 					<li class="github">
-						<a href="https://github.com/deepstreamIO">
+						<a href="//github.com/deepstreamIO">
 							<i class="fa fa-github"></i>  Github
 						</a>
 					</li>
-					<a href="https://www.facebook.com/deepstreamIO/">
+					<a href="//www.facebook.com/deepstreamIO/">
 						<i class="fa fa-facebook"></i>  Facebook
 					</a>
 					<li class="stack-overflow">
@@ -244,7 +244,7 @@ of currently registered calleeNames and from thereon with an updated list of cal
 						</a>
 					</li>
 					<li>
-						<a href="https://deepstream-slack.herokuapp.com/">
+						<a href="//deepstream-slack.herokuapp.com/">
 							<i class="fa fa-slack"></i>  Slack
 						</a>
 					</li>
@@ -265,7 +265,7 @@ of currently registered calleeNames and from thereon with an updated list of cal
 			<li class="footer-left">
 				<h4>Star this project on github!</h4>
 				<p>
-					<a class="github-button" href="https://github.com/deepstreamIO/deepstream.io" data-icon="octicon-star" data-style="mega" data-count-href="/deepstreamIO/deepstream.io/stargazers" data-count-api="/repos/deepstreamIO/deepstream.io#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star deepstreamIO/deepstream.io on GitHub">Star</a>
+					<a class="github-button" href="//github.com/deepstreamIO/deepstream.io" data-icon="octicon-star" data-style="mega" data-count-href="/deepstreamIO/deepstream.io/stargazers" data-count-api="/repos/deepstreamIO/deepstream.io#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star deepstreamIO/deepstream.io on GitHub">Star</a>
 				</p>
 
 				<h4>Contact the team</h4>
@@ -284,6 +284,15 @@ of currently registered calleeNames and from thereon with an updated list of cal
 	</div>
 
 
-	<script async defer id="github-bjs" src="https://buttons.github.io/buttons.js"></script>
+	<script>
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+		ga('create', 'UA-63583386-1', 'auto');
+		ga('send', 'pageview');
+	</script>
+	<script async defer id="github-bjs" src="//buttons.github.io/buttons.js"></script>
 </body>
 </html>

@@ -27,9 +27,9 @@ Deepstream is an open platform that uses a minimal, text-based protocol to commu
 < E|EVT|someEvent|Smore details+
 ```
 
-Deepstream communicates via [engine.io](https://github.com/socketio/engine.io) with browsers and via TCP for all other programming languages. Using a low level protocol like TCP means that pretty much everything, from basic Arduinos to enterprise Java servers can communicate with deepstream.
+Deepstream communicates via [engine.io](//github.com/socketio/engine.io) with browsers and via TCP for all other programming languages. Using a low level protocol like TCP means that pretty much everything, from basic Arduinos to enterprise Java servers can communicate with deepstream.
 
-If you'd like to write a client for your language of choice, have a look if there's [already an issue for it](https://github.com/deepstreamIO/deepstream.io/labels/new-client) and get in touch! We'd be more than happy to help.
+If you'd like to write a client for your language of choice, have a look if there's [already an issue for it](//github.com/deepstreamIO/deepstream.io/labels/new-client) and get in touch! We'd be more than happy to help.
 
 # Where to start?
 Here's how to tackle writing a deepstream client:
@@ -47,7 +47,7 @@ You can now view all the different message structures [here](./specs.html) as a 
 
 # Features
 
-Making sure your client works in the exact way the server expects it to can be quite challenging when running against a real server. Because of this, we covered all the features offered using [cucumber](https://cucumber.io/), a format that is supported by most of the popular programming languages.
+Making sure your client works in the exact way the server expects it to can be quite challenging when running against a real server. Because of this, we covered all the features offered using [cucumber](//cucumber.io/), a format that is supported by most of the popular programming languages.
 
 What this means is you can test your client continuously while developing it using prewritten integration tests. These tests are continuously run against current clients and when you get them all passing provides the guarantee you're using the procotol correctly.
 
@@ -64,13 +64,13 @@ Before reading on, take a quick peek at [the connectivity feature](./connectivit
 
 Since the tests will be run in the language the client is being written in you would also need to setup a very simple TCP server.
 
-The best place to start would be looking at the [server step definitions](https://raw.githubusercontent.com/deepstreamIO/deepstream.io-client-specs/master/step-definitions-server/step-definition-server.js) and its [TCP server](https://raw.githubusercontent.com/deepstreamIO/deepstream.io-client-specs/master/step-definitions-server/tcp-server.js) and applying the same logic in your language of choice.
+The best place to start would be looking at the [server step definitions](//raw.githubusercontent.com/deepstreamIO/deepstream.io-client-specs/master/step-definitions-server/step-definition-server.js) and its [TCP server](//raw.githubusercontent.com/deepstreamIO/deepstream.io-client-specs/master/step-definitions-server/tcp-server.js) and applying the same logic in your language of choice.
 
 <div class="hint-box fa fa-gears">
     <h3>Remember to catch errors</h3>
     <ul>
         <li>
-            In order to guarantee no errors are being ignored you can add a [cucumber hook](https://github.com/cucumber/cucumber/wiki/Hooks) to run after each feature and ensure no unexpected errors were thrown.
+            In order to guarantee no errors are being ignored you can add a [cucumber hook](//github.com/cucumber/cucumber/wiki/Hooks) to run after each feature and ensure no unexpected errors were thrown.
         </li>
     </ul>
 </div>

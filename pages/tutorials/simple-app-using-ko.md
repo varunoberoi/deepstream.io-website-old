@@ -4,7 +4,7 @@
 }
 Building a simple app with deepstream and knockout js
 =====================================================
-[KnockoutJs](https://knockoutjs.com/) works well with deepstream. Its two way bindings, atomic updates and overall speed make it a great fit for realtime applications. So well in fact, that we developed a tool that makes using it even easier.
+[KnockoutJs](//knockoutjs.com/) works well with deepstream. Its two way bindings, atomic updates and overall speed make it a great fit for realtime applications. So well in fact, that we developed a tool that makes using it even easier.
 
 ### KoTools
 <table class="mini space">
@@ -17,8 +17,8 @@ Building a simple app with deepstream and knockout js
 	<tbody>
 		<tr>
 			<td>
-				<a href="https://github.com/deepstreamIO/deepstream.io-tools-ko">
-					https://github.com/deepstreamIO/deepstream.io-tools-ko
+				<a href="//github.com/deepstreamIO/deepstream.io-tools-ko">
+					//github.com/deepstreamIO/deepstream.io-tools-ko
 				</a>
 			</td>
 			<td><code>deepstream.io-tools-ko</code></td>
@@ -52,4 +52,4 @@ UserViewModel = function( userRecordName, viewList ) {
 
 Please find an example application using deepstream, KnockoutJs and deepstream.io-ko-tools here:
 
-<a class="mega" href="https://github.com/deepstreamIO/ds-demo-simple-app-ko"><i class="fa fa-github"></i>Knockout.js example app</a>
+<a class="mega" href="//github.com/deepstreamIO/ds-demo-simple-app-ko"><i class="fa fa-github"></i>Knockout.js example app</a>

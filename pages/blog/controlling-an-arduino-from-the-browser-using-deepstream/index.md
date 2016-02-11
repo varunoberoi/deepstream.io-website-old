@@ -21,12 +21,12 @@ Let's first set the requirements:
 # The board
 
 You'll need the following components:
-* A W5100 [ethernet shield](https://www.Arduino.cc/en/Main/ArduinoBoardEthernet)
-* An Arduino [uno](https://www.Arduino.cc/en/Main/ArduinoBoardUno)
+* A W5100 [ethernet shield](//www.Arduino.cc/en/Main/ArduinoBoardEthernet)
+* An Arduino [uno](//www.Arduino.cc/en/Main/ArduinoBoardUno)
 * A red LED
 * A temperature sensor
 
-You can easily use different communication components such as [WiFi](https://www.Arduino.cc/en/Guide/ArduinoWiFiShield101) or [bridge](https://www.Arduino.cc/en/Reference/YunClientConstructor), but make sure to use their associated libraries instead.
+You can easily use different communication components such as [WiFi](//www.Arduino.cc/en/Guide/ArduinoWiFiShield101) or [bridge](//www.Arduino.cc/en/Reference/YunClientConstructor), but make sure to use their associated libraries instead.
 
 Wiring it all together the board ended up looking like this:
 
@@ -39,7 +39,7 @@ Now for the fun part!
 
 # Connecting 
 
-The first thing we need to do is to be able to get the Arduino board to connect to deepstream. Since I'm using a W5100 [ethernet shield](https://www.Arduino.cc/en/Main/ArduinoBoardEthernet) all I have to do is include the library and call `ethernet.begin( mac )` inside of the setup. 
+The first thing we need to do is to be able to get the Arduino board to connect to deepstream. Since I'm using a W5100 [ethernet shield](//www.Arduino.cc/en/Main/ArduinoBoardEthernet) all I have to do is include the library and call `ethernet.begin( mac )` inside of the setup. 
 
 ```clike
 log("Getting IP...");
@@ -193,7 +193,7 @@ if( state == "OPEN" && message == createMessage( "E", "SP", "/^temperature$/", "
 }
 ```
 
-Since we don't actually have to recieve anything to send the values, the logic to send the data is outside the Ethernet [`client.available()`](https://www.arduino.cc/en/Reference/ClientAvailable).
+Since we don't actually have to recieve anything to send the values, the logic to send the data is outside the Ethernet [`client.available()`](//www.arduino.cc/en/Reference/ClientAvailable).
 
 Sending an event just requires a message to be sent with the correct fields. Note the use of [type](../../docs/constants.html#DataTypes) N in the data-payload. This lets clients who recieve the event to a number to know it's a number.
 

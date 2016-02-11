@@ -12,7 +12,7 @@ This provides an entry point to providers to minimize resources, since a provide
 can cater for data that a client is currently interested in rather than providing
 all possible updates at all times.
 
-<a class="mega" href="https://github.com/deepstreamIO/ds-demo-provider"><i class="fa fa-github"></i>Checkout the provider tutorial code</a>
+<a class="mega" href="//github.com/deepstreamIO/ds-demo-provider"><i class="fa fa-github"></i>Checkout the provider tutorial code</a>
 
 ### Brief tutorial introduction
 

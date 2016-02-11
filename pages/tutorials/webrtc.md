@@ -4,8 +4,8 @@
 }
 
 <link href="../assets/css/webrtc.css" type="text/css" rel="stylesheet" />
-<script type="text/javascript" src="https://rawgit.com/webrtc/adapter/master/adapter.js"></script>
-<script type="text/javascript" src="https://rawgit.com/deepstreamIO/deepstream.io-client-js/master/dist/deepstream.min.js"></script>
+<script type="text/javascript" src="//rawgit.com/webrtc/adapter/master/adapter.js"></script>
+<script type="text/javascript" src="//rawgit.com/deepstreamIO/deepstream.io-client-js/master/dist/deepstream.min.js"></script>
 <script type="text/javascript" src="../assets/js/webrtc.js"></script>
 Video-Chat with Deepstream and WebRTC
 ==========================================
@@ -114,11 +114,11 @@ call.on( 'declined', function( reason ){
 Please find the documentation [here](../docs/client.webrtc.html) and have a look at our examples.
 
 <div class="two-examples">
-	<a href="https://github.com/deepstreamIO/ds-demo-webtrc/tree/master/simple-example">
+	<a href="//github.com/deepstreamIO/ds-demo-webtrc/tree/master/simple-example">
 		<img width="200" height="125" alt="WebRTC simple example" src="../assets/images/webrtc-simple-example.png" />
 		<label>Simple Example</label>
 	</a>
-	<a href="https://github.com/deepstreamIO/ds-demo-webtrc/tree/master/complex-example">
+	<a href="//github.com/deepstreamIO/ds-demo-webtrc/tree/master/complex-example">
 		<img width="200" height="125" alt="WebRTC complex example" src="../assets/images/webrtc-complex-example.png" />
 		<label>More feature-rich example</label>
 	</a>

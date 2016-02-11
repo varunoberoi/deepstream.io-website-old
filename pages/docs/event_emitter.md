@@ -4,7 +4,7 @@
 }
 EventEmitter
 -----------------------
-The deepstream-client uses [component-emitter](https://www.npmjs.com/package/component-emitter) as an event-emitter which in turn implements a subset of the [NodeJS EventEmitter API](https://nodejs.org/api/events.html).
+The deepstream-client uses [component-emitter](//www.npmjs.com/package/component-emitter) as an event-emitter which in turn implements a subset of the [NodeJS EventEmitter API](//nodejs.org/api/events.html).
 
 on(event, callback)
 -----------------------

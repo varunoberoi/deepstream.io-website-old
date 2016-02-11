@@ -60,7 +60,7 @@ Events
 
 <tr>
 <td>established</td>
-<td><a href="https://developer.mozilla.org/en/docs/Web/API/MediaStream">HTML5 MediaStream</a> remoteStream</td>
+<td><a href="//developer.mozilla.org/en/docs/Web/API/MediaStream">HTML5 MediaStream</a> remoteStream</td>
 <td>Emitted once the call was accepted</td>
 </tr>
 
@@ -136,7 +136,7 @@ accept( localStream )
 argument: localStream
 type: MediaStream
 optional: false
-desc: An instance of a [HTML5 MediaStream](https://developer.mozilla.org/en/docs/Web/API/MediaStream)
+desc: An instance of a [HTML5 MediaStream](//developer.mozilla.org/en/docs/Web/API/MediaStream)
 
 Accept an incoming call
 

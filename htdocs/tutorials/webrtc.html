@@ -151,7 +151,7 @@
 </ul>
 
 			<div id="content">
-				<p><link href="../assets/css/webrtc.css" type="text/css" rel="stylesheet" /></p><p><script type="text/javascript" src="https://rawgit.com/webrtc/adapter/master/adapter.js"></script></p><p><script type="text/javascript" src="https://rawgit.com/deepstreamIO/deepstream.io-client-js/master/dist/deepstream.min.js"></script></p><p><script type="text/javascript" src="../assets/js/webrtc.js"></script></p><h1>Video-Chat with Deepstream and WebRTC</h1><p>Web Real Time Communication is a great standard that makes it possible to establish video, audio and data-streams directly between two browsers. 
+				<p><link href="../assets/css/webrtc.css" type="text/css" rel="stylesheet" /></p><p><script type="text/javascript" src="//rawgit.com/webrtc/adapter/master/adapter.js"></script></p><p><script type="text/javascript" src="//rawgit.com/deepstreamIO/deepstream.io-client-js/master/dist/deepstream.min.js"></script></p><p><script type="text/javascript" src="../assets/js/webrtc.js"></script></p><h1>Video-Chat with Deepstream and WebRTC</h1><p>Web Real Time Communication is a great standard that makes it possible to establish video, audio and data-streams directly between two browsers. 
 But, there’s a catch: WebRTC requires you to dive deeply into the mechanics of connection establishment, exchange offers, answers and ICE candidates - and you still need a server to establish the call.</p><p>We’ve baked all this directly into deepstream and boiled it down to two concepts: A realtime phonebook that clients can register with and subscribe to – and the ability to call anyone in it.</p><p>Combine this with other deepstream features such as permissioning, records or data-transforms and you can build an amazing realtime app without worrying too much about implementation details.</p><h3>Demo</h3><div class="webrtc-example">
     <div class="error-screen">
         <div class="inner">
@@ -232,11 +232,11 @@ call.on( &#39;declined&#39;, function( reason ){
 });
 </code></pre>
 <h3>Try it out</h3><p>Please find the documentation <a href="../docs/client.webrtc.html">here</a> and have a look at our examples.</p><div class="two-examples">
-    <a href="https://github.com/deepstreamIO/ds-demo-webtrc/tree/master/simple-example">
+    <a href="//github.com/deepstreamIO/ds-demo-webtrc/tree/master/simple-example">
         <img width="200" height="125" alt="WebRTC simple example" src="../assets/images/webrtc-simple-example.png" />
         <label>Simple Example</label>
     </a>
-    <a href="https://github.com/deepstreamIO/ds-demo-webtrc/tree/master/complex-example">
+    <a href="//github.com/deepstreamIO/ds-demo-webtrc/tree/master/complex-example">
         <img width="200" height="125" alt="WebRTC complex example" src="../assets/images/webrtc-complex-example.png" />
         <label>More feature-rich example</label>
     </a>
@@ -253,16 +253,16 @@ call.on( &#39;declined&#39;, function( reason ){
 			<li class="footer-right">
 				<ul class="social">
 					<li class="twitter">
-						<a href="https://twitter.com/deepstreamIO">
+						<a href="//twitter.com/deepstreamIO">
 							<i class="fa fa-twitter"></i>  Twitter
 						</a>
 					</li>
 					<li class="github">
-						<a href="https://github.com/deepstreamIO">
+						<a href="//github.com/deepstreamIO">
 							<i class="fa fa-github"></i>  Github
 						</a>
 					</li>
-					<a href="https://www.facebook.com/deepstreamIO/">
+					<a href="//www.facebook.com/deepstreamIO/">
 						<i class="fa fa-facebook"></i>  Facebook
 					</a>
 					<li class="stack-overflow">
@@ -271,7 +271,7 @@ call.on( &#39;declined&#39;, function( reason ){
 						</a>
 					</li>
 					<li>
-						<a href="https://deepstream-slack.herokuapp.com/">
+						<a href="//deepstream-slack.herokuapp.com/">
 							<i class="fa fa-slack"></i>  Slack
 						</a>
 					</li>
@@ -292,7 +292,7 @@ call.on( &#39;declined&#39;, function( reason ){
 			<li class="footer-left">
 				<h4>Star this project on github!</h4>
 				<p>
-					<a class="github-button" href="https://github.com/deepstreamIO/deepstream.io" data-icon="octicon-star" data-style="mega" data-count-href="/deepstreamIO/deepstream.io/stargazers" data-count-api="/repos/deepstreamIO/deepstream.io#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star deepstreamIO/deepstream.io on GitHub">Star</a>
+					<a class="github-button" href="//github.com/deepstreamIO/deepstream.io" data-icon="octicon-star" data-style="mega" data-count-href="/deepstreamIO/deepstream.io/stargazers" data-count-api="/repos/deepstreamIO/deepstream.io#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star deepstreamIO/deepstream.io on GitHub">Star</a>
 				</p>
 
 				<h4>Contact the team</h4>
@@ -311,6 +311,15 @@ call.on( &#39;declined&#39;, function( reason ){
 	</div>
 
 
-	<script async defer id="github-bjs" src="https://buttons.github.io/buttons.js"></script>
+	<script>
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+		ga('create', 'UA-63583386-1', 'auto');
+		ga('send', 'pageview');
+	</script>
+	<script async defer id="github-bjs" src="//buttons.github.io/buttons.js"></script>
 </body>
 </html>

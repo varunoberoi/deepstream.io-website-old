@@ -7,7 +7,7 @@ WebRTC implementation tips
 A collection of things we found useful when working with WebRTC
 
 ### Use the WebRTC adapter
-Deepstream expects a standard-compliant WebRTC API – which is almost here. To bridge implementation differences and ensure backwards compatibility in the meantime, the WebRTC initiative offers an [adapter script]( https://github.com/webrtc/adapter) which we highly recommend using for now. 
+Deepstream expects a standard-compliant WebRTC API – which is almost here. To bridge implementation differences and ensure backwards compatibility in the meantime, the WebRTC initiative offers an [adapter script]( //github.com/webrtc/adapter) which we highly recommend using for now. 
 
 ### Don’t forget to tell your video to play
 HTML 5 videos don’t play by default, so don’t forget to either add an `autoplay` attribute

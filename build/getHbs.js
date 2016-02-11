@@ -33,14 +33,14 @@ hbs.registerHelper( 'capitalizeFirstLetter', function( string ){
 
 hbs.registerHelper( 'issue', function( number ){
 	var html = '<a class="githubIssue"'+
-			' href="https://github.com/deepstreamIO/deepstream.io/issues/'+
+			' href="//github.com/deepstreamIO/deepstream.io/issues/'+
 			number +'">#'+ number +'</a>';
 
 	return new hbs.SafeString( html );
 });
 
 hbs.registerHelper( 'githubstar', function( number ){
-	var html = '<a class="github-button" href="https://github.com/deepstreamIO/deepstream.io" ' + 
+	var html = '<a class="github-button" href="//github.com/deepstreamIO/deepstream.io" ' + 
 	'data-icon="octicon-star" data-style="mega" data-count-href="/deepstreamIO/deepstream.io/stargazers" ' +
 	'data-count-api="/repos/deepstreamIO/deepstream.io#stargazers_count" ' + 
 	'data-count-aria-label="# stargazers on GitHub" ' + 
@@ -60,12 +60,12 @@ hbs.registerHelper( 'downloadItem', function( name, packageName, hasBower, icon 
 			'<code>' +
 				'<span class="pckg-name">' + packageName + '</span><span class="version">-</span>' +
 			'</code>' +
-			'<a class="npm download-link" title="get from npm" href="https://www.npmjs.com/package/' + packageName + '"><i></i><span>NPM</span></a>';
+			'<a class="npm download-link" title="get from npm" href="//www.npmjs.com/package/' + packageName + '"><i></i><span>NPM</span></a>';
 		if( hasBower === true ) {
 			html += '<a class="bower download-link" title="get from bower" href="//bower.io/search/?q=' + packageName + '"><i></i><span>Bower</span></a>';
 		}
 
-		html +=	'<a class="github download-link" title="see on github" href="https://github.com/deepstreamIO/' + packageName + '"><i></i><span>Github</span></a>' +
+		html +=	'<a class="github download-link" title="see on github" href="//github.com/deepstreamIO/' + packageName + '"><i></i><span>Github</span></a>' +
 		'</li>';
 
 	return new hbs.SafeString( html );

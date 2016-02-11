@@ -85,8 +85,8 @@ There’s one thing though it doesn’t do: send your message directly to web br
 <li>Connect to deepstream</li>
 <li>Forward incoming messages as deepstream events</li>
 </ul>
-<p>Phew, that sounds like a lot! But, it’s actually not that bad. Here’s what our setup will look like</p><p><img src="aws-sns-to-deepstream.png" alt="Basic Setup"></p><p>If you prefer diving right into the code, check out the <a href="https://github.com/deepstreamIO/ds-tutorial-aws-sns">github repo</a></p><h3>A bit of a disclaimer</h3><p>For brevities sake, this tutorial skimps on security. AWS security is extremely powerful, but also complex enough to have <a href="https://media.amazonwebservices.com/AWS_Security_Best_Practices.pdf">whole books written about it</a>. We’ll be using http instead of https, temporary security tokens (which is a good idea), but store them as plain text in our code (which is not) and a deepstream.io server that’s open to the world, instead of <a href="https://deepstream.io/tutorials/authentication.html">properly permissioned</a>.
-This tutorial also assumes that you&#39;re already familiar with deepstream&#39;s basic concepts. If not, quickly head over to the <a href="https://deepstream.io/tutorials/getting-started.html">getting started</a> tutorial - don&#39;t worry, I&#39;ll wait.</p><h3>Let’s get started: Creating a topic.</h3><p>We’ll start by creating a topic via the AWS console. Topics are the fundamental concept for message routing in a pub-sub architecture: Many subscribers listen to a topic and are notified whenever something publishes a message on that topic. Basically, it’s like JavaScript events, but you have to create a topic before you can subscribe.
+<p>Phew, that sounds like a lot! But, it’s actually not that bad. Here’s what our setup will look like</p><p><img src="aws-sns-to-deepstream.png" alt="Basic Setup"></p><p>If you prefer diving right into the code, check out the <a href="//github.com/deepstreamIO/ds-tutorial-aws-sns">github repo</a></p><h3>A bit of a disclaimer</h3><p>For brevities sake, this tutorial skimps on security. AWS security is extremely powerful, but also complex enough to have <a href="//media.amazonwebservices.com/AWS_Security_Best_Practices.pdf">whole books written about it</a>. We’ll be using http instead of https, temporary security tokens (which is a good idea), but store them as plain text in our code (which is not) and a deepstream.io server that’s open to the world, instead of <a href="//deepstream.io/tutorials/authentication.html">properly permissioned</a>.
+This tutorial also assumes that you&#39;re already familiar with deepstream&#39;s basic concepts. If not, quickly head over to the <a href="//deepstream.io/tutorials/getting-started.html">getting started</a> tutorial - don&#39;t worry, I&#39;ll wait.</p><h3>Let’s get started: Creating a topic.</h3><p>We’ll start by creating a topic via the AWS console. Topics are the fundamental concept for message routing in a pub-sub architecture: Many subscribers listen to a topic and are notified whenever something publishes a message on that topic. Basically, it’s like JavaScript events, but you have to create a topic before you can subscribe.
 Let’s create a topic called “news” via the console:</p><p><img src="create-sns-topic.png" alt="Creating a SNS topic via the console"></p><h3>Create the http server</h3><p>Next up, we need to start an http server. Why? The way SNS notifies your application of incoming messages is via HTTP.  For this to work, your application needs to:</p><ul>
 <li>Start a HTTP server</li>
 <li>Subscribe to a topic and tell SNS which URL it should send updates to</li>
@@ -122,19 +122,19 @@ Let’s create a topic called “news” via the console:</p><p><img src="create
     server.listen( 6001, subscribeToSnS );
 }
 </code></pre>
-<p>Oh, and before I forget: Your http server needs to be accessible from the internet. If you&#39;re running it locally, you might want to use a tool like <a href="https://ngrok.com/">ngrok</a> to make this possible.</p><h3>Subscribing to a topic</h3><p>Using the <a href="https://aws.amazon.com/sdk-for-node-js/">AWS-SDK for NodeJS</a>, subscribing to a topic is as easy as</p><pre><code class="lang-javascript">var AWS = require(&#39;aws-sdk&#39;);
+<p>Oh, and before I forget: Your http server needs to be accessible from the internet. If you&#39;re running it locally, you might want to use a tool like <a href="//ngrok.com/">ngrok</a> to make this possible.</p><h3>Subscribing to a topic</h3><p>Using the <a href="//aws.amazon.com/sdk-for-node-js/">AWS-SDK for NodeJS</a>, subscribing to a topic is as easy as</p><pre><code class="lang-javascript">var AWS = require(&#39;aws-sdk&#39;);
 var sns = new AWS.SNS();
 
 sns.subscribe({
     Protocol: &#39;http&#39;,
     //You don&#39;t just subscribe to &quot;news&quot;, but the whole Amazon Resource Name (ARN)
     TopicArn: &#39;arn:aws:sns:eu-central-1:792569207202:news&#39;,
-    Endpoint: &#39;https://your-endpoint-url.com&#39;
+    Endpoint: &#39;//your-endpoint-url.com&#39;
 }, function( error, data ) {
     console.log( error || data );
 });
 </code></pre>
-<p>But for this to work, we need to get two security steps out of the way first: Permission a user to use SNS and add its credentials to the Node SDK.</p><p>Here&#39;s how to permission a user via the AWS console:</p><p><img src="attaching-SNS-policy.png" alt="Attaching SNS user policy"></p><p>Next, we need to create a security token for this user. Using the <a href="https://aws.amazon.com/cli/">AWS command line tool</a> this is as simple as</p><pre><code class="lang-text">aws sts get-session-token
+<p>But for this to work, we need to get two security steps out of the way first: Permission a user to use SNS and add its credentials to the Node SDK.</p><p>Here&#39;s how to permission a user via the AWS console:</p><p><img src="attaching-SNS-policy.png" alt="Attaching SNS user policy"></p><p>Next, we need to create a security token for this user. Using the <a href="//aws.amazon.com/cli/">AWS command line tool</a> this is as simple as</p><pre><code class="lang-text">aws sts get-session-token
 </code></pre>
 <p>This will display a set of credentials that we can use to configure our SDK.</p><pre><code class="lang-javascript">var AWS = require(&#39;aws-sdk&#39;);
 AWS.config.update({
@@ -145,7 +145,7 @@ AWS.config.update({
 });
 var sns = new AWS.SNS();
 </code></pre>
-<p>As mentioned before, embedding your credentials into the code might be easy, but it isn&#39;t safe. Have a look at the <a href="https://docs.aws.amazon.com/AWSJavaScriptSDK/guide/node-configuring.html">config documentation</a> to find a better way to store credentials.</p><h3>Confirming your subscription</h3><p>Great, now our call to <code>sns.subscribe</code> should work. A few milliseconds after we&#39;ve made it, our http server should receive a message, asking it to confirm the subscription. To process it, it&#39;s time to fill in the <code>handleIncomingMessage( msgType, msgData );</code> method from the http-server snippet.</p><pre><code class="lang-javascript">function handleIncomingMessage( msgType, msgData ) {
+<p>As mentioned before, embedding your credentials into the code might be easy, but it isn&#39;t safe. Have a look at the <a href="//docs.aws.amazon.com/AWSJavaScriptSDK/guide/node-configuring.html">config documentation</a> to find a better way to store credentials.</p><h3>Confirming your subscription</h3><p>Great, now our call to <code>sns.subscribe</code> should work. A few milliseconds after we&#39;ve made it, our http server should receive a message, asking it to confirm the subscription. To process it, it&#39;s time to fill in the <code>handleIncomingMessage( msgType, msgData );</code> method from the http-server snippet.</p><pre><code class="lang-javascript">function handleIncomingMessage( msgType, msgData ) {
     if( msgType === &#39;SubscriptionConfirmation&#39;) {
         //confirm the subscription.
         sns.confirmSubscription({
@@ -164,7 +164,7 @@ var sns = new AWS.SNS();
 
 server.start();
 </code></pre>
-<p>and run it</p><p><img src="deepstream-startup.png" alt="Deepstream.io startup"></p><p>As the console shows, the server is now listening for TCP connections (e.g. from a node client) on port <code>6021</code> and for browser connections on port <code>6020</code>. If you&#39;d prefer different hosts/ports, please have a look at the <a href="https://deepstream.io/docs/deepstream.html">configuration docs</a>.</p><p>All that&#39;s left now is to connect our SNS-provider to the deepstream server:</p><pre><code class="lang-javascript">var deepstreamClient = require( &#39;deepstream.io-client-js&#39; );
+<p>and run it</p><p><img src="deepstream-startup.png" alt="Deepstream.io startup"></p><p>As the console shows, the server is now listening for TCP connections (e.g. from a node client) on port <code>6021</code> and for browser connections on port <code>6020</code>. If you&#39;d prefer different hosts/ports, please have a look at the <a href="//deepstream.io/docs/deepstream.html">configuration docs</a>.</p><p>All that&#39;s left now is to connect our SNS-provider to the deepstream server:</p><pre><code class="lang-javascript">var deepstreamClient = require( &#39;deepstream.io-client-js&#39; );
 var ds = deepstreamClient( &#39;localhost:6021&#39; ).login();
 </code></pre>
 <h3>Forwarding SNS messages as deepstream events</h3><p>Ok, time for the last piece of the puzzle. Every time we receive a message from SNS, we want to forward it as a deepstream event. (Events are deepstream&#39;s pub-sub mechanism. They work exactly like a JavaScript event emitter, distributed across many clients).</p><p>Each SNS message has a &quot;Subject&quot; and a &quot;Message&quot; - both of which are plain text. This leaves us with a couple of choices: We could use the topic as an event name, send JSON as the message body or come up with a totally different mechanism. But for now, let&#39;s keep things simple: Every time we receive a message, we&#39;ll use the Subject as an event-name and send the message content as event-data... or in code, inside our <code>handleIncomingMessage</code> method:</p><pre><code class="lang-javascript">else if ( msgType === &#39;Notification&#39; ) {
@@ -175,8 +175,8 @@ var ds = deepstreamClient( &#39;localhost:6021&#39; ).login();
     //...
 });
 </code></pre>
-<p>And that&#39;s it. Thanks for holding out with me for so long. If you&#39;d like to learn more about events in deepstream, head over to the <a href="https://deepstream.io/tutorials/events-and-rpcs.html">Events &amp; RPC tutorial</a>
-or have a look at the <a href="https://deepstream.io/docs/client.event.html">event documentation</a></p>
+<p>And that&#39;s it. Thanks for holding out with me for so long. If you&#39;d like to learn more about events in deepstream, head over to the <a href="//deepstream.io/tutorials/events-and-rpcs.html">Events &amp; RPC tutorial</a>
+or have a look at the <a href="//deepstream.io/docs/client.event.html">event documentation</a></p>
 		</section>
 
 		<footer class="post-footer">
@@ -208,19 +208,19 @@ or have a look at the <a href="https://deepstream.io/docs/client.event.html">eve
 				<h4>Share this post</h4>
 				<ul class="icons">
 					<li>
-						<a class="icon fa fa-twitter" href="https://twitter.com/share?text=Publishing AWS SNS messages to browsers @deepstreamhub&amp;url="
+						<a class="icon fa fa-twitter" href="//twitter.com/share?text=Publishing AWS SNS messages to browsers @deepstreamhub&amp;url="
 							onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
 							<span class="label">Twitter</span>
 						</a>
 					</li>
 					<li>
-						<a class="icon fa fa-facebook" href="https://www.facebook.com/sharer/sharer.php?u="
+						<a class="icon fa fa-facebook" href="//www.facebook.com/sharer/sharer.php?u="
 						onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
 						<span class="label">Facebook</span>
 						</a>
 					</li>
 					<li>
-						<a class="icon fa fa-google-plus" href="https://plus.google.com/share?url="
+						<a class="icon fa fa-google-plus" href="//plus.google.com/share?url="
 					   onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
 						<span class="label">Google+</span>
 					</a>
@@ -299,7 +299,7 @@ or have a look at the <a href="https://deepstream.io/docs/client.event.html">eve
 			</p>
 			
 			<p>
-				<a class="github-button" href="https://github.com/deepstreamIO/deepstream.io" data-icon="octicon-star" data-style="mega" data-count-href="/deepstreamIO/deepstream.io/stargazers" data-count-api="/repos/deepstreamIO/deepstream.io#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star deepstreamIO/deepstream.io on GitHub">Star</a>
+				<a class="github-button" href="//github.com/deepstreamIO/deepstream.io" data-icon="octicon-star" data-style="mega" data-count-href="/deepstreamIO/deepstream.io/stargazers" data-count-api="/repos/deepstreamIO/deepstream.io#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star deepstreamIO/deepstream.io on GitHub">Star</a>
 			</p>
 		</div>
 	
@@ -343,16 +343,16 @@ or have a look at the <a href="https://deepstream.io/docs/client.event.html">eve
 			<li class="footer-right">
 				<ul class="social">
 					<li class="twitter">
-						<a href="https://twitter.com/deepstreamIO">
+						<a href="//twitter.com/deepstreamIO">
 							<i class="fa fa-twitter"></i>  Twitter
 						</a>
 					</li>
 					<li class="github">
-						<a href="https://github.com/deepstreamIO">
+						<a href="//github.com/deepstreamIO">
 							<i class="fa fa-github"></i>  Github
 						</a>
 					</li>
-					<a href="https://www.facebook.com/deepstreamIO/">
+					<a href="//www.facebook.com/deepstreamIO/">
 						<i class="fa fa-facebook"></i>  Facebook
 					</a>
 					<li class="stack-overflow">
@@ -361,7 +361,7 @@ or have a look at the <a href="https://deepstream.io/docs/client.event.html">eve
 						</a>
 					</li>
 					<li>
-						<a href="https://deepstream-slack.herokuapp.com/">
+						<a href="//deepstream-slack.herokuapp.com/">
 							<i class="fa fa-slack"></i>  Slack
 						</a>
 					</li>
@@ -382,7 +382,7 @@ or have a look at the <a href="https://deepstream.io/docs/client.event.html">eve
 			<li class="footer-left">
 				<h4>Star this project on github!</h4>
 				<p>
-					<a class="github-button" href="https://github.com/deepstreamIO/deepstream.io" data-icon="octicon-star" data-style="mega" data-count-href="/deepstreamIO/deepstream.io/stargazers" data-count-api="/repos/deepstreamIO/deepstream.io#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star deepstreamIO/deepstream.io on GitHub">Star</a>
+					<a class="github-button" href="//github.com/deepstreamIO/deepstream.io" data-icon="octicon-star" data-style="mega" data-count-href="/deepstreamIO/deepstream.io/stargazers" data-count-api="/repos/deepstreamIO/deepstream.io#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star deepstreamIO/deepstream.io on GitHub">Star</a>
 				</p>
 
 				<h4>Contact the team</h4>
@@ -401,6 +401,15 @@ or have a look at the <a href="https://deepstream.io/docs/client.event.html">eve
 	</div>
 
 
-	<script async defer id="github-bjs" src="https://buttons.github.io/buttons.js"></script>
+	<script>
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+		ga('create', 'UA-63583386-1', 'auto');
+		ga('send', 'pageview');
+	</script>
+	<script async defer id="github-bjs" src="//buttons.github.io/buttons.js"></script>
 </body>
 </html>

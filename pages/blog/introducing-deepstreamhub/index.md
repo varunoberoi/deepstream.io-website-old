@@ -41,6 +41,6 @@ Authenticate with the third party service to work with deepstreamHub
 
 And that’s it! From here on your channel’s real-time data is available to all connected front or backend services as ds-records, lists or events.
 
-If you’d like to learn more, follow us on [twitter](https://twitter.com/deepstreamIO) or subscribe to our newsletter. And of course, give deepstream.io a try…it’s actually quite neat.
+If you’d like to learn more, follow us on [twitter](//twitter.com/deepstreamIO) or subscribe to our newsletter. And of course, give deepstream.io a try…it’s actually quite neat.
 
 

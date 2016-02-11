@@ -8,11 +8,11 @@ Deepstream nodes can work together in clusters – which requires them to commun
 Messaging is based on a publish-subscribe pattern. Any node can broadcast a message to a topic that zero or more subscribers listen to.
 
 <div class="hint-box fa fa-gears">
-	<p>Before writing your own message connector, have a quick look at the <a href="../download/">download section</a>. Maybe there already is an off-the-shelf one you can just pick up and use. <em>If you're happy with how you're connector turned out, please consider contributing it. To do so, just <a href="https://github.com/deepstreamIO/deepstream.io/issues">raise an issue against deepstream.io</a></em></p></div>
+	<p>Before writing your own message connector, have a quick look at the <a href="../download/">download section</a>. Maybe there already is an off-the-shelf one you can just pick up and use. <em>If you're happy with how you're connector turned out, please consider contributing it. To do so, just <a href="//github.com/deepstreamIO/deepstream.io/issues">raise an issue against deepstream.io</a></em></p></div>
 
-To write a message connector, just clone or fork the message-connector-template below and fill in the blanks. To see if it works, update the <a href="https://github.com/deepstreamIO/deepstream.io-msg-connector-template/blob/master/test/connection-data.js">connection data file</a> and run the tests with `npm test`. Please note: The tests are fairly high level and only test the basic functionality. It might make sense to add additional tests that are specific for your connector.
+To write a message connector, just clone or fork the message-connector-template below and fill in the blanks. To see if it works, update the <a href="//github.com/deepstreamIO/deepstream.io-msg-connector-template/blob/master/test/connection-data.js">connection data file</a> and run the tests with `npm test`. Please note: The tests are fairly high level and only test the basic functionality. It might make sense to add additional tests that are specific for your connector.
 
-<a class="mega" href="https://github.com/deepstreamIO/deepstream.io-msg-connector-template"><i class="fa fa-github"></i>fork or copy the msg-connector-template</a>
+<a class="mega" href="//github.com/deepstreamIO/deepstream.io-msg-connector-template"><i class="fa fa-github"></i>fork or copy the msg-connector-template</a>
 
 Some things worth taking into account when building a new message connector
 ---------------------------------------

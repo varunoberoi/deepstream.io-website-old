@@ -24,7 +24,7 @@ var DeepstreamServer = require( 'deepstream.io' ),
 	server = new DeepstreamServer();
 
 // Optionally you can specify some settings, a full list of which
-// can be found here https://deepstream.io/docs/deepstream.html
+// can be found here //deepstream.io/docs/deepstream.html
 server.set( 'host', 'localhost' );
 server.set( 'port', 6020 );
 
@@ -44,7 +44,7 @@ your console should now show this
 
 ### Client
 
-Install the javascript client via bower or npm or download it [here](https://raw.githubusercontent.com/deepstreamIO/deepstream.io-client-js/master/dist/deepstream.min.js)
+Install the javascript client via bower or npm or download it [here](//raw.githubusercontent.com/deepstreamIO/deepstream.io-client-js/master/dist/deepstream.min.js)
 
 ```bash
 bower install deepstream.io-client-js

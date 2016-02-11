@@ -58,7 +58,7 @@ desc: Arbitrary data that's send to the callee to help identify the caller and d
 argument: localStream
 type: MediaStream
 optional: false
-desc: An instance of a [HTML5 MediaStream](https://developer.mozilla.org/en/docs/Web/API/MediaStream)
+desc: An instance of a [HTML5 MediaStream](//developer.mozilla.org/en/docs/Web/API/MediaStream)
 
 Establishes a call with `calleeName` and returns an instance of [WebRTCCall](webrtc_call.html)
 
