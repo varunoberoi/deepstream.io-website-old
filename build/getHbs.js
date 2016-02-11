@@ -5,10 +5,6 @@ var path = require( 'path' );
 
 hbs.registerHelper( 'link', function( type, target ) {
 	var url, folder;
-	
-	if( target==='info/messagestructure/{{@key}}.html')	{
-		console.log( this )
-	}
 
 	target = hbs.compile( target )( this );
 
@@ -16,12 +12,12 @@ hbs.registerHelper( 'link', function( type, target ) {
 		folder = module.exports.outputDir;
 	}
 	else if( type === 'asset' ) {
-		folder = module.exports.outputDir + '\\assets';
+		folder = module.exports.outputDir + '/assets';
 	}
 	else if( type === 'blogpost' ) {
-		folder = module.exports.outputDir + '\\blog\\' + target;
+		folder = module.exports.outputDir + '/blog/' + target;
 		var relativePath = path.relative( module.exports.cwd, folder );
-		return  relativePath ? relativePath +'\\' : '';
+		return  relativePath ? relativePath.replace( /\\/g, '/')  + '/' : '';
 	} else {
 		throw new Error( 'Link type not supported: ' + type );
 	}
