@@ -4,19 +4,19 @@
     "author": "wolframhempel",
     "thumbnail": "parse-deepstream.png"
 }
-Writing this feels almost irreverent. Parse.com was a great platform and despite its stability issues one of the most innovative and clever technologies in the realtime space. It was one of the great inspirations for deepstream.io and it took us very much by surprise to [see it being shut down](http://blog.parse.com/announcements/moving-on/).
+Writing this feels almost irreverent. Parse.com was a great platform and despite its stability issues one of the most innovative and clever technologies in the realtime space. It was one of the great inspirations for deepstream.io and it took us very much by surprise to [see it being shut down](https://blog.parse.com/announcements/moving-on/).
 
 ![parse.com and deepstream.io](parse-deepstream.png)
 
 #### What’s deepstream.io and how can it help with my parse.com app?
-[deepstream.io](http://deepstream.io/) is a scalable open source realtime server written in NodeJS. It can be used in both browsers and backend services through client SDKs, offers powerful user handling and permissioning, can be connected to databases, caches and message queues and scales horizontally via clustering.
+[deepstream.io](https://deepstream.io/) is a scalable open source realtime server written in NodeJS. It can be used in both browsers and backend services through client SDKs, offers powerful user handling and permissioning, can be connected to databases, caches and message queues and scales horizontally via clustering.
 
-Deepstream clients are small, self-contained and framework agnostic. They can easily be used with [React](http://deepstream.io/tutorials/simple-app-using-react.html), [Angular](http://deepstream.io/tutorials/simple-app-using-angular.html), [Knockout](http://deepstream.io/tutorials/simple-app-using-ko.html), [Backbone](http://backbonejs.org/) or whatever else your heart desires.
+Deepstream clients are small, self-contained and framework agnostic. They can easily be used with [React](https://deepstream.io/tutorials/simple-app-using-react.html), [Angular](https://deepstream.io/tutorials/simple-app-using-angular.html), [Knockout](https://deepstream.io/tutorials/simple-app-using-ko.html), [Backbone](https://backbonejs.org/) or whatever else your heart desires.
 
 #### What do deepstream.io and parse.com have in common?
 deepstream.io offers data-sync via `records` which are very similar to `Parse.Objects`. Records have a unique ID, `get()` and `set()` methods and can be used to store, manipulate and observe data in schemaless JSON structures.
 
-deepstream.io is designed as a modular platform, which makes it possible to replicate Parse.com’s more advanced features using deepstream connectors. This means that advanced realtime queries and GeoPoints are supported through [deepstream’s RethinkDB integration](http://deepstream.io/download/) and mobile push notifications can be achieved [via AWS SNS](http://deepstream.io/blog/publishing-aws-sns-messages-to-browsers-tutorial/)
+deepstream.io is designed as a modular platform, which makes it possible to replicate Parse.com’s more advanced features using deepstream connectors. This means that advanced realtime queries and GeoPoints are supported through [deepstream’s RethinkDB integration](https://deepstream.io/download/) and mobile push notifications can be achieved [via AWS SNS](https://deepstream.io/blog/publishing-aws-sns-messages-to-browsers-tutorial/)
 
 #### What does deepstream.io support that Parse.com does not?
 Deepstream doesn't just offer data-sync via `records`, but also publish-subscribe (comparable to Pusher or PubNub) via `events`, request-response via `RPC` (remote procedure call) and even WebRTC video call management.
@@ -41,7 +41,7 @@ gameScore = ds.record.getRecord( 'gamescore/' + ds.getUid() ); // or just genera
 ```
 
 This highlights an important difference between Parse and deepstream. Following Backbone.js principles, Parse automatically organises objects in collections. When you specify a class of type `GameScore`, Parse saves every new instance automatically to the GameScore collection. 
-[Deepstream also offers a concept of collections, called `Lists`](http://deepstream.io/tutorials/lists.html), but records have to be explicitly added to them.
+[Deepstream also offers a concept of collections, called `Lists`](https://deepstream.io/tutorials/lists.html), but records have to be explicitly added to them.
 
 #### Getting values
 Both `Parse.Object` and deepstream records have a method called `get()` that works almost identically.
@@ -126,9 +126,9 @@ ds.login({
 });
 ```
 
-There is a lot to be said about permissioning. To gain a good understanding, have a look at the [authentication](http://deepstream.io/tutorials/authentication.html) and [permissioning](http://deepstream.io/tutorials/permissioning.html) tutorials. 
+There is a lot to be said about permissioning. To gain a good understanding, have a look at the [authentication](https://deepstream.io/tutorials/authentication.html) and [permissioning](https://deepstream.io/tutorials/permissioning.html) tutorials. 
 
 #### Where to go from here
-To get a feel for how deepstream.io works and if it might be a good fit for your application's realtime backend, head over to the [getting started tutorial](http://deepstream.io/tutorials/getting-started.html).
+To get a feel for how deepstream.io works and if it might be a good fit for your application's realtime backend, head over to the [getting started tutorial](https://deepstream.io/tutorials/getting-started.html).
 
-If you have any questions, just raise them on [StackOverflow](http://stackoverflow.com/questions/tagged/deepstream.io), join our [Slack Channel](https://deepstream-slack.herokuapp.com/) or get in touch via Twitter ([@deepstreamIO](https://twitter.com/deepstreamIO)).
+If you have any questions, just raise them on [StackOverflow](https://stackoverflow.com/questions/tagged/deepstream.io), join our [Slack Channel](https://deepstream-slack.herokuapp.com/) or get in touch via Twitter ([@deepstreamIO](https://twitter.com/deepstreamIO)).

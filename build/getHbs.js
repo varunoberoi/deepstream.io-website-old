@@ -62,7 +62,7 @@ hbs.registerHelper( 'downloadItem', function( name, packageName, hasBower, icon 
 			'</code>' +
 			'<a class="npm download-link" title="get from npm" href="https://www.npmjs.com/package/' + packageName + '"><i></i><span>NPM</span></a>';
 		if( hasBower === true ) {
-			html += '<a class="bower download-link" title="get from bower" href="http://bower.io/search/?q=' + packageName + '"><i></i><span>Bower</span></a>';
+			html += '<a class="bower download-link" title="get from bower" href="//bower.io/search/?q=' + packageName + '"><i></i><span>Bower</span></a>';
 		}
 
 		html +=	'<a class="github download-link" title="see on github" href="https://github.com/deepstreamIO/' + packageName + '"><i></i><span>Github</span></a>' +

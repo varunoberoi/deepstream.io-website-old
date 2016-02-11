@@ -23,9 +23,9 @@
 	<script type="text/javascript" src="../assets/js/menu.js"></script>
 	<script type="text/javascript" src="../assets/js/prism.js"></script>
 
-	<link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
-	<link href='http://fonts.googleapis.com/css?family=Quicksand:300,400,700' rel='stylesheet' type='text/css'>
-	<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+	<link href='//fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+	<link href='//fonts.googleapis.com/css?family=Quicksand:300,400,700' rel='stylesheet' type='text/css'>
+	<link href='//fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="../assets/css/prism.css" />
 </head>
@@ -151,7 +151,7 @@
 </ul>
 
 			<div id="content">
-				<h1>Using the deepstream client in NodeJs</h1><p><img class="center" src="../assets/images/nodejs.png" alt="Node Js logo" /></p><p>Deepstream&#39;s client works exactly the same in browsers and in NodeJS. (It is in fact written and tested in NodeJs and compiled for browsers using <a href="http://browserify.org/">browserify</a>). The only difference: Browsers connect using the exquisite <a href="https://github.com/Automattic/engine.io">engine.io</a> <strong><em>whereas NodeJS connects directly via TCP</em></strong>.</p><h3>Connect via TCP</h3><p>The deepstream server listens for incoming connections on two ports, one for http and websocket communication using engine.io, one for tcp connections from NodeJS clients. These can be configured using deepstream&#39;s <code>set()</code> method.</p><pre><code class="lang-javascript">var DeepstreamServer = require( &#39;deepstream.io&#39; ),
+				<h1>Using the deepstream client in NodeJs</h1><p><img class="center" src="../assets/images/nodejs.png" alt="Node Js logo" /></p><p>Deepstream&#39;s client works exactly the same in browsers and in NodeJS. (It is in fact written and tested in NodeJs and compiled for browsers using <a href="https://browserify.org/">browserify</a>). The only difference: Browsers connect using the exquisite <a href="https://github.com/Automattic/engine.io">engine.io</a> <strong><em>whereas NodeJS connects directly via TCP</em></strong>.</p><h3>Connect via TCP</h3><p>The deepstream server listens for incoming connections on two ports, one for http and websocket communication using engine.io, one for tcp connections from NodeJS clients. These can be configured using deepstream&#39;s <code>set()</code> method.</p><pre><code class="lang-javascript">var DeepstreamServer = require( &#39;deepstream.io&#39; ),
     server = new DeepstreamServer();
 
 // Set host and port for browser / engine.io communication

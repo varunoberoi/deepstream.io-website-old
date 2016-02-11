@@ -24,8 +24,8 @@ Phew, that sounds like a lot! But, it’s actually not that bad. Here’s what o
 If you prefer diving right into the code, check out the [github repo](https://github.com/deepstreamIO/ds-tutorial-aws-sns)
 
 ### A bit of a disclaimer
-For brevities sake, this tutorial skimps on security. AWS security is extremely powerful, but also complex enough to have [whole books written about it](http://media.amazonwebservices.com/AWS_Security_Best_Practices.pdf). We’ll be using http instead of https, temporary security tokens (which is a good idea), but store them as plain text in our code (which is not) and a deepstream.io server that’s open to the world, instead of [properly permissioned](http://deepstream.io/tutorials/authentication.html).
-This tutorial also assumes that you're already familiar with deepstream's basic concepts. If not, quickly head over to the [getting started](http://deepstream.io/tutorials/getting-started.html) tutorial - don't worry, I'll wait.
+For brevities sake, this tutorial skimps on security. AWS security is extremely powerful, but also complex enough to have [whole books written about it](https://media.amazonwebservices.com/AWS_Security_Best_Practices.pdf). We’ll be using http instead of https, temporary security tokens (which is a good idea), but store them as plain text in our code (which is not) and a deepstream.io server that’s open to the world, instead of [properly permissioned](https://deepstream.io/tutorials/authentication.html).
+This tutorial also assumes that you're already familiar with deepstream's basic concepts. If not, quickly head over to the [getting started](https://deepstream.io/tutorials/getting-started.html) tutorial - don't worry, I'll wait.
 
 ### Let’s get started: Creating a topic.
 We’ll start by creating a topic via the AWS console. Topics are the fundamental concept for message routing in a pub-sub architecture: Many subscribers listen to a topic and are notified whenever something publishes a message on that topic. Basically, it’s like JavaScript events, but you have to create a topic before you can subscribe.
@@ -88,7 +88,7 @@ sns.subscribe({
 	Protocol: 'http',
 	//You don't just subscribe to "news", but the whole Amazon Resource Name (ARN)
 	TopicArn: 'arn:aws:sns:eu-central-1:792569207202:news',
-	Endpoint: 'http://your-endpoint-url.com'
+	Endpoint: 'https://your-endpoint-url.com'
 }, function( error, data ) {
 	console.log( error || data );
 }); 
@@ -119,7 +119,7 @@ AWS.config.update({
 var sns = new AWS.SNS();
 ```
 
-As mentioned before, embedding your credentials into the code might be easy, but it isn't safe. Have a look at the [config documentation](http://docs.aws.amazon.com/AWSJavaScriptSDK/guide/node-configuring.html) to find a better way to store credentials.
+As mentioned before, embedding your credentials into the code might be easy, but it isn't safe. Have a look at the [config documentation](https://docs.aws.amazon.com/AWSJavaScriptSDK/guide/node-configuring.html) to find a better way to store credentials.
 
 ### Confirming your subscription
 Great, now our call to `sns.subscribe` should work. A few milliseconds after we've made it, our http server should receive a message, asking it to confirm the subscription. To process it, it's time to fill in the `handleIncomingMessage( msgType, msgData );` method from the http-server snippet.
@@ -154,7 +154,7 @@ and run it
 
 ![Deepstream.io startup](deepstream-startup.png)
 
-As the console shows, the server is now listening for TCP connections (e.g. from a node client) on port `6021` and for browser connections on port `6020`. If you'd prefer different hosts/ports, please have a look at the [configuration docs](http://deepstream.io/docs/deepstream.html).
+As the console shows, the server is now listening for TCP connections (e.g. from a node client) on port `6021` and for browser connections on port `6020`. If you'd prefer different hosts/ports, please have a look at the [configuration docs](https://deepstream.io/docs/deepstream.html).
 
 All that's left now is to connect our SNS-provider to the deepstream server:
 
@@ -182,5 +182,5 @@ ds.event.subscribe( 'someEvent', function( data ){
 });
 ```
 
-And that's it. Thanks for holding out with me for so long. If you'd like to learn more about events in deepstream, head over to the [Events & RPC tutorial](http://deepstream.io/tutorials/events-and-rpcs.html)
-or have a look at the [event documentation](http://deepstream.io/docs/client.event.html)
+And that's it. Thanks for holding out with me for so long. If you'd like to learn more about events in deepstream, head over to the [Events & RPC tutorial](https://deepstream.io/tutorials/events-and-rpcs.html)
+or have a look at the [event documentation](https://deepstream.io/docs/client.event.html)

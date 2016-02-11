@@ -123,7 +123,7 @@ server.set( 'PermissionHandler', new LdapPermissionHandler() );
 
 /**
 * Transforms data before it leaves the server. 
-* See http://deepstream.io/tutorials/transforming-data.html for details
+* See https://deepstream.io/tutorials/transforming-data.html for details
 *
 * @type Array
 * @default null

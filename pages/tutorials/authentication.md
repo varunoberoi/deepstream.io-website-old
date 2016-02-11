@@ -61,14 +61,14 @@ isValidUser: function( connectionData, authData, callback ) {
 		 +         "host": "localhost:6020",
 		 +         "connection": "keep-alive",
 		 +         "user-agent": "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36",
-		 +         "origin": "http://localhost",
+		 +         "origin": "https://localhost",
 		 +         "accept": "",
-		 +         "referer": "http://localhost/dev/ds-demos/booksearch/frontend/shell/",
+		 +         "referer": "https://localhost/dev/ds-demos/booksearch/frontend/shell/",
 		 +         "accept-encoding": "gzip, deflate, sdch",
 		 +         "accept-language": "de-DE,de;q=0.8,en-US;q=0.6,en;q=0.4",
 		 +         "cookie": "_ga=GA1.1.697722771.1430908927"
 		 +     },
-		 +     "referer": "http://localhost/dev/ds-demos/booksearch/frontend/shell/"
+		 +     "referer": "https://localhost/dev/ds-demos/booksearch/frontend/shell/"
 		 + }
 		 + 
 		 + authData
