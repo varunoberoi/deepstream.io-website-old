@@ -9,7 +9,7 @@ type: String
 optional: false
 desc: The name / primaryKey of the record.
 
-Retrieves or creates a [Record](Record.html) with the given name. Records are persistant datastructures
+Retrieves or creates a [Record](record.html) with the given name. Records are persistant datastructures
 that clients can manipulate and observe.
 
 ```javascript
@@ -31,7 +31,7 @@ type: String
 optional: false
 desc: The name / primaryKey of the record.
 
-Retrieves or creates a [List](List.html) with the given name. Lists are arrays of recordNames that clients
+Retrieves or creates a [List](list.html) with the given name. Lists are arrays of recordNames that clients
 can manipulate and observe.
 
 ```javascript
