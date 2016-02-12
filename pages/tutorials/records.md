@@ -4,7 +4,7 @@
 }
 Records
 ==============================
-[Records](docs/record.html) are arbitrary JSON structures that can be manipulated and subscribed to. Every change to a record is synced accross all subscribed clients
+[Records](../docs/record.html) are arbitrary JSON structures that can be manipulated and subscribed to. Every change to a record is synced accross all subscribed clients
 
 ```javascript
 //creating or retrieving a record is the same
