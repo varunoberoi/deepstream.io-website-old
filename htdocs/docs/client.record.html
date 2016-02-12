@@ -169,7 +169,7 @@
 </ul>
 
 			<div id="content">
-				<div class="section"><h2><a name="client.record.getRecord(name)">client.record.getRecord( name )</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">name</td><td class="type">String</td><td class="optional">false</td><td class="default">-</td><td class="description">The name / primaryKey of the record.</td></tr></tbody></table><p>Retrieves or creates a <a href="Record.html">Record</a> with the given name. Records are persistant datastructures
+				<div class="section"><h2><a name="client.record.getRecord(name)">client.record.getRecord( name )</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">name</td><td class="type">String</td><td class="optional">false</td><td class="default">-</td><td class="description">The name / primaryKey of the record.</td></tr></tbody></table><p>Retrieves or creates a <a href="record.html">Record</a> with the given name. Records are persistant datastructures
 that clients can manipulate and observe.</p><pre><code class="lang-javascript">// clientA
 var user = client.record.getRecord( &#39;user/14&#39; );
 
@@ -180,7 +180,7 @@ user.subscribe( &#39;age&#39;, function( age ){
 // clientB
 client.record.getRecord( &#39;user/14&#39; ).set( &#39;age&#39;, 30 );
 </code></pre>
-</div><div class="section"><h2><a name="client.record.getList(name)">client.record.getList( name )</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">name</td><td class="type">String</td><td class="optional">false</td><td class="default">-</td><td class="description">The name / primaryKey of the record.</td></tr></tbody></table><p>Retrieves or creates a <a href="List.html">List</a> with the given name. Lists are arrays of recordNames that clients
+</div><div class="section"><h2><a name="client.record.getList(name)">client.record.getList( name )</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">name</td><td class="type">String</td><td class="optional">false</td><td class="default">-</td><td class="description">The name / primaryKey of the record.</td></tr></tbody></table><p>Retrieves or creates a <a href="list.html">List</a> with the given name. Lists are arrays of recordNames that clients
 can manipulate and observe.</p><pre><code class="lang-javascript">var beatlesAlbums = client.record.getList( &#39;beatlesAlbums&#39; );
 
 beatlesAlbums.whenReady(function(){
