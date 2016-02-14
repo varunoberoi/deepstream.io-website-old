@@ -15,7 +15,7 @@ record,unlisten,Unlisten,R|UL|recordPrefix\/.*+,R|A|UL|recordPrefix\/.*+,Client,
 record,listenmatch,Listen Match,R|SP|recordPrefix\/.*|/A+,,Server,Recieved when a listened to regex is matched
 record,listenunmatch,Listen UnMatched,R|SR|RecordPrefix\/.*|recordPrefix/recordName+,,Server,Recieved when a listened to regex no longer has any interested clients
 record,create,Read/Create,R|CR|recordName+,R|A|CR|recordName+,Client,"Send to request the record data, automatically subscribing to all changes and creates record if it does not exist"
-record,update,Update Entire Record,R|U|recordName|versionNumber|JSON+,,Client,Send/Recieved when the entire record data is replaced with a new image
+record,update,Update Entire Record,R|U|recordName|versionNumber|JSON+,,Client,Send/Recieved when the entire record data is replaced with a new value
 record,patch,Patch Record,R|P|recordName|versionNumber|path|value+,,Client,Send/Recieved when the record is partially changed
 record,delete,Delete Record,R|D|recordName+,R|A|D|recordName+,Client,Send/Recieved when an object is deleted. This leads to all clients discarding the client since updates are no longer available
 record,recieveread,Receive Record Read,R|R|recordName|versionNumber|JSON,,Server,"When requesting a record you will get a read which is the current state of the record, similar to the update data"
