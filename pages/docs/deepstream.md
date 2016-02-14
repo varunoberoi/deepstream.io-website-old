@@ -66,6 +66,22 @@ server.set( 'colors', false );
 server.set( 'showLogo', false );
 
 /**
+* Whether or not to use a web server
+*
+* @type Boolean
+* @default true
+*/
+server.set( 'webServerEnabled', true );
+
+/**
+* Whether or not to use a TCP server
+*
+* @type Boolean
+* @default true
+*/
+server.set( 'tcpServerEnabled', true );
+
+/**
 * The public key to use if using ssl
 * Must have an associated sslKey set
 *
