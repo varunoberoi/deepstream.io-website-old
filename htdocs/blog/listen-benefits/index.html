@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>deepstream.io | Telling the world what it wants to hear</title>
+	<title>deepstream.io | The benefits of listening</title>
 
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<meta name="keywords" content="deepstream, deepstream.io, streaming, realtime, server, socket" />
-	<meta name="description" content="Realtime systems have a reputation of being expensive to run. The reason usually being that for simplicities sake, data providers inform the universe of everything they possibly could, and in turn if the client ever wants to know something, the universe will provide it. Philosophically, this had a couple of documentaries made about it. Technically, this has quite a few drawbacks." />
+	<meta name="description" content="Realtime systems have a reputation of being expensive to run. The reason usually being that for simplicities sake, data providers inform the universe of everything they possibly could, and in turn if the client ever wants to know something the universe will just provide it. Philosophically, this had a couple of documentaries made about it. Technically, this has quite a few drawbacks." />
 	<meta name="author" content="Wolfram Hempel" />
 	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 	<link rel="icon" href="/favicon.ico" type="image/x-icon">
@@ -68,7 +68,7 @@
 	<div class="post">
 
 		<header class="post-header">
-			<h1 class="post-title">Telling the world what it wants to hear</h1>
+			<h1 class="post-title">The benefits of listening</h1>
 			<section class="post-meta">
 				By Yasser Fadl
 				<span class="post-date">February 16th 2016</span>
@@ -76,8 +76,8 @@
 		</header>
 
 		<section class="post-content">
-<p>Realtime systems have a reputation of being expensive to run. The reason usually being that for simplicities sake, data providers inform the universe of everything they possibly could, and in turn if the client ever wants to know something, the universe will provide it. Philosophically, this had a couple of documentaries made about it. Technically, this has quite a few drawbacks.</p><p>What you want to do is limit the amount of data going through the system. You can do so by saying that at least one client has to actually request something before you start pushing data to it. In more detail, as soon as the first client requests something, publishers can get notified and start publishing data accordingly, and when the last client loses interest the publisher no longer needs to pump that data into the system.</p><p>This works amazingly well for events, where the actual responsibility is taken off the publisher to submit all events constantly, which in turn reduces their resources and costs. In context of hardware, just as IoT sensors, that can mean huge improvements in energy usage. In context of software, it means your load can be split so that you will only ever need to provide a client data depending on a need to know basis.</p><p>Records are just as simple, but if the data within the record is being used as part of a database query it probably won’t work too well!</p><p>Finally, this approach shines the most for when the data being sent out is actually derived from the content of your request this approach. For example, requesting &#39;weather/germany-berlin-1w&#39; means the publisher needs to know that it will need to send out information for a 1 week forecast.</p><h4>Benefits in scaling</h4><p>You don&#39;t need more than one publisher updating the same record or emitting the same event. But you want to scale your microservices so they can cope with
-huge amounts of records and events coming into your system, often from the same third party service. You can use the listen functionality to easily split concerns by handling more specific requests across multiple publishers.</p><p>For example, you could create two identical providers except where one listens to requests to all countries starting with starting with the first half of the alphabet &#39;^weather/[a-k]&#39; and the other to the second half &#39;^weather/[m-z]&#39;. This can be cut into as many publishers as you see fit to easily scale your processes within the cloud.</p><h4>How to implement</h4><p>The full workflow would be as follows:</p><p>The provider listens to records and events matching the name &#39;weather/&#39;</p><pre><code class="lang-javascript">ds.event.listen( &#39;^weather/.*&#39;, onMatch );
+<p>Realtime systems have a reputation of being expensive to run. The reason usually being that for simplicities sake, data providers inform the universe of everything they possibly could, and in turn if the client ever wants to know something the universe will just provide it. Philosophically, this had a couple of documentaries made about it. Technically, this has quite a few drawbacks.</p><p>The ideal goal is to limit the amount of data going through the system. This reduces resources and costs. You can do so by saying that at least one client has to actually request something before you start pushing data to it. In more detail, as soon as the first client requests something, publishers can get notified and start publishing data, and when the last client loses interest the publisher no longer needs to pump that data into the system.</p><p>This works amazingly well for events, where the actual responsibility is taken off the publisher to submit all events constantly. In context of hardware, like IoT sensors, that can mean huge improvements in energy usage, since the device can suspend activity until it knows it&#39;s needed. In context of software, it reduces the load on the system significantly since no redundant events would ever be fired.</p><p>Records are just as simple, but if you derive data from the connected database you have to make sure all the records the data is derived from are requested in advance.</p><p>Finally, this approach shines the most for when the data being sent out is actually driven by the name of your request. For example, requesting &#39;weather/germany-berlin-1w&#39; means the publisher needs to know that it will need to send out information for a 1 week forecast.</p><h4>How it scales</h4><p>You don&#39;t want more than one publisher updating the same record or emitting the same event. But you want to scale your microservices so they can cope with
+huge amounts of data coming into your system, often from the same third party service. You can use the listen functionality to easily split concerns by handling more specific requests across multiple publishers.</p><p>For example, you could create two identical providers except where one listens to requests to all countries starting with starting with the first half of the alphabet &#39;^weather/[a-k]&#39; and the other to the second half &#39;^weather/[m-z]&#39;. This can be cut into as many publishers as you see fit to easily scale your processes within the cloud.</p><h4>How to implement</h4><p>The provider listens to records and events matching the name &#39;weather/&#39;</p><pre><code class="lang-javascript">ds.event.listen( &#39;^weather/.*&#39;, onMatch );
 </code></pre>
 <p>And the onMatch callback will be notified for all the current matches in the system, new ones that come in and old ones that noone is interested in anymore.</p><pre><code class="lang-javascript">function onMatch( subject, provide ) {
     //Subject is the name of the event or record that is being subscribed too
@@ -87,7 +87,7 @@ huge amounts of records and events coming into your system, often from the same 
 </code></pre>
 <p>If the provider can no longer provide the data, it can stop providing by calling:</p><pre><code class="lang-javascript">ds.event.unlisten( &#39;^weather/.*&#39;, onMatch );
 </code></pre>
-<p>For more details, a tutorial and code, please look at our FX example here.</p>
+<p>For more details and code, take a look at our <a href="../../tutorials/data-provider.html">tutorial</a>.</p>
 		</section>
 
 		<footer class="post-footer">
@@ -119,7 +119,7 @@ huge amounts of records and events coming into your system, often from the same 
 				<h4>Share this post</h4>
 				<ul class="icons">
 					<li>
-						<a class="icon fa fa-twitter" href="//twitter.com/share?text=Telling the world what it wants to hear @deepstreamhub&amp;url="
+						<a class="icon fa fa-twitter" href="//twitter.com/share?text=The benefits of listening @deepstreamhub&amp;url="
 							onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
 							<span class="label">Twitter</span>
 						</a>
@@ -148,7 +148,7 @@ huge amounts of records and events coming into your system, often from the same 
 					<li class="latest-blog-article">
 						<a href="">
 							<span class="date">16/02/2016</span>
-							<span class="title">Telling the world what it wants to hear</span>
+							<span class="title">The benefits of listening</span>
 						</a>
 					</li>
 					<li class="latest-blog-article">
@@ -223,7 +223,7 @@ huge amounts of records and events coming into your system, often from the same 
 						<li class="latest-blog-article">
 							<a href="">
 								<span class="date">16/02/2016</span>
-								<span class="title">Telling the world what it wants to hear</span>
+								<span class="title">The benefits of listening</span>
 							</a>
 						</li>
 						<li class="latest-blog-article">
