@@ -7,6 +7,13 @@
       "locationName":"TBA"
    },
    {
+      "eventName":"Using rethinkdb and deepstream.io to create a smarter home",
+      "date":"February 25th 2016",
+      "eventImage": "rethinkdb-meetup.jpeg",
+      "link":"//www.meetup.com/RethinkDB-Berlin/events/228202026/",
+      "locationName":"Wichertstraße 16, 10439"
+   },
+   {
       "eventName":"realtime apps and microservices with deepstream.io",
       "date":"February 11th 2016",
       "eventImage": "fullstack-js.jpeg",
