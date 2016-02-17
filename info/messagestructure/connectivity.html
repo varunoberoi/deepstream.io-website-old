@@ -196,19 +196,19 @@ Scenario: The client receives a login confirmation
 Scenario: The client logs in with an invalid authentication message
 	Given the client is initialised
 	When the client logs in with username &quot;XXX&quot; and password &quot;YYY&quot;
-		But the server sends the message A|E|INVALID_AUTH_MSG|invalid authentication message+
+		But the server sends the message A|E|INVALID_AUTH_MSG|Sinvalid authentication message+
 	Then the last login failed with error &quot;INVALID_AUTH_MSG&quot; and message &quot;invalid authentication message&quot;
 
 Scenario: The client&#x27;s authentication data is rejected
 	Given the client is initialised
 	When the client logs in with username &quot;XXX&quot; and password &quot;ZZZ&quot;
-		But the server sends the message A|E|INVALID_AUTH_DATA|invalid authentication data+
+		But the server sends the message A|E|INVALID_AUTH_DATA|Sinvalid authentication data+
 	Then the last login failed with error &quot;INVALID_AUTH_DATA&quot; and message &quot;invalid authentication data&quot;
 
 Scenario: The client has made too many unsuccessful authentication attempts
 	Given the client is initialised
 	When the client logs in with username &quot;XXX&quot; and password &quot;ZZZ&quot;
-		But the server sends the message A|E|TOO_MANY_AUTH_ATTEMPTS|too many authentication attempts+
+		But the server sends the message A|E|TOO_MANY_AUTH_ATTEMPTS|Stoo many authentication attempts+
 	Then the last login failed with error &quot;TOO_MANY_AUTH_ATTEMPTS&quot; and message &quot;too many authentication attempts&quot;
 
 Scenario: The client can&#x27;t made further authentication attempts after it received TOO_MANY_AUTH_ATTEMPTS

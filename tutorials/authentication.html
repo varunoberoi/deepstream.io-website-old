@@ -172,14 +172,14 @@ state until <code>ds.login()</code> is called. <code>ds.login()</code> takes up 
 a callback function. E.g.</p><pre><code class="lang-javascript">ds.login({
     user: &#39;LisaA&#39;,
     password: &#39;sesame&#39;
-}, function( success, errorCode, errorMessage ){
+}, function( success, errorCode, data ){
     //...
 });
 </code></pre>
 <p>This will call the permissionHandler&#39;s <code>isValidUser</code> method with three arguments:</p><ul>
 <li><code>connectionData</code> is an object with connection information</li>
 <li><code>authData</code> is the object that the client send with <code>ds.login( authData )</code></li>
-<li><code>callback</code> is a function that expects the result of the login. It should be called with either <code>callback( null, username )</code> for successful logins or <code>callback( &#39;rejection reason&#39; )</code> for unsucessful ones.</li>
+<li><code>callback</code> is a function that expects the result of the login. It should be called with either <code>callback( null, username, optionalData )</code> for successful logins or <code>callback( &#39;rejection reason&#39; )</code> for unsucessful ones.</li>
 </ul>
 <pre><code class="lang-javascript">isValidUser: function( connectionData, authData, callback ) {
     /* 
