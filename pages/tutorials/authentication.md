@@ -40,7 +40,7 @@ a callback function. E.g.
 ds.login({
 	user: 'LisaA',
 	password: 'sesame'
-}, function( success, errorCode, errorMessage ){
+}, function( success, errorCode, data ){
 	//...
 });
 ```
@@ -49,7 +49,7 @@ This will call the permissionHandler's `isValidUser` method with three arguments
 
 * `connectionData` is an object with connection information
 * `authData` is the object that the client send with `ds.login( authData )`
-* `callback` is a function that expects the result of the login. It should be called with either `callback( null, username )` for successful logins or `callback( 'rejection reason' )` for unsucessful ones.
+* `callback` is a function that expects the result of the login. It should be called with either `callback( null, username, optionalData )` for successful logins or `callback( 'rejection reason' )` for unsucessful ones.
 
 ```javascript
 isValidUser: function( connectionData, authData, callback ) {
