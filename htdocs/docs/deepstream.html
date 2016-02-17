@@ -184,14 +184,14 @@ server.set( &#39;colors&#39;, false );
 /**
 * An existing http server to listen to rather
 * then letting deepstream create it&#39;s own.
-* 
+*
 * Note: If webServerEnabled is false it will ignore
 * the passed in httpServer
 *
-* @type Boolean
+* @type net.HttpServer || net.HttpsServer
 * @default true
 */
-server.set( &#39;httpServer&#39;, HTTPServer );
+server.set( &#39;httpServer&#39;, httpServer );
 
 /**
 * Whether the deepstream logo should be displayed on startup
@@ -202,7 +202,9 @@ server.set( &#39;httpServer&#39;, HTTPServer );
 server.set( &#39;showLogo&#39;, false );
 
 /**
-* Whether or not to use a web server
+* If false, deepstream won&#39;t create a
+* server to listen for incoming connections
+* from web-browsers
 *
 * @type Boolean
 * @default true
@@ -210,7 +212,8 @@ server.set( &#39;showLogo&#39;, false );
 server.set( &#39;webServerEnabled&#39;, true );
 
 /**
-* Whether or not to use a TCP server
+* If false, deepstream won&#39;t create a server
+* to listen for incoming TCP connections
 *
 * @type Boolean
 * @default true
@@ -266,7 +269,7 @@ server.set( &#39;tcpHost&#39;, &#39;localhost&#39; );
 server.set( &#39;tcpPort&#39;, 80 );
 
 /**
-* A class that exposes a isValidUser and canPerformAction method. 
+* A class that exposes a isValidUser and canPerformAction method.
 *
 * @type PermissionHandler
 * @default OpenPermissionHandler
@@ -274,7 +277,7 @@ server.set( &#39;tcpPort&#39;, 80 );
 server.set( &#39;PermissionHandler&#39;, new LdapPermissionHandler() );
 
 /**
-* Transforms data before it leaves the server. 
+* Transforms data before it leaves the server.
 * See //deepstream.io/tutorials/transforming-data.html for details
 *
 * @type Array
@@ -386,7 +389,7 @@ server.set( &#39;logInvalidAuthData&#39;, false );
 server.set( &#39;rpcProviderQueryTimeout&#39;, 5000 );
 
 /**
-* The time (in milliseconds) that deepstream allows for RPC providers to 
+* The time (in milliseconds) that deepstream allows for RPC providers to
 * acknowledge that they&#39;ve received a request.
 *
 * @type Number

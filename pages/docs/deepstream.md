@@ -60,14 +60,14 @@ server.set( 'colors', false );
 /**
 * An existing http server to listen to rather
 * then letting deepstream create it's own.
-* 
+*
 * Note: If webServerEnabled is false it will ignore
 * the passed in httpServer
 *
-* @type Boolean
+* @type net.HttpServer || net.HttpsServer
 * @default true
 */
-server.set( 'httpServer', HTTPServer );
+server.set( 'httpServer', httpServer );
 
 /**
 * Whether the deepstream logo should be displayed on startup
@@ -78,7 +78,9 @@ server.set( 'httpServer', HTTPServer );
 server.set( 'showLogo', false );
 
 /**
-* Whether or not to use a web server
+* If false, deepstream won't create a
+* server to listen for incoming connections
+* from web-browsers
 *
 * @type Boolean
 * @default true
@@ -86,7 +88,8 @@ server.set( 'showLogo', false );
 server.set( 'webServerEnabled', true );
 
 /**
-* Whether or not to use a TCP server
+* If false, deepstream won't create a server
+* to listen for incoming TCP connections
 *
 * @type Boolean
 * @default true
@@ -142,7 +145,7 @@ server.set( 'tcpHost', 'localhost' );
 server.set( 'tcpPort', 80 );
 
 /**
-* A class that exposes a isValidUser and canPerformAction method. 
+* A class that exposes a isValidUser and canPerformAction method.
 *
 * @type PermissionHandler
 * @default OpenPermissionHandler
@@ -150,7 +153,7 @@ server.set( 'tcpPort', 80 );
 server.set( 'PermissionHandler', new LdapPermissionHandler() );
 
 /**
-* Transforms data before it leaves the server. 
+* Transforms data before it leaves the server.
 * See //deepstream.io/tutorials/transforming-data.html for details
 *
 * @type Array
@@ -262,7 +265,7 @@ server.set( 'logInvalidAuthData', false );
 server.set( 'rpcProviderQueryTimeout', 5000 );
 
 /**
-* The time (in milliseconds) that deepstream allows for RPC providers to 
+* The time (in milliseconds) that deepstream allows for RPC providers to
 * acknowledge that they've received a request.
 *
 * @type Number
