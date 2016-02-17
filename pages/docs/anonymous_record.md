@@ -31,7 +31,10 @@ $( '#users li' ).click(function(){
 ```
 
 <div class="hint-box fa fa-gears">
-	<p>An anonymous record has all the methods, events and properties of a normal <a href="record.html">record</a> plus a <code>setName()</code> method.</p></div>
+	<p>An anonymous record has almost all of the methods, events and properties of a normal <a href="record.html">record</a> plus the <code>setName()</code> method.
+    <br>
+    The main difference is that the ready event can be emitted each time setName is called and the whenReady method is removed to reduce implementation errors.</p>
+</div>
 
 setName( recordName )
 ---------------------------------------------------
