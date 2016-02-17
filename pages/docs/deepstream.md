@@ -58,6 +58,18 @@ server.set( 'serverName', 'nodeA' );
 server.set( 'colors', false );
 
 /**
+* An existing http server to listen to rather
+* then letting deepstream create it's own.
+* 
+* Note: If webServerEnabled is false it will ignore
+* the passed in httpServer
+*
+* @type Boolean
+* @default true
+*/
+server.set( 'httpServer', HTTPServer );
+
+/**
 * Whether the deepstream logo should be displayed on startup
 *
 * @type Boolean

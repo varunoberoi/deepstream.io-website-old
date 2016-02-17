@@ -42,7 +42,7 @@ desc: A function that will be called once the response to the authentication req
 
 Authenticates the client against the server. To learn more about how authentication works, please have a look at the [Authentication](../tutorials/authentication.html) and [Permissioning](../tutorials/permissioning.html) tutorials.
 
-Callback will be called with three arguments: success (Boolean), errorEvent (String) and errorMessage (String)
+Callback will be called with three arguments: success (Boolean), errorEvent (String) and data (Object).
 
 ```javascript
 var deepstream = require( 'deepstream.io-client-js' );
@@ -51,12 +51,14 @@ ds = deepstream( 'localhost:6020' );
 
 // ds.getConnectionState() will now return 'AWAITING_AUTHENTICATION'
 
-ds.login({ username: 'PeterA', password: 'sesame' }, function( success, errorEvent, errorMessage ){
+ds.login({ username: 'PeterA', password: 'sesame' }, function( success, errorEvent, data ){
 	if( success ) {
 		// start application
 		// ds.getConnectionState() will now return 'OPEN'
 	} else {
-		alert( errorMessage );
+		// extra data can be optionaly sent from deepstream for
+		// both successful and unsuccesful logins
+		alert( data );
 		// ds.getConnectionState() will now return 'AWAITING_AUTHENTICATION' or 'CLOSED' if the maximum number
 		// of authentication attempts has been exceeded.
 	}
