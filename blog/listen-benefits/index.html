@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>deepstream.io | Introducing deepstreamHub</title>
+	<title>deepstream.io | The benefits of listening</title>
 
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<meta name="keywords" content="deepstream, deepstream.io, streaming, realtime, server, socket" />
-	<meta name="description" content="Ever since we’ve started working on deepstream.io, we’ve been toying with the idea of using it to build something bigger: A platform that makes it easy for developers from all backgrounds to build great real-time apps, using their own data as well as live feeds from a myriad of services." />
+	<meta name="description" content="Realtime systems have a reputation of being expensive to run. Lets take a look at why - and what we can do to make it better. But before we start, let’s take a quick look at how many realtime systems work today." />
 	<meta name="author" content="Wolfram Hempel" />
 	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 	<link rel="icon" href="/favicon.ico" type="image/x-icon">
@@ -29,7 +29,7 @@
 	<link rel="stylesheet" type="text/css" href="../../assets/css/prism.css" />
 </head>
 
-<body class="category_introducing-deepstreamhub ">
+<body class="category_listen-benefits ">
 	<div class="mobile-menu">
 		<div class="nav mobile-nav">
 			<ul>
@@ -68,28 +68,37 @@
 	<div class="post">
 
 		<header class="post-header">
-			<h1 class="post-title">Introducing deepstreamHub</h1>
+			<h1 class="post-title">The benefits of listening</h1>
 			<section class="post-meta">
-				By Wolfram Hempel
-				<span class="post-date">December 15th 2015</span>
+				By Yasser Fadl
+				<span class="post-date">February 18th 2016</span>
 			</section>
 		</header>
 
 		<section class="post-content">
-<p>Ever since we’ve started working on deepstream.io, we’ve been toying with the idea of using it to build something bigger: A platform that makes it easy for developers from all backgrounds to build great real-time apps, using their own data as well as live feeds from a myriad of services.</p><p>Today, we’re ready to announce that we’ve started developing just that: <strong>deepstreamHub</strong>.</p><p><a href="./deepstream-hub-750.png"><img src="deepstream-hub-750.png" alt="deepstreamHub"></a></p><p>deepstreamHub will be a hosted deepstream cluster in the cloud, comparable to Firebase, Pusher or realtime.co, but offering the full deepstream feature set of data-sync, pub-sub, request-response and WebRTC.</p><p>Where it gets really interesting though are deepstreamHub’s <strong>Channels</strong>. Channels let you stream data from third party services directly into your frontend – without any integration code.</p><h3>Here’s how it works:</h3><p>Channels let you connect to a wide array of services. Collaboration tools (e.g. Trello, Google Docs), communication (e.g. Slack), dev-tools (e.g. Github), social networks, content management systems etc…</p><p>We&#39;re also planning premium channels for Financial Data, Sports Results, Payment, CRM systems and so on. Whichever channels you add to your app, the process is always the same:</p><p>1) Select one or more channels:</p><p><a href="./dshub-select-channel.png"><img src="dshub-select-channel.png" alt="Selecting a channel"></a></p><p>2) Add the channel:</p><p>View the channel description to get a clear view on the type of data the channel provides</p><p><a href="./dshub-add-channel.png"><img src="dshub-add-channel.png" alt="Adding a channel"></a></p><p>3) Authenticate:</p><p>Authenticate with the third party service to work with deepstreamHub</p><p><a href="./dshub-authenticate-channel.png"><img src="dshub-authenticate-channel.png" alt="Authenticate a channel"></a></p><p>4) Use it</p><p>And that’s it! From here on your channel’s real-time data is available to all connected front or backend services as ds-records, lists or events.</p><p>If you’d like to learn more, follow us on <a href="//twitter.com/deepstreamIO">twitter</a> or subscribe to our newsletter. And of course, give deepstream.io a try…it’s actually quite neat.</p>
+<p>Realtime systems have a reputation of being expensive to run. Lets take a look at why - and what we can do to make it better. But before we start, let’s take a quick look at how many realtime systems work today.</p><p>Realtime uses the <a href="https://en.wikipedia.org/wiki/Push_technology">push</a> paradigm to tell the world when something happens. This means it sends updates immediately rather than wait to be asked.</p><p>Where this all gets really interesting is on the very other end of your stack, in the land of databases, your server code and integrations with third-party data. Pretty much the rest of the iceberg that makes your application functional but is hidden away behind a beautiful minimalistic interface. Those systems tend to be run in a bit of isolation, meaning they often don&#39;t know or care if any clients are actually interested in what they are publishing or if they&#39;re literally just creating redundant data no one will ever notice (other than the people from devops monitoring your resource consumption).</p><p>Let’s take a weather app for example. As you can see in the image below, you have a large amount of changing data being constantly pumped into the system, although the client is only interested in Germany.</p><p><img src="usual-pubsub-workflow.png" alt="Usual PubSub Workflow"></p><h3>So where does listening come in?</h3><p>The goal in any realtime system is to limit the amount of moving data in order to reduce the total required resources and costs. One way to achieve this is by making sure that at least one client has actually requested something before you start pushing data to it.</p><p>This works amazingly well for events, as the responsibility is taken off the publisher to submit all events constantly. If you look at this in context of hardware, like IoT sensors, it could result in huge improvements in energy usage, since the device can suspend activity until it knows it&#39;s needed. In context of software, it reduces the load on the system significantly since only required events would ever be fired. As you can see in the image below, a publisher that is aware of what data is requested has much less activity with the same result.</p><p><img src="pubsub-with-listening-workflow.png" alt="Listening PubSub Workflow"></p><p>Finally, this approach shines the most when the data being sent out is actually driven by the name of your subscription. For example, subscribing to &#39;weather/germany-berlin-1w&#39; tells the publisher to send information for one week forecasts.</p><h4>How to implement</h4><p>The provider listens to events matching the name &#39;weather/&#39;</p><pre><code class="lang-javascript">ds.event.listen( &#39;^weather/.*&#39;, onMatch );
+</code></pre>
+<p>And the <code>onMatch</code> callback will be notified for all the current matches in the system, new ones that come in and old ones that no one is interested in anymore.</p><pre><code class="lang-javascript">function onMatch( subject, isInterested ) {
+    //Subject is the name of the event or record that is being subscribed to
+    //If isInterested is true it means you should start publishing data, if it&#39;s false it means you should stop
+}
+</code></pre>
+<p>If the provider can no longer provide the data, it can stop listening by calling:</p><pre><code class="lang-javascript">ds.event.unlisten( &#39;^weather/.*&#39;, onMatch );
+</code></pre>
+<h4>How it scales</h4><p>You don&#39;t want more than one publisher updating the same record or emitting the same event. But you do want to scale your publishers so they can cope with huge amounts of data coming into your system, often from the same third party service. You can use the listen functionality to easily split concerns by handling more specific requests across multiple publishers.</p><p>For example, you could create two identical providers except where one listens to requests to all countries starting with the first half of the alphabet &#39;^weather/[a-k]&#39; and the other to the second half &#39;^weather/[m-z]&#39;. This can be split into as many publishers as you see fit to easily scale your processes.</p><p>For more details and code, take a look at our <a href="../../tutorials/data-provider.html">tutorial</a>.</p>
 		</section>
 
 		<footer class="post-footer">
 
 			<section class="author">
 
-				<img class="author-gravatar" src="http://www.gravatar.com/avatar/f831162b79d84f85f589a1a76b4975db">
+				<img class="author-gravatar" src="//s.gravatar.com/avatar/47342a117d8faf101cc6022488958ca1?s&#x3D;80">
 				
 				<span class="author-description">
 					<h4>About the author</h4>
 
 					<p class="author-bio">
-						Wolfram worked all over the world before settling in Berlin and becoming a co-founder of deepstream.io. He also once studied art-history, but that&#x27;s a different story and shall be told another time.
+						Yasser comes of out Egypt, got a bit sunburnt and now enjoys the calmer weather in Berlin. Core team member of deepstream.io and enjoys soldering cupholders.
 					</p>
 				</span>
 
@@ -108,7 +117,7 @@
 				<h4>Share this post</h4>
 				<ul class="icons">
 					<li>
-						<a class="icon fa fa-twitter" href="//twitter.com/share?text=Introducing deepstreamHub @deepstreamhub&amp;url="
+						<a class="icon fa fa-twitter" href="//twitter.com/share?text=The benefits of listening @deepstreamhub&amp;url="
 							onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
 							<span class="label">Twitter</span>
 						</a>
@@ -135,7 +144,7 @@
 			</h4>
 			<ul class="latest-blogs-content">
 					<li class="latest-blog-article">
-						<a href="../listen-benefits/">
+						<a href="">
 							<span class="date">18/02/2016</span>
 							<span class="title">The benefits of listening</span>
 						</a>
@@ -210,7 +219,7 @@
 				</h4>
 				<ul class="latest-blogs-content">
 						<li class="latest-blog-article">
-							<a href="../listen-benefits/">
+							<a href="">
 								<span class="date">18/02/2016</span>
 								<span class="title">The benefits of listening</span>
 							</a>
