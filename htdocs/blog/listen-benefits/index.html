@@ -8,7 +8,7 @@
 
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<meta name="keywords" content="deepstream, deepstream.io, streaming, realtime, server, socket" />
-	<meta name="description" content="Realtime systems have a reputation of being expensive to run. Lets take a look at why and what we can do to make it better. But before we start, let’s take a quick look at how many realtime systems work today." />
+	<meta name="description" content="Realtime systems have a reputation of being expensive to run. Lets take a look at why - and what we can do to make it better. But before we start, let’s take a quick look at how many realtime systems work today." />
 	<meta name="author" content="Wolfram Hempel" />
 	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 	<link rel="icon" href="/favicon.ico" type="image/x-icon">
@@ -71,23 +71,21 @@
 			<h1 class="post-title">The benefits of listening</h1>
 			<section class="post-meta">
 				By Yasser Fadl
-				<span class="post-date">February 16th 2016</span>
+				<span class="post-date">February 18th 2016</span>
 			</section>
 		</header>
 
 		<section class="post-content">
-<p>Realtime systems have a reputation of being expensive to run. Lets take a look at why and what we can do to make it better. But before we start, let’s take a quick look at how many realtime systems work today.</p><p>Realtime uses <a href="https://en.wikipedia.org/wiki/Push_technology">push</a> technology to tell the world when something happens. This means it sends updates immediately whenever something happens rather than wait to be asked.</p><p>Where this all gets really interesting is behind the client connection, in the land of databases, your server code and integrations with third-party data. Pretty much the rest of the iceberg that makes your application functional but is hidden away behind a beautiful minimalistic interface. Those systems tend to be run in a bit of isolation, meaning they often don&#39;t know or care if any clients are actually interested in what they are publishing or if they&#39;re literally just creating redundant data noone will ever notice ( other than the people from devops monitoring your resource consumption ).</p><p>You can see this in the image below, where worldwide weather updates are constantly being pumped into the system although the subscriber is only interested in germany.</p><p><img src="usual-pubsub-workflow.png" alt="Usual PubSub Workflow"></p><h3>So where does listening come in?</h3><p>The ideal goal in any system is to limit the amount of moving data in order to reduce the total amount of required resources and costs. One way of doing so is by saying that at least one client has to actually request something before you start pushing data to it. In more detail, as soon as the first client requests something, publishers can get notified and start publishing data, and when the last client loses interest the publisher no longer needs to pump that data into the system.</p><p>This works amazingly well for events, where the actual responsibility is taken off the publisher to submit all events constantly. If you look at this in context of hardware, like IoT sensors, it could result in huge improvements in energy usage, since the device can suspend activity until it knows it&#39;s needed. In context of software, it reduces the load on the system significantly since no redundant events would ever be fired. As you can see in the image below, a publisher that is aware of what data is requested has much less activity with the same result.</p><p><img src="pubsub-with-listening-workflow.png" alt="Listening PubSub Workflow"></p><p>Finally, this approach shines the most for when the data being sent out is actually driven by the name of your request. For example, requesting &#39;weather/germany-berlin-1w&#39; means the publisher needs to know that it will be sending out information for a 1 week forecast.</p><h4>How it scales</h4><p>You don&#39;t want more than one publisher updating the same record or emitting the same event. But you want to scale your microservices so they can cope with
-huge amounts of data coming into your system, often from the same third party service. You can use the listen functionality to easily split concerns by handling more specific requests across multiple publishers.</p><p>For example, you could create two identical providers except where one listens to requests to all countries starting with starting with the first half of the alphabet &#39;^weather/[a-k]&#39; and the other to the second half &#39;^weather/[m-z]&#39;. This can be cut into as many publishers as you see fit to easily scale your processes within the cloud.</p><h4>How to implement</h4><p>The provider listens to records and events matching the name &#39;weather/&#39;</p><pre><code class="lang-javascript">ds.event.listen( &#39;^weather/.*&#39;, onMatch );
+<p>Realtime systems have a reputation of being expensive to run. Lets take a look at why - and what we can do to make it better. But before we start, let’s take a quick look at how many realtime systems work today.</p><p>Realtime uses the <a href="https://en.wikipedia.org/wiki/Push_technology">push</a> paradigm to tell the world when something happens. This means it sends updates immediately rather than wait to be asked.</p><p>Where this all gets really interesting is on the very other end of your stack, in the land of databases, your server code and integrations with third-party data. Pretty much the rest of the iceberg that makes your application functional but is hidden away behind a beautiful minimalistic interface. Those systems tend to be run in a bit of isolation, meaning they often don&#39;t know or care if any clients are actually interested in what they are publishing or if they&#39;re literally just creating redundant data no one will ever notice (other than the people from devops monitoring your resource consumption).</p><p>Let’s take a weather app for example. As you can see in the image below, you have a large amount of changing data being constantly pumped into the system, although the client is only interested in Germany.</p><p><img src="usual-pubsub-workflow.png" alt="Usual PubSub Workflow"></p><h3>So where does listening come in?</h3><p>The goal in any realtime system is to limit the amount of moving data in order to reduce the total required resources and costs. One way to achieve this is by making sure that at least one client has actually requested something before you start pushing data to it.</p><p>This works amazingly well for events, as the responsibility is taken off the publisher to submit all events constantly. If you look at this in context of hardware, like IoT sensors, it could result in huge improvements in energy usage, since the device can suspend activity until it knows it&#39;s needed. In context of software, it reduces the load on the system significantly since only required events would ever be fired. As you can see in the image below, a publisher that is aware of what data is requested has much less activity with the same result.</p><p><img src="pubsub-with-listening-workflow.png" alt="Listening PubSub Workflow"></p><p>Finally, this approach shines the most when the data being sent out is actually driven by the name of your subscription. For example, subscribing to &#39;weather/germany-berlin-1w&#39; tells the publisher to send information for one week forecasts.</p><h4>How to implement</h4><p>The provider listens to events matching the name &#39;weather/&#39;</p><pre><code class="lang-javascript">ds.event.listen( &#39;^weather/.*&#39;, onMatch );
 </code></pre>
-<p>And the onMatch callback will be notified for all the current matches in the system, new ones that come in and old ones that noone is interested in anymore.</p><pre><code class="lang-javascript">function onMatch( subject, provide ) {
-    //Subject is the name of the event or record that is being subscribed too
-
-    //If provide is true it means you should start publishing data, if it&#39;s false it means you should stop
+<p>And the <code>onMatch</code> callback will be notified for all the current matches in the system, new ones that come in and old ones that no one is interested in anymore.</p><pre><code class="lang-javascript">function onMatch( subject, isInterested ) {
+    //Subject is the name of the event or record that is being subscribed to
+    //If isInterested is true it means you should start publishing data, if it&#39;s false it means you should stop
 }
 </code></pre>
-<p>If the provider can no longer provide the data, it can stop providing by calling:</p><pre><code class="lang-javascript">ds.event.unlisten( &#39;^weather/.*&#39;, onMatch );
+<p>If the provider can no longer provide the data, it can stop listening by calling:</p><pre><code class="lang-javascript">ds.event.unlisten( &#39;^weather/.*&#39;, onMatch );
 </code></pre>
-<p>For more details and code, take a look at our <a href="../../tutorials/data-provider.html">tutorial</a>.</p>
+<h4>How it scales</h4><p>You don&#39;t want more than one publisher updating the same record or emitting the same event. But you do want to scale your publishers so they can cope with huge amounts of data coming into your system, often from the same third party service. You can use the listen functionality to easily split concerns by handling more specific requests across multiple publishers.</p><p>For example, you could create two identical providers except where one listens to requests to all countries starting with the first half of the alphabet &#39;^weather/[a-k]&#39; and the other to the second half &#39;^weather/[m-z]&#39;. This can be split into as many publishers as you see fit to easily scale your processes.</p><p>For more details and code, take a look at our <a href="../../tutorials/data-provider.html">tutorial</a>.</p>
 		</section>
 
 		<footer class="post-footer">
@@ -100,7 +98,7 @@ huge amounts of data coming into your system, often from the same third party se
 					<h4>About the author</h4>
 
 					<p class="author-bio">
-						Yasser enjoys playing with electronics ( usualy ending up soldering new cup holders )
+						Yasser comes of out Egypt, got a bit sunburnt and now enjoys the calmer weather in Berlin. Core team member of deepstream.io and enjoys soldering cupholders.
 					</p>
 				</span>
 
@@ -147,7 +145,7 @@ huge amounts of data coming into your system, often from the same third party se
 			<ul class="latest-blogs-content">
 					<li class="latest-blog-article">
 						<a href="">
-							<span class="date">16/02/2016</span>
+							<span class="date">18/02/2016</span>
 							<span class="title">The benefits of listening</span>
 						</a>
 					</li>
@@ -222,7 +220,7 @@ huge amounts of data coming into your system, often from the same third party se
 				<ul class="latest-blogs-content">
 						<li class="latest-blog-article">
 							<a href="">
-								<span class="date">16/02/2016</span>
+								<span class="date">18/02/2016</span>
 								<span class="title">The benefits of listening</span>
 							</a>
 						</li>
