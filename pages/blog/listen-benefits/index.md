@@ -5,25 +5,25 @@
     "thumbnail": "listening-dog.jpg"
 }
 
-Realtime systems have a reputation of being expensive to run. Lets take a look at why and what we can do to make it better.
+Realtime systems have a reputation of being expensive to run. Lets take a look at why and what we can do to make it better. But before we start, let’s take a quick look at how many realtime systems work today.
 
-Before starting, lets look at how realtime differs from classical HTTP structures. 
+Realtime uses [push](https://en.wikipedia.org/wiki/Push_technology) technology to tell the world when something happens. This means it sends updates immediately whenever something happens rather than wait to be asked. 
 
-* REST APIs
-The way we have all become accustomed to getting data is ajax calls. Whenever you want to know the current value of something, you would send out a get request to the server and get a the appropriate reply. The key factor here is that the initiator is always the client. In cases where you want to be notified of something in realtime ( without polling the server constantly ) you would establish a webhook, which means you spin up your own HTTP endpoint that is constantly listening for updates, something that isn't really a client friendly solution.
+Where this all gets really interesting is behind the client connection, in the land of databases, your server code and integrations with third-party data. Pretty much the rest of the iceberg that makes your application functional but is hidden away behind a beautiful minimalistic interface. Those systems tend to be run in a bit of isolation, meaning they often don't know or care if any clients are actually interested in what they are publishing or if they're literally just creating redundant data noone will ever notice ( other than the people from devops monitoring your resource consumption ).
 
-* Realtime 
-Realtime works in a different way. You have a two way communication socket, where you can constantly recieve data without ever having to request the server for newer versions. What this means is that the client can initially notify the server what things it's interested in, and whenever something happens it will be pushed to the client instantly. 
+You can see this in the image below, where worldwide weather updates are constantly being pumped into the system although the subscriber is only interested in germany.
 
-Now the part where this all gets really interesting is behind the actually client connection, in the land of databases, integrations with other sources of data. Pretty much the rest of the iceberg that provides the data to make your application functional but totally hidden behind a beautifully designed minimalistic interface. Those systems often don't know or care if any clients are actually interested in what they are publishing or if their literaly just creating redundant data noone will ever notice ( other than the people from devops monitoring the resource consumption associated ).
+![Usual PubSub Workflow](usual-pubsub-workflow.png)
 
-The ideal goal is to limit the amount of data going through the system. This reduces resources and costs. You can do so by saying that at least one client has to actually request something before you start pushing data to it. In more detail, as soon as the first client requests something, publishers can get notified and start publishing data, and when the last client loses interest the publisher no longer needs to pump that data into the system.
+### So where does listening come in?
 
-This works amazingly well for events, where the actual responsibility is taken off the publisher to submit all events constantly. In context of hardware, like IoT sensors, that can mean huge improvements in energy usage, since the device can suspend activity until it knows it's needed. In context of software, it reduces the load on the system significantly since no redundant events would ever be fired.
+The ideal goal in any system is to limit the amount of moving data in order to reduce the total amount of required resources and costs. One way of doing so is by saying that at least one client has to actually request something before you start pushing data to it. In more detail, as soon as the first client requests something, publishers can get notified and start publishing data, and when the last client loses interest the publisher no longer needs to pump that data into the system.
 
-Records are just as simple, but if you derive data from the connected database you have to make sure all the records the data is derived from are requested in advance.
+This works amazingly well for events, where the actual responsibility is taken off the publisher to submit all events constantly. If you look at this in context of hardware, like IoT sensors, it could result in huge improvements in energy usage, since the device can suspend activity until it knows it's needed. In context of software, it reduces the load on the system significantly since no redundant events would ever be fired. As you can see in the image below, a publisher that is aware of what data is requested has much less activity with the same result.
 
-Finally, this approach shines the most for when the data being sent out is actually driven by the name of your request. For example, requesting 'weather/germany-berlin-1w' means the publisher needs to know that it will need to send out information for a 1 week forecast.
+![Listening PubSub Workflow](pubsub-with-listening-workflow.png)
+
+Finally, this approach shines the most for when the data being sent out is actually driven by the name of your request. For example, requesting 'weather/germany-berlin-1w' means the publisher needs to know that it will be sending out information for a 1 week forecast.
 
 #### How it scales
 
