@@ -19,19 +19,19 @@ var server = new Deepstream();
 
 server.set( 'cache', new RedisCacheConnector({
 	port: 6379,
-	host: 'localhost' 
+	host: 'localhost'
 }));
 
 server.set( 'messageConnector', new AmqpMessageConnector({
 	port: 5672,
-	host: 'localhost' 
+	host: 'localhost'
 }));
 
 server.set( 'storage', new RethinkDbConnector({
 	port: 28015,
 	host: 'localhost',
 	splitChar: '/',
-	defaultTable: 'ds-records'
+	defaultTable: 'ds_records'
 }));
 
 server.start();
@@ -61,12 +61,12 @@ var server = new Deepstream();
 
 server.set( 'cache', new RedisCacheConnector({
 	port: 6379,
-	host: 'localhost' 
+	host: 'localhost'
 }));
 
 server.set( 'messageConnector', new RedisMessageConnector({
 	port: 6379,
-	host: 'localhost' 
+	host: 'localhost'
 }));
 
 server.start();
