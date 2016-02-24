@@ -143,6 +143,6 @@ type: String
 optional: false
 desc: A RegExp as a string
 
-Removes a listener that was previously registered using <a href="#client.record.listen( pattern, callback )">listen()</a>.
+Removes a listener that was previously registered using <a href="#client.record.listen(pattern,callback)">listen()</a>.
 
 </div>
