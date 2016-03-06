@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>deepstream.io | Simple app using React</title>
+	<title>deepstream.io | Realtime apps with deepstream-react</title>
 
 	
 
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<meta name="keywords" content="deepstream, deepstream.io, streaming, realtime, server, socket" />
-	<meta name="description" content="Learn how to build a simple address manager using deepstream and Facebook&#x27;s ReactJS" />
+	<meta name="description" content="Using the deepstream-react mixin to sync a components state in realtime" />
 	<meta name="author" content="Wolfram Hempel" />
 	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 	<link rel="icon" href="/favicon.ico" type="image/x-icon">
@@ -129,7 +129,7 @@
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
 
-	<li class="active">
+	<li >
 		<a href="simple-app-using-react.html">Simple App using React</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
@@ -151,25 +151,45 @@
 </ul>
 
 			<div id="content">
-				<h1>Building a simple app with deepstream and react</h1><p>Integration with react is done within the <strong><em>componentDidMount</em></strong> and
-<strong><em>componentWillUnmount</em></strong> methods.</p><p>Example:</p><pre><code class="lang-javascript">componentDidMount: function() {
-    this.record = ds.record.getRecord( this.props.recordName );
-    this.record.subscribe( function( data ) {
-        this.setState( data );
-    }.bind( this ));
-}
+				<h1>using deepstream-react</h1><p><img src="../assets/images/react/deepstream-react.png" alt="deepstream-react"></p><p>deepstream and react share the same believe: apps are best composed from reusable components, driven by state. What deepstream brings to react is the ability to store this state and sync it across connected clients.</p><p>To make this easier, we&#39;ve developed <strong>deepstream-react</strong> - a react mixin that let&#39;s you add realtime sync to any component with just a single line of code.</p><pre><code class="lang-javascript">mixins: [ DeepstreamReact  ],
 </code></pre>
-<p>This allows it to subscribe to a subject and call <strong><em>setState</em></strong> whenever an
-update is received.</p><pre><code class="lang-javascript">componentWillUnmount: function() {
-    this.record.discard();
-}
+<h3>How to use deepstream-react</h3><p>deepstream has a concept called &quot;records&quot;. A record is a bit of JSON data that can be observed and manipulated by clients and that&#39;s stored and synced by the deepstream server.</p><p>deepstream-react binds a deepstream record to a react component&#39;s state. Here&#39;s what that looks like:</p><p><img width="650" src="../assets/images/react/basic-react-input.gif" alt="basic input with deepstream-react" /></p><p>Let&#39;s replicate the example above. First, you need a deepstream server running on port 6020. If you haven&#39;t used deepstream yet, quickly head over to the <a href="http://localhost:3000/tutorials/getting-started.html">getting started tutorial</a>...don&#39;t worry, I&#39;ll wait.</p><p>Once your server is running, it&#39;s time to create a client, log in to the server and register the client instance with deepstream-react. Sounds tougher than it is:</p><pre><code class="lang-javascript">var deepstreamClient = require( &#39;deepstream.io-client-js&#39; );
+var DeepstreamMixin = require( &#39;deepstream.io-tools-react&#39; );
+
+ds = deepstreamClient( &#39;localhost:6020&#39; ).login({}, function(){
+    //ReactDOM.render call will go in here
+});
+DeepstreamMixin.setDeepstreamClient( ds );
 </code></pre>
-<p>This allows the subscription to be terminated to avoid any memory leaks after
-the object is no longer in the dom.</p><h3>Example App</h3><div class="img-container">
+<p>Every deepstream record is identified by a unique name. To tell your component which record it should use, you need to specify a <code>dsRecord</code> property.</p><pre><code class="lang-javascript">ReactDOM.render(
+    &lt;SyncedInput dsRecord=&quot;some-input&quot; /&gt;,
+    document.getElementById( &#39;example&#39; )
+);
+</code></pre>
+<p>And that&#39;s it. As long as your component uses the deepstream-react mixin, all changes to its state will be persisted and synced by deepstream.</p><pre><code class="lang-javascript">var SyncedInput = React.createClass({
+    mixins: [ DeepstreamMixin ],
+    setValue: function( e ) {
+        this.setState({ value: e.target.value });
+    },
+    render: function() {
+        return (
+            &lt;input value={this.state.value} onChange={this.setValue} /&gt;
+        )
+    }
+});
+</code></pre>
+<p><a class="mega" href="https://github.com/deepstreamIO/ds-tutorial-react/tree/master/synced-input"><i class="fa fa-github"></i>synced input example</a></p><h3>What about state that I don&#39;t want to be synced?</h3><p>Quite often your component&#39;s state contains data that you don&#39;t want to be stored or synced, e.g. temporary values from an input field that need to be validated first or composite values, e.g. <code>fullName</code> that&#39;s composed from a first and lastname entry.</p><p>For those values, deepstream-react supports a <code>local</code> namespace. Just store anything you want to be excluded under it.</p><pre><code class="lang-javascript">this.setState({
+    importantData: &#39;this will be synced&#39;,
+    local: {
+        temporaryData: &#39;this will be excluded&#39;
+    }
+});
+</code></pre>
+<h3>How about a more complex example?</h3><p>Granted, a single input doesn&#39;t constitute an app - and it&#39;s often easier to see things being used in context. So here&#39;s a take on react&#39;s classic todo-app, using <em>deepstream-react</em>.</p><p><img width="650" src="../assets/images/react/complex-react-example.gif" alt="todo list example with deepstream-react" /></p><p><a class="mega" href="https://github.com/deepstreamIO/ds-tutorial-react/tree/master/todo-list"><i class="fa fa-github"></i>todo-list example</a></p><h3>Prefer to use deepstream directly?</h3><p>No problem, raw deepstream works just as well with react. Here&#39;s an example app:</p><div class="img-container">
     <img class="tutorial" width="602" height="302" src="../assets/images/simple-app.png" alt="Simple App Screenshot" />
 </div>
 
-<p>An example application using <a href="//facebook.github.io/react/">React</a> can be found at here:</p><p><a class="mega" href="//github.com/deepstreamIO/ds-demo-simple-app-react"><i class="fa fa-github"></i>react example app</a></p>
+<p><a class="mega" href="//github.com/deepstreamIO/ds-demo-simple-app-react"><i class="fa fa-github"></i>react example app</a></p>
 			</div>
 		</div>
 		<script type="text/javascript" src="../assets/js/docs.js"></script>
