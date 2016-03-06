@@ -2,20 +2,39 @@
 	"title": "Realtime apps with deepstream-react",
 	"description": "Using the deepstream-react mixin to sync a components state in realtime"
 }
-using deepstream-react
+Using deepstream-react
 =================================================
 
 ![deepstream-react](../assets/images/react/deepstream-react.png)
 
-deepstream and react share the same believe: apps are best composed from reusable components, driven by state. What deepstream brings to react is the ability to store this state and sync it across connected clients.
+deepstream and react share the same belief: apps are best composed from reusable components, driven by state. What deepstream brings to react is the ability to store this state and sync it across connected clients.
 
 To make this easier, we've developed **deepstream-react** - a react mixin that let's you add realtime sync to any component with just a single line of code.
 
 ```javascript
-mixins: [ DeepstreamReact  ],
+mixins: [ DeepstreamReact ],
 ```
 
 ### How to use deepstream-react
+<table class="mini space">
+    <thead>
+        <tr>
+            <th><i class="fa fa-github"></i>Github</th>
+            <th><i class="fa fa-cube"></i>Bower / Npm</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                <a href="https://github.com/deepstreamIO/deepstream.io-tools-react">
+                    https://github.com/deepstreamIO/deepstream.io-tools-react
+                </a>
+            </td>
+            <td><code>deepstream.io-tools-react</code></td>
+        </tr>
+    </tbody>
+</table>
+
 deepstream has a concept called "records". A record is a bit of JSON data that can be observed and manipulated by clients and that's stored and synced by the deepstream server.
 
 deepstream-react binds a deepstream record to a react component's state. Here's what that looks like:
@@ -24,7 +43,13 @@ deepstream-react binds a deepstream record to a react component's state. Here's 
 
 Let's replicate the example above. First, you need a deepstream server running on port 6020. If you haven't used deepstream yet, quickly head over to the [getting started tutorial](http://localhost:3000/tutorials/getting-started.html)...don't worry, I'll wait.
 
-Once your server is running, it's time to create a client, log in to the server and register the client instance with deepstream-react. Sounds tougher than it is:
+Once your server is running, it's time to create our react-app. Let's start by installing the deepstream javascript client and deepstream-react
+
+```
+npm install deepstream.io-client-js deepstream.io-tools-react --save
+```
+
+Next up: connect to the server, log in and register the client instance with deepstream-react. Sounds tougher than it is:
 
 ```javascript
 var deepstreamClient = require( 'deepstream.io-client-js' );
@@ -45,7 +70,7 @@ ReactDOM.render(
 );
 ```
 
-And that's it. As long as your component uses the deepstream-react mixin, all changes to its state will be persisted and synced by deepstream.
+And that's it. Just write your react-components as usual, all changes will be persisted and synced via deepstream.
 
 ```javascript
 var SyncedInput = React.createClass({
