@@ -20,7 +20,7 @@ deepstream has a concept called "records". A record is a bit of JSON data that c
 
 deepstream-react binds a deepstream record to a react component's state. Here's what that looks like:
 
-<img width="650" src="../assets/images/react/basic-react-input.gif" alt="basic input with deepstream-react" />
+<img width="" src="../assets/images/react/basic-react-input.gif" alt="basic input with deepstream-react" />
 
 Let's replicate the example above. First, you need a deepstream server running on port 6020. If you haven't used deepstream yet, quickly head over to the [getting started tutorial](http://localhost:3000/tutorials/getting-started.html)...don't worry, I'll wait.
 
@@ -80,7 +80,7 @@ this.setState({
 ### How about a more complex example?
 Granted, a single input doesn't constitute an app - and it's often easier to see things being used in context. So here's a take on react's classic todo-app, using *deepstream-react*.
 
-<img width="650" src="../assets/images/react/complex-react-example.gif" alt="todo list example with deepstream-react" />
+<img width="" src="../assets/images/react/complex-react-example.gif" alt="todo list example with deepstream-react" />
 
 <a class="mega" href="https://github.com/deepstreamIO/ds-tutorial-react/tree/master/todo-list"><i class="fa fa-github"></i>todo-list example</a>
 

@@ -125,21 +125,6 @@
 	</li>
 
 	<li >
-		<a href="simple-app-using-ko.html">Simple App using Knockout</a>
-		<div class="isActiveIndicator orangeGradient"></div>
-	</li>
-
-	<li >
-		<a href="simple-app-using-react.html">Simple App using React</a>
-		<div class="isActiveIndicator orangeGradient"></div>
-	</li>
-
-	<li >
-		<a href="simple-app-using-angular.html">Simple App using Angular</a>
-		<div class="isActiveIndicator orangeGradient"></div>
-	</li>
-
-	<li >
 		<a href="webrtc.html">WebRTC</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
@@ -148,12 +133,28 @@
 		<a href="webrtc-tips.html">WebRTC Tips</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
+
+	<li class="head">Examples</li>
+	<li class="active">
+		<a href="deepstream-react.html">Using deepstream-react</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li >
+		<a href="simple-app-using-ko.html">Simple App using Knockout</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li >
+		<a href="simple-app-using-angular.html">Simple App using Angular</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
 </ul>
 
 			<div id="content">
 				<h1>using deepstream-react</h1><p><img src="../assets/images/react/deepstream-react.png" alt="deepstream-react"></p><p>deepstream and react share the same believe: apps are best composed from reusable components, driven by state. What deepstream brings to react is the ability to store this state and sync it across connected clients.</p><p>To make this easier, we&#39;ve developed <strong>deepstream-react</strong> - a react mixin that let&#39;s you add realtime sync to any component with just a single line of code.</p><pre><code class="lang-javascript">mixins: [ DeepstreamReact  ],
 </code></pre>
-<h3>How to use deepstream-react</h3><p>deepstream has a concept called &quot;records&quot;. A record is a bit of JSON data that can be observed and manipulated by clients and that&#39;s stored and synced by the deepstream server.</p><p>deepstream-react binds a deepstream record to a react component&#39;s state. Here&#39;s what that looks like:</p><p><img width="650" src="../assets/images/react/basic-react-input.gif" alt="basic input with deepstream-react" /></p><p>Let&#39;s replicate the example above. First, you need a deepstream server running on port 6020. If you haven&#39;t used deepstream yet, quickly head over to the <a href="http://localhost:3000/tutorials/getting-started.html">getting started tutorial</a>...don&#39;t worry, I&#39;ll wait.</p><p>Once your server is running, it&#39;s time to create a client, log in to the server and register the client instance with deepstream-react. Sounds tougher than it is:</p><pre><code class="lang-javascript">var deepstreamClient = require( &#39;deepstream.io-client-js&#39; );
+<h3>How to use deepstream-react</h3><p>deepstream has a concept called &quot;records&quot;. A record is a bit of JSON data that can be observed and manipulated by clients and that&#39;s stored and synced by the deepstream server.</p><p>deepstream-react binds a deepstream record to a react component&#39;s state. Here&#39;s what that looks like:</p><p><img width="" src="../assets/images/react/basic-react-input.gif" alt="basic input with deepstream-react" /></p><p>Let&#39;s replicate the example above. First, you need a deepstream server running on port 6020. If you haven&#39;t used deepstream yet, quickly head over to the <a href="http://localhost:3000/tutorials/getting-started.html">getting started tutorial</a>...don&#39;t worry, I&#39;ll wait.</p><p>Once your server is running, it&#39;s time to create a client, log in to the server and register the client instance with deepstream-react. Sounds tougher than it is:</p><pre><code class="lang-javascript">var deepstreamClient = require( &#39;deepstream.io-client-js&#39; );
 var DeepstreamMixin = require( &#39;deepstream.io-tools-react&#39; );
 
 ds = deepstreamClient( &#39;localhost:6020&#39; ).login({}, function(){
@@ -185,7 +186,7 @@ DeepstreamMixin.setDeepstreamClient( ds );
     }
 });
 </code></pre>
-<h3>How about a more complex example?</h3><p>Granted, a single input doesn&#39;t constitute an app - and it&#39;s often easier to see things being used in context. So here&#39;s a take on react&#39;s classic todo-app, using <em>deepstream-react</em>.</p><p><img width="650" src="../assets/images/react/complex-react-example.gif" alt="todo list example with deepstream-react" /></p><p><a class="mega" href="https://github.com/deepstreamIO/ds-tutorial-react/tree/master/todo-list"><i class="fa fa-github"></i>todo-list example</a></p><h3>Prefer to use deepstream directly?</h3><p>No problem, raw deepstream works just as well with react. Here&#39;s an example app:</p><div class="img-container">
+<h3>How about a more complex example?</h3><p>Granted, a single input doesn&#39;t constitute an app - and it&#39;s often easier to see things being used in context. So here&#39;s a take on react&#39;s classic todo-app, using <em>deepstream-react</em>.</p><p><img width="" src="../assets/images/react/complex-react-example.gif" alt="todo list example with deepstream-react" /></p><p><a class="mega" href="https://github.com/deepstreamIO/ds-tutorial-react/tree/master/todo-list"><i class="fa fa-github"></i>todo-list example</a></p><h3>Prefer to use deepstream directly?</h3><p>No problem, raw deepstream works just as well with react. Here&#39;s an example app:</p><div class="img-container">
     <img class="tutorial" width="602" height="302" src="../assets/images/simple-app.png" alt="Simple App Screenshot" />
 </div>
 
