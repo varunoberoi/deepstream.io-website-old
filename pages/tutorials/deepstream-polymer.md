@@ -12,7 +12,7 @@ Polymer brings WebComponents to current browsers, allowing web applicatons to be
 We developed a few deepstream-polymer tools to allow you to use our elements to provide data-sync purely within the dom, or if required - using minimal javascript.
 
 ```html
-<ds-record name="my-record-name" data="{{record-data}}"></ds-record>
+<ds-record name="myRecordName" data="{{recordData}}"></ds-record>
 ```
 or extend your own elements using behaviours
 ```javascript
@@ -80,9 +80,9 @@ Want to login with an actual user-name or password? Just supply them via your `a
 	<input type="text" value="{{credentials.username::input}}"/>
 	<input type="password" value="{{credentials.username::password}}"/>
 	<!-- 
-		Note: login binding is on the current and will require 
+		Note: login binding is on the current scope and will require 
 		to be proxied to the login method - or you could create your own 
-		element that use the LoginBehaviour
+		element that uses the LoginBehaviour
 	-->
 	<button on-click="{{login}}" />
 </ds-login>
@@ -105,12 +105,15 @@ Note how there is another `ds-connection` element present. This is to access the
 
 #### Lists
 
-Finally, let's say we have a [list](https://deepstream.io/tutorials/lists.html) of records that are related to each other and would like to loop over them. This can be done by using a `ds-list` element - which can allow you to loop over each record name. The attributes used mostly the same as `ds-record`, except the record names are exposed via entries.
+Finally, let's say we have a [list](https://deepstream.io/tutorials/lists.html) of records that are related to each other and would like to loop over them. This can be done by using a `ds-list` element - which can allow you to loop over each record name. The attributes used mostly the same as `ds-record`, except the record names are exposed via an Array called entries.
 
 ```html
 <template>
+    <ds-connection ds="{{ds}}"></ds-connection>
 	<ds-list name="[[name]]" entries="{{todos}}" ds="[[ds]]">
 		<template is="dom-repeat" items="[[todos]]" as="recordId">
+            <div>RecordId : {{recordId}}</div>
+        </template>
 	</ds-list>
 </template>
 ```
