@@ -1,0 +1,126 @@
+{
+	"title": "Realtime apps with deepstream-polymer",
+	"description": "How to use polymer elements and behaviours that play nicely with deepstream"
+}
+Using deepstream-polymer
+=================================================
+
+![deepstream-polymer](../assets/images/polymer/deepstream-polymer.png)
+
+Polymer brings WebComponents to current browsers, allowing web applicatons to be built using the proven approach of allowing dom elements to be the building blocks of any application.
+
+We developed a few deepstream-polymer tools to allow you to use our elements to provide data-sync purely within the dom, or if required - using minimal javascript.
+
+```html
+<ds-record name="my-record-name" data="{{record-data}}"></ds-record>
+```
+or extend your own elements using behaviours
+```javascript
+behaviours: [ Polymer.DSRecordBehaviour ],
+```
+
+You can take a look at the documentation for all deepstream-polymer elements and behaviours here:
+
+<a class="mega" href="//deepstreamio.github.io/deepstream.io-tools-polymer"><i class="fa fa-book"></i>Polymer Documentation</a>
+
+### How to use deepstream-polymer
+
+<table class="mini space">
+    <thead>
+        <tr>
+            <th><i class="fa fa-github"></i>Github</th>
+            <th><i class="fa fa-cube"></i>Bower</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                <a href="https://github.com/deepstreamIO/deepstream.io-tools-polymer">
+                    https://github.com/deepstreamIO/deepstream.io-tools-polymer
+                </a>
+            </td>
+            <td><code>deepstream.io-tools-polymer</code></td>
+        </tr>
+    </tbody>
+</table>
+
+The beauty of using polymer is that we can build a data-sync application without a line of javascript! Let's look at all the building blocks needed to create an app with data-sync.
+
+Before we start, please start a deepstream server to test multiple connections. You can look at the [getting started tutorial](getting-started.html) to get you up to date in no time.
+
+#### Connectivity
+
+The first thing you'll need to do is to create a connection to deepstream. This can be done by simply adding in a `ds-connection` element. What this does is create a connection to deepstream based on the `url` you provided and exposes the [connection state](../docs/connection_states.html) and deepstream instance.
+
+```html
+<ds-connection 
+	url="localhost:6020" 
+	state="{{connectionState}}"
+	ds={{ds}}>
+</ds-connection>
+```
+
+After you have a connection you'll need to login. This can be done by adding in the `ds-login` element. Logging in anonymously can be done by having a `auto-login` attribute present.
+
+```html
+<ds-login 
+	auto-login
+	logged-in="{{loggedIn}}"
+	ds="[[ds]]">
+</ds-login>
+```
+
+Want to login with an actual user-name or password? Just supply them via your `auth-params` and call `login` when your ready.
+
+```html
+<ds-login 
+	auth-params="{{credentials}}"
+	logged-in="{{loggedIn}}"
+	ds="[[ds]]">
+	<input type="text" value="{{credentials.username::input}}"/>
+	<input type="password" value="{{credentials.username::password}}"/>
+	<!-- 
+		Note: login binding is on the current and will require 
+		to be proxied to the login method - or you could create your own 
+		element that use the LoginBehaviour
+	-->
+	<button on-click="{{login}}" />
+</ds-login>
+```
+
+#### Records
+
+Now you got a connection you can allow your elements to auto-sync their data with all other clients by simply using a `ds-record` element. This requires three attributes, the `name` to know what record to use, `data` to allow reading and writing to the record and `ds` to expose deepstream to the element.
+
+```html
+<template>
+	<ds-connection ds="{{ds}}"></ds-connection>
+	<ds-record name="[[name]]" data="{{data}}" ds="[[ds]]">
+		<input type="text" value="{{data.name::input}}">
+	</ds-record>
+</template>
+```
+
+Note how there is another `ds-connection` element present. This is to access the same deepstream connection using a [global variable](https://github.com/Polymer/docs/issues/334) across the application.
+
+#### Lists
+
+Finally, let's say we have a [list](https://deepstream.io/tutorials/lists.html) of records that are related to each other and would like to loop over them. This can be done by using a `ds-list` element - which can allow you to loop over each record name. The attributes used mostly the same as `ds-record`, except the record names are exposed via entries.
+
+```html
+<template>
+	<ds-list name="[[name]]" entries="{{todos}}" ds="[[ds]]">
+		<template is="dom-repeat" items="[[todos]]" as="recordId">
+	</ds-list>
+</template>
+```
+
+And that's it, everything needed to created an application with data-sync!
+
+## Building a more complex app?
+
+You can see how you can combine all these concepts to build a to-do list:
+
+<img width="" src="../assets/images/polymer/example-app.gif" alt="basic todo app with deepstream-polymer" />
+
+<a class="mega" href="//github.com/deepstreamIO/ds-tutorial-polymer"><i class="fa fa-github"></i>todo-list example</a>
