@@ -41,7 +41,7 @@ deepstream-react binds a deepstream record to a react component's state. Here's 
 
 <img width="" src="../assets/images/react/basic-react-input.gif" alt="basic input with deepstream-react" />
 
-Let's replicate the example above. First, you need a deepstream server running on port 6020. If you haven't used deepstream yet, quickly head over to the [getting started tutorial](http://localhost:3000/tutorials/getting-started.html)...don't worry, I'll wait.
+Let's replicate the example above. First, you need a deepstream server running on port 6020. If you haven't used deepstream yet, quickly head over to the [getting started tutorial](getting-started.html)...don't worry, I'll wait.
 
 Once your server is running, it's time to create our react-app. Let's start by installing the deepstream javascript client and deepstream-react
 
