@@ -1,22 +1,22 @@
 {
-	"title": "Realtime apps with deepstream-polymer",
-	"description": "How to use polymer elements and behaviours that play nicely with deepstream"
+    "title": "Realtime apps with deepstream-polymer",
+    "description": "How to use polymer elements and behaviours with deepstream"
 }
 Using deepstream-polymer
 =================================================
 
 ![deepstream-polymer](../assets/images/polymer/deepstream-polymer.png)
 
-Polymer brings WebComponents to current browsers, allowing web applicatons to be built using the proven approach of allowing dom elements to be the building blocks of any application.
+Polymer brings WebComponents to current browsers, allowing web applications to be built using the proven approach of making dom elements the building blocks of any application.
 
-We developed a few deepstream-polymer tools to allow you to use our elements to provide data-sync purely within the dom, or if required - using minimal javascript.
+We developed a few deepstream-polymer tools to allow you to use data-sync purely within the dom:
 
 ```html
 <ds-record name="myRecordName" data="{{recordData}}"></ds-record>
 ```
-or extend your own elements using behaviours
+or if required - using minimal javascript by extending your own elements using [behaviours](//www.polymer-project.org/1.0/docs/devguide/behaviors.html):
 ```javascript
-behaviours: [ Polymer.DSRecordBehaviour ],
+behaviours: [ Polymer.DSRecordBehaviour ]
 ```
 
 You can take a look at the documentation for all deepstream-polymer elements and behaviours here:
@@ -44,9 +44,9 @@ You can take a look at the documentation for all deepstream-polymer elements and
     </tbody>
 </table>
 
-The beauty of using polymer is that we can build a data-sync application without a line of javascript! Let's look at all the building blocks needed to create an app with data-sync.
+The beauty of using polymer is that we can build an entire data-sync application without a line of javascript! Let's look at the building blocks we can use to get deepstream working with polymer.
 
-Before we start, please start a deepstream server to test multiple connections. You can look at the [getting started tutorial](getting-started.html) to get you up to date in no time.
+Before we start, please start a deepstream server to test across multiple browsers. You can look at the [getting started tutorial](getting-started.html) to get you up to date in no time.
 
 #### Connectivity
 
@@ -54,37 +54,37 @@ The first thing you'll need to do is to create a connection to deepstream. This 
 
 ```html
 <ds-connection 
-	url="localhost:6020" 
-	state="{{connectionState}}"
-	ds={{ds}}>
+    url="localhost:6020" 
+    state="{{connectionState}}"
+    ds={{ds}}>
 </ds-connection>
 ```
 
-After you have a connection you'll need to login. This can be done by adding in the `ds-login` element. Logging in anonymously can be done by having a `auto-login` attribute present.
+After you have a connection you'll need to login. This can be done by adding in the `ds-login` element. Logging in anonymously can be done by having an `auto-login` attribute present.
 
 ```html
 <ds-login 
-	auto-login
-	logged-in="{{loggedIn}}"
-	ds="[[ds]]">
+    auto-login
+    logged-in="{{loggedIn}}"
+    ds="[[ds]]">
 </ds-login>
 ```
 
-Want to login with an actual user-name or password? Just supply them via your `auth-params` and call `login` when your ready.
+Want to login with an actual user-name or password? Just supply them via your `auth-params` and call `login` when your ready. Note, this step would require you to do a tiny bit of javascript!
 
 ```html
 <ds-login 
-	auth-params="{{credentials}}"
-	logged-in="{{loggedIn}}"
-	ds="[[ds]]">
-	<input type="text" value="{{credentials.username::input}}"/>
-	<input type="password" value="{{credentials.username::password}}"/>
-	<!-- 
-		Note: login binding is on the current scope and will require 
-		to be proxied to the login method - or you could create your own 
-		element that uses the LoginBehaviour
-	-->
-	<button on-click="{{login}}" />
+    auth-params="{{credentials}}"
+    logged-in="{{loggedIn}}"
+    ds="[[ds]]">
+    <input type="text" value="{{credentials.username::input}}"/>
+    <input type="password" value="{{credentials.username::password}}"/>
+    <!-- 
+        Note: login binding is on the current scope and will require 
+        to be proxied to the login method - or you could create your own 
+        element that uses the LoginBehaviour
+    -->
+    <button on-click="{{login}}" />
 </ds-login>
 ```
 
@@ -94,10 +94,10 @@ Now you got a connection you can allow your elements to auto-sync their data wit
 
 ```html
 <template>
-	<ds-connection ds="{{ds}}"></ds-connection>
-	<ds-record name="[[name]]" data="{{data}}" ds="[[ds]]">
-		<input type="text" value="{{data.name::input}}">
-	</ds-record>
+    <ds-connection ds="{{ds}}"></ds-connection>
+    <ds-record name="[[name]]" data="{{data}}" ds="[[ds]]">
+        <input type="text" value="{{data.name::input}}">
+    </ds-record>
 </template>
 ```
 
@@ -105,16 +105,16 @@ Note how there is another `ds-connection` element present. This is to access the
 
 #### Lists
 
-Finally, let's say we have a [list](https://deepstream.io/tutorials/lists.html) of records that are related to each other and would like to loop over them. This can be done by using a `ds-list` element - which can allow you to loop over each record name. The attributes used mostly the same as `ds-record`, except the record names are exposed via an Array called entries.
+Finally, let's say we have a [list](https://deepstream.io/tutorials/lists.html) of records that are related to each other and would like to loop over them. This can be done by using a `ds-list` element - which can allow you to loop over each list entry. The attributes used are the same as `ds-record`, except the record names are exposed via an Array called entries.
 
 ```html
 <template>
     <ds-connection ds="{{ds}}"></ds-connection>
-	<ds-list name="[[name]]" entries="{{todos}}" ds="[[ds]]">
-		<template is="dom-repeat" items="[[todos]]" as="recordId">
+    <ds-list name="[[name]]" entries="{{todos}}" ds="[[ds]]">
+        <template is="dom-repeat" items="[[todos]]" as="recordId">
             <div>RecordId : {{recordId}}</div>
         </template>
-	</ds-list>
+    </ds-list>
 </template>
 ```
 
