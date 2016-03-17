@@ -244,7 +244,7 @@ Scenario: The client reconnects to the server
 	When the connection to the server is reestablished
 	Then the clients connection state is &quot;AUTHENTICATING&quot;
 
-Scenario: The client is connected
+Scenario: The client successfully reconnects
 	Given the client logs in with username &quot;XXX&quot; and password &quot;YYY&quot;
 		And the server sends the message A|A+
 	Then the clients connection state is &quot;OPEN&quot;
@@ -278,7 +278,7 @@ Scenario: The client listens to recordPrefix
 	Then the last message the server recieved is R|L|recordPrefix/.*+
 
 @timeout
-Scenario: The server does not respond in time with an ACK
+Scenario: The server does not respond in time with a listen ACK
 	When some time passes
 	Then the client throws a &quot;ACK_TIMEOUT&quot; error with message &quot;No ACK message received in time for recordPrefix/.*&quot;
 
@@ -287,7 +287,7 @@ Scenario: The client unlistens to recordPrefix
 	Then the last message the server recieved is R|UL|recordPrefix/.*+
 
 @timeout
-Scenario: The server does not respond in time with an ACK
+Scenario: The server does not respond in time with an unlisten ACK
 	#When some time passes
 	#Then the client throws a &quot;ACK_TIMEOUT&quot; error with message &quot;No ACK message received in time for recordPrefix/.*&quot;</code></pre>
     </div>
@@ -317,7 +317,7 @@ Scenario: The client listens to recordPrefix
 	When the client listens to a record matching &quot;recordPrefix/.*&quot;
 	Then the last message the server recieved is R|L|recordPrefix/.*+
 
-Scenario: The server responds with an ACK
+Scenario: The server responds with a listen ACK
 	Given the server sends the message R|A|L|recordPrefix/.*+
 
 Scenario: The client gets notified of new matching subscriptions
@@ -332,7 +332,7 @@ Scenario: The client unlistens to recordPrefix
 	When the client unlistens to a record matching &quot;recordPrefix/.*&quot;
 	Then the last message the server recieved is R|UL|recordPrefix/.*+
 
-Scenario: The server responds with an ACK
+Scenario: The server responds with an unlisten ACK
 	#TODO
 	#Given the server sends the message R|A|UL|recordPrefix/.*+
 
@@ -481,7 +481,7 @@ Scenario: The client is connected
 		And the server sends the message A|A+
 
 @timeout
-Scenario: The server does not respond in time with an ACK
+Scenario: The server does not respond in time with a record ACK
 	When the client creates a record named &quot;unhappyRecord&quot;
 		And some time passes
 	Then the client throws a &quot;ACK_TIMEOUT&quot; error with message &quot;unhappyRecord&quot;
@@ -515,7 +515,7 @@ Scenario: The client discards record
 	Then the last message the server recieved is R|US|unhappyRecord+
 
 @timeout
-Scenario: The server does not respond in time with an ACK
+Scenario: The server does not respond in time with an unsubscribe ACK
 	When some time passes
 	Then the client throws a &quot;ACK_TIMEOUT&quot; error with message &quot;unhappyRecord&quot;
 
@@ -574,7 +574,7 @@ Scenario: The client sends an partial update
 	When the client sets the record &quot;happyRecord&quot; &quot;pets.0.name&quot; to &quot;Max&quot;
 	Then the last message the server recieved is R|P|happyRecord|103|pets.0.name|SMax+
 
-Scenario: The client receives a full update
+Scenario: The client receives another full update
 	When the client sets the record &quot;happyRecord&quot; to {&quot;name&quot;:&quot;Smith&quot;,&quot;pets&quot;:[{&quot;name&quot;:&quot;Ruffus&quot;,&quot;type&quot;:&quot;dog&quot;,&quot;age&quot;:5}]}
 	Then the last message the server recieved is R|U|happyRecord|104|{&quot;name&quot;:&quot;Smith&quot;,&quot;pets&quot;:[{&quot;name&quot;:&quot;Ruffus&quot;,&quot;type&quot;:&quot;dog&quot;,&quot;age&quot;:5}]}+
 

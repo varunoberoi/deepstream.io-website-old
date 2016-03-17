@@ -185,7 +185,7 @@ Scenario: The client reconnects to the server
 	When the connection to the server is reestablished
 	Then the clients connection state is &quot;AUTHENTICATING&quot;
 
-Scenario: The client is connected
+Scenario: The client successfully reconnects
 	Given the client logs in with username &quot;XXX&quot; and password &quot;YYY&quot;
 		And the server sends the message A|A+
 	Then the clients connection state is &quot;OPEN&quot;
@@ -225,15 +225,15 @@ Scenario: The client provides a RPC
 	When the client provides a RPC called &quot;toUppercase&quot;
 	Then the last message the server recieved is P|S|toUppercase+
 
-Scenario: The client gets an ACK
+Scenario: The client gets a subscribe ACK
  	When the server sends the message P|A|S|toUppercase+
 
 # Success
 
-Scenario: The client gets a supported request
+Scenario: The client gets a request that will succeed
  	When the server sends the message P|REQ|toUppercase|&lt;UID&gt;|Sabc+
 
-Scenario: The client responds with an ack and processes message
+Scenario: The client responds with an ack and processes message ( 1 )
 	Then the last message the server recieved is P|A|toUppercase|&lt;UID&gt;+
  		And the client recieves a request for a RPC called &quot;toUppercase&quot; with data &quot;abc&quot;
 
@@ -243,10 +243,10 @@ Scenario: The client responds with a success
 
 # Error
 
-Scenario: The client gets a supported request
+Scenario: The client gets a request that will error
  	When the server sends the message P|REQ|toUppercase|&lt;UID&gt;|Sabc+
 
-Scenario: The client responds with an ack and processes message
+Scenario: The client responds with an ack and processes message ( 2 )
 	Then the last message the server recieved is P|A|toUppercase|&lt;UID&gt;+
  		And the client recieves a request for a RPC called &quot;toUppercase&quot; with data &quot;abc&quot;
 
@@ -256,14 +256,14 @@ Scenario: The client responds with an error
 
 # Rejection when supported
 
-Scenario: The client gets a supported request
+Scenario: The client gets another supported request
  	When the server sends the message P|REQ|toUppercase|&lt;UID&gt;|Sabc+
 
-Scenario: The client responds with an ack and processes message
+Scenario: The client responds with an ack and processes message ( 3 )
 	Then the last message the server recieved is P|A|toUppercase|&lt;UID&gt;+
  		And the client recieves a request for a RPC called &quot;toUppercase&quot; with data &quot;abc&quot;
 
-Scenario: The client responds with an error
+Scenario: The client responds with an explicit rejection
 	When the client rejects the RPC &quot;toUppercase&quot;
  	Then the last message the server recieved is P|REJ|toUppercase|&lt;UID&gt;+
 
@@ -272,7 +272,7 @@ Scenario: The client responds with an error
 Scenario: The client gets an unsupported request
 	When the server sends the message P|REQ|unSupported|&lt;UID&gt;|Sabc+
 
-Scenario: The client responds a reject
+Scenario: The client responds with an implicit rejection
 	Then the last message the server recieved is P|REJ|unSupported|&lt;UID&gt;+
 
 # Unproviding
@@ -281,9 +281,8 @@ Scenario: The client stops providing a RPC
 	When the client stops providing a RPC called &quot;toUppercase&quot;
 	Then the last message the server recieved is P|US|toUppercase+
 
-Scenario: The client gets an ACK
- 	When the server sends the message P|A|US|toUppercase+
-	</code></pre>
+Scenario: The client gets an unprovide ACK
+ 	When the server sends the message P|A|US|toUppercase+</code></pre>
     </div>
     <div class="section">  
         <a name="Requesting an RPC"></a>
@@ -309,11 +308,11 @@ Scenario: The client is connected
 
 # Success 
 
-Scenario: The client makes an RPC
+Scenario: The client makes an RPC that will succeed
 	When the client requests RPC &quot;toUppercase&quot; with data &quot;abc&quot;
 	Then the last message the server recieved is P|REQ|toUppercase|&lt;UID&gt;|Sabc+
 
-Scenario: The client gets an ACK
+Scenario: The client gets a request ACK ( 1 )
 	When the server sends the message P|A|REQ|&lt;UID&gt;+
 
 Scenario: The client receives a succesful response
@@ -322,11 +321,11 @@ Scenario: The client receives a succesful response
 
 # Error
 
-Scenario: The client makes an RPC
+Scenario: The client makes an RPC that will fail
 	When the client requests RPC &quot;toUppercase&quot; with data &quot;abc&quot;
 	Then the last message the server recieved is P|REQ|toUppercase|&lt;UID&gt;|Sabc+
 
-Scenario: The client gets an ACK
+Scenario: The client gets a request ACK ( 2 )
 	When the server sends the message P|A|REQ|&lt;UID&gt;+
 
 Scenario: The client receives an error response
@@ -369,7 +368,7 @@ Scenario: The client provides a RPC
 	Then the last message the server recieved is P|S|toUppercase+
 
 @timeout
-Scenario: The server does not respond in time with an ACK
+Scenario: The server does not respond in time with a subscribe ACK
 	When some time passes
 	Then the client throws a &quot;ACK_TIMEOUT&quot; error with message &quot;No ACK message received in time for toUppercase&quot;
 
@@ -380,7 +379,7 @@ Scenario: The client stops providing a RPC
 	Then the last message the server recieved is P|US|toUppercase+
 
 @timeout
-Scenario: The server does not respond in time with an ACK
+Scenario: The server does not respond in time with an unsubscribe ACK
 	When some time passes
 	Then the client throws a &quot;ACK_TIMEOUT&quot; error with message &quot;No ACK message received in time for toUppercase&quot;
 	</code></pre>
