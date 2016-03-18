@@ -44,13 +44,13 @@ You can take a look at the documentation for all deepstream-polymer elements and
     </tbody>
 </table>
 
-The beauty of using polymer is that we can build an entire data-sync application without a line of javascript! Let's look at the building blocks we can use to get deepstream working with polymer.
+The beauty of using polymer is that you can build an entire data-sync application without a line of javascript! Let's look at the building blocks you can use to get deepstream working with polymer.
 
-Before we start, please start a deepstream server to test across multiple browsers. You can look at the [getting started tutorial](getting-started.html) to get you up to date in no time.
+Before you start, please start a deepstream server to test across multiple browsers. You can look at the [getting started tutorial](getting-started.html) to get you up to date in no time.
 
 #### Connectivity
 
-The first thing you'll need to do is to create a connection to deepstream. This can be done by simply adding in a `ds-connection` element. What this does is create a connection to deepstream based on the `url` you provided and exposes the [connection state](../docs/connection_states.html) and deepstream instance.
+The first thing you'll need to do is to create a connection to deepstream. This can be accomplished by simply adding in a `ds-connection` element. What this does is create a connection to deepstream based on the `url` you provided and exposes the [connection state](../docs/connection_states.html) and deepstream instance.
 
 ```html
 <ds-connection 
@@ -60,7 +60,7 @@ The first thing you'll need to do is to create a connection to deepstream. This 
 </ds-connection>
 ```
 
-After you have a connection you'll need to login. This can be done by adding in the `ds-login` element. Logging in anonymously can be done by having an `auto-login` attribute present.
+After you have a connection you'll need to login. This can be done by adding in the `ds-login` element. You can also log in anonymously by having an `auto-login` attribute present.
 
 ```html
 <ds-login 
@@ -90,7 +90,7 @@ Want to login with an actual user-name or password? Just supply them via your `a
 
 #### Records
 
-Now you got a connection you can allow your elements to auto-sync their data with all other clients by simply using a `ds-record` element. This requires three attributes, the `name` to know what record to use, `data` to allow reading and writing to the record and `ds` to expose deepstream to the element.
+Now you that you've a connection you can allow your elements to auto-sync their data with all other clients by simply using a `ds-record` element. This requires three attributes, the `name` to know what record to use, `data` to allow reading and writing to the record and `ds` to expose deepstream to the element.
 
 ```html
 <template>
@@ -105,7 +105,7 @@ Note how there is another `ds-connection` element present. This is to access the
 
 #### Lists
 
-Finally, let's say we have a [list](https://deepstream.io/tutorials/lists.html) of records that are related to each other and would like to loop over them. This can be done by using a `ds-list` element - which can allow you to loop over each list entry. The attributes used are the same as `ds-record`, except the record names are exposed via an Array called entries.
+Finally, let's say you have a [list](https://deepstream.io/tutorials/lists.html) of records that are related to each other and would like to loop over them. This can be achieved by using a `ds-list` element - which can allow you to loop over each list entry. The attributes used are the same as `ds-record`, except the record names are exposed via an Array called entries.
 
 ```html
 <template>
@@ -118,7 +118,7 @@ Finally, let's say we have a [list](https://deepstream.io/tutorials/lists.html) 
 </template>
 ```
 
-And that's it, everything needed to created an application with data-sync!
+And that's it, everything needed to create an application with data-sync!
 
 ## Building a more complex app?
 

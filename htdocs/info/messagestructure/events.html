@@ -235,7 +235,7 @@ Scenario: The client reconnects to the server
 	When the connection to the server is reestablished
 	Then the clients connection state is &quot;AUTHENTICATING&quot;
 
-Scenario: The client succesfully reconnects
+Scenario: The client successfully reconnects
 	Given the client logs in with username &quot;XXX&quot; and password &quot;YYY&quot;
 		And the server sends the message A|A+
 	Then the clients connection state is &quot;OPEN&quot;
