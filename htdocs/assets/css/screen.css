@@ -212,7 +212,11 @@ body {
 	#footer .social a {
 		padding: 5px 0;
 	}
-	#footer ul.footer-items > .footer-left, #footer ul.footer-items > .footer-middle {
+	#footer ul.footer-items > .footer-right {
+		height: 125px;
+	}
+	#footer ul.footer-items > .footer-left, 
+	#footer ul.footer-items > .footer-middle {
 		height: 150px;
 	}
 }

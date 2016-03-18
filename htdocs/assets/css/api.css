@@ -10,8 +10,6 @@ nav{
 * STRUCTURE
 ***********************/
 #wrapper{
-	padding-top: 20px;
-	width: 980px;
 	margin: 0 auto;
 	overflow: hidden;
 	min-height: 650px;
@@ -26,12 +24,6 @@ nav{
 	position: absolute;
 	overflow-x: visible;
 	overflow-y: auto;
-}
-
-#wrapper > #content{
-	margin-left: 190px;
-	width: 650px;
-	float: left;
 }
 
 
@@ -188,7 +180,6 @@ nav{
 
 #wrapper > #content .section{
 	background: #fff;
-	margin-bottom: 20px;
 	padding: 20px;
 	box-shadow: 0 0 2px rgba(0,0,0,0.3);
 }
@@ -503,4 +494,39 @@ body .hint-box *{
 
 #content a{
 	color: #1999c3;
+}
+
+@media( min-width: 800px) {
+	#wrapper {
+		width: 980px;
+		padding-top: 20px;
+	}
+	
+	#wrapper > #content{
+		margin-left: 190px;
+		width: 650px;
+		float: left;
+	}
+
+	#wrapper > #content .section{
+		margin-bottom: 20px;
+	}
+}
+
+@media( max-width: 799px ) {
+	#subnav {
+		display: none;
+	}
+	#wrapper {
+		width: 100%;
+	}
+	#wrapper > #content {
+		margin-left: 0;
+	}
+	#wrapper > #content .section{
+		margin-bottom: 5px;
+	}
+	#wrapper img {
+		width: 100%;
+	}
 }

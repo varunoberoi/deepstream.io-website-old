@@ -5,25 +5,10 @@
 .nav li {
 	opacity: 1;
 	background-size: 4px;
-	margin: 0px 10px 0px 10px;
 	transition: opacity 300ms ease;
 	text-align: center;
 }
-.nav li.active a {
-	color: #00CCFE;
-	border-style: solid;
-	padding: 14px;
-	border-width: 4px 0px 0px;
-	border-color: #00CCFE;
-}
-.nav li:hover {
-	opacity: 0.2;
-	color: red;
-	border-top: 4px;
-	border-color: #00CCFE;
-}
 .nav a {
-	padding: 18px 20px 10px 10px;
 	display: block;
 	font-size: 14px;
 	font-family: 'Quicksand', sans-serif;
@@ -50,13 +35,24 @@
 }
 
 .desktop-nav li {
+	margin: 0px 10px 0px 10px;
 	float: left;
 }
 
 .desktop-nav a {
+	padding: 18px 20px 10px 10px;
 	color: #fff;
 }
-
+.desktop-nav li.active a {
+	color: #00CCFE;
+	border-style: solid;
+	padding: 14px;
+	border-width: 4px 0px 0px;
+	border-color: #00CCFE;
+}
+.desktop-nav li:hover {
+	opacity: 0.2;
+}
 /****************************
 * MOBILE NAVIGATION
 ****************************/
@@ -74,33 +70,24 @@ body.menu-open .mobile-menu {
 	top: 42px;
 	height: 100%;
 	width: 100%;
-	background-color: rgba(255, 255, 255, 0.95);
+	background-color: #fefefe;
 }
 .mobile-nav {
 	font-size: 16px;
-	width: 300px;
-	margin: 50px auto 0 auto;
 	text-align: center;
 }
 .mobile-nav ul {
 	width: 100%;
 }
 .mobile-nav li a {
-		color: #145068;
-		padding: 14px;
-		background-color: #E7E8EF;
-		border-radius: 2px;
-		margin: 10px;
+	color: #145068;
+	padding: 20px;
+	border-bottom: 1px solid #eee;
 }
-
 .mobile-nav li.active a {
-		color: #00CCFE;
-		border-style: solid;
-		border-width: 2px;
-		border-color: #00CCFE;
-		border-radius: 2px;
+	color: #00CCFE;
+	background-color: #FAFAFA;
 }
-
 .menu-button {
 	top: 7px;
 	right: 10px;
@@ -138,8 +125,8 @@ body.menu-open .mobile-menu {
 	}
 	#outer-wrapper #header {
 		height: 42px;
-		/*position: fixed;
+		position: fixed;
 		top: 0;
-		width: 100%;*/
+		width: 100%;
 	}
 }
