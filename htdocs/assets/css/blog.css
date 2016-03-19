@@ -258,6 +258,12 @@ h1.post-title {
 	font-size: 30px;
 }
 
+.post h3.section{
+	padding-bottom: 3px;
+	border-bottom: 1px solid #ccc;
+	margin-bottom: 10px;
+}
+
 .post .icons li a, .post .icons li span {
 	transition: background-color 0.2s ease-in-out;
     border-radius: 100%;

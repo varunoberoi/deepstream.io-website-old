@@ -115,7 +115,7 @@
 					<li><a href="#Record Connectivity">Record Connectivity</a></li>
 					<li><a href="#Record Listen Timeouts">Record Listen Timeouts</a></li>
 					<li><a href="#Record Listen">Record Listen</a></li>
-					<li><a href="#Record">Record</a></li>
+					<li><a href="#Record Misc">Record Misc</a></li>
 					<li><a href="#Record Subscription">Record Subscription</a></li>
 					<li><a href="#Record Timeouts">Record Timeouts</a></li>
 					<li><a href="#Record">Record</a></li>
@@ -342,9 +342,9 @@ Scenario: Following server updates will throw an error
 	And the client throws a &quot;UNSOLICITED_MESSAGE&quot; error with message &quot;recordPrefix/.*&quot;</code></pre>
     </div>
     <div class="section">  
-        <a name="Record"></a>
+        <a name="Record Misc"></a>
         <pre><code class="language-gherkin">@records
-Feature: Record
+Feature: Record Misc
 	This feature covers other possible scenarios that can occur, such 
 	as the client requesting the same record multiple times.
 
@@ -364,7 +364,8 @@ Scenario: The client attempts to request the same record multiple times. This sh
 		And the server sends the message R|R|doubleRecord|100|{&quot;name&quot;:&quot;John&quot;, &quot;pets&quot;: [{&quot;name&quot;:&quot;Ruffles&quot;, &quot;type&quot;:&quot;dog&quot;,&quot;age&quot;:2}]}+
 		And the client creates a record named &quot;doubleRecord&quot;
 	Then the last message the server recieved is R|CR|doubleRecord+
-		And the server has received 1 messages</code></pre>
+		And the server has received 1 messages
+</code></pre>
     </div>
     <div class="section">  
         <a name="Record Subscription"></a>

@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>deepstream.io | Introducing deepstreamHub</title>
+	<title>deepstream.io | Deepstream Microservices</title>
 
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<meta name="keywords" content="deepstream, deepstream.io, streaming, realtime, server, socket" />
-	<meta name="description" content="Ever since we’ve started working on deepstream.io, we’ve been toying with the idea of using it to build something bigger: A platform that makes it easy for developers from all backgrounds to build great real-time apps, using their own data as well as live feeds from a myriad of services." />
+	<meta name="description" content="Not too long ago, this post would have started with a flaming manifesto for microservices. “Break down the monolith!”, “Divide and Conquer!”… you know the drill. Today though, that’s hardly necessary. In fact, cloud platforms like AWS make it next to impossible NOT to architect your backend as a swarm of loosely coupled processes." />
 	<meta name="author" content="Wolfram Hempel" />
 	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 	<link rel="icon" href="/favicon.ico" type="image/x-icon">
@@ -29,7 +29,7 @@
 	<link rel="stylesheet" type="text/css" href="../../assets/css/prism.css" />
 </head>
 
-<body class="category_introducing-deepstreamhub ">
+<body class="category_realtime-microservices ">
 	<div class="mobile-menu">
 		<div class="nav mobile-nav">
 			<ul>
@@ -68,15 +68,28 @@
 	<div class="post">
 
 		<header class="post-header">
-			<h1 class="post-title">Introducing deepstreamHub</h1>
+			<h1 class="post-title">Deepstream Microservices</h1>
 			<section class="post-meta">
 				By Wolfram Hempel
-				<span class="post-date">December 15th 2015</span>
+				<span class="post-date">March 19th 2016</span>
 			</section>
 		</header>
 
 		<section class="post-content">
-<p>Ever since we’ve started working on deepstream.io, we’ve been toying with the idea of using it to build something bigger: A platform that makes it easy for developers from all backgrounds to build great real-time apps, using their own data as well as live feeds from a myriad of services.</p><p>Today, we’re ready to announce that we’ve started developing just that: <strong>deepstreamHub</strong>.</p><p><a href="./deepstream-hub-750.png"><img src="deepstream-hub-750.png" alt="deepstreamHub"></a></p><p>deepstreamHub will be a hosted deepstream cluster in the cloud, comparable to Firebase, Pusher or realtime.co, but offering the full deepstream feature set of data-sync, pub-sub, request-response and WebRTC.</p><p>Where it gets really interesting though are deepstreamHub’s <strong>Channels</strong>. Channels let you stream data from third party services directly into your frontend – without any integration code.</p><h3>Here’s how it works:</h3><p>Channels let you connect to a wide array of services. Collaboration tools (e.g. Trello, Google Docs), communication (e.g. Slack), dev-tools (e.g. Github), social networks, content management systems etc…</p><p>We&#39;re also planning premium channels for Financial Data, Sports Results, Payment, CRM systems and so on. Whichever channels you add to your app, the process is always the same:</p><p>1) Select one or more channels:</p><p><a href="./dshub-select-channel.png"><img src="dshub-select-channel.png" alt="Selecting a channel"></a></p><p>2) Add the channel:</p><p>View the channel description to get a clear view on the type of data the channel provides</p><p><a href="./dshub-add-channel.png"><img src="dshub-add-channel.png" alt="Adding a channel"></a></p><p>3) Authenticate:</p><p>Authenticate with the third party service to work with deepstreamHub</p><p><a href="./dshub-authenticate-channel.png"><img src="dshub-authenticate-channel.png" alt="Authenticate a channel"></a></p><p>4) Use it</p><p>And that’s it! From here on your channel’s real-time data is available to all connected front or backend services as ds-records, lists or events.</p><p>If you’d like to learn more, follow us on <a href="//twitter.com/deepstreamIO">twitter</a> or subscribe to our newsletter. And of course, give deepstream.io a try…it’s actually quite neat.</p>
+<p>Not too long ago, this post would have started with a flaming manifesto for microservices. “Break down the monolith!”, “Divide and Conquer!”… you know the drill. Today though, that’s hardly necessary. In fact, cloud platforms like AWS make it next to impossible NOT to architect your backend as a swarm of loosely coupled processes.</p><p>So… no more passionate manifestos? Well, maybe one more: Make them realtime!</p><h3>Realtime?</h3><p>Most microservices interact in one of two ways: Via HTTP communication or via message queues. With deepstream, we’d like to suggest a third: Distributed state.</p><p>At its core, deepstream is a container for distributed states which can be observed and manipulated by frontend clients and backend services alike. This makes for a potent recipe for realtime apps.</p><p>Let&#39;s look at a couple of real world usecases to see what this would look like.</p><h3 class="section">The simplest usecase - no custom backend at all.</h3>
+<img src="deepstream-todomvc.gif" alt="deepstream ToDo MVC">
+
+Let&#39;s start with a simple todo list. Syncing your todos between clients and storing them in a database takes no custom backend code whatsoever. All you need is a deepstream server that your clients connect to and optionally a database or cache.
+
+<img src="diagramm-simple-setup.png" alt="Most basic deepstream setup">
+
+<h3 class="section">Connecting to a third party API</h3>
+
+<p>For many SaaS applications, extensibility and an active developer community is key to success. Slack is a perfect example for this: it offers both outgoing and incoming &quot;webhooks&quot; - http endpoints that will be called when messages are to be sent or received.</p><p><img src="deepstream-slack-integration.gif" alt="deepstream Slack integration"></p><p>To connect deepstream to Slack, we’d need to create a “provider” - a small process that sits between both endpoints and forwards messages in either direction.</p><p><img src="diagramm-deepstream-slack-integration.png" alt="deepstream Slack integration diagram"></p><p>Our Slack provider connects as a client to deepstream on one side and spins up a HTTP server on the other. Whenever an entry is added to a todo-list, the provider gets notified and sends an HTTP request to Slack. Whenever a trigger-word is mentioned on Slack, it receives an HTTP request and stores its payload as a deepstream record.</p><p>Please find a simple implementation of the deepstream-slack connector used in the example above [here].(slack-connector.js)</p><h3 class="section">Connecting to a database</h3>
+
+<p><img src="deepstream-realtime-search.gif" alt="realtime search with deepstream"></p><p>Often it makes sense to derive enhanced data from deepstream&#39;s database, for instance for aggregated values (Sums, Averages) or extended query functionality.</p><p>deepstream offers a number of out of the box providers for common requirements. To achieve realtime search in your document (as in the example above), just get the latest <a href="https://deepstream.io/download/">rethinkdb search provider from the downloads page</a> and plug it in between your server and your database.</p><p><img src="diagramm-database.png" alt="database search provider"></p><h3 class="section">But how does this scale?</h3>
+
+<p>Very well, thank you. Deepstream is built to scale horizontally via a message bus and performs well as a messaging and data backbone for realtime applications.</p><p>Since state is synced between all connected servers it doesn&#39;t matter which endpoint your microservices connect to. On top of that, deepstream has a number of built-in features that help help scale backends more easily, e.g. via load balancing remote procedure calls between multiple redundant providers.</p><p><img src="diagramm-scalability.png" alt=" deepstream microservice scalability"></p>
 		</section>
 
 		<footer class="post-footer">
@@ -108,7 +121,7 @@
 				<h4>Share this post</h4>
 				<ul class="icons">
 					<li>
-						<a class="icon fa fa-twitter" href="//twitter.com/share?text=Introducing deepstreamHub @deepstreamhub&amp;url="
+						<a class="icon fa fa-twitter" href="//twitter.com/share?text=Deepstream Microservices @deepstreamhub&amp;url="
 							onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
 							<span class="label">Twitter</span>
 						</a>
@@ -135,7 +148,7 @@
 			</h4>
 			<ul class="latest-blogs-content">
 					<li class="latest-blog-article">
-						<a href="../realtime-microservices/">
+						<a href="">
 							<span class="date">19/03/2016</span>
 							<span class="title">Deepstream Microservices</span>
 						</a>
@@ -210,7 +223,7 @@
 				</h4>
 				<ul class="latest-blogs-content">
 						<li class="latest-blog-article">
-							<a href="../realtime-microservices/">
+							<a href="">
 								<span class="date">19/03/2016</span>
 								<span class="title">Deepstream Microservices</span>
 							</a>
