@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>deepstream.io | Simple app using AngularJS</title>
+	<title>deepstream.io | Realtime apps with deepstream-polymer</title>
 
 	
 
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<meta name="keywords" content="deepstream, deepstream.io, streaming, realtime, server, socket" />
-	<meta name="description" content="Learn how to build a simple address manager using deepstream and AngularJS" />
+	<meta name="description" content="How to use polymer elements and behaviours with deepstream" />
 	<meta name="author" content="Wolfram Hempel" />
 	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 	<link rel="icon" href="/favicon.ico" type="image/x-icon">
@@ -140,7 +140,7 @@
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
 
-	<li >
+	<li class="active">
 		<a href="deepstream-polymer.html">Using deepstream-polymer</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
@@ -150,57 +150,79 @@
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
 
-	<li class="active">
+	<li >
 		<a href="simple-app-using-angular.html">Simple App using Angular</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
 </ul>
 
 			<div id="content">
-				<h1>Building a simple app with deepstream and angular</h1><p>Angulars services and powerful inline html bindings allows you to integrate easily
-with deepstream.</p><p>To connect to deepstream you can connect initialise it within a service:</p><pre><code class="lang-javascript">angular.service( &#39;deepstream&#39;, function() {
-    var client = deepstream( &#39;localhost:6020&#39; )
-    client.login({ username: &#39;ds-simple-input-&#39; + client.getUid() });
-    return client;
-})
+				<h1>Using deepstream-polymer</h1><p><img src="../assets/images/polymer/deepstream-polymer.png" alt="deepstream-polymer"></p><p>Polymer brings WebComponents to current browsers, allowing web applications to be built using the proven approach of making dom elements the building blocks of any application.</p><p>We developed a few deepstream-polymer tools to allow you to use data-sync purely within the dom:</p><pre><code class="lang-html">&lt;ds-record name=&quot;myRecordName&quot; data=&quot;{{recordData}}&quot;&gt;&lt;/ds-record&gt;
 </code></pre>
-<p>One way bindings on record data can be done purely via html:</p><pre><code class="lang-html">    &lt;span ng-bind=&quot;user.get(&#39;firstname&#39;)&quot;&gt;&lt;/span&gt;
+<p>or if required - using minimal javascript by extending your own elements using <a href="//www.polymer-project.org/1.0/docs/devguide/behaviors.html">behaviours</a>:</p><pre><code class="lang-javascript">behaviours: [ Polymer.DSRecordBehaviour ]
 </code></pre>
-<p>Or if doing two way bindings you can use <strong><em>Object.defineProperty()</em></strong> to allow
-value changes on the scope to directly update the associated record.</p><pre><code class="lang-javascript">service( &#39;bindFields&#39;, function(){
-    return function getField( $scope, record, names ) {
-        angular.forEach( names, function( name ){
-            Object.defineProperty( $scope, name, {
-                get: function() {
-                    return record.get( name );
-                },
-                set: function( newValue ) {
-                    if( newValue === undefined ) {
-                        return;
-                    }
-                    record.set( name, newValue );
-                }
-            });
-        });
+<p>You can take a look at the documentation for all deepstream-polymer elements and behaviours here:</p><p><a class="mega" href="//deepstreamio.github.io/deepstream.io-tools-polymer"><i class="fa fa-book"></i>Polymer Documentation</a></p><h3>How to use deepstream-polymer</h3><table class="mini space">
+    <thead>
+        <tr>
+            <th><i class="fa fa-github"></i>Github</th>
+            <th><i class="fa fa-cube"></i>Bower</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                <a href="https://github.com/deepstreamIO/deepstream.io-tools-polymer">
+                    https://github.com/deepstreamIO/deepstream.io-tools-polymer
+                </a>
+            </td>
+            <td><code>deepstream.io-tools-polymer</code></td>
+        </tr>
+    </tbody>
+</table>
 
-        record.subscribe(function() {
-            if( !$scope.$$phase ) {
-                $scope.$apply();
-            }
-        });
-    };
-})
+<p>The beauty of using polymer is that you can build an entire data-sync application without a line of javascript! Let&#39;s look at the building blocks you can use to get deepstream working with polymer.</p><p>Before you start, please start a deepstream server to test across multiple browsers. You can look at the <a href="getting-started.html">getting started tutorial</a> to get you up to date in no time.</p><h4>Connectivity</h4><p>The first thing you&#39;ll need to do is to create a connection to deepstream. This can be accomplished by simply adding in a <code>ds-connection</code> element. What this does is create a connection to deepstream based on the <code>url</code> you provided and exposes the <a href="../docs/connection_states.html">connection state</a> and deepstream instance.</p><pre><code class="lang-html">&lt;ds-connection 
+    url=&quot;localhost:6020&quot; 
+    state=&quot;{{connectionState}}&quot;
+    ds={{ds}}&gt;
+&lt;/ds-connection&gt;
 </code></pre>
-<div class="hint-box fa fa-gears">
-    <p>        Since subscribe callbacks are called as soon as the record is updated (to maximize performance)
-            angular may already be in a digest cycle. If this case occurs the recommended solution is to use $timeout or to avoid triggering a new digest cycle if one is already in progress.</p>
-</div>
-
-<h3>Example App</h3><div class="img-container">
-    <img class="tutorial" width="602" height="302" src="../assets/images/simple-app.png" alt="Simple App Screenshot" />
-</div>
-
-<p>Please find an example application using deepstream and angular here:</p><p><a class="mega" href="//github.com/deepstreamIO/ds-demo-simple-app-ng"><i class="fa fa-github"></i>angular example app</a></p>
+<p>After you have a connection you&#39;ll need to login. This can be done by adding in the <code>ds-login</code> element. You can also log in anonymously by having an <code>auto-login</code> attribute present.</p><pre><code class="lang-html">&lt;ds-login 
+    auto-login
+    logged-in=&quot;{{loggedIn}}&quot;
+    ds=&quot;[[ds]]&quot;&gt;
+&lt;/ds-login&gt;
+</code></pre>
+<p>Want to login with an actual user-name or password? Just supply them via your <code>auth-params</code> and call <code>login</code> when your ready. Note, this step would require you to do a tiny bit of javascript!</p><pre><code class="lang-html">&lt;ds-login 
+    auth-params=&quot;{{credentials}}&quot;
+    logged-in=&quot;{{loggedIn}}&quot;
+    ds=&quot;[[ds]]&quot;&gt;
+    &lt;input type=&quot;text&quot; value=&quot;{{credentials.username::input}}&quot;/&gt;
+    &lt;input type=&quot;password&quot; value=&quot;{{credentials.username::password}}&quot;/&gt;
+    &lt;!-- 
+        Note: login binding is on the current scope and will require 
+        to be proxied to the login method - or you could create your own 
+        element that uses the LoginBehaviour
+    --&gt;
+    &lt;button on-click=&quot;{{login}}&quot; /&gt;
+&lt;/ds-login&gt;
+</code></pre>
+<h4>Records</h4><p>Now you that you&#39;ve a connection you can allow your elements to auto-sync their data with all other clients by simply using a <code>ds-record</code> element. This requires three attributes, the <code>name</code> to know what record to use, <code>data</code> to allow reading and writing to the record and <code>ds</code> to expose deepstream to the element.</p><pre><code class="lang-html">&lt;template&gt;
+    &lt;ds-connection ds=&quot;{{ds}}&quot;&gt;&lt;/ds-connection&gt;
+    &lt;ds-record name=&quot;[[name]]&quot; data=&quot;{{data}}&quot; ds=&quot;[[ds]]&quot;&gt;
+        &lt;input type=&quot;text&quot; value=&quot;{{data.name::input}}&quot;&gt;
+    &lt;/ds-record&gt;
+&lt;/template&gt;
+</code></pre>
+<p>Note how there is another <code>ds-connection</code> element present. This is to access the same deepstream connection using a <a href="https://github.com/Polymer/docs/issues/334">global variable</a> across the application.</p><h4>Lists</h4><p>Finally, let&#39;s say you have a <a href="https://deepstream.io/tutorials/lists.html">list</a> of records that are related to each other and would like to loop over them. This can be achieved by using a <code>ds-list</code> element - which can allow you to loop over each list entry. The attributes used are the same as <code>ds-record</code>, except the record names are exposed via an Array called entries.</p><pre><code class="lang-html">&lt;template&gt;
+    &lt;ds-connection ds=&quot;{{ds}}&quot;&gt;&lt;/ds-connection&gt;
+    &lt;ds-list name=&quot;[[name]]&quot; entries=&quot;{{todos}}&quot; ds=&quot;[[ds]]&quot;&gt;
+        &lt;template is=&quot;dom-repeat&quot; items=&quot;[[todos]]&quot; as=&quot;recordId&quot;&gt;
+            &lt;div&gt;RecordId : {{recordId}}&lt;/div&gt;
+        &lt;/template&gt;
+    &lt;/ds-list&gt;
+&lt;/template&gt;
+</code></pre>
+<p>And that&#39;s it, everything needed to create an application with data-sync!</p><div class="section"><h2><a name="Buildingamorecomplexapp?">Building a more complex app?</a></h2><p>You can see how you can combine all these concepts to build a to-do list:</p><p><img width="" src="../assets/images/polymer/example-app.gif" alt="basic todo app with deepstream-polymer" /></p><p><a class="mega" href="//github.com/deepstreamIO/ds-tutorial-polymer"><i class="fa fa-github"></i>todo-list example</a></p>
 			</div>
 		</div>
 		<script type="text/javascript" src="../assets/js/docs.js"></script>

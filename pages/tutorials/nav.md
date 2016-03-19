@@ -76,6 +76,11 @@
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
 
+	<li {{#if fileIs_deepstream-polymer}}class="active"{{/if}}>
+		<a href="deepstream-polymer.html">Using deepstream-polymer</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
 	<li {{#if fileIs_simple-app-using-ko}}class="active"{{/if}}>
 		<a href="simple-app-using-ko.html">Simple App using Knockout</a>
 		<div class="isActiveIndicator orangeGradient"></div>

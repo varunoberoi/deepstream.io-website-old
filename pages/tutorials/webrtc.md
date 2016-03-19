@@ -114,11 +114,11 @@ call.on( 'declined', function( reason ){
 Please find the documentation [here](../docs/client.webrtc.html) and have a look at our examples.
 
 <div class="two-examples">
-	<a href="//github.com/deepstreamIO/ds-demo-webtrc/tree/master/simple-example">
+	<a href="//github.com/deepstreamIO/ds-demo-webrtc/tree/master/simple-example">
 		<img width="200" height="125" alt="WebRTC simple example" src="../assets/images/webrtc-simple-example.png" />
 		<label>Simple Example</label>
 	</a>
-	<a href="//github.com/deepstreamIO/ds-demo-webtrc/tree/master/complex-example">
+	<a href="//github.com/deepstreamIO/ds-demo-webrtc/tree/master/complex-example">
 		<img width="200" height="125" alt="WebRTC complex example" src="../assets/images/webrtc-complex-example.png" />
 		<label>More feature-rich example</label>
 	</a>
