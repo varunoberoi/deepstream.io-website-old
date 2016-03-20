@@ -393,7 +393,8 @@
 </code></pre>
 <p>or if required - using minimal javascript by extending your own elements using <a href="//www.polymer-project.org/1.0/docs/devguide/behaviors.html">behaviours</a>:</p><pre><code class="lang-javascript">behaviours: [ Polymer.DSRecordBehaviour ]
 </code></pre>
-<p>You can take a look at the documentation for all deepstream-polymer elements and behaviours here:</p><p><a class="mega" href="//deepstreamio.github.io/deepstream.io-tools-polymer"><i class="fa fa-book"></i>Polymer Documentation</a></p><h3>How to use deepstream-polymer</h3><table class="mini space">
+<p>You can take a look at the documentation for all deepstream-polymer elements and behaviours here:</p><p><a class="mega" href="//deepstreamio.github.io/deepstream.io-tools-polymer"><i class="fa fa-book"></i>Polymer Documentation</a></p><h3>How to use deepstream-polymer</h3><div class="table-wrapper">
+<table class="mini space">
     <thead>
         <tr>
             <th><i class="fa fa-github"></i>Github</th>
@@ -411,6 +412,7 @@
         </tr>
     </tbody>
 </table>
+</div>
 
 <p>The beauty of using polymer is that you can build an entire data-sync application without a line of javascript! Let&#39;s look at the building blocks you can use to get deepstream working with polymer.</p><p>Before you start, please start a deepstream server to test across multiple browsers. You can look at the <a href="getting-started.html">getting started tutorial</a> to get you up to date in no time.</p><h4>Connectivity</h4><p>The first thing you&#39;ll need to do is to create a connection to deepstream. This can be accomplished by simply adding in a <code>ds-connection</code> element. What this does is create a connection to deepstream based on the <code>url</code> you provided and exposes the <a href="../docs/connection_states.html">connection state</a> and deepstream instance.</p><pre><code class="lang-html">&lt;ds-connection 
     url=&quot;localhost:6020&quot; 

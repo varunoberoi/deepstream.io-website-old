@@ -16,6 +16,7 @@ mixins: [ DeepstreamReact ],
 ```
 
 ### How to use deepstream-react
+<div class="table-wrapper">
 <table class="mini space">
     <thead>
         <tr>
@@ -34,6 +35,7 @@ mixins: [ DeepstreamReact ],
         </tr>
     </tbody>
 </table>
+</div>
 
 deepstream has a concept called "records". A record is a bit of JSON data that can be observed and manipulated by clients and that's stored and synced by the deepstream server.
 
