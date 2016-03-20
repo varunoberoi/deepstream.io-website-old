@@ -1,0 +1,719 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>deepstream.io | A Scalable Server for Realtime Web Apps</title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="keywords" content="deepstream, deepstream.io, streaming, realtime, server, socket" />
+	<meta name="description" content="A node.js realtime server, supporting data-sync, RPCs, events and WebRTC" />
+	<meta name="author" content="Wolfram Hempel" />
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="stylesheet" type="text/css" href="../../assets/css/navigation.css" />
+	<link rel="stylesheet" type="text/css" href="../../assets/css/screen.css" />
+	<link rel="stylesheet" type="text/css" href="../../assets/css/api.css" />
+	<script type="text/javascript">
+	document.createElement( 'header' );
+	document.createElement( 'nav' );
+	</script>
+	<script type="text/javascript" src="../../assets/js/jquery.js"></script>
+	<script type="text/javascript" src="../../assets/js/menu.js"></script>
+	<script type="text/javascript" src="../../assets/js/prism.js"></script>
+
+	<link href='//fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+	<link href='//fonts.googleapis.com/css?family=Quicksand:300,400,700' rel='stylesheet' type='text/css'>
+	<link href='//fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="../../assets/css/prism.css" />
+</head>
+
+<body class="category_info ">
+	<div class="mobile-menu">
+		<div class="nav mobile-nav">
+			<ul>
+				<li >
+					<a href="../..">Home</a>
+				</li>
+				
+				<li >
+					<a href="../../download/">Downloads</a>
+				</li>
+				
+				<li >
+					<a href="../../tutorials/getting-started.html">Tutorials</a>
+					
+				</li>
+				
+				<li >
+					<a href="../../docs/deepstream.html">Documentation</a>
+					
+				</li>
+				
+				<li >
+					<a href="../../blog/">Blog</a>
+				</li>
+			
+				<li class="active">
+					<a href="../../info/">Info</a>
+					
+						<ul id="subnav">
+				<li class="head first">Performance</li>
+				<li >
+					<a href="../../info/performance-overview.html">Overview</a>
+					<div class="isActiveIndicator orangeGradient"></div>
+				</li>	
+				<li >
+					<a href="../../info/performance-single-node-vs-cluster.html">Single Node vs Cluster</a>
+					<div class="isActiveIndicator orangeGradient"></div>
+				</li>
+			
+				<li class="head">Protocol</li>
+				
+				<li >
+					<a href="../../info/messagestructure/writing-a-client.html">Writing a Client</a>
+					<div class="isActiveIndicator orangeGradient"></div>
+				</li>
+			
+				<li >
+					<a href="../../info/messagestructure/index.html">Message Structure</a>
+					<div class="isActiveIndicator orangeGradient"></div>
+				</li>
+			
+				<li >
+					<a href="../../info/messagestructure/specs.html">All Messages</a>
+					<div class="isActiveIndicator orangeGradient"></div>
+				</li>
+			
+				<li class="head">Client Specs</li>
+					<li >
+						<a href="../../info/messagestructure/connectivity.html">
+						Connectivity</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+					</li>
+					<li >
+						<a href="../../info/messagestructure/parsing.html">
+						Parsing</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+					</li>
+					<li class="active">
+						<a href="../../info/messagestructure/rpc.html">
+						Rpc</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+							<ul class="overview">
+								<li><a href="#RPC Connectivity">RPC Connectivity</a></li>
+								<li><a href="#Providing RPC">Providing RPC</a></li>
+								<li><a href="#Requesting an RPC">Requesting an RPC</a></li>
+								<li><a href="#RPC Timeouts">RPC Timeouts</a></li>
+							</ul>
+					</li>
+					<li >
+						<a href="../../info/messagestructure/records.html">
+						Records</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+					</li>
+					<li >
+						<a href="../../info/messagestructure/events.html">
+						Events</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+					</li>
+				
+				
+			
+			</ul>
+				
+					
+				</li>
+			
+			</ul>		</div>
+	</div>
+
+	<div id="outer-wrapper">
+		<div id="header" class="compact-header">
+			<div class="header-tiny-logo">
+				<h1><a href="../..">deepstream.io - a scalable server for realtime web apps</a></h1>
+			</div>
+			<div class="nav desktop-nav">
+				<ul>
+					<li >
+						<a href="../..">Home</a>
+					</li>
+					
+					<li >
+						<a href="../../download/">Downloads</a>
+					</li>
+					
+					<li >
+						<a href="../../tutorials/getting-started.html">Tutorials</a>
+						
+					</li>
+					
+					<li >
+						<a href="../../docs/deepstream.html">Documentation</a>
+						
+					</li>
+					
+					<li >
+						<a href="../../blog/">Blog</a>
+					</li>
+				
+					<li class="active">
+						<a href="../../info/">Info</a>
+						
+							<ul id="subnav">
+					<li class="head first">Performance</li>
+					<li >
+						<a href="../../info/performance-overview.html">Overview</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+					</li>	
+					<li >
+						<a href="../../info/performance-single-node-vs-cluster.html">Single Node vs Cluster</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+					</li>
+				
+					<li class="head">Protocol</li>
+					
+					<li >
+						<a href="../../info/messagestructure/writing-a-client.html">Writing a Client</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+					</li>
+				
+					<li >
+						<a href="../../info/messagestructure/index.html">Message Structure</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+					</li>
+				
+					<li >
+						<a href="../../info/messagestructure/specs.html">All Messages</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+					</li>
+				
+					<li class="head">Client Specs</li>
+						<li >
+							<a href="../../info/messagestructure/connectivity.html">
+							Connectivity</a>
+							<div class="isActiveIndicator orangeGradient"></div>
+						</li>
+						<li >
+							<a href="../../info/messagestructure/parsing.html">
+							Parsing</a>
+							<div class="isActiveIndicator orangeGradient"></div>
+						</li>
+						<li class="active">
+							<a href="../../info/messagestructure/rpc.html">
+							Rpc</a>
+							<div class="isActiveIndicator orangeGradient"></div>
+								<ul class="overview">
+									<li><a href="#RPC Connectivity">RPC Connectivity</a></li>
+									<li><a href="#Providing RPC">Providing RPC</a></li>
+									<li><a href="#Requesting an RPC">Requesting an RPC</a></li>
+									<li><a href="#RPC Timeouts">RPC Timeouts</a></li>
+								</ul>
+						</li>
+						<li >
+							<a href="../../info/messagestructure/records.html">
+							Records</a>
+							<div class="isActiveIndicator orangeGradient"></div>
+						</li>
+						<li >
+							<a href="../../info/messagestructure/events.html">
+							Events</a>
+							<div class="isActiveIndicator orangeGradient"></div>
+						</li>
+					
+					
+				
+				</ul>
+					
+						
+					</li>
+				
+				</ul>			</div>
+			<span class="menu-button menu-icon">
+				<i class="fa fa-bars"></i>
+			</span>
+		</div>
+		<div id="wrapper" class="main">
+			<ul id="subnav">
+	<li class="head first">Performance</li>
+	<li >
+		<a href="../../info/performance-overview.html">Overview</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>	
+	<li >
+		<a href="../../info/performance-single-node-vs-cluster.html">Single Node vs Cluster</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li class="head">Protocol</li>
+	
+	<li >
+		<a href="../../info/messagestructure/writing-a-client.html">Writing a Client</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li >
+		<a href="../../info/messagestructure/index.html">Message Structure</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li >
+		<a href="../../info/messagestructure/specs.html">All Messages</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li class="head">Client Specs</li>
+		<li >
+			<a href="../../info/messagestructure/connectivity.html">
+			Connectivity</a>
+			<div class="isActiveIndicator orangeGradient"></div>
+		</li>
+		<li >
+			<a href="../../info/messagestructure/parsing.html">
+			Parsing</a>
+			<div class="isActiveIndicator orangeGradient"></div>
+		</li>
+		<li class="active">
+			<a href="../../info/messagestructure/rpc.html">
+			Rpc</a>
+			<div class="isActiveIndicator orangeGradient"></div>
+				<ul class="overview">
+					<li><a href="#RPC Connectivity">RPC Connectivity</a></li>
+					<li><a href="#Providing RPC">Providing RPC</a></li>
+					<li><a href="#Requesting an RPC">Requesting an RPC</a></li>
+					<li><a href="#RPC Timeouts">RPC Timeouts</a></li>
+				</ul>
+		</li>
+		<li >
+			<a href="../../info/messagestructure/records.html">
+			Records</a>
+			<div class="isActiveIndicator orangeGradient"></div>
+		</li>
+		<li >
+			<a href="../../info/messagestructure/events.html">
+			Events</a>
+			<div class="isActiveIndicator orangeGradient"></div>
+		</li>
+	
+	
+
+</ul>
+
+			<div id="content">
+				<h1>
+    RPC
+</h1>
+
+<link rel="stylesheet" type="text/css" href="../../assets/css/gherkin-highlight.css" />
+<link rel="stylesheet" type="text/css" href="../../assets/css/messagestructure.css" />
+<script type="text/javascript" src="../../assets/js/messagestructure.js"></script>
+
+<div class="message-in-depth">
+     <table>
+        <tbody>
+            <tr>
+                <td>Event</td>
+                <td class="event"></td>
+            </tr>
+            <tr>
+                <td>Action</td>
+                <td class="action"></td>
+            </tr>
+            <tr>
+                <td>Data</td>
+                <td class="data"></td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="down-arrow"></div>
+</div>
+    <div class="section">  
+        <a name="RPC Connectivity"></a>
+        <pre><code class="language-gherkin">@rpc
+Feature: RPC Connectivity
+	RPC providers must be resent to the server after connection 
+	issuees to guarantee it continues to recieve requests correctly.
+
+Scenario: The client is connected
+	Given the test server is ready
+		And the client is initialised
+		And the client logs in with username &quot;XXX&quot; and password &quot;YYY&quot;
+		And the server sends the message A|A+
+
+Scenario: The client provides a RPC
+	When the client provides a RPC called &quot;toUppercase&quot;
+	Then the last message the server recieved is P|S|toUppercase+
+
+Scenario: The client gets an ACK
+ 	When the server sends the message P|A|S|toUppercase+
+
+Scenario: The client loses it connection to the server
+	When the connection to the server is lost
+	Given two seconds later
+	Then the client throws a &quot;connectionError&quot; error with message &quot;Can&#x27;t connect! Deepstream server unreachable on localhost:7777&quot;
+		And the clients connection state is &quot;RECONNECTING&quot;
+	
+Scenario: The client reconnects to the server
+	When the connection to the server is reestablished
+	Then the clients connection state is &quot;AUTHENTICATING&quot;
+
+Scenario: The client successfully reconnects
+	Given the client logs in with username &quot;XXX&quot; and password &quot;YYY&quot;
+		And the server sends the message A|A+
+	Then the clients connection state is &quot;OPEN&quot;
+
+Scenario: The client resends the RPC provider
+	Then the server received the message P|S|toUppercase+</code></pre>
+    </div>
+    <div class="section">  
+        <a name="Providing RPC"></a>
+        <pre><code class="language-gherkin">@rpc
+Feature: Providing RPC
+	Remote Procedure Calls are deepstream&#x27;s concept of request-response 
+	communication. This requires a client that makes the RPC 
+	(requestor or receiver) and another client that answers it (provider).
+
+	The provider is responsible for notifying the server that it is 
+	capable of recieving requests with a certain name.
+
+	These scenarios covers the provider, which is responsible for 
+	recieving RPC with a certain name, and either accepting to execute
+	them by sending back an acknowledgment, or rejecting it so that another 
+	RPC provider can execute it instead.
+
+	If the RPC provider does accept the request, it can either respond
+	with a succesful callback and the result arguments, or with an 
+	error and associated error message.	
+
+Scenario: The client is connected
+	Given the test server is ready
+		And the client is initialised
+		And the client logs in with username &quot;XXX&quot; and password &quot;YYY&quot;
+		And the server sends the message A|A+
+
+# Providing
+
+Scenario: The client provides a RPC
+	When the client provides a RPC called &quot;toUppercase&quot;
+	Then the last message the server recieved is P|S|toUppercase+
+
+Scenario: The client gets a subscribe ACK
+ 	When the server sends the message P|A|S|toUppercase+
+
+# Success
+
+Scenario: The client gets a request that will succeed
+ 	When the server sends the message P|REQ|toUppercase|&lt;UID&gt;|Sabc+
+
+Scenario: The client responds with an ack and processes message ( 1 )
+	Then the last message the server recieved is P|A|toUppercase|&lt;UID&gt;+
+ 		And the client recieves a request for a RPC called &quot;toUppercase&quot; with data &quot;abc&quot;
+
+Scenario: The client responds with a success
+	When the client responds to the RPC &quot;toUppercase&quot; with data &quot;ABC&quot;
+ 	Then the last message the server recieved is P|RES|toUppercase|&lt;UID&gt;|SABC+
+
+# Error
+
+Scenario: The client gets a request that will error
+ 	When the server sends the message P|REQ|toUppercase|&lt;UID&gt;|Sabc+
+
+Scenario: The client responds with an ack and processes message ( 2 )
+	Then the last message the server recieved is P|A|toUppercase|&lt;UID&gt;+
+ 		And the client recieves a request for a RPC called &quot;toUppercase&quot; with data &quot;abc&quot;
+
+Scenario: The client responds with an error
+	When the client responds to the RPC &quot;toUppercase&quot; with the error &quot;An Error Occured&quot;
+ 	Then the last message the server recieved is P|E|An Error Occured|toUppercase|&lt;UID&gt;+
+
+# Rejection when supported
+
+Scenario: The client gets another supported request
+ 	When the server sends the message P|REQ|toUppercase|&lt;UID&gt;|Sabc+
+
+Scenario: The client responds with an ack and processes message ( 3 )
+	Then the last message the server recieved is P|A|toUppercase|&lt;UID&gt;+
+ 		And the client recieves a request for a RPC called &quot;toUppercase&quot; with data &quot;abc&quot;
+
+Scenario: The client responds with an explicit rejection
+	When the client rejects the RPC &quot;toUppercase&quot;
+ 	Then the last message the server recieved is P|REJ|toUppercase|&lt;UID&gt;+
+
+# Rejection when not supported
+
+Scenario: The client gets an unsupported request
+	When the server sends the message P|REQ|unSupported|&lt;UID&gt;|Sabc+
+
+Scenario: The client responds with an implicit rejection
+	Then the last message the server recieved is P|REJ|unSupported|&lt;UID&gt;+
+
+# Unproviding
+
+Scenario: The client stops providing a RPC
+	When the client stops providing a RPC called &quot;toUppercase&quot;
+	Then the last message the server recieved is P|US|toUppercase+
+
+Scenario: The client gets an unprovide ACK
+ 	When the server sends the message P|A|US|toUppercase+</code></pre>
+    </div>
+    <div class="section">  
+        <a name="Requesting an RPC"></a>
+        <pre><code class="language-gherkin">@rpc
+Feature: Requesting an RPC
+	Remote Procedure Calls are deepstream&#x27;s concept of request-response
+	communication. This requires a client that makes the RPC 
+	(requestor or receiver) and another client that answers it (provider).
+
+	The requestor can make an RPC call and in most cases expected a 
+	succesful callback.
+
+	However, if something does go wrong, it should also expect an error 
+	message, which can either be system determined such as 
+	NO_RPC_PROVIDER or an error thrown by the provider itself, 
+	like when the incorrect arguments are sent.
+
+Scenario: The client is connected
+	Given the test server is ready
+		And the client is initialised
+		And the client logs in with username &quot;XXX&quot; and password &quot;YYY&quot;
+		And the server sends the message A|A+
+
+# Success 
+
+Scenario: The client makes an RPC that will succeed
+	When the client requests RPC &quot;toUppercase&quot; with data &quot;abc&quot;
+	Then the last message the server recieved is P|REQ|toUppercase|&lt;UID&gt;|Sabc+
+
+Scenario: The client gets a request ACK ( 1 )
+	When the server sends the message P|A|REQ|&lt;UID&gt;+
+
+Scenario: The client receives a succesful response
+	When the server sends the message P|RES|toUppercase|&lt;UID&gt;|SABC+
+	Then the client recieves a successful RPC callback for &quot;toUppercase&quot; with data &quot;ABC&quot;
+
+# Error
+
+Scenario: The client makes an RPC that will fail
+	When the client requests RPC &quot;toUppercase&quot; with data &quot;abc&quot;
+	Then the last message the server recieved is P|REQ|toUppercase|&lt;UID&gt;|Sabc+
+
+Scenario: The client gets a request ACK ( 2 )
+	When the server sends the message P|A|REQ|&lt;UID&gt;+
+
+Scenario: The client receives an error response
+	When the server sends the message P|E|RPC Error Message|toUppercase|&lt;UID&gt;+
+	Then the client recieves an error RPC callback for &quot;toUppercase&quot; with the message &quot;RPC Error Message&quot;
+	</code></pre>
+    </div>
+    <div class="section">  
+        <a name="RPC Timeouts"></a>
+        <pre><code class="language-gherkin">@rpc
+Feature: RPC Timeouts
+	Remote Procedure Calls are deepstream&#x27;s concept of request-response 
+	communication. This requires a client that makes the RPC 
+	(requestor or receiver) and another client that answers it (provider).
+
+	Whenever a provide or unprovide event does not recieve an 
+	acknolowdgement from the server the client should emit an ack timeout 
+	error so that the client can attempt to retry.
+
+Scenario: The client is connected
+	Given the test server is ready
+		And the client is initialised
+		And the client logs in with username &quot;XXX&quot; and password &quot;YYY&quot;
+		And the server sends the message A|A+
+
+# Making
+
+Scenario: The client makes an RPC
+	When the client requests RPC &quot;toUppercase&quot; with data &quot;abc&quot;
+	Then the last message the server recieved is P|REQ|toUppercase|&lt;UID&gt;|Sabc+
+
+Scenario: The client receives a timeout
+	When some time passes
+	Then the client recieves an error RPC callback for &quot;toUppercase&quot; with the message &quot;RESPONSE_TIMEOUT&quot;
+
+# Providing
+
+Scenario: The client provides a RPC
+	When the client provides a RPC called &quot;toUppercase&quot;
+	Then the last message the server recieved is P|S|toUppercase+
+
+@timeout
+Scenario: The server does not respond in time with a subscribe ACK
+	When some time passes
+	Then the client throws a &quot;ACK_TIMEOUT&quot; error with message &quot;No ACK message received in time for toUppercase&quot;
+
+# Unproviding
+
+Scenario: The client stops providing a RPC
+	When the client stops providing a RPC called &quot;toUppercase&quot;
+	Then the last message the server recieved is P|US|toUppercase+
+
+@timeout
+Scenario: The server does not respond in time with an unsubscribe ACK
+	When some time passes
+	Then the client throws a &quot;ACK_TIMEOUT&quot; error with message &quot;No ACK message received in time for toUppercase&quot;
+	</code></pre>
+    </div>
+
+			</div>
+		</div>
+		<script type="text/javascript" src="../../assets/js/docs.js"></script>
+	</div>
+	<div id="footer">
+		<ul class="footer-items">
+
+			<li class="footer-right">
+				<ul class="social">
+					<li class="twitter">
+						<a href="//twitter.com/deepstreamIO">
+							<i class="fa fa-twitter"></i>  Twitter
+						</a>
+					</li>
+					<li class="github">
+						<a href="//github.com/deepstreamIO">
+							<i class="fa fa-github"></i>  Github
+						</a>
+					</li>
+					<a href="//www.facebook.com/deepstreamIO/">
+						<i class="fa fa-facebook"></i>  Facebook
+					</a>
+					<li class="stack-overflow">
+						<a href="http://stackoverflow.com/questions/tagged/deepstream.io">
+							<i class="fa fa-stack-overflow"></i>  Stack Overflow
+						</a>
+					</li>
+					<li>
+						<a href="//deepstream-slack.herokuapp.com/">
+							<i class="fa fa-slack"></i>  Slack
+						</a>
+					</li>
+				</ul>
+			</li>
+
+			<li class="footer-middle">
+				<h4>Browse</h4>
+				<ul>
+					<li >
+						<a href="../..">Home</a>
+					</li>
+					
+					<li >
+						<a href="../../download/">Downloads</a>
+					</li>
+					
+					<li >
+						<a href="../../tutorials/getting-started.html">Tutorials</a>
+						
+					</li>
+					
+					<li >
+						<a href="../../docs/deepstream.html">Documentation</a>
+						
+					</li>
+					
+					<li >
+						<a href="../../blog/">Blog</a>
+					</li>
+				
+					<li class="active">
+						<a href="../../info/">Info</a>
+						
+							<ul id="subnav">
+					<li class="head first">Performance</li>
+					<li >
+						<a href="../../info/performance-overview.html">Overview</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+					</li>	
+					<li >
+						<a href="../../info/performance-single-node-vs-cluster.html">Single Node vs Cluster</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+					</li>
+				
+					<li class="head">Protocol</li>
+					
+					<li >
+						<a href="../../info/messagestructure/writing-a-client.html">Writing a Client</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+					</li>
+				
+					<li >
+						<a href="../../info/messagestructure/index.html">Message Structure</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+					</li>
+				
+					<li >
+						<a href="../../info/messagestructure/specs.html">All Messages</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+					</li>
+				
+					<li class="head">Client Specs</li>
+						<li >
+							<a href="../../info/messagestructure/connectivity.html">
+							Connectivity</a>
+							<div class="isActiveIndicator orangeGradient"></div>
+						</li>
+						<li >
+							<a href="../../info/messagestructure/parsing.html">
+							Parsing</a>
+							<div class="isActiveIndicator orangeGradient"></div>
+						</li>
+						<li class="active">
+							<a href="../../info/messagestructure/rpc.html">
+							Rpc</a>
+							<div class="isActiveIndicator orangeGradient"></div>
+								<ul class="overview">
+									<li><a href="#RPC Connectivity">RPC Connectivity</a></li>
+									<li><a href="#Providing RPC">Providing RPC</a></li>
+									<li><a href="#Requesting an RPC">Requesting an RPC</a></li>
+									<li><a href="#RPC Timeouts">RPC Timeouts</a></li>
+								</ul>
+						</li>
+						<li >
+							<a href="../../info/messagestructure/records.html">
+							Records</a>
+							<div class="isActiveIndicator orangeGradient"></div>
+						</li>
+						<li >
+							<a href="../../info/messagestructure/events.html">
+							Events</a>
+							<div class="isActiveIndicator orangeGradient"></div>
+						</li>
+					
+					
+				
+				</ul>
+					
+						
+					</li>
+				
+				</ul>			</li>
+
+			<li class="footer-left">
+				<h4>Star this project on github!</h4>
+				<p>
+					<a class="github-button" href="//github.com/deepstreamIO/deepstream.io" data-icon="octicon-star" data-style="mega" data-count-href="/deepstreamIO/deepstream.io/stargazers" data-count-api="/repos/deepstreamIO/deepstream.io#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star deepstreamIO/deepstream.io on GitHub">Star</a>
+				</p>
+
+				<h4>Contact the team</h4>
+				<p>
+					<a href="mailto:info@deepstream.io">info@deepstream.io</a>
+					<ul class="address">
+						<li><strong>deepstreamHub Ltd. &amp; Co. KG</strong></li>
+						<li>Amtsgericht Charlottenburg (zu HRA 51371 B)</li>
+						<li>Friedrichstrasse 123</li>
+						<li>10117 Berlin</li>
+					</ul>
+				</p>
+			</li>
+
+		</ul>
+	</div>
+
+
+	<script async defer id="github-bjs" src="//buttons.github.io/buttons.js"></script>
+</body>
+</html>

@@ -1,0 +1,634 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>deepstream.io | javascript client API documentation</title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="keywords" content="deepstream, deepstream.io, streaming, realtime, server, socket" />
+	<meta name="description" content="the API docs for the deepstream javascript client" />
+	<meta name="author" content="Wolfram Hempel" />
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="stylesheet" type="text/css" href="../assets/css/navigation.css" />
+	<link rel="stylesheet" type="text/css" href="../assets/css/screen.css" />
+	<link rel="stylesheet" type="text/css" href="../assets/css/api.css" />
+	<script type="text/javascript">
+	document.createElement( 'header' );
+	document.createElement( 'nav' );
+	</script>
+	<script type="text/javascript" src="../assets/js/jquery.js"></script>
+	<script type="text/javascript" src="../assets/js/menu.js"></script>
+	<script type="text/javascript" src="../assets/js/prism.js"></script>
+
+	<link href='//fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+	<link href='//fonts.googleapis.com/css?family=Quicksand:300,400,700' rel='stylesheet' type='text/css'>
+	<link href='//fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="../assets/css/prism.css" />
+</head>
+
+<body class="category_docs ">
+	<div class="mobile-menu">
+		<div class="nav mobile-nav">
+			<ul>
+				<li >
+					<a href="..">Home</a>
+				</li>
+				
+				<li >
+					<a href="../download/">Downloads</a>
+				</li>
+				
+				<li >
+					<a href="../tutorials/getting-started.html">Tutorials</a>
+					
+				</li>
+				
+				<li class="active">
+					<a href="../docs/deepstream.html">Documentation</a>
+					
+						<ul id="subnav">
+				<li class="head first">Server</li>
+				<li >
+					<a href="deepstream.html">Deepstream</a>
+					<div class="isActiveIndicator orangeGradient"></div>
+					
+				</li>
+				<li >
+					<a href="constants.html">Constants</a>
+					<div class="isActiveIndicator orangeGradient"></div>
+					
+				</li>
+			
+			
+				<li class="head">JS Client</li>
+				<li >
+					<a href="client.html">Client</a>
+					<div class="isActiveIndicator orangeGradient"></div>
+					
+				</li>
+			
+				<li >
+					<a href="client_options.html">options</a>
+					<div class="isActiveIndicator orangeGradient"></div>
+				</li>
+			
+				<li >
+					<a href="connection_states.html">connectionStates</a>
+					<div class="isActiveIndicator orangeGradient"></div>
+				</li>
+			
+				<li >
+					<a href="client_errors.html">errors</a>
+					<div class="isActiveIndicator orangeGradient"></div>
+				</li>
+			
+				<li >
+					<a href="event_emitter.html">EventEmitter</a>
+					<div class="isActiveIndicator orangeGradient"></div>
+					
+				</li>
+			
+				<li class="de-emphasized">Record</li>
+				<li >
+					<a href="client.record.html">client.record</a>
+					<div class="isActiveIndicator orangeGradient"></div>
+					
+				</li>
+			
+				<li >
+					<a href="record.html">Record</a>
+					<div class="isActiveIndicator orangeGradient"></div>
+					
+				</li>
+			
+				<li >
+					<a href="list.html">List</a>
+					<div class="isActiveIndicator orangeGradient"></div>
+					
+				</li>
+			
+				<li >
+					<a href="anonymous_record.html">Anonymous Record</a>
+					<div class="isActiveIndicator orangeGradient"></div>
+					
+				</li>
+			
+				<li class="de-emphasized">RPC</li>
+				<li >
+					<a href="client.rpc.html">client.rpc</a>
+					<div class="isActiveIndicator orangeGradient"></div>
+					
+				</li>
+			
+				<li >
+					<a href="rpc_response.html">RpcResponse</a>
+					<div class="isActiveIndicator orangeGradient"></div>
+					
+				</li>
+			
+				<li class="de-emphasized">Event</li>
+				<li >
+					<a href="client.event.html">client.event</a>
+					<div class="isActiveIndicator orangeGradient"></div>
+					
+				</li>
+			
+				<li class="de-emphasized">WebRTC</li>
+				<li >
+					<a href="client.webrtc.html">client.webrtc</a>
+					<div class="isActiveIndicator orangeGradient"></div>
+					
+				</li>
+				<li >
+					<a href="webrtc_call.html">WebRTC Call</a>
+					<div class="isActiveIndicator orangeGradient"></div>
+					
+				</li>
+			</ul>
+				
+					
+				</li>
+				
+				<li >
+					<a href="../blog/">Blog</a>
+				</li>
+			
+				<li >
+					<a href="../info/">Info</a>
+					
+				</li>
+			
+			</ul>		</div>
+	</div>
+
+	<div id="outer-wrapper">
+		<div id="header" class="compact-header">
+			<div class="header-tiny-logo">
+				<h1><a href="..">deepstream.io - a scalable server for realtime web apps</a></h1>
+			</div>
+			<div class="nav desktop-nav">
+				<ul>
+					<li >
+						<a href="..">Home</a>
+					</li>
+					
+					<li >
+						<a href="../download/">Downloads</a>
+					</li>
+					
+					<li >
+						<a href="../tutorials/getting-started.html">Tutorials</a>
+						
+					</li>
+					
+					<li class="active">
+						<a href="../docs/deepstream.html">Documentation</a>
+						
+							<ul id="subnav">
+					<li class="head first">Server</li>
+					<li >
+						<a href="deepstream.html">Deepstream</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+						
+					</li>
+					<li >
+						<a href="constants.html">Constants</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+						
+					</li>
+				
+				
+					<li class="head">JS Client</li>
+					<li >
+						<a href="client.html">Client</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+						
+					</li>
+				
+					<li >
+						<a href="client_options.html">options</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+					</li>
+				
+					<li >
+						<a href="connection_states.html">connectionStates</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+					</li>
+				
+					<li >
+						<a href="client_errors.html">errors</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+					</li>
+				
+					<li >
+						<a href="event_emitter.html">EventEmitter</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+						
+					</li>
+				
+					<li class="de-emphasized">Record</li>
+					<li >
+						<a href="client.record.html">client.record</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+						
+					</li>
+				
+					<li >
+						<a href="record.html">Record</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+						
+					</li>
+				
+					<li >
+						<a href="list.html">List</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+						
+					</li>
+				
+					<li >
+						<a href="anonymous_record.html">Anonymous Record</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+						
+					</li>
+				
+					<li class="de-emphasized">RPC</li>
+					<li >
+						<a href="client.rpc.html">client.rpc</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+						
+					</li>
+				
+					<li >
+						<a href="rpc_response.html">RpcResponse</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+						
+					</li>
+				
+					<li class="de-emphasized">Event</li>
+					<li >
+						<a href="client.event.html">client.event</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+						
+					</li>
+				
+					<li class="de-emphasized">WebRTC</li>
+					<li >
+						<a href="client.webrtc.html">client.webrtc</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+						
+					</li>
+					<li >
+						<a href="webrtc_call.html">WebRTC Call</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+						
+					</li>
+				</ul>
+					
+						
+					</li>
+					
+					<li >
+						<a href="../blog/">Blog</a>
+					</li>
+				
+					<li >
+						<a href="../info/">Info</a>
+						
+					</li>
+				
+				</ul>			</div>
+			<span class="menu-button menu-icon">
+				<i class="fa fa-bars"></i>
+			</span>
+		</div>
+		<div id="wrapper" class="main">
+			<ul id="subnav">
+	<li class="head first">Server</li>
+	<li >
+		<a href="deepstream.html">Deepstream</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+		
+	</li>
+	<li >
+		<a href="constants.html">Constants</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+		
+	</li>
+
+
+	<li class="head">JS Client</li>
+	<li >
+		<a href="client.html">Client</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+		
+	</li>
+
+	<li >
+		<a href="client_options.html">options</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li >
+		<a href="connection_states.html">connectionStates</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li >
+		<a href="client_errors.html">errors</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li >
+		<a href="event_emitter.html">EventEmitter</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+		
+	</li>
+
+	<li class="de-emphasized">Record</li>
+	<li >
+		<a href="client.record.html">client.record</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+		
+	</li>
+
+	<li >
+		<a href="record.html">Record</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+		
+	</li>
+
+	<li >
+		<a href="list.html">List</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+		
+	</li>
+
+	<li >
+		<a href="anonymous_record.html">Anonymous Record</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+		
+	</li>
+
+	<li class="de-emphasized">RPC</li>
+	<li >
+		<a href="client.rpc.html">client.rpc</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+		
+	</li>
+
+	<li >
+		<a href="rpc_response.html">RpcResponse</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+		
+	</li>
+
+	<li class="de-emphasized">Event</li>
+	<li >
+		<a href="client.event.html">client.event</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+		
+	</li>
+
+	<li class="de-emphasized">WebRTC</li>
+	<li >
+		<a href="client.webrtc.html">client.webrtc</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+		
+	</li>
+	<li >
+		<a href="webrtc_call.html">WebRTC Call</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+		
+	</li>
+</ul>
+
+			<div id="content">
+				<div class="section"><h2><a name="deepstream(url,options)">deepstream( url, options )</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">url</td><td class="type">String</td><td class="optional">false</td><td class="default">-</td><td class="description">A url in the format &lt;host&gt;:&lt;port&gt;</td></tr><tr><td class="argument">options</td><td class="type">Object</td><td class="optional">true</td><td class="default">-</td><td class="description">A map of options. Please read the segment on <a href="client_options.html">Client Options</a> for details</td></tr></tbody></table><p></tbody></table></p></div><div class="section"><h2><a name="Events">Events</a></h2><h3>connectionStateChanged <connectionState></h3><p>Emitted everytime the connectionState changes. The connectionState is passed to the callback and can also be retrieved using <a href="#getConnectionState()">getConnectionState()</a>. Please find a list of connectionStates <a href="connection_states.html">here</a>.</p><h3>error</h3><p>Aggregates all errors that are encountered. Some errors like <code>CONNECTION_ERROR</code> or <code>MESSAGE_PARSE_ERROR</code> are exlusively emitted
+by the client, others like <code>ACK_TIMEOUT</code> or <code>VERSION_EXISTS</code> that relate to a specific Record, Event or RPC are emitted first by the object
+they relate to and are then forwarded to the client. Please find a <a href="client_errors.html">list of all errors here</a>.</p></div><div class="section"><h2><a name="login(authParams,callback)">login( authParams, callback )</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">authParams</td><td class="type">Object</td><td class="optional">false</td><td class="default">-</td><td class="description">An object with authentication parameters, e.g. <code>{ username: &#39;PeterA&#39;, password: &#39;sesame&#39; }</code></td></tr><tr><td class="argument">callback</td><td class="type">Function</td><td class="optional">true</td><td class="default">-</td><td class="description">A function that will be called once the response to the authentication request is received.</td></tr></tbody></table><p>Authenticates the client against the server. To learn more about how authentication works, please have a look at the <a href="../tutorials/authentication.html">Authentication</a> and <a href="../tutorials/permissioning.html">Permissioning</a> tutorials.</p><p>Callback will be called with three arguments: success (Boolean), errorEvent (String) and data (Object).</p><pre><code class="lang-javascript">var deepstream = require( &#39;deepstream.io-client-js&#39; );
+
+ds = deepstream( &#39;localhost:6020&#39; );
+
+// ds.getConnectionState() will now return &#39;AWAITING_AUTHENTICATION&#39;
+
+ds.login({ username: &#39;PeterA&#39;, password: &#39;sesame&#39; }, function( success, errorEvent, data ){
+    if( success ) {
+        // start application
+        // ds.getConnectionState() will now return &#39;OPEN&#39;
+    } else {
+        // extra data can be optionaly sent from deepstream for
+        // both successful and unsuccesful logins
+        alert( data );
+        // ds.getConnectionState() will now return &#39;AWAITING_AUTHENTICATION&#39; or &#39;CLOSED&#39; if the maximum number
+        // of authentication attempts has been exceeded.
+    }
+});
+
+// ds.getConnectionState() will now return &#39;AUTHENTICATING&#39;
+</code></pre>
+</div><div class="section"><h2><a name="close()">close()</a></h2><p>Closes the connection to the server.</p><pre><code class="lang-javascript">ds.on( &#39;connectionStateChanged&#39;, function( connectionState ){
+    // will be called with &#39;CLOSED&#39; once the connection is successfully closed.
+});
+
+ds.close();
+</code></pre>
+</div><div class="section"><h2><a name="getConnectionState()">getConnectionState()</a></h2><p>Returns the current connectionState. Please find a list of available connectionStates <a href="#Connection States">here</a>.</p></div><div class="section"><h2><a name="getUid()">getUid()</a></h2><p>Returnes a unique id. The uid starts with a Base64 encoded timestamt to allow for semi-sequentual ordering and ends in a random string.</p><pre><code class="lang-javascript">ds.getUid() // &#39;i9i6db5q-1xak1s2sfzk&#39;
+</code></pre>
+<p></div></p>
+			</div>
+		</div>
+		<script type="text/javascript" src="../assets/js/docs.js"></script>
+	</div>
+	<div id="footer">
+		<ul class="footer-items">
+
+			<li class="footer-right">
+				<ul class="social">
+					<li class="twitter">
+						<a href="//twitter.com/deepstreamIO">
+							<i class="fa fa-twitter"></i>  Twitter
+						</a>
+					</li>
+					<li class="github">
+						<a href="//github.com/deepstreamIO">
+							<i class="fa fa-github"></i>  Github
+						</a>
+					</li>
+					<a href="//www.facebook.com/deepstreamIO/">
+						<i class="fa fa-facebook"></i>  Facebook
+					</a>
+					<li class="stack-overflow">
+						<a href="http://stackoverflow.com/questions/tagged/deepstream.io">
+							<i class="fa fa-stack-overflow"></i>  Stack Overflow
+						</a>
+					</li>
+					<li>
+						<a href="//deepstream-slack.herokuapp.com/">
+							<i class="fa fa-slack"></i>  Slack
+						</a>
+					</li>
+				</ul>
+			</li>
+
+			<li class="footer-middle">
+				<h4>Browse</h4>
+				<ul>
+					<li >
+						<a href="..">Home</a>
+					</li>
+					
+					<li >
+						<a href="../download/">Downloads</a>
+					</li>
+					
+					<li >
+						<a href="../tutorials/getting-started.html">Tutorials</a>
+						
+					</li>
+					
+					<li class="active">
+						<a href="../docs/deepstream.html">Documentation</a>
+						
+							<ul id="subnav">
+					<li class="head first">Server</li>
+					<li >
+						<a href="deepstream.html">Deepstream</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+						
+					</li>
+					<li >
+						<a href="constants.html">Constants</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+						
+					</li>
+				
+				
+					<li class="head">JS Client</li>
+					<li >
+						<a href="client.html">Client</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+						
+					</li>
+				
+					<li >
+						<a href="client_options.html">options</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+					</li>
+				
+					<li >
+						<a href="connection_states.html">connectionStates</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+					</li>
+				
+					<li >
+						<a href="client_errors.html">errors</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+					</li>
+				
+					<li >
+						<a href="event_emitter.html">EventEmitter</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+						
+					</li>
+				
+					<li class="de-emphasized">Record</li>
+					<li >
+						<a href="client.record.html">client.record</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+						
+					</li>
+				
+					<li >
+						<a href="record.html">Record</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+						
+					</li>
+				
+					<li >
+						<a href="list.html">List</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+						
+					</li>
+				
+					<li >
+						<a href="anonymous_record.html">Anonymous Record</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+						
+					</li>
+				
+					<li class="de-emphasized">RPC</li>
+					<li >
+						<a href="client.rpc.html">client.rpc</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+						
+					</li>
+				
+					<li >
+						<a href="rpc_response.html">RpcResponse</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+						
+					</li>
+				
+					<li class="de-emphasized">Event</li>
+					<li >
+						<a href="client.event.html">client.event</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+						
+					</li>
+				
+					<li class="de-emphasized">WebRTC</li>
+					<li >
+						<a href="client.webrtc.html">client.webrtc</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+						
+					</li>
+					<li >
+						<a href="webrtc_call.html">WebRTC Call</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+						
+					</li>
+				</ul>
+					
+						
+					</li>
+					
+					<li >
+						<a href="../blog/">Blog</a>
+					</li>
+				
+					<li >
+						<a href="../info/">Info</a>
+						
+					</li>
+				
+				</ul>			</li>
+
+			<li class="footer-left">
+				<h4>Star this project on github!</h4>
+				<p>
+					<a class="github-button" href="//github.com/deepstreamIO/deepstream.io" data-icon="octicon-star" data-style="mega" data-count-href="/deepstreamIO/deepstream.io/stargazers" data-count-api="/repos/deepstreamIO/deepstream.io#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star deepstreamIO/deepstream.io on GitHub">Star</a>
+				</p>
+
+				<h4>Contact the team</h4>
+				<p>
+					<a href="mailto:info@deepstream.io">info@deepstream.io</a>
+					<ul class="address">
+						<li><strong>deepstreamHub Ltd. &amp; Co. KG</strong></li>
+						<li>Amtsgericht Charlottenburg (zu HRA 51371 B)</li>
+						<li>Friedrichstrasse 123</li>
+						<li>10117 Berlin</li>
+					</ul>
+				</p>
+			</li>
+
+		</ul>
+	</div>
+
+
+	<script async defer id="github-bjs" src="//buttons.github.io/buttons.js"></script>
+</body>
+</html>

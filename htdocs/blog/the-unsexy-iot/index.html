@@ -33,12 +33,33 @@
 	<div class="mobile-menu">
 		<div class="nav mobile-nav">
 			<ul>
-				<li ><a href="../..">Home</a></li>
-				<li ><a href="../../download/">Downloads</a></li>
-				<li ><a href="../../tutorials/getting-started.html">Tutorials</a></li>
-				<li ><a href="../../docs/deepstream.html">Documentation</a></li>
-				<li class="active"><a href="../../blog/">Blog</a></li>
-				<li ><a href="../../info/">Info</a></li>
+				<li >
+					<a href="../..">Home</a>
+				</li>
+				
+				<li >
+					<a href="../../download/">Downloads</a>
+				</li>
+				
+				<li >
+					<a href="../../tutorials/getting-started.html">Tutorials</a>
+					
+				</li>
+				
+				<li >
+					<a href="../../docs/deepstream.html">Documentation</a>
+					
+				</li>
+				
+				<li class="active">
+					<a href="../../blog/">Blog</a>
+				</li>
+			
+				<li >
+					<a href="../../info/">Info</a>
+					
+				</li>
+			
 			</ul>		</div>
 	</div>
 
@@ -49,214 +70,235 @@
 			</div>
 			<div class="nav desktop-nav">
 				<ul>
-					<li ><a href="../..">Home</a></li>
-					<li ><a href="../../download/">Downloads</a></li>
-					<li ><a href="../../tutorials/getting-started.html">Tutorials</a></li>
-					<li ><a href="../../docs/deepstream.html">Documentation</a></li>
-					<li class="active"><a href="../../blog/">Blog</a></li>
-					<li ><a href="../../info/">Info</a></li>
+					<li >
+						<a href="../..">Home</a>
+					</li>
+					
+					<li >
+						<a href="../../download/">Downloads</a>
+					</li>
+					
+					<li >
+						<a href="../../tutorials/getting-started.html">Tutorials</a>
+						
+					</li>
+					
+					<li >
+						<a href="../../docs/deepstream.html">Documentation</a>
+						
+					</li>
+					
+					<li class="active">
+						<a href="../../blog/">Blog</a>
+					</li>
+				
+					<li >
+						<a href="../../info/">Info</a>
+						
+					</li>
+				
 				</ul>			</div>
 			<span class="menu-button menu-icon">
 				<i class="fa fa-bars"></i>
 			</span>
 		</div>
-<link rel="stylesheet" type="text/css" href="../../assets/css/community.css" />
-<link rel="stylesheet" type="text/css" href="../../assets/css/blog.css" />
-
-<div id="wrapper" class="blog-wrapper">
-
-	<div class="post">
-
-		<header class="post-header">
-			<h1 class="post-title">The unsexy IoT</h1>
-			<section class="post-meta">
-				By Wolfram Hempel
-				<span class="post-date">January 18th 2016</span>
-			</section>
-		</header>
-
-		<section class="post-content">
-<p>A few years ago, when the first Rasperry Pi’s hit the scene, I was working at a tech company building trading apps. Like so many, the company had a strong focus on engineering with about 70 developers pitted against just 4 designers.</p><p>One day, a package arrived. Naturally, the man that came to pick it up had a beard - but a well groomed one. He - of course - wore a checkered shirt - but I couldn’t help notice that it was not only ironed, but also matched his shoes. And yes, he carried a laptop everywhere. But the laptop he carried was a Mac and the bag he carried it in was vintage leather. In short, he was a designer - and the package contained the first Raspberry PI I’ve ever seen.</p><p>Surprisingly few of the techies cared about this strange machine at first, but the UX team got excited straight away, started playing with it and argued about its cool new use cases.</p><h4>How come?</h4><p>Raspberry PIs are part of a new generation of clever IoT devices: Arduinos, Nest Thermostats or Philip’s remote controllable light bulbs - easily accessible, well designed and sleek (ok, maybe not Arduinos).
-They appeal to a wide audience and spark the imagination of users, founders and investors alike. And most importantly, they excite us about what&#39;s to come: smart homes, self driving cars and connected everything - in short: the sexy IoT.</p><p>But, the Internet of Things isn’t new. At all. And while more than five million Rasperry PIs or a potentially even bigger number of Arduino copies sold around the world make for impressive numbers, they are severely dwarfed by the other IoT. The older IoT. The unsexy one.</p><div class="img-box">
-    <img src="thermostats.png" alt="Thermostats" />
-    <label>Nest Thermostat and Siemens Climatix 600 Controller</label>
-</div>
-
-<h4>The other IoT</h4><p>Many of the IoT’s core use cases: Building and home automation, environmental monitoring or infrastructure management not only precede the current generation of devices, they precede the World Wide Web itself. 
-BACnet, still one of the most widely used building automation protocols was developed in 1987, LonTalk in 1988 and X10, a granddaddy of modern smart home protocols like ZigBee or Z-Wave goes back as far as 1975.</p><p>So, how come the IoT only recently became the “next big thing”?
-I would argue that the IoT has always been big, it’s the personalized IoT that has taken the spotlight lately. This is fueled by the alignment of a number of trends</p><ul>
-<li><p>Hardware production costs dropped significantly, making the IoT cheaper and facilitating micro-appliances like Amazon’s Dash button or Roost’s smart batteries</p></li>
-<li><p>We have become more comfortable with sharing personal data, e.g. when it comes to incorporating wearables or fitness trackers into our daily routine.</p></li>
-<li><p>Producing faster microprocessors more cheaply enables IoT devices to run high level programming languages like Node that have a wider degree of adoption</p></li>
-</ul>
-<h4>But it’s not like the old IoT has stagnated either</h4><p><br /></p><ul>
-<li><p>It is now almost completely based on open protocols, rather than the proprietary ones of the past that were used to tie customers to a specific vendor.</p></li>
-<li><p>IPv6 has massively increased the number of available IPs, allowing every sensor and relay within a system to be addressable from the public internet</p></li>
-<li><p>UX and Usability is playing an increasing role in the design of Management Systems. (It’s still a long way away from e.g. Nest’s products, but there is a clear trend)</p></li>
-</ul>
-<h4>Crossing the chasm</h4><p>However, at the moment, there is still a huge chasm dividing both IoT’s. The reasons for this are complex, but amongst them are the differences in culture, technology, agility and enterprise-suitability that distinguish the companies in both spaces.</p><p>There is, however, enormous opportunity in crossing this chasm. The new IoT provides valuable data about its users, their habits, daily routines and preferences. The old IoT generates detailed information about the environment they interact in. Combining both with big data crunching technology will lead to unprecedented (and slightly scary) insights into individual user’s behavioral patterns as well as into the systems they compose.</p><h4>What does it take to unite both IoTs?</h4><p>There are a number of possible integration and normalisation approaches for aggregating both IoTs.
-For <a href="//deepstreamhub.com/">deepstreamHub</a>, our upcoming realtime data platform we use a concept of channels: pre-built integrations with third party services that allow you to directly stream realtime data, say Slack Messages or Stock Prices into your app. 
-But channels are bidirectional and could as well be used to control building management systems, process automation or even integrated healthcare. As long as you have a TCP endpoint, all it takes is to point your deepstreamHub channel towards it and its data and commands become available as a high level API within all connected browsers and backend processes.</p><p>We’ve only just started looking into the possibilities of interfacing with the old IoT. If you’ve got experience in the space and feel that this is either an absolutely superb or completely terrible idea: we’re very eager to hear your thoughts! (<a href="//twitter.com/deepstreamIO">@deepstreamIO</a>)</p>
-		</section>
-
-		<footer class="post-footer">
-
-			<section class="author">
-
-				<img class="author-gravatar" src="http://www.gravatar.com/avatar/f831162b79d84f85f589a1a76b4975db">
+				<link rel="stylesheet" type="text/css" href="../../assets/css/community.css" />
+				<link rel="stylesheet" type="text/css" href="../../assets/css/blog.css" />
 				
-				<span class="author-description">
-					<h4>About the author</h4>
-
-					<p class="author-bio">
-						Wolfram worked all over the world before settling in Berlin and becoming a co-founder of deepstream.io. He also once studied art-history, but that&#x27;s a different story and shall be told another time.
-					</p>
-				</span>
-
-				<!--
-					<p>Read <a href="">more posts</a> by this author.</p>
+				<div id="wrapper" class="blog-wrapper">
 				
-				<div class="author-meta">
-					
-					
-				</div> 
-				-->
-
-			</section>
-
-			<section class="share">
-				<h4>Share this post</h4>
-				<ul class="icons">
-					<li>
-						<a class="icon fa fa-twitter" href="//twitter.com/share?text=The unsexy IoT @deepstreamhub&amp;url="
-							onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
-							<span class="label">Twitter</span>
-						</a>
-					</li>
-					<li>
-						<a class="icon fa fa-facebook" href="//www.facebook.com/sharer/sharer.php?u="
-						onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
-						<span class="label">Facebook</span>
-						</a>
-					</li>
-					<li>
-						<a class="icon fa fa-google-plus" href="//plus.google.com/share?url="
-					   onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
-						<span class="label">Google+</span>
-					</a>
-					</li>
+					<div class="post">
+				
+						<header class="post-header">
+							<h1 class="post-title">The unsexy IoT</h1>
+							<section class="post-meta">
+								By Wolfram Hempel
+								<span class="post-date">January 18th 2016</span>
+							</section>
+						</header>
+				
+						<section class="post-content">
+				<p>A few years ago, when the first Rasperry Pi’s hit the scene, I was working at a tech company building trading apps. Like so many, the company had a strong focus on engineering with about 70 developers pitted against just 4 designers.</p><p>One day, a package arrived. Naturally, the man that came to pick it up had a beard - but a well groomed one. He - of course - wore a checkered shirt - but I couldn’t help notice that it was not only ironed, but also matched his shoes. And yes, he carried a laptop everywhere. But the laptop he carried was a Mac and the bag he carried it in was vintage leather. In short, he was a designer - and the package contained the first Raspberry PI I’ve ever seen.</p><p>Surprisingly few of the techies cared about this strange machine at first, but the UX team got excited straight away, started playing with it and argued about its cool new use cases.</p><h4>How come?</h4><p>Raspberry PIs are part of a new generation of clever IoT devices: Arduinos, Nest Thermostats or Philip’s remote controllable light bulbs - easily accessible, well designed and sleek (ok, maybe not Arduinos).
+				They appeal to a wide audience and spark the imagination of users, founders and investors alike. And most importantly, they excite us about what&#39;s to come: smart homes, self driving cars and connected everything - in short: the sexy IoT.</p><p>But, the Internet of Things isn’t new. At all. And while more than five million Rasperry PIs or a potentially even bigger number of Arduino copies sold around the world make for impressive numbers, they are severely dwarfed by the other IoT. The older IoT. The unsexy one.</p><div class="img-box">
+				    <img src="thermostats.png" alt="Thermostats" />
+				    <label>Nest Thermostat and Siemens Climatix 600 Controller</label>
+				</div>
+				
+				<h4>The other IoT</h4><p>Many of the IoT’s core use cases: Building and home automation, environmental monitoring or infrastructure management not only precede the current generation of devices, they precede the World Wide Web itself. 
+				BACnet, still one of the most widely used building automation protocols was developed in 1987, LonTalk in 1988 and X10, a granddaddy of modern smart home protocols like ZigBee or Z-Wave goes back as far as 1975.</p><p>So, how come the IoT only recently became the “next big thing”?
+				I would argue that the IoT has always been big, it’s the personalized IoT that has taken the spotlight lately. This is fueled by the alignment of a number of trends</p><ul>
+				<li><p>Hardware production costs dropped significantly, making the IoT cheaper and facilitating micro-appliances like Amazon’s Dash button or Roost’s smart batteries</p></li>
+				<li><p>We have become more comfortable with sharing personal data, e.g. when it comes to incorporating wearables or fitness trackers into our daily routine.</p></li>
+				<li><p>Producing faster microprocessors more cheaply enables IoT devices to run high level programming languages like Node that have a wider degree of adoption</p></li>
 				</ul>
-				
-			</section>
-
-		<div class="latest-blogs">
-			<h4 class="latest-blogs-header">
-				Latest Blog Articles
-			</h4>
-			<ul class="latest-blogs-content">
-					<li class="latest-blog-article">
-						<a href="../listen-benefits/">
-							<span class="date">18/02/2016</span>
-							<span class="title">The benefits of listening</span>
-						</a>
-					</li>
-					<li class="latest-blog-article">
-						<a href="../what-is-realtime/">
-							<span class="date">08/02/2016</span>
-							<span class="title">What is realtime?</span>
-						</a>
-					</li>
-					<li class="latest-blog-article">
-						<a href="../migrating-parse-com-to-deepstream-io/">
-							<span class="date">29/01/2016</span>
-							<span class="title">Migrating from Parse.com to deepstream.io</span>
-						</a>
-					</li>
-					<li class="latest-blog-article">
-						<a href="">
-							<span class="date">18/01/2016</span>
-							<span class="title">The unsexy IoT</span>
-						</a>
-					</li>
-			</ul>
-		</div>		</footer>
-	</div>
-
-	<span class="blog-sidebar">
-	
-		<div class="sidebar-item deepstream-learn-more">
-			<h4 class="sidebar-item-header">What is deepstream?</h4>
-			
-			<p>
-				deepstream.io is the open source server thats allows you to create realtime apps with minimal code!
-			</p>
-	
-			<a href="../../">Learn More</a>.
-		</div>
-	
-		<div class="sidebar-item share-story">
-			<h4 class="sidebar-item-header">Using deepstream?</h4>
-			<div class="share-story community-collaborate-content">
-				<img width="100%" src="../../assets/images/ds-stories-background.png" class="share-story-image" >
-				<a class="share-story-content" href="mailto:info@deepstream.io">
-					tell us what you're building with deepstream and get the t-shirt *
-					<span class="comical-warning">
-						* warning: t-shirt actually looks good and is desirable
-					</span>
-				</a>
-			</div>	</div>
-	
-		<div class="sidebar-item deepstream-help-out">
-			<h4 class="sidebar-item-header">Community</h4>
-			
-			<!--<p>
-				If your interested in bringing deepstream to your favourite language, please <a href="mailto:info@deepstreamhub.com" target="_top">contact us</a> for any support!
-			</p>
-			-->
-	
-			<p>
-				Like deepstream.io? Grant it a star!
-			</p>
-			
-			<p>
-				<a class="github-button" href="//github.com/deepstreamIO/deepstream.io" data-icon="octicon-star" data-style="mega" data-count-href="/deepstreamIO/deepstream.io/stargazers" data-count-api="/repos/deepstreamIO/deepstream.io#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star deepstreamIO/deepstream.io on GitHub">Star</a>
-			</p>
-		</div>
-	
-		<div class="sidebar-item deepstream-latest-posts">
-			<div class="latest-blogs">
-				<h4 class="latest-blogs-header">
-					Latest Blog Articles
-				</h4>
-				<ul class="latest-blogs-content">
-						<li class="latest-blog-article">
-							<a href="../listen-benefits/">
-								<span class="date">18/02/2016</span>
-								<span class="title">The benefits of listening</span>
-							</a>
-						</li>
-						<li class="latest-blog-article">
-							<a href="../what-is-realtime/">
-								<span class="date">08/02/2016</span>
-								<span class="title">What is realtime?</span>
-							</a>
-						</li>
-						<li class="latest-blog-article">
-							<a href="../migrating-parse-com-to-deepstream-io/">
-								<span class="date">29/01/2016</span>
-								<span class="title">Migrating from Parse.com to deepstream.io</span>
-							</a>
-						</li>
-						<li class="latest-blog-article">
-							<a href="">
-								<span class="date">18/01/2016</span>
-								<span class="title">The unsexy IoT</span>
-							</a>
-						</li>
+				<h4>But it’s not like the old IoT has stagnated either</h4><p><br /></p><ul>
+				<li><p>It is now almost completely based on open protocols, rather than the proprietary ones of the past that were used to tie customers to a specific vendor.</p></li>
+				<li><p>IPv6 has massively increased the number of available IPs, allowing every sensor and relay within a system to be addressable from the public internet</p></li>
+				<li><p>UX and Usability is playing an increasing role in the design of Management Systems. (It’s still a long way away from e.g. Nest’s products, but there is a clear trend)</p></li>
 				</ul>
-			</div>	</div>
-	
-	</span></div>	</div>
+				<h4>Crossing the chasm</h4><p>However, at the moment, there is still a huge chasm dividing both IoT’s. The reasons for this are complex, but amongst them are the differences in culture, technology, agility and enterprise-suitability that distinguish the companies in both spaces.</p><p>There is, however, enormous opportunity in crossing this chasm. The new IoT provides valuable data about its users, their habits, daily routines and preferences. The old IoT generates detailed information about the environment they interact in. Combining both with big data crunching technology will lead to unprecedented (and slightly scary) insights into individual user’s behavioral patterns as well as into the systems they compose.</p><h4>What does it take to unite both IoTs?</h4><p>There are a number of possible integration and normalisation approaches for aggregating both IoTs.
+				For <a href="//deepstreamhub.com/">deepstreamHub</a>, our upcoming realtime data platform we use a concept of channels: pre-built integrations with third party services that allow you to directly stream realtime data, say Slack Messages or Stock Prices into your app. 
+				But channels are bidirectional and could as well be used to control building management systems, process automation or even integrated healthcare. As long as you have a TCP endpoint, all it takes is to point your deepstreamHub channel towards it and its data and commands become available as a high level API within all connected browsers and backend processes.</p><p>We’ve only just started looking into the possibilities of interfacing with the old IoT. If you’ve got experience in the space and feel that this is either an absolutely superb or completely terrible idea: we’re very eager to hear your thoughts! (<a href="//twitter.com/deepstreamIO">@deepstreamIO</a>)</p>
+						</section>
+				
+						<footer class="post-footer">
+				
+							<section class="author">
+				
+								<img class="author-gravatar" src="http://www.gravatar.com/avatar/f831162b79d84f85f589a1a76b4975db">
+								
+								<span class="author-description">
+									<h4>About the author</h4>
+				
+									<p class="author-bio">
+										Wolfram worked all over the world before settling in Berlin and becoming a co-founder of deepstream.io. He also once studied art-history, but that&#x27;s a different story and shall be told another time.
+									</p>
+								</span>
+				
+								<!--
+									<p>Read <a href="">more posts</a> by this author.</p>
+								
+								<div class="author-meta">
+									
+									
+								</div> 
+								-->
+				
+							</section>
+				
+							<section class="share">
+								<h4>Share this post</h4>
+								<ul class="icons">
+									<li>
+										<a class="icon fa fa-twitter" href="//twitter.com/share?text=The unsexy IoT @deepstreamhub&amp;url="
+											onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+											<span class="label">Twitter</span>
+										</a>
+									</li>
+									<li>
+										<a class="icon fa fa-facebook" href="//www.facebook.com/sharer/sharer.php?u="
+										onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+										<span class="label">Facebook</span>
+										</a>
+									</li>
+									<li>
+										<a class="icon fa fa-google-plus" href="//plus.google.com/share?url="
+									   onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+										<span class="label">Google+</span>
+									</a>
+									</li>
+								</ul>
+								
+							</section>
+				
+						<div class="latest-blogs">
+							<h4 class="latest-blogs-header">
+								Latest Blog Articles
+							</h4>
+							<ul class="latest-blogs-content">
+									<li class="latest-blog-article">
+										<a href="../listen-benefits/">
+											<span class="date">18/02/2016</span>
+											<span class="title">The benefits of listening</span>
+										</a>
+									</li>
+									<li class="latest-blog-article">
+										<a href="../what-is-realtime/">
+											<span class="date">08/02/2016</span>
+											<span class="title">What is realtime?</span>
+										</a>
+									</li>
+									<li class="latest-blog-article">
+										<a href="../migrating-parse-com-to-deepstream-io/">
+											<span class="date">29/01/2016</span>
+											<span class="title">Migrating from Parse.com to deepstream.io</span>
+										</a>
+									</li>
+									<li class="latest-blog-article">
+										<a href="">
+											<span class="date">18/01/2016</span>
+											<span class="title">The unsexy IoT</span>
+										</a>
+									</li>
+							</ul>
+						</div>		</footer>
+					</div>
+				
+					<span class="blog-sidebar">
+					
+						<div class="sidebar-item deepstream-learn-more">
+							<h4 class="sidebar-item-header">What is deepstream?</h4>
+							
+							<p>
+								deepstream.io is the open source server thats allows you to create realtime apps with minimal code!
+							</p>
+					
+							<a href="../../">Learn More</a>.
+						</div>
+					
+						<div class="sidebar-item share-story">
+							<h4 class="sidebar-item-header">Using deepstream?</h4>
+							<div class="share-story community-collaborate-content">
+								<img width="100%" src="../../assets/images/ds-stories-background.png" class="share-story-image" >
+								<a class="share-story-content" href="mailto:info@deepstream.io">
+									tell us what you're building with deepstream and get the t-shirt *
+									<span class="comical-warning">
+										* warning: t-shirt actually looks good and is desirable
+									</span>
+								</a>
+							</div>	</div>
+					
+						<div class="sidebar-item deepstream-help-out">
+							<h4 class="sidebar-item-header">Community</h4>
+							
+							<!--<p>
+								If your interested in bringing deepstream to your favourite language, please <a href="mailto:info@deepstreamhub.com" target="_top">contact us</a> for any support!
+							</p>
+							-->
+					
+							<p>
+								Like deepstream.io? Grant it a star!
+							</p>
+							
+							<p>
+								<a class="github-button" href="//github.com/deepstreamIO/deepstream.io" data-icon="octicon-star" data-style="mega" data-count-href="/deepstreamIO/deepstream.io/stargazers" data-count-api="/repos/deepstreamIO/deepstream.io#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star deepstreamIO/deepstream.io on GitHub">Star</a>
+							</p>
+						</div>
+					
+						<div class="sidebar-item deepstream-latest-posts">
+							<div class="latest-blogs">
+								<h4 class="latest-blogs-header">
+									Latest Blog Articles
+								</h4>
+								<ul class="latest-blogs-content">
+										<li class="latest-blog-article">
+											<a href="../listen-benefits/">
+												<span class="date">18/02/2016</span>
+												<span class="title">The benefits of listening</span>
+											</a>
+										</li>
+										<li class="latest-blog-article">
+											<a href="../what-is-realtime/">
+												<span class="date">08/02/2016</span>
+												<span class="title">What is realtime?</span>
+											</a>
+										</li>
+										<li class="latest-blog-article">
+											<a href="../migrating-parse-com-to-deepstream-io/">
+												<span class="date">29/01/2016</span>
+												<span class="title">Migrating from Parse.com to deepstream.io</span>
+											</a>
+										</li>
+										<li class="latest-blog-article">
+											<a href="">
+												<span class="date">18/01/2016</span>
+												<span class="title">The unsexy IoT</span>
+											</a>
+										</li>
+								</ul>
+							</div>	</div>
+					
+					</span></div>	</div>
 	<div id="footer">
 		<ul class="footer-items">
 
@@ -291,12 +333,33 @@ But channels are bidirectional and could as well be used to control building man
 			<li class="footer-middle">
 				<h4>Browse</h4>
 				<ul>
-					<li ><a href="../..">Home</a></li>
-					<li ><a href="../../download/">Downloads</a></li>
-					<li ><a href="../../tutorials/getting-started.html">Tutorials</a></li>
-					<li ><a href="../../docs/deepstream.html">Documentation</a></li>
-					<li class="active"><a href="../../blog/">Blog</a></li>
-					<li ><a href="../../info/">Info</a></li>
+					<li >
+						<a href="../..">Home</a>
+					</li>
+					
+					<li >
+						<a href="../../download/">Downloads</a>
+					</li>
+					
+					<li >
+						<a href="../../tutorials/getting-started.html">Tutorials</a>
+						
+					</li>
+					
+					<li >
+						<a href="../../docs/deepstream.html">Documentation</a>
+						
+					</li>
+					
+					<li class="active">
+						<a href="../../blog/">Blog</a>
+					</li>
+				
+					<li >
+						<a href="../../info/">Info</a>
+						
+					</li>
+				
 				</ul>			</li>
 
 			<li class="footer-left">

@@ -1,0 +1,881 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>deepstream.io | deepstream server documentation</title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="keywords" content="deepstream, deepstream.io, streaming, realtime, server, socket" />
+	<meta name="description" content="API docs for new Deepstream();" />
+	<meta name="author" content="Wolfram Hempel" />
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="stylesheet" type="text/css" href="../assets/css/navigation.css" />
+	<link rel="stylesheet" type="text/css" href="../assets/css/screen.css" />
+	<link rel="stylesheet" type="text/css" href="../assets/css/api.css" />
+	<script type="text/javascript">
+	document.createElement( 'header' );
+	document.createElement( 'nav' );
+	</script>
+	<script type="text/javascript" src="../assets/js/jquery.js"></script>
+	<script type="text/javascript" src="../assets/js/menu.js"></script>
+	<script type="text/javascript" src="../assets/js/prism.js"></script>
+
+	<link href='//fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+	<link href='//fonts.googleapis.com/css?family=Quicksand:300,400,700' rel='stylesheet' type='text/css'>
+	<link href='//fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="../assets/css/prism.css" />
+</head>
+
+<body class="category_docs ">
+	<div class="mobile-menu">
+		<div class="nav mobile-nav">
+			<ul>
+				<li >
+					<a href="..">Home</a>
+				</li>
+				
+				<li >
+					<a href="../download/">Downloads</a>
+				</li>
+				
+				<li >
+					<a href="../tutorials/getting-started.html">Tutorials</a>
+					
+				</li>
+				
+				<li class="active">
+					<a href="../docs/deepstream.html">Documentation</a>
+					
+						<ul id="subnav">
+				<li class="head first">Server</li>
+				<li class="active">
+					<a href="deepstream.html">Deepstream</a>
+					<div class="isActiveIndicator orangeGradient"></div>
+					
+				</li>
+				<li >
+					<a href="constants.html">Constants</a>
+					<div class="isActiveIndicator orangeGradient"></div>
+					
+				</li>
+			
+			
+				<li class="head">JS Client</li>
+				<li >
+					<a href="client.html">Client</a>
+					<div class="isActiveIndicator orangeGradient"></div>
+					
+				</li>
+			
+				<li >
+					<a href="client_options.html">options</a>
+					<div class="isActiveIndicator orangeGradient"></div>
+				</li>
+			
+				<li >
+					<a href="connection_states.html">connectionStates</a>
+					<div class="isActiveIndicator orangeGradient"></div>
+				</li>
+			
+				<li >
+					<a href="client_errors.html">errors</a>
+					<div class="isActiveIndicator orangeGradient"></div>
+				</li>
+			
+				<li >
+					<a href="event_emitter.html">EventEmitter</a>
+					<div class="isActiveIndicator orangeGradient"></div>
+					
+				</li>
+			
+				<li class="de-emphasized">Record</li>
+				<li >
+					<a href="client.record.html">client.record</a>
+					<div class="isActiveIndicator orangeGradient"></div>
+					
+				</li>
+			
+				<li >
+					<a href="record.html">Record</a>
+					<div class="isActiveIndicator orangeGradient"></div>
+					
+				</li>
+			
+				<li >
+					<a href="list.html">List</a>
+					<div class="isActiveIndicator orangeGradient"></div>
+					
+				</li>
+			
+				<li >
+					<a href="anonymous_record.html">Anonymous Record</a>
+					<div class="isActiveIndicator orangeGradient"></div>
+					
+				</li>
+			
+				<li class="de-emphasized">RPC</li>
+				<li >
+					<a href="client.rpc.html">client.rpc</a>
+					<div class="isActiveIndicator orangeGradient"></div>
+					
+				</li>
+			
+				<li >
+					<a href="rpc_response.html">RpcResponse</a>
+					<div class="isActiveIndicator orangeGradient"></div>
+					
+				</li>
+			
+				<li class="de-emphasized">Event</li>
+				<li >
+					<a href="client.event.html">client.event</a>
+					<div class="isActiveIndicator orangeGradient"></div>
+					
+				</li>
+			
+				<li class="de-emphasized">WebRTC</li>
+				<li >
+					<a href="client.webrtc.html">client.webrtc</a>
+					<div class="isActiveIndicator orangeGradient"></div>
+					
+				</li>
+				<li >
+					<a href="webrtc_call.html">WebRTC Call</a>
+					<div class="isActiveIndicator orangeGradient"></div>
+					
+				</li>
+			</ul>
+				
+					
+				</li>
+				
+				<li >
+					<a href="../blog/">Blog</a>
+				</li>
+			
+				<li >
+					<a href="../info/">Info</a>
+					
+				</li>
+			
+			</ul>		</div>
+	</div>
+
+	<div id="outer-wrapper">
+		<div id="header" class="compact-header">
+			<div class="header-tiny-logo">
+				<h1><a href="..">deepstream.io - a scalable server for realtime web apps</a></h1>
+			</div>
+			<div class="nav desktop-nav">
+				<ul>
+					<li >
+						<a href="..">Home</a>
+					</li>
+					
+					<li >
+						<a href="../download/">Downloads</a>
+					</li>
+					
+					<li >
+						<a href="../tutorials/getting-started.html">Tutorials</a>
+						
+					</li>
+					
+					<li class="active">
+						<a href="../docs/deepstream.html">Documentation</a>
+						
+							<ul id="subnav">
+					<li class="head first">Server</li>
+					<li class="active">
+						<a href="deepstream.html">Deepstream</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+						
+					</li>
+					<li >
+						<a href="constants.html">Constants</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+						
+					</li>
+				
+				
+					<li class="head">JS Client</li>
+					<li >
+						<a href="client.html">Client</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+						
+					</li>
+				
+					<li >
+						<a href="client_options.html">options</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+					</li>
+				
+					<li >
+						<a href="connection_states.html">connectionStates</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+					</li>
+				
+					<li >
+						<a href="client_errors.html">errors</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+					</li>
+				
+					<li >
+						<a href="event_emitter.html">EventEmitter</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+						
+					</li>
+				
+					<li class="de-emphasized">Record</li>
+					<li >
+						<a href="client.record.html">client.record</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+						
+					</li>
+				
+					<li >
+						<a href="record.html">Record</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+						
+					</li>
+				
+					<li >
+						<a href="list.html">List</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+						
+					</li>
+				
+					<li >
+						<a href="anonymous_record.html">Anonymous Record</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+						
+					</li>
+				
+					<li class="de-emphasized">RPC</li>
+					<li >
+						<a href="client.rpc.html">client.rpc</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+						
+					</li>
+				
+					<li >
+						<a href="rpc_response.html">RpcResponse</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+						
+					</li>
+				
+					<li class="de-emphasized">Event</li>
+					<li >
+						<a href="client.event.html">client.event</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+						
+					</li>
+				
+					<li class="de-emphasized">WebRTC</li>
+					<li >
+						<a href="client.webrtc.html">client.webrtc</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+						
+					</li>
+					<li >
+						<a href="webrtc_call.html">WebRTC Call</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+						
+					</li>
+				</ul>
+					
+						
+					</li>
+					
+					<li >
+						<a href="../blog/">Blog</a>
+					</li>
+				
+					<li >
+						<a href="../info/">Info</a>
+						
+					</li>
+				
+				</ul>			</div>
+			<span class="menu-button menu-icon">
+				<i class="fa fa-bars"></i>
+			</span>
+		</div>
+		<div id="wrapper" class="main">
+			<ul id="subnav">
+	<li class="head first">Server</li>
+	<li class="active">
+		<a href="deepstream.html">Deepstream</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+		
+	</li>
+	<li >
+		<a href="constants.html">Constants</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+		
+	</li>
+
+
+	<li class="head">JS Client</li>
+	<li >
+		<a href="client.html">Client</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+		
+	</li>
+
+	<li >
+		<a href="client_options.html">options</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li >
+		<a href="connection_states.html">connectionStates</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li >
+		<a href="client_errors.html">errors</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
+	<li >
+		<a href="event_emitter.html">EventEmitter</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+		
+	</li>
+
+	<li class="de-emphasized">Record</li>
+	<li >
+		<a href="client.record.html">client.record</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+		
+	</li>
+
+	<li >
+		<a href="record.html">Record</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+		
+	</li>
+
+	<li >
+		<a href="list.html">List</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+		
+	</li>
+
+	<li >
+		<a href="anonymous_record.html">Anonymous Record</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+		
+	</li>
+
+	<li class="de-emphasized">RPC</li>
+	<li >
+		<a href="client.rpc.html">client.rpc</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+		
+	</li>
+
+	<li >
+		<a href="rpc_response.html">RpcResponse</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+		
+	</li>
+
+	<li class="de-emphasized">Event</li>
+	<li >
+		<a href="client.event.html">client.event</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+		
+	</li>
+
+	<li class="de-emphasized">WebRTC</li>
+	<li >
+		<a href="client.webrtc.html">client.webrtc</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+		
+	</li>
+	<li >
+		<a href="webrtc_call.html">WebRTC Call</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+		
+	</li>
+</ul>
+
+			<div id="content">
+				<div class="section"><h2><a name="Constructor">Constructor</a></h2><p>The constructor takes no arguments.</p><pre><code class="lang-javascript">var server = new Deepstream();
+</code></pre>
+</div><div class="section"><h2><a name="Events">Events</a></h2><h3>started</h3><p>Emitted once <code>deepstream.start()</code> has been called and the startup procedure has completed succesfully.</p><h3>stopped</h3><p>Emitted once <code>deepstream.stop()</code> has been called and the server has been completely shut down.</p></div><div class="section"><h2><a name="start()">start()</a></h2><p>Starts the server.</p></div><div class="section"><h2><a name="stop()">stop()</a></h2><p>Stops the server.</p></div><div class="section"><h2><a name="set(key,value)">set( key, value )</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">key</td><td class="type">String</td><td class="optional">false</td><td class="default">-</td><td class="description">The configuration option that should be set</td></tr><tr><td class="argument">value</td><td class="type">various</td><td class="optional">false</td><td class="default">-</td><td class="description">The value that should be used</td></tr></tbody></table><p><code>set( key, value );</code> allows to configure the server before it is started. It supports the following options (with example values):</p><pre><code class="lang-javascript">/**
+* A unique name for this server
+*
+* @type String
+* @default A random ID
+*/
+server.set( &#39;serverName&#39;, &#39;nodeA&#39; );
+
+/**
+* Whether the console output should be in color
+*
+* @type Boolean
+* @default true
+*/
+server.set( &#39;colors&#39;, false );
+
+/**
+* An existing http server to listen to rather
+* then letting deepstream create it&#39;s own.
+*
+* Note: If webServerEnabled is false it will ignore
+* the passed in httpServer
+*
+* @type net.HttpServer || net.HttpsServer
+* @default true
+*/
+server.set( &#39;httpServer&#39;, httpServer );
+
+/**
+* Whether the deepstream logo should be displayed on startup
+*
+* @type Boolean
+* @default true
+*/
+server.set( &#39;showLogo&#39;, false );
+
+/**
+* If false, deepstream won&#39;t create a
+* server to listen for incoming connections
+* from web-browsers
+*
+* @type Boolean
+* @default true
+*/
+server.set( &#39;webServerEnabled&#39;, true );
+
+/**
+* If false, deepstream won&#39;t create a server
+* to listen for incoming TCP connections
+*
+* @type Boolean
+* @default true
+*/
+server.set( &#39;tcpServerEnabled&#39;, true );
+
+/**
+* The public key to use if using ssl
+* Must have an associated sslKey set
+*
+* @type String
+*/
+server.set( &#39;sslCert&#39;, fs.readFileSync( &#39;./keys/cert.pem&#39;, &#39;utf8&#39; ) );
+
+/**
+* The private key to use if using ssl
+* Must have an associated sslCert set
+*
+* @type String
+*/
+server.set( &#39;sslKey&#39;, fs.readFileSync( &#39;./keys/key.pem&#39;, &#39;utf8&#39; ) );
+
+/**
+* The host that deepstream listens on for incoming connections from browsers
+*
+* @type String
+* @default &#39;0.0.0.0&#39;
+*/
+server.set( &#39;host&#39;, &#39;localhost&#39; );
+
+/**
+* The port that deepstream listens on for incoming connections from browsers
+*
+* @type Number
+* @default 6020
+*/
+server.set( &#39;port&#39;, 80 );
+
+/**
+* The host that deepstream listens on for incoming connections via tcp
+*
+* @type String
+* @default &#39;0.0.0.0&#39;
+*/
+server.set( &#39;tcpHost&#39;, &#39;localhost&#39; );
+
+/**
+* The port that deepstream listens on for incoming connections via tcp
+*
+* @type Number
+* @default 6021
+*/
+server.set( &#39;tcpPort&#39;, 80 );
+
+/**
+* A class that exposes a isValidUser and canPerformAction method.
+*
+* @type PermissionHandler
+* @default OpenPermissionHandler
+*/
+server.set( &#39;PermissionHandler&#39;, new LdapPermissionHandler() );
+
+/**
+* Transforms data before it leaves the server.
+* See //deepstream.io/tutorials/transforming-data.html for details
+*
+* @type Array
+* @default null
+ */
+server.set( &#39;dataTransforms&#39;, [{
+    topic: C.TOPIC.RPC,
+    action: C.ACTIONS.REQUEST,
+    transform: function( data, metaData ) {}
+}]);
+
+/**
+* A logger, defaults to the STDOUT / STDERROR logger
+*
+* @type Logger
+* @default StdOutLogger
+*/
+server.set( &#39;logger&#39;, new FileLogger() );
+
+/**
+* MessageConnectors connect deepstream to a message bus
+* (e.g. AMQP, Redis, Kafka) thus allowing for clustering.
+*
+* See the &quot;Connectors&quot; section above for details
+*
+* @type MessageConnector
+* @default NoopMessageConnector
+*/
+server.set( &#39;messageConnector&#39;, new RedisMessageConnector({
+  port: 6379,
+  host: &#39;localhost&#39;
+}));
+
+/**
+* Cache connector connect deepstream to a (distributed) cache
+* (e.g. Redis, Memcached)for temporary data-storage.
+*
+* See the &quot;Connectors&quot; section above for details
+*
+* @type CacheConnector
+* @default LocalCache
+*/
+server.set( &#39;cache&#39;, new RedisCacheConnector({
+  port: 6379,
+  host: &#39;localhost&#39;
+}));
+
+/**
+* Storage connectors connect deepstream to a database (e.g. RethinkDB, MongoDB)
+* for long term data storage and querying.
+*
+* See the &quot;Connectors&quot; section above for details
+*
+* @type StorageConnector
+* @default NoopStorageConnector
+*/
+server.set( &#39;storage&#39;, new RethinkDbConnector({
+  port: 28015,
+  host: &#39;localhost&#39;,
+  splitChar: &#39;/&#39;,
+  defaultTable: &#39;dsTestDefault&#39;
+}));
+
+/**
+* A regular expression that determines which records won&#39;t be
+* stored in the database.
+*
+* This is useful to improve performance for fast-updating records
+* that don&#39;t need to be stored in the long-term, e.g. stock prices
+*
+* Any record whose name matches the specified RegExp will be read / written
+* directly to cache
+*
+* @type RegExp
+* @default null
+*/
+server.set( &#39;storageExclusion&#39;, /^dont-store\/*./ );
+
+/**
+* Number of times a client can try to authenticate with invalid credentials
+* before its connection is closed.
+*
+* @type Number
+* @default 3
+*/
+server.set( &#39;maxAuthAttempts&#39;, Infinity );
+
+/**
+* Whether the data provided for invalid auth attempts should be sent to the
+* logger.
+*
+* @type Boolean
+* @default true
+*/
+server.set( &#39;logInvalidAuthData&#39;, false );
+
+/**
+* The time (in milliseconds) that deepstream allows for RPC providers to
+* respond to queries. (When deepstream is asked to execute a RPC that it doesn&#39;t
+* have any cached providers for it sends out a query message, asking all
+* connected instances if they can provide this RPC. This is the timeout that
+* determines how long deepstream will wait for their response).
+*
+* This is different from rpcAckTimeout
+*
+* @type Number
+* @default 1000
+*/
+server.set( &#39;rpcProviderQueryTimeout&#39;, 5000 );
+
+/**
+* The time (in milliseconds) that deepstream allows for RPC providers to
+* acknowledge that they&#39;ve received a request.
+*
+* @type Number
+* @default 1000
+*/
+server.set( &#39;rpcAckTimeout&#39;, 200 );
+
+/**
+* The time (in milliseconds) that deepstream allows for RPC providers to send
+* a response.
+*
+* @type Number
+* @default 10000
+*/
+server.set( &#39;rpcTimeout&#39;, 2000 );
+
+/**
+* The time (in milliseconds) that deepstream caches its list of rpcProviders.
+*
+* @type Number
+* @default 60000
+*/
+server.set( &#39;rpcProviderCacheTime&#39;, 120000 );
+
+/**
+* The time (in milliseconds) that deepstream allows for data to be retrieved
+* from the cache.
+*
+* @type Number
+* @default 1000
+*/
+server.set( &#39;cacheRetrievalTimeout&#39;, 200 );
+
+/**
+* The time (in milliseconds) that deepstream allows for data to be retrieved
+* from the database.
+*
+* @type Number
+* @default 2000
+*/
+server.set( &#39;storageRetrievalTimeout&#39;, 4000 );
+
+/**
+* The time (in milliseconds) that deepstream allows for dependencies
+* (Cache Connector, Logger etc.) to complete their initialization.
+*
+* @type Number
+* @default 2000
+*/
+server.set( &#39;storageRetrievalTimeout&#39;, 4000 );
+</code></pre>
+<p></div></p>
+			</div>
+		</div>
+		<script type="text/javascript" src="../assets/js/docs.js"></script>
+	</div>
+	<div id="footer">
+		<ul class="footer-items">
+
+			<li class="footer-right">
+				<ul class="social">
+					<li class="twitter">
+						<a href="//twitter.com/deepstreamIO">
+							<i class="fa fa-twitter"></i>  Twitter
+						</a>
+					</li>
+					<li class="github">
+						<a href="//github.com/deepstreamIO">
+							<i class="fa fa-github"></i>  Github
+						</a>
+					</li>
+					<a href="//www.facebook.com/deepstreamIO/">
+						<i class="fa fa-facebook"></i>  Facebook
+					</a>
+					<li class="stack-overflow">
+						<a href="http://stackoverflow.com/questions/tagged/deepstream.io">
+							<i class="fa fa-stack-overflow"></i>  Stack Overflow
+						</a>
+					</li>
+					<li>
+						<a href="//deepstream-slack.herokuapp.com/">
+							<i class="fa fa-slack"></i>  Slack
+						</a>
+					</li>
+				</ul>
+			</li>
+
+			<li class="footer-middle">
+				<h4>Browse</h4>
+				<ul>
+					<li >
+						<a href="..">Home</a>
+					</li>
+					
+					<li >
+						<a href="../download/">Downloads</a>
+					</li>
+					
+					<li >
+						<a href="../tutorials/getting-started.html">Tutorials</a>
+						
+					</li>
+					
+					<li class="active">
+						<a href="../docs/deepstream.html">Documentation</a>
+						
+							<ul id="subnav">
+					<li class="head first">Server</li>
+					<li class="active">
+						<a href="deepstream.html">Deepstream</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+						
+					</li>
+					<li >
+						<a href="constants.html">Constants</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+						
+					</li>
+				
+				
+					<li class="head">JS Client</li>
+					<li >
+						<a href="client.html">Client</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+						
+					</li>
+				
+					<li >
+						<a href="client_options.html">options</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+					</li>
+				
+					<li >
+						<a href="connection_states.html">connectionStates</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+					</li>
+				
+					<li >
+						<a href="client_errors.html">errors</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+					</li>
+				
+					<li >
+						<a href="event_emitter.html">EventEmitter</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+						
+					</li>
+				
+					<li class="de-emphasized">Record</li>
+					<li >
+						<a href="client.record.html">client.record</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+						
+					</li>
+				
+					<li >
+						<a href="record.html">Record</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+						
+					</li>
+				
+					<li >
+						<a href="list.html">List</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+						
+					</li>
+				
+					<li >
+						<a href="anonymous_record.html">Anonymous Record</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+						
+					</li>
+				
+					<li class="de-emphasized">RPC</li>
+					<li >
+						<a href="client.rpc.html">client.rpc</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+						
+					</li>
+				
+					<li >
+						<a href="rpc_response.html">RpcResponse</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+						
+					</li>
+				
+					<li class="de-emphasized">Event</li>
+					<li >
+						<a href="client.event.html">client.event</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+						
+					</li>
+				
+					<li class="de-emphasized">WebRTC</li>
+					<li >
+						<a href="client.webrtc.html">client.webrtc</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+						
+					</li>
+					<li >
+						<a href="webrtc_call.html">WebRTC Call</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+						
+					</li>
+				</ul>
+					
+						
+					</li>
+					
+					<li >
+						<a href="../blog/">Blog</a>
+					</li>
+				
+					<li >
+						<a href="../info/">Info</a>
+						
+					</li>
+				
+				</ul>			</li>
+
+			<li class="footer-left">
+				<h4>Star this project on github!</h4>
+				<p>
+					<a class="github-button" href="//github.com/deepstreamIO/deepstream.io" data-icon="octicon-star" data-style="mega" data-count-href="/deepstreamIO/deepstream.io/stargazers" data-count-api="/repos/deepstreamIO/deepstream.io#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star deepstreamIO/deepstream.io on GitHub">Star</a>
+				</p>
+
+				<h4>Contact the team</h4>
+				<p>
+					<a href="mailto:info@deepstream.io">info@deepstream.io</a>
+					<ul class="address">
+						<li><strong>deepstreamHub Ltd. &amp; Co. KG</strong></li>
+						<li>Amtsgericht Charlottenburg (zu HRA 51371 B)</li>
+						<li>Friedrichstrasse 123</li>
+						<li>10117 Berlin</li>
+					</ul>
+				</p>
+			</li>
+
+		</ul>
+	</div>
+
+
+	<script async defer id="github-bjs" src="//buttons.github.io/buttons.js"></script>
+</body>
+</html>

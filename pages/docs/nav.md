@@ -1,6 +1,6 @@
 <ul id="subnav">
 	<li class="head first">Server</li>
-	<li {{#if fileIs_Deepstream}}class="active"{{/if}}>
+	<li {{#if fileIs_deepstream}}class="active"{{/if}}>
 		<a href="deepstream.html">Deepstream</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 		{{#if fileIs_Deepstream}}{{> subcontextnav}}{{/if}}
