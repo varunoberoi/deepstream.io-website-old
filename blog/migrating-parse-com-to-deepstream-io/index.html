@@ -33,12 +33,33 @@
 	<div class="mobile-menu">
 		<div class="nav mobile-nav">
 			<ul>
-				<li ><a href="../..">Home</a></li>
-				<li ><a href="../../download/">Downloads</a></li>
-				<li ><a href="../../tutorials/getting-started.html">Tutorials</a></li>
-				<li ><a href="../../docs/deepstream.html">Documentation</a></li>
-				<li class="active"><a href="../../blog/">Blog</a></li>
-				<li ><a href="../../info/">Info</a></li>
+				<li >
+					<a href="../..">Home</a>
+				</li>
+				
+				<li >
+					<a href="../../download/">Downloads</a>
+				</li>
+				
+				<li >
+					<a href="../../tutorials/getting-started.html">Tutorials</a>
+					
+				</li>
+				
+				<li >
+					<a href="../../docs/deepstream.html">Documentation</a>
+					
+				</li>
+				
+				<li class="active">
+					<a href="../../blog/">Blog</a>
+				</li>
+			
+				<li >
+					<a href="../../info/">Info</a>
+					
+				</li>
+			
 			</ul>		</div>
 	</div>
 
@@ -49,252 +70,273 @@
 			</div>
 			<div class="nav desktop-nav">
 				<ul>
-					<li ><a href="../..">Home</a></li>
-					<li ><a href="../../download/">Downloads</a></li>
-					<li ><a href="../../tutorials/getting-started.html">Tutorials</a></li>
-					<li ><a href="../../docs/deepstream.html">Documentation</a></li>
-					<li class="active"><a href="../../blog/">Blog</a></li>
-					<li ><a href="../../info/">Info</a></li>
+					<li >
+						<a href="../..">Home</a>
+					</li>
+					
+					<li >
+						<a href="../../download/">Downloads</a>
+					</li>
+					
+					<li >
+						<a href="../../tutorials/getting-started.html">Tutorials</a>
+						
+					</li>
+					
+					<li >
+						<a href="../../docs/deepstream.html">Documentation</a>
+						
+					</li>
+					
+					<li class="active">
+						<a href="../../blog/">Blog</a>
+					</li>
+				
+					<li >
+						<a href="../../info/">Info</a>
+						
+					</li>
+				
 				</ul>			</div>
 			<span class="menu-button menu-icon">
 				<i class="fa fa-bars"></i>
 			</span>
 		</div>
-<link rel="stylesheet" type="text/css" href="../../assets/css/community.css" />
-<link rel="stylesheet" type="text/css" href="../../assets/css/blog.css" />
-
-<div id="wrapper" class="blog-wrapper">
-
-	<div class="post">
-
-		<header class="post-header">
-			<h1 class="post-title">Migrating from Parse.com to deepstream.io</h1>
-			<section class="post-meta">
-				By Wolfram Hempel
-				<span class="post-date">January 29th 2016</span>
-			</section>
-		</header>
-
-		<section class="post-content">
-<p>Writing this feels almost irreverent. Parse.com was a great platform and despite its stability issues one of the most innovative and clever technologies in the realtime space. It was one of the great inspirations for deepstream.io and it took us very much by surprise to <a href="//blog.parse.com/announcements/moving-on/">see it being shut down</a>.</p><p><img src="parse-deepstream.png" alt="parse.com and deepstream.io"></p><h4>What’s deepstream.io and how can it help with my parse.com app?</h4><p><a href="//deepstream.io/">deepstream.io</a> is a scalable open source realtime server written in NodeJS. It can be used in both browsers and backend services through client SDKs, offers powerful user handling and permissioning, can be connected to databases, caches and message queues and scales horizontally via clustering.</p><p>Deepstream clients are small, self-contained and framework agnostic. They can easily be used with <a href="//deepstream.io/tutorials/simple-app-using-react.html">React</a>, <a href="//deepstream.io/tutorials/simple-app-using-angular.html">Angular</a>, <a href="//deepstream.io/tutorials/simple-app-using-ko.html">Knockout</a>, <a href="//backbonejs.org/">Backbone</a> or whatever else your heart desires.</p><h4>What do deepstream.io and parse.com have in common?</h4><p>deepstream.io offers data-sync via <code>records</code> which are very similar to <code>Parse.Objects</code>. Records have a unique ID, <code>get()</code> and <code>set()</code> methods and can be used to store, manipulate and observe data in schemaless JSON structures.</p><p>deepstream.io is designed as a modular platform, which makes it possible to replicate Parse.com’s more advanced features using deepstream connectors. This means that advanced realtime queries and GeoPoints are supported through <a href="//deepstream.io/download/">deepstream’s RethinkDB integration</a> and mobile push notifications can be achieved <a href="//deepstream.io/blog/publishing-aws-sns-messages-to-browsers-tutorial/">via AWS SNS</a></p><h4>What does deepstream.io support that Parse.com does not?</h4><p>Deepstream doesn&#39;t just offer data-sync via <code>records</code>, but also publish-subscribe (comparable to Pusher or PubNub) via <code>events</code>, request-response via <code>RPC</code> (remote procedure call) and even WebRTC video call management.</p><h4>What does Parse.com support that deepstream.io does not?</h4><p>deepstream.io is a server, not a service. Things like data browsing, permissions or active sessions are done programmatically, rather than trough a dashboard.
-Whilst deepstream record’s can be bigger than <code>Parse.Objects</code>, (1MB instead of 128k), it does not support binary files. So there is no substitute for <code>Parse.File</code>.
-Finally, Parse.com offers a significantly wider range of available client&#39;s and SDKs for different languages. <a href="//github.com/deepstreamIO/deepstream.io/issues?q=is%3Aissue+is%3Aopen+label%3Anew-client">This is something we are actively working on, any help is very much appreciated</a></p><h4>Migrating from Parse.Object to deepstream records</h4><p>Records are the key concept for deepstream&#39;s data-sync. They are a unit of schemaless JSON data that&#39;s synced between clients.
-Records are simply meant to be used, rather than extended. Each deepstream record is identified by a unique name. In difference to Parse, these names have to be created explicitly. It&#39;s also worth noting that there is no difference between creating a new record and retrieving an existing one, you always just use <code>getRecord()</code></p><pre><code class="lang-javascript">//parse.com
-GameScore = Parse.Object.extend(&quot;GameScore&quot;);
-gameScore = new GameScore();
-
-//deepstream.io
-gameScore = ds.record.getRecord( &#39;gamescore/yankees-vs-mets-2015&#39; );
-gameScore = ds.record.getRecord( &#39;gamescore/&#39; + ds.getUid() ); // or just generate a Unique ID
-</code></pre>
-<p>This highlights an important difference between Parse and deepstream. Following Backbone.js principles, Parse automatically organises objects in collections. When you specify a class of type <code>GameScore</code>, Parse saves every new instance automatically to the GameScore collection. 
-<a href="//deepstream.io/tutorials/lists.html">Deepstream also offers a concept of collections, called <code>Lists</code></a>, but records have to be explicitly added to them.</p><h4>Getting values</h4><p>Both <code>Parse.Object</code> and deepstream records have a method called <code>get()</code> that works almost identically.</p><pre><code class="lang-javascript">//deepstream.io
-data = gameScore.get(); //returns the entire data
-playerName = gameScore.get( &#39;playerName&#39; ); //retrieves a value
-</code></pre>
-<p>As deepstream records can be any JSON structure, deepstream&#39;s <code>get()</code> can be used with paths in JSON notation as well, e.g.</p><pre><code class="lang-javascript">firstname = gameScore.get( &#39;player.firstname&#39; ); //Use dot notation to traverse objects
-lastSpouse = gameScore.get( &#39;player.spouses[0]&#39; ); //Arrays work as well
-</code></pre>
-<h4>Setting values</h4><p>Setting values is pretty much the same between Parse and deepstream. Both have a <code>set()</code> method that takes a key (or even a JSON path in deepstream) and a value. <strong>The main difference is that deepstream sends a small, atomic update message every time <code>set()</code> is called to immediately sync the state between all connected clients. So there is no equivalent of Parse&#39;s <code>save()</code> call</strong></p><pre><code class="lang-javascript">
-//Calling set() with one parameter sets the entire data
-gameScore.set({
-    player: {
-        firstname: &#39;Sergio&#39;,
-        lastname: &#39;Santos&#39;
-    },
-    spouses: [ &#39;Kristen Santos&#39; ]
-});
-
-//Calling set with a key or path and a value
-gameScore.set( &#39;result&#39;, &#39;3-0&#39; );
-gameScore.set( &#39;player.middleName&#39;, &#39;Jose&#39;); //If a path doesn&#39;t exist, it willb e created
-</code></pre>
-<h4>Listening for changes</h4><p>deepstream records update in realtime. Any change made by any client is immediately synced across all connected clients. To listen for changes, use <code>subscribe()</code></p><pre><code class="lang-javascript">//Using subscribe with just a callback function calls this function for any change
-gameScore.subscribe(function( data ){});
-
-//Using a path notifies you whenever that path&#39;s value has changed
-gameScore.subscribe( &#39;homeTeam&#39;, function( homeTeamScore ){});
-</code></pre>
-<h4>Discarding and Deleting Objects</h4><p>Deepstream records have a <code>delete()</code> method which works similar to Parse&#39;s <code>destroy()</code>: It deletes the record from the database. Once the record is deleted, all connected clients will receive a <code>delete</code> event on their records.</p><p>Not to be confused with <code>delete()</code> is <code>discard()</code>. Calling <code>discard()</code> frees up bandwidth by telling the deepstream server that you are no longer interested in updates for this record.</p><h4>Relational Data</h4><p>deepstream let&#39;s you create trees of relational data by combining lists and records. Lists don&#39;t contain data themselves, but are observable collections of record names. As records can reference lists and lists can point to records this allows you to create and manipulate one-to-many and many-to-many relationships that are synced between all connected clients.</p><h4>Users, Roles &amp; Permissions</h4><p>deepstream is built to interface with other user management systems, e.g. databases, single-sign-on systems or active directories. As a result, it uses a functional style of authentication and permissioning, rather than Parse&#39;s configuration based approach.</p><p>The center of deepstream&#39;s permissioning is a <code>permission-handler</code>, a class that can be registered with your server and exposes three methods</p><pre><code class="lang-javascript">server.set( &#39;permissionHandler&#39;, {
-    isValidUser: function( connectionData, authData, callback ) {
-        //authorize or reject incoming client connections here
-    },
-    canPerformAction: function( username, message, callback ) {
-        //permission individual operations here
-    },
-    onClientDisconnect: function( username ){
-        //optional clean-up once a client has disconnected
-    }
-});
-</code></pre>
-<p>Every time a client establishes a new connection to the server, it needs to login:</p><pre><code class="lang-javascript">ds.login({
-    user: &#39;LisaA&#39;,
-    password: &#39;sesame&#39;
-}, function( success, errorCode, errorMessage ){
-    //...
-});
-</code></pre>
-<p>There is a lot to be said about permissioning. To gain a good understanding, have a look at the <a href="//deepstream.io/tutorials/authentication.html">authentication</a> and <a href="//deepstream.io/tutorials/permissioning.html">permissioning</a> tutorials.</p><h4>Where to go from here</h4><p>To get a feel for how deepstream.io works and if it might be a good fit for your application&#39;s realtime backend, head over to the <a href="//deepstream.io/tutorials/getting-started.html">getting started tutorial</a>.</p><p>If you have any questions, just raise them on <a href="//stackoverflow.com/questions/tagged/deepstream.io">StackOverflow</a>, join our <a href="//deepstream-slack.herokuapp.com/">Slack Channel</a> or get in touch via Twitter (<a href="//twitter.com/deepstreamIO">@deepstreamIO</a>).</p>
-		</section>
-
-		<footer class="post-footer">
-
-			<section class="author">
-
-				<img class="author-gravatar" src="http://www.gravatar.com/avatar/f831162b79d84f85f589a1a76b4975db">
+				<link rel="stylesheet" type="text/css" href="../../assets/css/community.css" />
+				<link rel="stylesheet" type="text/css" href="../../assets/css/blog.css" />
 				
-				<span class="author-description">
-					<h4>About the author</h4>
-
-					<p class="author-bio">
-						Wolfram worked all over the world before settling in Berlin and becoming a co-founder of deepstream.io. He also once studied art-history, but that&#x27;s a different story and shall be told another time.
-					</p>
-				</span>
-
-				<!--
-					<p>Read <a href="">more posts</a> by this author.</p>
+				<div id="wrapper" class="blog-wrapper">
 				
-				<div class="author-meta">
+					<div class="post">
+				
+						<header class="post-header">
+							<h1 class="post-title">Migrating from Parse.com to deepstream.io</h1>
+							<section class="post-meta">
+								By Wolfram Hempel
+								<span class="post-date">January 29th 2016</span>
+							</section>
+						</header>
+				
+						<section class="post-content">
+				<p>Writing this feels almost irreverent. Parse.com was a great platform and despite its stability issues one of the most innovative and clever technologies in the realtime space. It was one of the great inspirations for deepstream.io and it took us very much by surprise to <a href="//blog.parse.com/announcements/moving-on/">see it being shut down</a>.</p><p><img src="parse-deepstream.png" alt="parse.com and deepstream.io"></p><h4>What’s deepstream.io and how can it help with my parse.com app?</h4><p><a href="//deepstream.io/">deepstream.io</a> is a scalable open source realtime server written in NodeJS. It can be used in both browsers and backend services through client SDKs, offers powerful user handling and permissioning, can be connected to databases, caches and message queues and scales horizontally via clustering.</p><p>Deepstream clients are small, self-contained and framework agnostic. They can easily be used with <a href="//deepstream.io/tutorials/simple-app-using-react.html">React</a>, <a href="//deepstream.io/tutorials/simple-app-using-angular.html">Angular</a>, <a href="//deepstream.io/tutorials/simple-app-using-ko.html">Knockout</a>, <a href="//backbonejs.org/">Backbone</a> or whatever else your heart desires.</p><h4>What do deepstream.io and parse.com have in common?</h4><p>deepstream.io offers data-sync via <code>records</code> which are very similar to <code>Parse.Objects</code>. Records have a unique ID, <code>get()</code> and <code>set()</code> methods and can be used to store, manipulate and observe data in schemaless JSON structures.</p><p>deepstream.io is designed as a modular platform, which makes it possible to replicate Parse.com’s more advanced features using deepstream connectors. This means that advanced realtime queries and GeoPoints are supported through <a href="//deepstream.io/download/">deepstream’s RethinkDB integration</a> and mobile push notifications can be achieved <a href="//deepstream.io/blog/publishing-aws-sns-messages-to-browsers-tutorial/">via AWS SNS</a></p><h4>What does deepstream.io support that Parse.com does not?</h4><p>Deepstream doesn&#39;t just offer data-sync via <code>records</code>, but also publish-subscribe (comparable to Pusher or PubNub) via <code>events</code>, request-response via <code>RPC</code> (remote procedure call) and even WebRTC video call management.</p><h4>What does Parse.com support that deepstream.io does not?</h4><p>deepstream.io is a server, not a service. Things like data browsing, permissions or active sessions are done programmatically, rather than trough a dashboard.
+				Whilst deepstream record’s can be bigger than <code>Parse.Objects</code>, (1MB instead of 128k), it does not support binary files. So there is no substitute for <code>Parse.File</code>.
+				Finally, Parse.com offers a significantly wider range of available client&#39;s and SDKs for different languages. <a href="//github.com/deepstreamIO/deepstream.io/issues?q=is%3Aissue+is%3Aopen+label%3Anew-client">This is something we are actively working on, any help is very much appreciated</a></p><h4>Migrating from Parse.Object to deepstream records</h4><p>Records are the key concept for deepstream&#39;s data-sync. They are a unit of schemaless JSON data that&#39;s synced between clients.
+				Records are simply meant to be used, rather than extended. Each deepstream record is identified by a unique name. In difference to Parse, these names have to be created explicitly. It&#39;s also worth noting that there is no difference between creating a new record and retrieving an existing one, you always just use <code>getRecord()</code></p><pre><code class="lang-javascript">//parse.com
+				GameScore = Parse.Object.extend(&quot;GameScore&quot;);
+				gameScore = new GameScore();
+				
+				//deepstream.io
+				gameScore = ds.record.getRecord( &#39;gamescore/yankees-vs-mets-2015&#39; );
+				gameScore = ds.record.getRecord( &#39;gamescore/&#39; + ds.getUid() ); // or just generate a Unique ID
+				</code></pre>
+				<p>This highlights an important difference between Parse and deepstream. Following Backbone.js principles, Parse automatically organises objects in collections. When you specify a class of type <code>GameScore</code>, Parse saves every new instance automatically to the GameScore collection. 
+				<a href="//deepstream.io/tutorials/lists.html">Deepstream also offers a concept of collections, called <code>Lists</code></a>, but records have to be explicitly added to them.</p><h4>Getting values</h4><p>Both <code>Parse.Object</code> and deepstream records have a method called <code>get()</code> that works almost identically.</p><pre><code class="lang-javascript">//deepstream.io
+				data = gameScore.get(); //returns the entire data
+				playerName = gameScore.get( &#39;playerName&#39; ); //retrieves a value
+				</code></pre>
+				<p>As deepstream records can be any JSON structure, deepstream&#39;s <code>get()</code> can be used with paths in JSON notation as well, e.g.</p><pre><code class="lang-javascript">firstname = gameScore.get( &#39;player.firstname&#39; ); //Use dot notation to traverse objects
+				lastSpouse = gameScore.get( &#39;player.spouses[0]&#39; ); //Arrays work as well
+				</code></pre>
+				<h4>Setting values</h4><p>Setting values is pretty much the same between Parse and deepstream. Both have a <code>set()</code> method that takes a key (or even a JSON path in deepstream) and a value. <strong>The main difference is that deepstream sends a small, atomic update message every time <code>set()</code> is called to immediately sync the state between all connected clients. So there is no equivalent of Parse&#39;s <code>save()</code> call</strong></p><pre><code class="lang-javascript">
+				//Calling set() with one parameter sets the entire data
+				gameScore.set({
+				    player: {
+				        firstname: &#39;Sergio&#39;,
+				        lastname: &#39;Santos&#39;
+				    },
+				    spouses: [ &#39;Kristen Santos&#39; ]
+				});
+				
+				//Calling set with a key or path and a value
+				gameScore.set( &#39;result&#39;, &#39;3-0&#39; );
+				gameScore.set( &#39;player.middleName&#39;, &#39;Jose&#39;); //If a path doesn&#39;t exist, it willb e created
+				</code></pre>
+				<h4>Listening for changes</h4><p>deepstream records update in realtime. Any change made by any client is immediately synced across all connected clients. To listen for changes, use <code>subscribe()</code></p><pre><code class="lang-javascript">//Using subscribe with just a callback function calls this function for any change
+				gameScore.subscribe(function( data ){});
+				
+				//Using a path notifies you whenever that path&#39;s value has changed
+				gameScore.subscribe( &#39;homeTeam&#39;, function( homeTeamScore ){});
+				</code></pre>
+				<h4>Discarding and Deleting Objects</h4><p>Deepstream records have a <code>delete()</code> method which works similar to Parse&#39;s <code>destroy()</code>: It deletes the record from the database. Once the record is deleted, all connected clients will receive a <code>delete</code> event on their records.</p><p>Not to be confused with <code>delete()</code> is <code>discard()</code>. Calling <code>discard()</code> frees up bandwidth by telling the deepstream server that you are no longer interested in updates for this record.</p><h4>Relational Data</h4><p>deepstream let&#39;s you create trees of relational data by combining lists and records. Lists don&#39;t contain data themselves, but are observable collections of record names. As records can reference lists and lists can point to records this allows you to create and manipulate one-to-many and many-to-many relationships that are synced between all connected clients.</p><h4>Users, Roles &amp; Permissions</h4><p>deepstream is built to interface with other user management systems, e.g. databases, single-sign-on systems or active directories. As a result, it uses a functional style of authentication and permissioning, rather than Parse&#39;s configuration based approach.</p><p>The center of deepstream&#39;s permissioning is a <code>permission-handler</code>, a class that can be registered with your server and exposes three methods</p><pre><code class="lang-javascript">server.set( &#39;permissionHandler&#39;, {
+				    isValidUser: function( connectionData, authData, callback ) {
+				        //authorize or reject incoming client connections here
+				    },
+				    canPerformAction: function( username, message, callback ) {
+				        //permission individual operations here
+				    },
+				    onClientDisconnect: function( username ){
+				        //optional clean-up once a client has disconnected
+				    }
+				});
+				</code></pre>
+				<p>Every time a client establishes a new connection to the server, it needs to login:</p><pre><code class="lang-javascript">ds.login({
+				    user: &#39;LisaA&#39;,
+				    password: &#39;sesame&#39;
+				}, function( success, errorCode, errorMessage ){
+				    //...
+				});
+				</code></pre>
+				<p>There is a lot to be said about permissioning. To gain a good understanding, have a look at the <a href="//deepstream.io/tutorials/authentication.html">authentication</a> and <a href="//deepstream.io/tutorials/permissioning.html">permissioning</a> tutorials.</p><h4>Where to go from here</h4><p>To get a feel for how deepstream.io works and if it might be a good fit for your application&#39;s realtime backend, head over to the <a href="//deepstream.io/tutorials/getting-started.html">getting started tutorial</a>.</p><p>If you have any questions, just raise them on <a href="//stackoverflow.com/questions/tagged/deepstream.io">StackOverflow</a>, join our <a href="//deepstream-slack.herokuapp.com/">Slack Channel</a> or get in touch via Twitter (<a href="//twitter.com/deepstreamIO">@deepstreamIO</a>).</p>
+						</section>
+				
+						<footer class="post-footer">
+				
+							<section class="author">
+				
+								<img class="author-gravatar" src="http://www.gravatar.com/avatar/f831162b79d84f85f589a1a76b4975db">
+								
+								<span class="author-description">
+									<h4>About the author</h4>
+				
+									<p class="author-bio">
+										Wolfram worked all over the world before settling in Berlin and becoming a co-founder of deepstream.io. He also once studied art-history, but that&#x27;s a different story and shall be told another time.
+									</p>
+								</span>
+				
+								<!--
+									<p>Read <a href="">more posts</a> by this author.</p>
+								
+								<div class="author-meta">
+									
+									
+								</div> 
+								-->
+				
+							</section>
+				
+							<section class="share">
+								<h4>Share this post</h4>
+								<ul class="icons">
+									<li>
+										<a class="icon fa fa-twitter" href="//twitter.com/share?text=Migrating from Parse.com to deepstream.io @deepstreamhub&amp;url="
+											onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+											<span class="label">Twitter</span>
+										</a>
+									</li>
+									<li>
+										<a class="icon fa fa-facebook" href="//www.facebook.com/sharer/sharer.php?u="
+										onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+										<span class="label">Facebook</span>
+										</a>
+									</li>
+									<li>
+										<a class="icon fa fa-google-plus" href="//plus.google.com/share?url="
+									   onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+										<span class="label">Google+</span>
+									</a>
+									</li>
+								</ul>
+								
+							</section>
+				
+						<div class="latest-blogs">
+							<h4 class="latest-blogs-header">
+								Latest Blog Articles
+							</h4>
+							<ul class="latest-blogs-content">
+									<li class="latest-blog-article">
+										<a href="../listen-benefits/">
+											<span class="date">18/02/2016</span>
+											<span class="title">The benefits of listening</span>
+										</a>
+									</li>
+									<li class="latest-blog-article">
+										<a href="../what-is-realtime/">
+											<span class="date">08/02/2016</span>
+											<span class="title">What is realtime?</span>
+										</a>
+									</li>
+									<li class="latest-blog-article">
+										<a href="">
+											<span class="date">29/01/2016</span>
+											<span class="title">Migrating from Parse.com to deepstream.io</span>
+										</a>
+									</li>
+									<li class="latest-blog-article">
+										<a href="../the-unsexy-iot/">
+											<span class="date">18/01/2016</span>
+											<span class="title">The unsexy IoT</span>
+										</a>
+									</li>
+							</ul>
+						</div>		</footer>
+					</div>
+				
+					<span class="blog-sidebar">
 					
+						<div class="sidebar-item deepstream-learn-more">
+							<h4 class="sidebar-item-header">What is deepstream?</h4>
+							
+							<p>
+								deepstream.io is the open source server thats allows you to create realtime apps with minimal code!
+							</p>
 					
-				</div> 
-				-->
-
-			</section>
-
-			<section class="share">
-				<h4>Share this post</h4>
-				<ul class="icons">
-					<li>
-						<a class="icon fa fa-twitter" href="//twitter.com/share?text=Migrating from Parse.com to deepstream.io @deepstreamhub&amp;url="
-							onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
-							<span class="label">Twitter</span>
-						</a>
-					</li>
-					<li>
-						<a class="icon fa fa-facebook" href="//www.facebook.com/sharer/sharer.php?u="
-						onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
-						<span class="label">Facebook</span>
-						</a>
-					</li>
-					<li>
-						<a class="icon fa fa-google-plus" href="//plus.google.com/share?url="
-					   onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
-						<span class="label">Google+</span>
-					</a>
-					</li>
-				</ul>
-				
-			</section>
-
-		<div class="latest-blogs">
-			<h4 class="latest-blogs-header">
-				Latest Blog Articles
-			</h4>
-			<ul class="latest-blogs-content">
-					<li class="latest-blog-article">
-						<a href="../listen-benefits/">
-							<span class="date">18/02/2016</span>
-							<span class="title">The benefits of listening</span>
-						</a>
-					</li>
-					<li class="latest-blog-article">
-						<a href="../what-is-realtime/">
-							<span class="date">08/02/2016</span>
-							<span class="title">What is realtime?</span>
-						</a>
-					</li>
-					<li class="latest-blog-article">
-						<a href="">
-							<span class="date">29/01/2016</span>
-							<span class="title">Migrating from Parse.com to deepstream.io</span>
-						</a>
-					</li>
-					<li class="latest-blog-article">
-						<a href="../the-unsexy-iot/">
-							<span class="date">18/01/2016</span>
-							<span class="title">The unsexy IoT</span>
-						</a>
-					</li>
-			</ul>
-		</div>		</footer>
-	</div>
-
-	<span class="blog-sidebar">
-	
-		<div class="sidebar-item deepstream-learn-more">
-			<h4 class="sidebar-item-header">What is deepstream?</h4>
-			
-			<p>
-				deepstream.io is the open source server thats allows you to create realtime apps with minimal code!
-			</p>
-	
-			<a href="../../">Learn More</a>.
-		</div>
-	
-		<div class="sidebar-item share-story">
-			<h4 class="sidebar-item-header">Using deepstream?</h4>
-			<div class="share-story community-collaborate-content">
-				<img width="100%" src="../../assets/images/ds-stories-background.png" class="share-story-image" >
-				<a class="share-story-content" href="mailto:info@deepstream.io">
-					tell us what you're building with deepstream and get the t-shirt *
-					<span class="comical-warning">
-						* warning: t-shirt actually looks good and is desirable
-					</span>
-				</a>
-			</div>	</div>
-	
-		<div class="sidebar-item deepstream-help-out">
-			<h4 class="sidebar-item-header">Community</h4>
-			
-			<!--<p>
-				If your interested in bringing deepstream to your favourite language, please <a href="mailto:info@deepstreamhub.com" target="_top">contact us</a> for any support!
-			</p>
-			-->
-	
-			<p>
-				Like deepstream.io? Grant it a star!
-			</p>
-			
-			<p>
-				<a class="github-button" href="//github.com/deepstreamIO/deepstream.io" data-icon="octicon-star" data-style="mega" data-count-href="/deepstreamIO/deepstream.io/stargazers" data-count-api="/repos/deepstreamIO/deepstream.io#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star deepstreamIO/deepstream.io on GitHub">Star</a>
-			</p>
-		</div>
-	
-		<div class="sidebar-item deepstream-latest-posts">
-			<div class="latest-blogs">
-				<h4 class="latest-blogs-header">
-					Latest Blog Articles
-				</h4>
-				<ul class="latest-blogs-content">
-						<li class="latest-blog-article">
-							<a href="../listen-benefits/">
-								<span class="date">18/02/2016</span>
-								<span class="title">The benefits of listening</span>
-							</a>
-						</li>
-						<li class="latest-blog-article">
-							<a href="../what-is-realtime/">
-								<span class="date">08/02/2016</span>
-								<span class="title">What is realtime?</span>
-							</a>
-						</li>
-						<li class="latest-blog-article">
-							<a href="">
-								<span class="date">29/01/2016</span>
-								<span class="title">Migrating from Parse.com to deepstream.io</span>
-							</a>
-						</li>
-						<li class="latest-blog-article">
-							<a href="../the-unsexy-iot/">
-								<span class="date">18/01/2016</span>
-								<span class="title">The unsexy IoT</span>
-							</a>
-						</li>
-				</ul>
-			</div>	</div>
-	
-	</span></div>	</div>
+							<a href="../../">Learn More</a>.
+						</div>
+					
+						<div class="sidebar-item share-story">
+							<h4 class="sidebar-item-header">Using deepstream?</h4>
+							<div class="share-story community-collaborate-content">
+								<img width="100%" src="../../assets/images/ds-stories-background.png" class="share-story-image" >
+								<a class="share-story-content" href="mailto:info@deepstream.io">
+									tell us what you're building with deepstream and get the t-shirt *
+									<span class="comical-warning">
+										* warning: t-shirt actually looks good and is desirable
+									</span>
+								</a>
+							</div>	</div>
+					
+						<div class="sidebar-item deepstream-help-out">
+							<h4 class="sidebar-item-header">Community</h4>
+							
+							<!--<p>
+								If your interested in bringing deepstream to your favourite language, please <a href="mailto:info@deepstreamhub.com" target="_top">contact us</a> for any support!
+							</p>
+							-->
+					
+							<p>
+								Like deepstream.io? Grant it a star!
+							</p>
+							
+							<p>
+								<a class="github-button" href="//github.com/deepstreamIO/deepstream.io" data-icon="octicon-star" data-style="mega" data-count-href="/deepstreamIO/deepstream.io/stargazers" data-count-api="/repos/deepstreamIO/deepstream.io#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star deepstreamIO/deepstream.io on GitHub">Star</a>
+							</p>
+						</div>
+					
+						<div class="sidebar-item deepstream-latest-posts">
+							<div class="latest-blogs">
+								<h4 class="latest-blogs-header">
+									Latest Blog Articles
+								</h4>
+								<ul class="latest-blogs-content">
+										<li class="latest-blog-article">
+											<a href="../listen-benefits/">
+												<span class="date">18/02/2016</span>
+												<span class="title">The benefits of listening</span>
+											</a>
+										</li>
+										<li class="latest-blog-article">
+											<a href="../what-is-realtime/">
+												<span class="date">08/02/2016</span>
+												<span class="title">What is realtime?</span>
+											</a>
+										</li>
+										<li class="latest-blog-article">
+											<a href="">
+												<span class="date">29/01/2016</span>
+												<span class="title">Migrating from Parse.com to deepstream.io</span>
+											</a>
+										</li>
+										<li class="latest-blog-article">
+											<a href="../the-unsexy-iot/">
+												<span class="date">18/01/2016</span>
+												<span class="title">The unsexy IoT</span>
+											</a>
+										</li>
+								</ul>
+							</div>	</div>
+					
+					</span></div>	</div>
 	<div id="footer">
 		<ul class="footer-items">
 
@@ -329,12 +371,33 @@ gameScore.subscribe( &#39;homeTeam&#39;, function( homeTeamScore ){});
 			<li class="footer-middle">
 				<h4>Browse</h4>
 				<ul>
-					<li ><a href="../..">Home</a></li>
-					<li ><a href="../../download/">Downloads</a></li>
-					<li ><a href="../../tutorials/getting-started.html">Tutorials</a></li>
-					<li ><a href="../../docs/deepstream.html">Documentation</a></li>
-					<li class="active"><a href="../../blog/">Blog</a></li>
-					<li ><a href="../../info/">Info</a></li>
+					<li >
+						<a href="../..">Home</a>
+					</li>
+					
+					<li >
+						<a href="../../download/">Downloads</a>
+					</li>
+					
+					<li >
+						<a href="../../tutorials/getting-started.html">Tutorials</a>
+						
+					</li>
+					
+					<li >
+						<a href="../../docs/deepstream.html">Documentation</a>
+						
+					</li>
+					
+					<li class="active">
+						<a href="../../blog/">Blog</a>
+					</li>
+				
+					<li >
+						<a href="../../info/">Info</a>
+						
+					</li>
+				
 				</ul>			</li>
 
 			<li class="footer-left">
