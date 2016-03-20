@@ -71,15 +71,6 @@ hbs.registerHelper( 'downloadItem', function( name, packageName, hasBower, icon 
 	return new hbs.SafeString( html );
 });
 
-
-hbs.registerHelper( 'viewport', function(){
-	if( this.isDocs ) {
-		return '';
-	} else {
-		return new hbs.SafeString( '<meta name="viewport" content="width=device-width, initial-scale=1" />' );
-	}
-});
-
 hbs.registerHelper( 'debug', function( context ){
 	delete context.blogPosts;
 	var val = JSON.stringify( context, null, '    ' );

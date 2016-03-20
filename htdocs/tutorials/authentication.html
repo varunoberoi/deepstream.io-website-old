@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<title>deepstream.io | Authentication tutorial</title>
 
-	
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
 
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<meta name="keywords" content="deepstream, deepstream.io, streaming, realtime, server, socket" />
@@ -34,12 +34,128 @@
 	<div class="mobile-menu">
 		<div class="nav mobile-nav">
 			<ul>
-				<li ><a href="..">Home</a></li>
-				<li ><a href="../download/">Downloads</a></li>
-				<li class="active"><a href="../tutorials/getting-started.html">Tutorials</a></li>
-				<li ><a href="../docs/deepstream.html">Documentation</a></li>
-				<li ><a href="../blog/">Blog</a></li>
-				<li ><a href="../info/">Info</a></li>
+				<li >
+					<a href="..">Home</a>
+				</li>
+				
+				<li >
+					<a href="../download/">Downloads</a>
+				</li>
+				
+				<li class="active">
+					<a href="../tutorials/getting-started.html">Tutorials</a>
+					
+						<ul id="subnav">
+				<li class="head first">General</li>
+				<li >
+					<a href="getting-started.html">Getting started</a>
+					<div class="isActiveIndicator orangeGradient"></div>
+				</li>
+				<li class="active">
+					<a href="authentication.html">Authentication</a>
+					<div class="isActiveIndicator orangeGradient"></div>
+				</li>
+				<li >
+					<a href="permissioning.html">Permissioning</a>
+					<div class="isActiveIndicator orangeGradient"></div>
+				</li>
+			
+				<li class="head">Server</li>
+				<li >
+					<a href="connectors-and-deployment.html">Connectors and Deployment</a>
+					<div class="isActiveIndicator orangeGradient"></div>
+				</li>
+				<li >
+					<a href="data-provider.html">Building a data-provider</a>
+					<div class="isActiveIndicator orangeGradient"></div>
+				</li>
+				<li >
+					<a href="searching-and-querying.html">Searching & Querying</a>
+					<div class="isActiveIndicator orangeGradient"></div>
+				</li>
+				<li >
+					<a href="transforming-data.html">Transforming Data</a>
+					<div class="isActiveIndicator orangeGradient"></div>
+				</li>
+				<li >
+					<a href="writing-storage-cache-connector.html">Writing storage and cache connectors</a>
+					<div class="isActiveIndicator orangeGradient"></div>
+				</li>
+				<li >
+					<a href="writing-messaging-connector.html">Writing a messaging connector</a>
+					<div class="isActiveIndicator orangeGradient"></div>
+				</li>
+			
+				<li class="head">Client</li>
+				<li >
+					<a href="node-js-client.html">Using the client in NodeJS</a>
+					<div class="isActiveIndicator orangeGradient"></div>
+				</li>
+			
+				<li >
+					<a href="records.html">Records</a>
+					<div class="isActiveIndicator orangeGradient"></div>
+				</li>
+			
+				<li >
+					<a href="lists.html">Lists</a>
+					<div class="isActiveIndicator orangeGradient"></div>
+				</li>
+			
+				<li >
+					<a href="events-and-rpcs.html">Events & RPCs</a>
+					<div class="isActiveIndicator orangeGradient"></div>
+				</li>
+			
+				<li >
+					<a href="webrtc.html">WebRTC</a>
+					<div class="isActiveIndicator orangeGradient"></div>
+				</li>
+			
+				<li >
+					<a href="webrtc-tips.html">WebRTC Tips</a>
+					<div class="isActiveIndicator orangeGradient"></div>
+				</li>
+			
+				<li class="head">Examples</li>
+				<li >
+					<a href="deepstream-react.html">Using deepstream-react</a>
+					<div class="isActiveIndicator orangeGradient"></div>
+				</li>
+			
+				<li >
+					<a href="deepstream-polymer.html">Using deepstream-polymer</a>
+					<div class="isActiveIndicator orangeGradient"></div>
+				</li>
+			
+				<li >
+					<a href="simple-app-using-ko.html">Simple App using Knockout</a>
+					<div class="isActiveIndicator orangeGradient"></div>
+				</li>
+			
+				<li >
+					<a href="simple-app-using-angular.html">Simple App using Angular</a>
+					<div class="isActiveIndicator orangeGradient"></div>
+				</li>
+			</ul>
+				
+					
+				</li>
+				
+				<li >
+					<a href="../docs/deepstream.html">Documentation</a>
+					
+				</li>
+				
+				<li >
+					<a href="../blog/">Blog</a>
+				</li>
+			
+				<li >
+					<a href="../info/">Info</a>
+					
+				</li>
+			
 			</ul>		</div>
 	</div>
 
@@ -50,12 +166,128 @@
 			</div>
 			<div class="nav desktop-nav">
 				<ul>
-					<li ><a href="..">Home</a></li>
-					<li ><a href="../download/">Downloads</a></li>
-					<li class="active"><a href="../tutorials/getting-started.html">Tutorials</a></li>
-					<li ><a href="../docs/deepstream.html">Documentation</a></li>
-					<li ><a href="../blog/">Blog</a></li>
-					<li ><a href="../info/">Info</a></li>
+					<li >
+						<a href="..">Home</a>
+					</li>
+					
+					<li >
+						<a href="../download/">Downloads</a>
+					</li>
+					
+					<li class="active">
+						<a href="../tutorials/getting-started.html">Tutorials</a>
+						
+							<ul id="subnav">
+					<li class="head first">General</li>
+					<li >
+						<a href="getting-started.html">Getting started</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+					</li>
+					<li class="active">
+						<a href="authentication.html">Authentication</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+					</li>
+					<li >
+						<a href="permissioning.html">Permissioning</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+					</li>
+				
+					<li class="head">Server</li>
+					<li >
+						<a href="connectors-and-deployment.html">Connectors and Deployment</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+					</li>
+					<li >
+						<a href="data-provider.html">Building a data-provider</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+					</li>
+					<li >
+						<a href="searching-and-querying.html">Searching & Querying</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+					</li>
+					<li >
+						<a href="transforming-data.html">Transforming Data</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+					</li>
+					<li >
+						<a href="writing-storage-cache-connector.html">Writing storage and cache connectors</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+					</li>
+					<li >
+						<a href="writing-messaging-connector.html">Writing a messaging connector</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+					</li>
+				
+					<li class="head">Client</li>
+					<li >
+						<a href="node-js-client.html">Using the client in NodeJS</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+					</li>
+				
+					<li >
+						<a href="records.html">Records</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+					</li>
+				
+					<li >
+						<a href="lists.html">Lists</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+					</li>
+				
+					<li >
+						<a href="events-and-rpcs.html">Events & RPCs</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+					</li>
+				
+					<li >
+						<a href="webrtc.html">WebRTC</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+					</li>
+				
+					<li >
+						<a href="webrtc-tips.html">WebRTC Tips</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+					</li>
+				
+					<li class="head">Examples</li>
+					<li >
+						<a href="deepstream-react.html">Using deepstream-react</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+					</li>
+				
+					<li >
+						<a href="deepstream-polymer.html">Using deepstream-polymer</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+					</li>
+				
+					<li >
+						<a href="simple-app-using-ko.html">Simple App using Knockout</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+					</li>
+				
+					<li >
+						<a href="simple-app-using-angular.html">Simple App using Angular</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+					</li>
+				</ul>
+					
+						
+					</li>
+					
+					<li >
+						<a href="../docs/deepstream.html">Documentation</a>
+						
+					</li>
+					
+					<li >
+						<a href="../blog/">Blog</a>
+					</li>
+				
+					<li >
+						<a href="../info/">Info</a>
+						
+					</li>
+				
 				</ul>			</div>
 			<span class="menu-button menu-icon">
 				<i class="fa fa-bars"></i>
@@ -259,12 +491,128 @@ a callback function. E.g.</p><pre><code class="lang-javascript">ds.login({
 			<li class="footer-middle">
 				<h4>Browse</h4>
 				<ul>
-					<li ><a href="..">Home</a></li>
-					<li ><a href="../download/">Downloads</a></li>
-					<li class="active"><a href="../tutorials/getting-started.html">Tutorials</a></li>
-					<li ><a href="../docs/deepstream.html">Documentation</a></li>
-					<li ><a href="../blog/">Blog</a></li>
-					<li ><a href="../info/">Info</a></li>
+					<li >
+						<a href="..">Home</a>
+					</li>
+					
+					<li >
+						<a href="../download/">Downloads</a>
+					</li>
+					
+					<li class="active">
+						<a href="../tutorials/getting-started.html">Tutorials</a>
+						
+							<ul id="subnav">
+					<li class="head first">General</li>
+					<li >
+						<a href="getting-started.html">Getting started</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+					</li>
+					<li class="active">
+						<a href="authentication.html">Authentication</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+					</li>
+					<li >
+						<a href="permissioning.html">Permissioning</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+					</li>
+				
+					<li class="head">Server</li>
+					<li >
+						<a href="connectors-and-deployment.html">Connectors and Deployment</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+					</li>
+					<li >
+						<a href="data-provider.html">Building a data-provider</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+					</li>
+					<li >
+						<a href="searching-and-querying.html">Searching & Querying</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+					</li>
+					<li >
+						<a href="transforming-data.html">Transforming Data</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+					</li>
+					<li >
+						<a href="writing-storage-cache-connector.html">Writing storage and cache connectors</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+					</li>
+					<li >
+						<a href="writing-messaging-connector.html">Writing a messaging connector</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+					</li>
+				
+					<li class="head">Client</li>
+					<li >
+						<a href="node-js-client.html">Using the client in NodeJS</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+					</li>
+				
+					<li >
+						<a href="records.html">Records</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+					</li>
+				
+					<li >
+						<a href="lists.html">Lists</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+					</li>
+				
+					<li >
+						<a href="events-and-rpcs.html">Events & RPCs</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+					</li>
+				
+					<li >
+						<a href="webrtc.html">WebRTC</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+					</li>
+				
+					<li >
+						<a href="webrtc-tips.html">WebRTC Tips</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+					</li>
+				
+					<li class="head">Examples</li>
+					<li >
+						<a href="deepstream-react.html">Using deepstream-react</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+					</li>
+				
+					<li >
+						<a href="deepstream-polymer.html">Using deepstream-polymer</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+					</li>
+				
+					<li >
+						<a href="simple-app-using-ko.html">Simple App using Knockout</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+					</li>
+				
+					<li >
+						<a href="simple-app-using-angular.html">Simple App using Angular</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+					</li>
+				</ul>
+					
+						
+					</li>
+					
+					<li >
+						<a href="../docs/deepstream.html">Documentation</a>
+						
+					</li>
+					
+					<li >
+						<a href="../blog/">Blog</a>
+					</li>
+				
+					<li >
+						<a href="../info/">Info</a>
+						
+					</li>
+				
 				</ul>			</li>
 
 			<li class="footer-left">

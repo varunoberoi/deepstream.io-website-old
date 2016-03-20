@@ -33,12 +33,33 @@
 	<div class="mobile-menu">
 		<div class="nav mobile-nav">
 			<ul>
-				<li ><a href="../..">Home</a></li>
-				<li ><a href="../../download/">Downloads</a></li>
-				<li ><a href="../../tutorials/getting-started.html">Tutorials</a></li>
-				<li ><a href="../../docs/deepstream.html">Documentation</a></li>
-				<li class="active"><a href="../../blog/">Blog</a></li>
-				<li ><a href="../../info/">Info</a></li>
+				<li >
+					<a href="../..">Home</a>
+				</li>
+				
+				<li >
+					<a href="../../download/">Downloads</a>
+				</li>
+				
+				<li >
+					<a href="../../tutorials/getting-started.html">Tutorials</a>
+					
+				</li>
+				
+				<li >
+					<a href="../../docs/deepstream.html">Documentation</a>
+					
+				</li>
+				
+				<li class="active">
+					<a href="../../blog/">Blog</a>
+				</li>
+			
+				<li >
+					<a href="../../info/">Info</a>
+					
+				</li>
+			
 			</ul>		</div>
 	</div>
 
@@ -49,302 +70,323 @@
 			</div>
 			<div class="nav desktop-nav">
 				<ul>
-					<li ><a href="../..">Home</a></li>
-					<li ><a href="../../download/">Downloads</a></li>
-					<li ><a href="../../tutorials/getting-started.html">Tutorials</a></li>
-					<li ><a href="../../docs/deepstream.html">Documentation</a></li>
-					<li class="active"><a href="../../blog/">Blog</a></li>
-					<li ><a href="../../info/">Info</a></li>
+					<li >
+						<a href="../..">Home</a>
+					</li>
+					
+					<li >
+						<a href="../../download/">Downloads</a>
+					</li>
+					
+					<li >
+						<a href="../../tutorials/getting-started.html">Tutorials</a>
+						
+					</li>
+					
+					<li >
+						<a href="../../docs/deepstream.html">Documentation</a>
+						
+					</li>
+					
+					<li class="active">
+						<a href="../../blog/">Blog</a>
+					</li>
+				
+					<li >
+						<a href="../../info/">Info</a>
+						
+					</li>
+				
 				</ul>			</div>
 			<span class="menu-button menu-icon">
 				<i class="fa fa-bars"></i>
 			</span>
 		</div>
-<link rel="stylesheet" type="text/css" href="../../assets/css/community.css" />
-<link rel="stylesheet" type="text/css" href="../../assets/css/blog.css" />
-
-<div id="wrapper" class="blog-wrapper">
-
-	<div class="post">
-
-		<header class="post-header">
-			<h1 class="post-title">Controlling an Arduino from the browser using deepstream.io</h1>
-			<section class="post-meta">
-				By Yasser Fadl
-				<span class="post-date">January 12th 2016</span>
-			</section>
-		</header>
-
-		<section class="post-content">
-<p>Writing a deepstream client only requires a TCP connection, basic string manipulation and a bit of JSON parsing. This means it can run on any hardware platform with any programming language. And to prove it I’m going to attempt to get it working on an Arduino uno!</p><p>What we will be covering in this blog entry is building a basic client with the ability to login and recieve/publish events. The same process can then be applied to achieve the full set of functionality including records, RPCs and webRTC.</p><p>Let&#39;s first set the requirements:</p><ul>
-<li>Arduino can setup a TCP connection</li>
-<li>Arduino can authenticate</li>
-<li>Arduino can recieve events telling it to switch the LED on or off</li>
-<li>Arduino can listen if any clients are subscribed to temperature events</li>
-<li>Arduino can send out the temperature whenever it changes</li>
-<li>Bonus: Setup another client to recieve/send events</li>
-</ul>
-<h1>The board</h1><p>You&#39;ll need the following components:</p><ul>
-<li>A W5100 <a href="//www.Arduino.cc/en/Main/ArduinoBoardEthernet">ethernet shield</a></li>
-<li>An Arduino <a href="//www.Arduino.cc/en/Main/ArduinoBoardUno">uno</a></li>
-<li>A red LED</li>
-<li>A temperature sensor</li>
-</ul>
-<p>You can easily use different communication components such as <a href="//www.Arduino.cc/en/Guide/ArduinoWiFiShield101">WiFi</a> or <a href="//www.Arduino.cc/en/Reference/YunClientConstructor">bridge</a>, but make sure to use their associated libraries instead.</p><p>Wiring it all together the board ended up looking like this:</p><p><img width="100%" src="./basic-deepstream-arduino-setup.jpg" /></p><p>Forgive me for not using the correct color cables, I ran out of a few
-in a soldering accident =(</p><p>Now for the fun part!</p><h1>Connecting</h1><p>The first thing we need to do is to be able to get the Arduino board to connect to deepstream. Since I&#39;m using a W5100 <a href="//www.Arduino.cc/en/Main/ArduinoBoardEthernet">ethernet shield</a> all I have to do is include the library and call <code>ethernet.begin( mac )</code> inside of the setup.</p><pre><code class="lang-clike">log(&quot;Getting IP...&quot;);
-//Each shield has a different IP, you can find them on a sticker
-//on new ones on the back
-Ethernet.begin( mac );
-//Print the IP you got. If it is 0.0.0.0 it means you didn&#39;t
-//get an IP assigned and you would need to reset your board
-log( Ethernet.localIP() );
-</code></pre>
-<p>Once I get my IP I can try connecting to deepstream!</p><pre><code class="lang-clike">String state = &quot;AWAITING_AUTHENTICATION&quot;;
-const IP deepstreamHost = {192,168,0,201};
-const int deepstreamPort = 6021;
-
-log(&quot;Connecting...&quot;);
-
-if (client.connect( deepstreamHost, deepstreamPort )) {
-    log(&quot;Connected!&quot;);
-} else {
-    log(&quot;Connection faiLED&quot;);
-}
-</code></pre>
-<p>Note: I initialised <a href="../../docs/connection_states.html">the connection state</a> with AWAITING_AUTHENTICATION. This can also be initialised with CLOSE and then changed to AWAITING_AUTHENTICATION once a connection is successfully opened.</p><h1>Constructing Messages</h1><p>I wrote a bunch of generic utility methods to make it easier for me to create deepstream messages for this example. Take a look at <a href="../../info/messagestructure/">how</a> messages are <a href="../../info/messagestructure/specs.html">structured</a> for more details.</p><pre><code class="lang-clike">String part = String( char( 31 ));
-String split = String( char( 30 ));
-
-String createMessage( String type, String action ) {
-    return String( type + part + action + split );
-}
-
-String createMessage( String type, String action, String data1 ) {
-    return String( type + part + action + part + data1 + split );
-}
-
-String createMessage( String type, String action, String data1, String data2 ) {
-    return String( type + part + action + part + data1 + part + data2 + split );
-}
-</code></pre>
-<p>As you can see all the utility methods do are take parameters and concatenate them with the correct message part and end characters. It certainly isn&#39;t the most efficient manner of concatenating strings&#39; but its simplicity is great for this example.</p><h1>Logging In</h1><p>Now that we have a connected client and a bunch of utility methods, lets start looking into getting logged in!</p><p>The first thing we need to do is to send our credentials. Once we are in the  AWAITING_AUTHENTICATING state we are ready to send the login details. We will login using the Arduino ID to ensure it has permissions to actually trigger and subscribe to events. All that&#39;s needed is to pass in the ID via the <a href="../../info/messagestructure/specs.html#auth-login">login message</a>.</p><pre><code class="lang-clike">if( state == &quot;AWAITING_AUTHENTICATION&quot; ) {
-    client.print( createMessage( &quot;A&quot;, &quot;REQ&quot;, &quot;{\&quot;Arduino\&quot;:\&quot;x6C1gD\&quot;}&quot; ) );
-    state = &quot;AUTHENTICATING&quot;;
- }
-</code></pre>
-<p>And now the client has to wait until it recieves a <a href="../../info/messagestructure/specs.html#auth-loginsuccess">successful response</a>.</p><pre><code class="lang-clike">if( state == &quot;AUTHENTICATING&quot; &amp;&amp; message == createMessage( &quot;A&quot;, &quot;A&quot; ) ) {
-  state = &quot;OPEN&quot;;
-  log( &quot;Connection State: &quot; + state );
-}
-else {
-  log( &quot;Unknown message recieved:&quot; + message );
-}
-message = &quot;&quot;;
-</code></pre>
-<h1>Subscribing and Recieving Data</h1><p>Now that you&#39;re logged in you&#39;ll want to <a href="../../info/messagestructure/specs.html#event-subscribe">subscribe</a> to events. In order to create an event subscription you&#39;ll have to create a message with an event topic, subscribe action and the event you&#39;re interested in.</p><pre><code class="lang-clike">log( &quot;Subscribing to event led-red&quot; );
-client.print( createMessage( &quot;E&quot;, &quot;S&quot;, &quot;led-red&quot; ) );
-</code></pre>
-<p>But you&#39;re now getting an unknown message back</p><pre><code class="lang-clike">E|A|S|led-red+
-</code></pre>
-<p>Looks like the server responded with a <a href="../../info/messagestructure/specs.html#event-subscribe">subscribe ack</a>. Awesome, means your connection is working! You don&#39;t actually need to do anything with the ack, we&#39;re just logging it for assurance.</p><pre><code class="lang-clike">if( state == &quot;OPEN&quot; &amp;&amp; message == createMessage( &quot;E&quot;, &quot;A&quot;, &quot;S&quot;, &quot;led-red&quot; ) ) {
-    log( &quot;Subscribe to event led-red AcknowLEDged&quot; );
-}
-</code></pre>
-<p>And now we can start listening to <a href="../../info/messagestructure/specs.html#event-publish">incoming events</a>! Since this is just a basic LED the only options we have are switching it on or off, which are just true or false <a href="../../docs/constants.html#DataTypes">types</a> that deepstream minimizes to a single T or F character.</p><pre><code class="lang-clike">if( state == &quot;OPEN&quot; &amp;&amp; message == createMessage( &quot;E&quot;, &quot;EVT&quot;, &quot;led-red&quot;, &quot;T&quot; ) ) {
-      log( &quot;Turn led-red On&quot; );
-      digitalWrite(LED_PIN, HIGH);
-} else if( state == &quot;OPEN&quot; &amp;&amp; message == createMessage( &quot;E&quot;, &quot;EVT&quot;, &quot;led-red&quot;,&quot;F&quot; ) ) {
-    log( &quot;Turn led-red OFF&quot; );
-    digitalWrite(LED_PIN, LOW);
-}
-</code></pre>
-<p>And now we can switch on our LED from any client by just emiting the led-red <a href="../../info/messagestructure/specs.html#event-publish">event</a>.</p><pre><code class="lang-javascript">ds.event.emit( &#39;led-red&#39;, true );
-</code></pre>
-<h1>Listening and Publishing Data</h1><p>So that&#39;s over half the work done. But IoT devices are also often used for providing data. So let&#39;s get a temperature value streamed to deepstream whenever it changes.</p><p>Hold on! Before we start just sending data into the world, it would be good to know whether or not something is interested in the event. Especially with devices where power consumption is important it&#39;s good to only send things when you know someone is cares.</p><p>In this case, we only want to emit temperature changes when a client <a href="../../info/messagestructure/specs.html#event-listen">listening</a> to an event named &#39;temperature&#39;.</p><pre><code class="lang-clike">log( &quot;Lisening to event temperature&quot; );
-client.print( createMessage( &quot;E&quot;, &quot;L&quot;, &quot;/^temperature$/&quot; ) );
-</code></pre>
-<p>As with &#39;subscribes&#39;, the server will respond with an <a href="../../info/messagestructure/specs.html#event-listen">ack</a> to confirm it recieved the message.</p><pre><code class="lang-clike">if( state == &quot;OPEN&quot; &amp;&amp; message == createMessage( &quot;E&quot;, &quot;A&quot;, &quot;L&quot;, &quot;/^temperature$/&quot; ) ) {
-    log( &quot;Listening to event pattern temperature Acknowledged&quot; );
-}
-</code></pre>
-<p>And we should now be notified whenever there&#39;s at least one client <a href="../../info/messagestructure/specs.html#event-listenmatch">listening</a> or when all clients <a href="../../info/messagestructure/specs.html#event-listenunmatch">stop</a>.</p><pre><code class="lang-clike">boolean publishingTemperature = false;
-if( state == &quot;OPEN&quot; &amp;&amp; message == createMessage( &quot;E&quot;, &quot;SP&quot;, &quot;/^temperature$/&quot;, &quot;temperature&quot; ) ) {
-    publishingTemperature = true;
-    log( &quot;A Client is interested in the temperature!&quot; );
-} else if( state == &quot;OPEN&quot; &amp;&amp; message == createMessage( &quot;E&quot;, &quot;SL&quot;, &quot;/^temperature$/&quot;, &quot;temperature&quot; ) ) {
-    publishingTemperature = true;
-    log( &quot;Clients are no longer interested in the temperature&quot; );
-}
-</code></pre>
-<p>Since we don&#39;t actually have to recieve anything to send the values, the logic to send the data is outside the Ethernet <a href="//www.arduino.cc/en/Reference/ClientAvailable"><code>client.available()</code></a>.</p><p>Sending an event just requires a message to be sent with the correct fields. Note the use of <a href="../../docs/constants.html#DataTypes">type</a> N in the data-payload. This lets clients who recieve the event to a number to know it&#39;s a number.</p><pre><code class="lang-clike">if( publishingTemperature == true ) {
-    client.print( createMessage( &quot;E&quot;, &quot;EVT&quot;, &quot;temperature&quot;, String( &quot;N&quot; + newTemp ) ) );
-}
-</code></pre>
-<h1>The browser client</h1><p><img width="100%" src="./basic-smarthome-portal.jpg" /></p><p>If you run the <code>index.html</code> page in your browser you can now switch the LED on or off as well as get updates temperature updates on your virtual smart home dashboard!</p><h1>Summary</h1><p>And that&#39;s it! Everything needed to get an Arduino connected to deepstream!</p><p>This tutorial is meant to walk you through the basic authentication and event messages so you get a feel for how the client and server interacts. There is a wealth of different options within the deepstream spec that can enhance this example, please look at the <a href="../../info/writing-a-client.html">documentation</a> for an in-depth guide.</p><p>A couple of examples how the Ardruino client can be enhanced:</p><ul>
-<li><p>The LED light could be a record so it can just continue from it&#39;s previous state when first logging in</p></li>
-<li><p>RPCs will also provide a great solution on cheap IoT devices as they can delegate resource intensive methods to a more powerful client, or cut the problem into small enough portions that can be distributed over a large IoT network.</p></li>
-<li><p>Logging could occur remotely using events so that you can monitor issues anywhere without using the Ardruino Serial logger ( as long as the deepstream client is logged in! )</p></li>
-</ul>
-<p>I hope this article inspired you to experiment with deepstream messaging, or just to play around with this example on different IoT devices!</p>
-		</section>
-
-		<footer class="post-footer">
-
-			<section class="author">
-
-				<img class="author-gravatar" src="//s.gravatar.com/avatar/47342a117d8faf101cc6022488958ca1?s&#x3D;80">
+				<link rel="stylesheet" type="text/css" href="../../assets/css/community.css" />
+				<link rel="stylesheet" type="text/css" href="../../assets/css/blog.css" />
 				
-				<span class="author-description">
-					<h4>About the author</h4>
-
-					<p class="author-bio">
-						Yasser comes out of Egypt, got a bit sunburnt and now enjoys the calmer weather in Berlin. Core team member of deepstream.io and enjoys soldering cupholders.
-					</p>
-				</span>
-
-				<!--
-					<p>Read <a href="">more posts</a> by this author.</p>
+				<div id="wrapper" class="blog-wrapper">
 				
-				<div class="author-meta">
-					
-					
-				</div> 
-				-->
-
-			</section>
-
-			<section class="share">
-				<h4>Share this post</h4>
-				<ul class="icons">
-					<li>
-						<a class="icon fa fa-twitter" href="//twitter.com/share?text=Controlling an Arduino from the browser using deepstream.io @deepstreamhub&amp;url="
-							onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
-							<span class="label">Twitter</span>
-						</a>
-					</li>
-					<li>
-						<a class="icon fa fa-facebook" href="//www.facebook.com/sharer/sharer.php?u="
-						onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
-						<span class="label">Facebook</span>
-						</a>
-					</li>
-					<li>
-						<a class="icon fa fa-google-plus" href="//plus.google.com/share?url="
-					   onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
-						<span class="label">Google+</span>
-					</a>
-					</li>
+					<div class="post">
+				
+						<header class="post-header">
+							<h1 class="post-title">Controlling an Arduino from the browser using deepstream.io</h1>
+							<section class="post-meta">
+								By Yasser Fadl
+								<span class="post-date">January 12th 2016</span>
+							</section>
+						</header>
+				
+						<section class="post-content">
+				<p>Writing a deepstream client only requires a TCP connection, basic string manipulation and a bit of JSON parsing. This means it can run on any hardware platform with any programming language. And to prove it I’m going to attempt to get it working on an Arduino uno!</p><p>What we will be covering in this blog entry is building a basic client with the ability to login and recieve/publish events. The same process can then be applied to achieve the full set of functionality including records, RPCs and webRTC.</p><p>Let&#39;s first set the requirements:</p><ul>
+				<li>Arduino can setup a TCP connection</li>
+				<li>Arduino can authenticate</li>
+				<li>Arduino can recieve events telling it to switch the LED on or off</li>
+				<li>Arduino can listen if any clients are subscribed to temperature events</li>
+				<li>Arduino can send out the temperature whenever it changes</li>
+				<li>Bonus: Setup another client to recieve/send events</li>
 				</ul>
-				
-			</section>
-
-		<div class="latest-blogs">
-			<h4 class="latest-blogs-header">
-				Latest Blog Articles
-			</h4>
-			<ul class="latest-blogs-content">
-					<li class="latest-blog-article">
-						<a href="../realtime-microservices/">
-							<span class="date">19/03/2016</span>
-							<span class="title">Deepstream Microservices</span>
-						</a>
-					</li>
-					<li class="latest-blog-article">
-						<a href="../listen-benefits/">
-							<span class="date">18/02/2016</span>
-							<span class="title">The benefits of listening</span>
-						</a>
-					</li>
-					<li class="latest-blog-article">
-						<a href="../what-is-realtime/">
-							<span class="date">08/02/2016</span>
-							<span class="title">What is realtime?</span>
-						</a>
-					</li>
-					<li class="latest-blog-article">
-						<a href="../migrating-parse-com-to-deepstream-io/">
-							<span class="date">29/01/2016</span>
-							<span class="title">Migrating from Parse.com to deepstream.io</span>
-						</a>
-					</li>
-			</ul>
-		</div>		</footer>
-	</div>
-
-	<span class="blog-sidebar">
-	
-		<div class="sidebar-item deepstream-learn-more">
-			<h4 class="sidebar-item-header">What is deepstream?</h4>
-			
-			<p>
-				deepstream.io is the open source server thats allows you to create realtime apps with minimal code!
-			</p>
-	
-			<a href="../../">Learn More</a>.
-		</div>
-	
-		<div class="sidebar-item share-story">
-			<h4 class="sidebar-item-header">Using deepstream?</h4>
-			<div class="share-story community-collaborate-content">
-				<img width="100%" src="../../assets/images/ds-stories-background.png" class="share-story-image" >
-				<a class="share-story-content" href="mailto:info@deepstream.io">
-					tell us what you're building with deepstream and get the t-shirt *
-					<span class="comical-warning">
-						* warning: t-shirt actually looks good and is desirable
-					</span>
-				</a>
-			</div>	</div>
-	
-		<div class="sidebar-item deepstream-help-out">
-			<h4 class="sidebar-item-header">Community</h4>
-			
-			<!--<p>
-				If your interested in bringing deepstream to your favourite language, please <a href="mailto:info@deepstreamhub.com" target="_top">contact us</a> for any support!
-			</p>
-			-->
-	
-			<p>
-				Like deepstream.io? Grant it a star!
-			</p>
-			
-			<p>
-				<a class="github-button" href="//github.com/deepstreamIO/deepstream.io" data-icon="octicon-star" data-style="mega" data-count-href="/deepstreamIO/deepstream.io/stargazers" data-count-api="/repos/deepstreamIO/deepstream.io#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star deepstreamIO/deepstream.io on GitHub">Star</a>
-			</p>
-		</div>
-	
-		<div class="sidebar-item deepstream-latest-posts">
-			<div class="latest-blogs">
-				<h4 class="latest-blogs-header">
-					Latest Blog Articles
-				</h4>
-				<ul class="latest-blogs-content">
-						<li class="latest-blog-article">
-							<a href="../realtime-microservices/">
-								<span class="date">19/03/2016</span>
-								<span class="title">Deepstream Microservices</span>
-							</a>
-						</li>
-						<li class="latest-blog-article">
-							<a href="../listen-benefits/">
-								<span class="date">18/02/2016</span>
-								<span class="title">The benefits of listening</span>
-							</a>
-						</li>
-						<li class="latest-blog-article">
-							<a href="../what-is-realtime/">
-								<span class="date">08/02/2016</span>
-								<span class="title">What is realtime?</span>
-							</a>
-						</li>
-						<li class="latest-blog-article">
-							<a href="../migrating-parse-com-to-deepstream-io/">
-								<span class="date">29/01/2016</span>
-								<span class="title">Migrating from Parse.com to deepstream.io</span>
-							</a>
-						</li>
+				<h1>The board</h1><p>You&#39;ll need the following components:</p><ul>
+				<li>A W5100 <a href="//www.Arduino.cc/en/Main/ArduinoBoardEthernet">ethernet shield</a></li>
+				<li>An Arduino <a href="//www.Arduino.cc/en/Main/ArduinoBoardUno">uno</a></li>
+				<li>A red LED</li>
+				<li>A temperature sensor</li>
 				</ul>
-			</div>	</div>
-	
-	</span></div>	</div>
+				<p>You can easily use different communication components such as <a href="//www.Arduino.cc/en/Guide/ArduinoWiFiShield101">WiFi</a> or <a href="//www.Arduino.cc/en/Reference/YunClientConstructor">bridge</a>, but make sure to use their associated libraries instead.</p><p>Wiring it all together the board ended up looking like this:</p><p><img width="100%" src="./basic-deepstream-arduino-setup.jpg" /></p><p>Forgive me for not using the correct color cables, I ran out of a few
+				in a soldering accident =(</p><p>Now for the fun part!</p><h1>Connecting</h1><p>The first thing we need to do is to be able to get the Arduino board to connect to deepstream. Since I&#39;m using a W5100 <a href="//www.Arduino.cc/en/Main/ArduinoBoardEthernet">ethernet shield</a> all I have to do is include the library and call <code>ethernet.begin( mac )</code> inside of the setup.</p><pre><code class="lang-clike">log(&quot;Getting IP...&quot;);
+				//Each shield has a different IP, you can find them on a sticker
+				//on new ones on the back
+				Ethernet.begin( mac );
+				//Print the IP you got. If it is 0.0.0.0 it means you didn&#39;t
+				//get an IP assigned and you would need to reset your board
+				log( Ethernet.localIP() );
+				</code></pre>
+				<p>Once I get my IP I can try connecting to deepstream!</p><pre><code class="lang-clike">String state = &quot;AWAITING_AUTHENTICATION&quot;;
+				const IP deepstreamHost = {192,168,0,201};
+				const int deepstreamPort = 6021;
+				
+				log(&quot;Connecting...&quot;);
+				
+				if (client.connect( deepstreamHost, deepstreamPort )) {
+				    log(&quot;Connected!&quot;);
+				} else {
+				    log(&quot;Connection faiLED&quot;);
+				}
+				</code></pre>
+				<p>Note: I initialised <a href="../../docs/connection_states.html">the connection state</a> with AWAITING_AUTHENTICATION. This can also be initialised with CLOSE and then changed to AWAITING_AUTHENTICATION once a connection is successfully opened.</p><h1>Constructing Messages</h1><p>I wrote a bunch of generic utility methods to make it easier for me to create deepstream messages for this example. Take a look at <a href="../../info/messagestructure/">how</a> messages are <a href="../../info/messagestructure/specs.html">structured</a> for more details.</p><pre><code class="lang-clike">String part = String( char( 31 ));
+				String split = String( char( 30 ));
+				
+				String createMessage( String type, String action ) {
+				    return String( type + part + action + split );
+				}
+				
+				String createMessage( String type, String action, String data1 ) {
+				    return String( type + part + action + part + data1 + split );
+				}
+				
+				String createMessage( String type, String action, String data1, String data2 ) {
+				    return String( type + part + action + part + data1 + part + data2 + split );
+				}
+				</code></pre>
+				<p>As you can see all the utility methods do are take parameters and concatenate them with the correct message part and end characters. It certainly isn&#39;t the most efficient manner of concatenating strings&#39; but its simplicity is great for this example.</p><h1>Logging In</h1><p>Now that we have a connected client and a bunch of utility methods, lets start looking into getting logged in!</p><p>The first thing we need to do is to send our credentials. Once we are in the  AWAITING_AUTHENTICATING state we are ready to send the login details. We will login using the Arduino ID to ensure it has permissions to actually trigger and subscribe to events. All that&#39;s needed is to pass in the ID via the <a href="../../info/messagestructure/specs.html#auth-login">login message</a>.</p><pre><code class="lang-clike">if( state == &quot;AWAITING_AUTHENTICATION&quot; ) {
+				    client.print( createMessage( &quot;A&quot;, &quot;REQ&quot;, &quot;{\&quot;Arduino\&quot;:\&quot;x6C1gD\&quot;}&quot; ) );
+				    state = &quot;AUTHENTICATING&quot;;
+				 }
+				</code></pre>
+				<p>And now the client has to wait until it recieves a <a href="../../info/messagestructure/specs.html#auth-loginsuccess">successful response</a>.</p><pre><code class="lang-clike">if( state == &quot;AUTHENTICATING&quot; &amp;&amp; message == createMessage( &quot;A&quot;, &quot;A&quot; ) ) {
+				  state = &quot;OPEN&quot;;
+				  log( &quot;Connection State: &quot; + state );
+				}
+				else {
+				  log( &quot;Unknown message recieved:&quot; + message );
+				}
+				message = &quot;&quot;;
+				</code></pre>
+				<h1>Subscribing and Recieving Data</h1><p>Now that you&#39;re logged in you&#39;ll want to <a href="../../info/messagestructure/specs.html#event-subscribe">subscribe</a> to events. In order to create an event subscription you&#39;ll have to create a message with an event topic, subscribe action and the event you&#39;re interested in.</p><pre><code class="lang-clike">log( &quot;Subscribing to event led-red&quot; );
+				client.print( createMessage( &quot;E&quot;, &quot;S&quot;, &quot;led-red&quot; ) );
+				</code></pre>
+				<p>But you&#39;re now getting an unknown message back</p><pre><code class="lang-clike">E|A|S|led-red+
+				</code></pre>
+				<p>Looks like the server responded with a <a href="../../info/messagestructure/specs.html#event-subscribe">subscribe ack</a>. Awesome, means your connection is working! You don&#39;t actually need to do anything with the ack, we&#39;re just logging it for assurance.</p><pre><code class="lang-clike">if( state == &quot;OPEN&quot; &amp;&amp; message == createMessage( &quot;E&quot;, &quot;A&quot;, &quot;S&quot;, &quot;led-red&quot; ) ) {
+				    log( &quot;Subscribe to event led-red AcknowLEDged&quot; );
+				}
+				</code></pre>
+				<p>And now we can start listening to <a href="../../info/messagestructure/specs.html#event-publish">incoming events</a>! Since this is just a basic LED the only options we have are switching it on or off, which are just true or false <a href="../../docs/constants.html#DataTypes">types</a> that deepstream minimizes to a single T or F character.</p><pre><code class="lang-clike">if( state == &quot;OPEN&quot; &amp;&amp; message == createMessage( &quot;E&quot;, &quot;EVT&quot;, &quot;led-red&quot;, &quot;T&quot; ) ) {
+				      log( &quot;Turn led-red On&quot; );
+				      digitalWrite(LED_PIN, HIGH);
+				} else if( state == &quot;OPEN&quot; &amp;&amp; message == createMessage( &quot;E&quot;, &quot;EVT&quot;, &quot;led-red&quot;,&quot;F&quot; ) ) {
+				    log( &quot;Turn led-red OFF&quot; );
+				    digitalWrite(LED_PIN, LOW);
+				}
+				</code></pre>
+				<p>And now we can switch on our LED from any client by just emiting the led-red <a href="../../info/messagestructure/specs.html#event-publish">event</a>.</p><pre><code class="lang-javascript">ds.event.emit( &#39;led-red&#39;, true );
+				</code></pre>
+				<h1>Listening and Publishing Data</h1><p>So that&#39;s over half the work done. But IoT devices are also often used for providing data. So let&#39;s get a temperature value streamed to deepstream whenever it changes.</p><p>Hold on! Before we start just sending data into the world, it would be good to know whether or not something is interested in the event. Especially with devices where power consumption is important it&#39;s good to only send things when you know someone is cares.</p><p>In this case, we only want to emit temperature changes when a client <a href="../../info/messagestructure/specs.html#event-listen">listening</a> to an event named &#39;temperature&#39;.</p><pre><code class="lang-clike">log( &quot;Lisening to event temperature&quot; );
+				client.print( createMessage( &quot;E&quot;, &quot;L&quot;, &quot;/^temperature$/&quot; ) );
+				</code></pre>
+				<p>As with &#39;subscribes&#39;, the server will respond with an <a href="../../info/messagestructure/specs.html#event-listen">ack</a> to confirm it recieved the message.</p><pre><code class="lang-clike">if( state == &quot;OPEN&quot; &amp;&amp; message == createMessage( &quot;E&quot;, &quot;A&quot;, &quot;L&quot;, &quot;/^temperature$/&quot; ) ) {
+				    log( &quot;Listening to event pattern temperature Acknowledged&quot; );
+				}
+				</code></pre>
+				<p>And we should now be notified whenever there&#39;s at least one client <a href="../../info/messagestructure/specs.html#event-listenmatch">listening</a> or when all clients <a href="../../info/messagestructure/specs.html#event-listenunmatch">stop</a>.</p><pre><code class="lang-clike">boolean publishingTemperature = false;
+				if( state == &quot;OPEN&quot; &amp;&amp; message == createMessage( &quot;E&quot;, &quot;SP&quot;, &quot;/^temperature$/&quot;, &quot;temperature&quot; ) ) {
+				    publishingTemperature = true;
+				    log( &quot;A Client is interested in the temperature!&quot; );
+				} else if( state == &quot;OPEN&quot; &amp;&amp; message == createMessage( &quot;E&quot;, &quot;SL&quot;, &quot;/^temperature$/&quot;, &quot;temperature&quot; ) ) {
+				    publishingTemperature = true;
+				    log( &quot;Clients are no longer interested in the temperature&quot; );
+				}
+				</code></pre>
+				<p>Since we don&#39;t actually have to recieve anything to send the values, the logic to send the data is outside the Ethernet <a href="//www.arduino.cc/en/Reference/ClientAvailable"><code>client.available()</code></a>.</p><p>Sending an event just requires a message to be sent with the correct fields. Note the use of <a href="../../docs/constants.html#DataTypes">type</a> N in the data-payload. This lets clients who recieve the event to a number to know it&#39;s a number.</p><pre><code class="lang-clike">if( publishingTemperature == true ) {
+				    client.print( createMessage( &quot;E&quot;, &quot;EVT&quot;, &quot;temperature&quot;, String( &quot;N&quot; + newTemp ) ) );
+				}
+				</code></pre>
+				<h1>The browser client</h1><p><img width="100%" src="./basic-smarthome-portal.jpg" /></p><p>If you run the <code>index.html</code> page in your browser you can now switch the LED on or off as well as get updates temperature updates on your virtual smart home dashboard!</p><h1>Summary</h1><p>And that&#39;s it! Everything needed to get an Arduino connected to deepstream!</p><p>This tutorial is meant to walk you through the basic authentication and event messages so you get a feel for how the client and server interacts. There is a wealth of different options within the deepstream spec that can enhance this example, please look at the <a href="../../info/writing-a-client.html">documentation</a> for an in-depth guide.</p><p>A couple of examples how the Ardruino client can be enhanced:</p><ul>
+				<li><p>The LED light could be a record so it can just continue from it&#39;s previous state when first logging in</p></li>
+				<li><p>RPCs will also provide a great solution on cheap IoT devices as they can delegate resource intensive methods to a more powerful client, or cut the problem into small enough portions that can be distributed over a large IoT network.</p></li>
+				<li><p>Logging could occur remotely using events so that you can monitor issues anywhere without using the Ardruino Serial logger ( as long as the deepstream client is logged in! )</p></li>
+				</ul>
+				<p>I hope this article inspired you to experiment with deepstream messaging, or just to play around with this example on different IoT devices!</p>
+						</section>
+				
+						<footer class="post-footer">
+				
+							<section class="author">
+				
+								<img class="author-gravatar" src="//s.gravatar.com/avatar/47342a117d8faf101cc6022488958ca1?s&#x3D;80">
+								
+								<span class="author-description">
+									<h4>About the author</h4>
+				
+									<p class="author-bio">
+										Yasser comes out of Egypt, got a bit sunburnt and now enjoys the calmer weather in Berlin. Core team member of deepstream.io and enjoys soldering cupholders.
+									</p>
+								</span>
+				
+								<!--
+									<p>Read <a href="">more posts</a> by this author.</p>
+								
+								<div class="author-meta">
+									
+									
+								</div> 
+								-->
+				
+							</section>
+				
+							<section class="share">
+								<h4>Share this post</h4>
+								<ul class="icons">
+									<li>
+										<a class="icon fa fa-twitter" href="//twitter.com/share?text=Controlling an Arduino from the browser using deepstream.io @deepstreamhub&amp;url="
+											onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+											<span class="label">Twitter</span>
+										</a>
+									</li>
+									<li>
+										<a class="icon fa fa-facebook" href="//www.facebook.com/sharer/sharer.php?u="
+										onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+										<span class="label">Facebook</span>
+										</a>
+									</li>
+									<li>
+										<a class="icon fa fa-google-plus" href="//plus.google.com/share?url="
+									   onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+										<span class="label">Google+</span>
+									</a>
+									</li>
+								</ul>
+								
+							</section>
+				
+						<div class="latest-blogs">
+							<h4 class="latest-blogs-header">
+								Latest Blog Articles
+							</h4>
+							<ul class="latest-blogs-content">
+									<li class="latest-blog-article">
+										<a href="../realtime-microservices/">
+											<span class="date">19/03/2016</span>
+											<span class="title">Deepstream Microservices</span>
+										</a>
+									</li>
+									<li class="latest-blog-article">
+										<a href="../listen-benefits/">
+											<span class="date">18/02/2016</span>
+											<span class="title">The benefits of listening</span>
+										</a>
+									</li>
+									<li class="latest-blog-article">
+										<a href="../what-is-realtime/">
+											<span class="date">08/02/2016</span>
+											<span class="title">What is realtime?</span>
+										</a>
+									</li>
+									<li class="latest-blog-article">
+										<a href="../migrating-parse-com-to-deepstream-io/">
+											<span class="date">29/01/2016</span>
+											<span class="title">Migrating from Parse.com to deepstream.io</span>
+										</a>
+									</li>
+							</ul>
+						</div>		</footer>
+					</div>
+				
+					<span class="blog-sidebar">
+					
+						<div class="sidebar-item deepstream-learn-more">
+							<h4 class="sidebar-item-header">What is deepstream?</h4>
+							
+							<p>
+								deepstream.io is the open source server thats allows you to create realtime apps with minimal code!
+							</p>
+					
+							<a href="../../">Learn More</a>.
+						</div>
+					
+						<div class="sidebar-item share-story">
+							<h4 class="sidebar-item-header">Using deepstream?</h4>
+							<div class="share-story community-collaborate-content">
+								<img width="100%" src="../../assets/images/ds-stories-background.png" class="share-story-image" >
+								<a class="share-story-content" href="mailto:info@deepstream.io">
+									tell us what you're building with deepstream and get the t-shirt *
+									<span class="comical-warning">
+										* warning: t-shirt actually looks good and is desirable
+									</span>
+								</a>
+							</div>	</div>
+					
+						<div class="sidebar-item deepstream-help-out">
+							<h4 class="sidebar-item-header">Community</h4>
+							
+							<!--<p>
+								If your interested in bringing deepstream to your favourite language, please <a href="mailto:info@deepstreamhub.com" target="_top">contact us</a> for any support!
+							</p>
+							-->
+					
+							<p>
+								Like deepstream.io? Grant it a star!
+							</p>
+							
+							<p>
+								<a class="github-button" href="//github.com/deepstreamIO/deepstream.io" data-icon="octicon-star" data-style="mega" data-count-href="/deepstreamIO/deepstream.io/stargazers" data-count-api="/repos/deepstreamIO/deepstream.io#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star deepstreamIO/deepstream.io on GitHub">Star</a>
+							</p>
+						</div>
+					
+						<div class="sidebar-item deepstream-latest-posts">
+							<div class="latest-blogs">
+								<h4 class="latest-blogs-header">
+									Latest Blog Articles
+								</h4>
+								<ul class="latest-blogs-content">
+										<li class="latest-blog-article">
+											<a href="../realtime-microservices/">
+												<span class="date">19/03/2016</span>
+												<span class="title">Deepstream Microservices</span>
+											</a>
+										</li>
+										<li class="latest-blog-article">
+											<a href="../listen-benefits/">
+												<span class="date">18/02/2016</span>
+												<span class="title">The benefits of listening</span>
+											</a>
+										</li>
+										<li class="latest-blog-article">
+											<a href="../what-is-realtime/">
+												<span class="date">08/02/2016</span>
+												<span class="title">What is realtime?</span>
+											</a>
+										</li>
+										<li class="latest-blog-article">
+											<a href="../migrating-parse-com-to-deepstream-io/">
+												<span class="date">29/01/2016</span>
+												<span class="title">Migrating from Parse.com to deepstream.io</span>
+											</a>
+										</li>
+								</ul>
+							</div>	</div>
+					
+					</span></div>	</div>
 	<div id="footer">
 		<ul class="footer-items">
 
@@ -379,12 +421,33 @@ if( state == &quot;OPEN&quot; &amp;&amp; message == createMessage( &quot;E&quot;
 			<li class="footer-middle">
 				<h4>Browse</h4>
 				<ul>
-					<li ><a href="../..">Home</a></li>
-					<li ><a href="../../download/">Downloads</a></li>
-					<li ><a href="../../tutorials/getting-started.html">Tutorials</a></li>
-					<li ><a href="../../docs/deepstream.html">Documentation</a></li>
-					<li class="active"><a href="../../blog/">Blog</a></li>
-					<li ><a href="../../info/">Info</a></li>
+					<li >
+						<a href="../..">Home</a>
+					</li>
+					
+					<li >
+						<a href="../../download/">Downloads</a>
+					</li>
+					
+					<li >
+						<a href="../../tutorials/getting-started.html">Tutorials</a>
+						
+					</li>
+					
+					<li >
+						<a href="../../docs/deepstream.html">Documentation</a>
+						
+					</li>
+					
+					<li class="active">
+						<a href="../../blog/">Blog</a>
+					</li>
+				
+					<li >
+						<a href="../../info/">Info</a>
+						
+					</li>
+				
 				</ul>			</li>
 
 			<li class="footer-left">

@@ -34,12 +34,33 @@ There’s one thing though it doesn’t do: send your message directly to web br
 	<div class="mobile-menu">
 		<div class="nav mobile-nav">
 			<ul>
-				<li ><a href="../..">Home</a></li>
-				<li ><a href="../../download/">Downloads</a></li>
-				<li ><a href="../../tutorials/getting-started.html">Tutorials</a></li>
-				<li ><a href="../../docs/deepstream.html">Documentation</a></li>
-				<li class="active"><a href="../../blog/">Blog</a></li>
-				<li ><a href="../../info/">Info</a></li>
+				<li >
+					<a href="../..">Home</a>
+				</li>
+				
+				<li >
+					<a href="../../download/">Downloads</a>
+				</li>
+				
+				<li >
+					<a href="../../tutorials/getting-started.html">Tutorials</a>
+					
+				</li>
+				
+				<li >
+					<a href="../../docs/deepstream.html">Documentation</a>
+					
+				</li>
+				
+				<li class="active">
+					<a href="../../blog/">Blog</a>
+				</li>
+			
+				<li >
+					<a href="../../info/">Info</a>
+					
+				</li>
+			
 			</ul>		</div>
 	</div>
 
@@ -50,293 +71,314 @@ There’s one thing though it doesn’t do: send your message directly to web br
 			</div>
 			<div class="nav desktop-nav">
 				<ul>
-					<li ><a href="../..">Home</a></li>
-					<li ><a href="../../download/">Downloads</a></li>
-					<li ><a href="../../tutorials/getting-started.html">Tutorials</a></li>
-					<li ><a href="../../docs/deepstream.html">Documentation</a></li>
-					<li class="active"><a href="../../blog/">Blog</a></li>
-					<li ><a href="../../info/">Info</a></li>
+					<li >
+						<a href="../..">Home</a>
+					</li>
+					
+					<li >
+						<a href="../../download/">Downloads</a>
+					</li>
+					
+					<li >
+						<a href="../../tutorials/getting-started.html">Tutorials</a>
+						
+					</li>
+					
+					<li >
+						<a href="../../docs/deepstream.html">Documentation</a>
+						
+					</li>
+					
+					<li class="active">
+						<a href="../../blog/">Blog</a>
+					</li>
+				
+					<li >
+						<a href="../../info/">Info</a>
+						
+					</li>
+				
 				</ul>			</div>
 			<span class="menu-button menu-icon">
 				<i class="fa fa-bars"></i>
 			</span>
 		</div>
-<link rel="stylesheet" type="text/css" href="../../assets/css/community.css" />
-<link rel="stylesheet" type="text/css" href="../../assets/css/blog.css" />
-
-<div id="wrapper" class="blog-wrapper">
-
-	<div class="post">
-
-		<header class="post-header">
-			<h1 class="post-title">Publishing AWS SNS messages to browsers</h1>
-			<section class="post-meta">
-				By Wolfram Hempel
-				<span class="post-date">January 4th 2016</span>
-			</section>
-		</header>
-
-		<section class="post-content">
-<p>Sending the same message to Smartphones, Email inboxes and VoIP clients on an Amazon scale? Sounds great! And that’s exactly what AWS’ Simple Notification Service lets you do. It’s a realtime-pub-sub-hub that lets you fan out the same data to AWS services like SQS or Lambda as well as to a wide range of connected devices. 
-There’s one thing though it doesn’t do: send your message directly to web browsers. Here’s how to close this gap with a bit of deepstream.io.</p><h3>The basic setup</h3><p>In this tutorial, we’ll build a “sns-provider”, a node process that subscribes to a SNS topic and forwards its messages as deepstream events. For this to work, our provider needs to</p><ul>
-<li>Authenticate against AWS</li>
-<li>Become a SNS HTTP endpoint</li>
-<li>Subscribe to a SNS topic</li>
-<li>Connect to deepstream</li>
-<li>Forward incoming messages as deepstream events</li>
-</ul>
-<p>Phew, that sounds like a lot! But, it’s actually not that bad. Here’s what our setup will look like</p><p><img src="aws-sns-to-deepstream.png" alt="Basic Setup"></p><p>If you prefer diving right into the code, check out the <a href="//github.com/deepstreamIO/ds-tutorial-aws-sns">github repo</a></p><h3>A bit of a disclaimer</h3><p>For brevities sake, this tutorial skimps on security. AWS security is extremely powerful, but also complex enough to have <a href="//media.amazonwebservices.com/AWS_Security_Best_Practices.pdf">whole books written about it</a>. We’ll be using http instead of https, temporary security tokens (which is a good idea), but store them as plain text in our code (which is not) and a deepstream.io server that’s open to the world, instead of <a href="//deepstream.io/tutorials/authentication.html">properly permissioned</a>.
-This tutorial also assumes that you&#39;re already familiar with deepstream&#39;s basic concepts. If not, quickly head over to the <a href="//deepstream.io/tutorials/getting-started.html">getting started</a> tutorial - don&#39;t worry, I&#39;ll wait.</p><h3>Let’s get started: Creating a topic.</h3><p>We’ll start by creating a topic via the AWS console. Topics are the fundamental concept for message routing in a pub-sub architecture: Many subscribers listen to a topic and are notified whenever something publishes a message on that topic. Basically, it’s like JavaScript events, but you have to create a topic before you can subscribe.
-Let’s create a topic called “news” via the console:</p><p><img src="create-sns-topic.png" alt="Creating a SNS topic via the console"></p><h3>Create the http server</h3><p>Next up, we need to start an http server. Why? The way SNS notifies your application of incoming messages is via HTTP.  For this to work, your application needs to:</p><ul>
-<li>Start a HTTP server</li>
-<li>Subscribe to a topic and tell SNS which URL it should send updates to</li>
-<li>Receive a “do you really want to receive updates?” message on that URL</li>
-<li>Confirm that message</li>
-</ul>
-<p>And from there on, it receives all updates as incoming http requests. A few things to note about these requests:</p><ul>
-<li>All incoming requests are POST requests</li>
-<li>The message data is JSON encoded</li>
-<li>Each message contains a &quot; x-amz-sns-message-type” header that tells you which kind of message it is (e.g. “SubscriptionConfirmation” or “Notification”)</li>
-</ul>
-<p>With this in mind, here’s what our http server looks like</p><pre><code class="lang-javascript">function createHttpServer() {
-    var server = new http.Server();
-    server.on( &#39;request&#39;, function( request, response ){
-        request.setEncoding( &#39;utf8&#39; );
-
-        //concatenate POST data
-        var msgBody = &#39;&#39;;
-        request.on( &#39;data&#39;, function( data ){ 
-            msgBody += data;
-        });
-        request.on( &#39;end&#39;, function(){
-            var msgData = parseJSON( msgBody );
-            var msgType = request.headers[ &#39;x-amz-sns-message-type&#39; ];
-            handleIncomingMessage( msgType, msgData );
-        });
-
-        // SNS doesn&#39;t care about our response as long as it comes
-        // with a HTTP statuscode of 200
-        response.end( &#39;OK&#39; );
-    });
-
-    server.listen( 6001, subscribeToSnS );
-}
-</code></pre>
-<p>Oh, and before I forget: Your http server needs to be accessible from the internet. If you&#39;re running it locally, you might want to use a tool like <a href="//ngrok.com/">ngrok</a> to make this possible.</p><h3>Subscribing to a topic</h3><p>Using the <a href="//aws.amazon.com/sdk-for-node-js/">AWS-SDK for NodeJS</a>, subscribing to a topic is as easy as</p><pre><code class="lang-javascript">var AWS = require(&#39;aws-sdk&#39;);
-var sns = new AWS.SNS();
-
-sns.subscribe({
-    Protocol: &#39;http&#39;,
-    //You don&#39;t just subscribe to &quot;news&quot;, but the whole Amazon Resource Name (ARN)
-    TopicArn: &#39;arn:aws:sns:eu-central-1:792569207202:news&#39;,
-    Endpoint: &#39;//your-endpoint-url.com&#39;
-}, function( error, data ) {
-    console.log( error || data );
-});
-</code></pre>
-<p>But for this to work, we need to get two security steps out of the way first: Permission a user to use SNS and add its credentials to the Node SDK.</p><p>Here&#39;s how to permission a user via the AWS console:</p><p><img src="attaching-SNS-policy.png" alt="Attaching SNS user policy"></p><p>Next, we need to create a security token for this user. Using the <a href="//aws.amazon.com/cli/">AWS command line tool</a> this is as simple as</p><pre><code class="lang-text">aws sts get-session-token
-</code></pre>
-<p>This will display a set of credentials that we can use to configure our SDK.</p><pre><code class="lang-javascript">var AWS = require(&#39;aws-sdk&#39;);
-AWS.config.update({
-    &quot;secretAccessKey&quot;: &quot;...&quot;,
-    &quot;sessionToken&quot;: &quot;...&quot;,
-    &quot;accessKeyId&quot;: &quot;...&quot;,
-    &quot;region&quot;: &quot;eu-central-1&quot;
-});
-var sns = new AWS.SNS();
-</code></pre>
-<p>As mentioned before, embedding your credentials into the code might be easy, but it isn&#39;t safe. Have a look at the <a href="//docs.aws.amazon.com/AWSJavaScriptSDK/guide/node-configuring.html">config documentation</a> to find a better way to store credentials.</p><h3>Confirming your subscription</h3><p>Great, now our call to <code>sns.subscribe</code> should work. A few milliseconds after we&#39;ve made it, our http server should receive a message, asking it to confirm the subscription. To process it, it&#39;s time to fill in the <code>handleIncomingMessage( msgType, msgData );</code> method from the http-server snippet.</p><pre><code class="lang-javascript">function handleIncomingMessage( msgType, msgData ) {
-    if( msgType === &#39;SubscriptionConfirmation&#39;) {
-        //confirm the subscription.
-        sns.confirmSubscription({
-            Token: msgData.Token,
-            TopicArn: msgData.TopicArn
-        }, onAwsResponse );
-    } else if ( msgType === &#39;Notification&#39; ) {
-        // That&#39;s where the actual messages will arrive
-    } else {
-        console.log( &#39;Unexpected message type &#39; + msgType );
-    }
-}
-</code></pre>
-<h3>Starting a deepstream.io server</h3><p>Now it&#39;s time to start our deepstream server. Just create a separate js file (e.g. start-server.js) with</p><pre><code class="lang-javascript">var DeepstreamServer = require( &#39;deepstream.io&#39; ),
-    server = new DeepstreamServer();
-
-server.start();
-</code></pre>
-<p>and run it</p><p><img src="deepstream-startup.png" alt="Deepstream.io startup"></p><p>As the console shows, the server is now listening for TCP connections (e.g. from a node client) on port <code>6021</code> and for browser connections on port <code>6020</code>. If you&#39;d prefer different hosts/ports, please have a look at the <a href="//deepstream.io/docs/deepstream.html">configuration docs</a>.</p><p>All that&#39;s left now is to connect our SNS-provider to the deepstream server:</p><pre><code class="lang-javascript">var deepstreamClient = require( &#39;deepstream.io-client-js&#39; );
-var ds = deepstreamClient( &#39;localhost:6021&#39; ).login();
-</code></pre>
-<h3>Forwarding SNS messages as deepstream events</h3><p>Ok, time for the last piece of the puzzle. Every time we receive a message from SNS, we want to forward it as a deepstream event. (Events are deepstream&#39;s pub-sub mechanism. They work exactly like a JavaScript event emitter, distributed across many clients).</p><p>Each SNS message has a &quot;Subject&quot; and a &quot;Message&quot; - both of which are plain text. This leaves us with a couple of choices: We could use the topic as an event name, send JSON as the message body or come up with a totally different mechanism. But for now, let&#39;s keep things simple: Every time we receive a message, we&#39;ll use the Subject as an event-name and send the message content as event-data... or in code, inside our <code>handleIncomingMessage</code> method:</p><pre><code class="lang-javascript">else if ( msgType === &#39;Notification&#39; ) {
-    ds.event.emit( msgData.Subject, msgData.Message );
-}
-</code></pre>
-<p>Subscribing to this event from a browser is now as easy as</p><pre><code class="lang-javascript">ds.event.subscribe( &#39;someEvent&#39;, function( data ){
-    //...
-});
-</code></pre>
-<p>And that&#39;s it. Thanks for holding out with me for so long. If you&#39;d like to learn more about events in deepstream, head over to the <a href="//deepstream.io/tutorials/events-and-rpcs.html">Events &amp; RPC tutorial</a>
-or have a look at the <a href="//deepstream.io/docs/client.event.html">event documentation</a></p>
-		</section>
-
-		<footer class="post-footer">
-
-			<section class="author">
-
-				<img class="author-gravatar" src="http://www.gravatar.com/avatar/f831162b79d84f85f589a1a76b4975db">
+				<link rel="stylesheet" type="text/css" href="../../assets/css/community.css" />
+				<link rel="stylesheet" type="text/css" href="../../assets/css/blog.css" />
 				
-				<span class="author-description">
-					<h4>About the author</h4>
-
-					<p class="author-bio">
-						Wolfram worked all over the world before settling in Berlin and becoming a co-founder of deepstream.io. He also once studied art-history, but that&#x27;s a different story and shall be told another time.
-					</p>
-				</span>
-
-				<!--
-					<p>Read <a href="">more posts</a> by this author.</p>
+				<div id="wrapper" class="blog-wrapper">
 				
-				<div class="author-meta">
-					
-					
-				</div> 
-				-->
-
-			</section>
-
-			<section class="share">
-				<h4>Share this post</h4>
-				<ul class="icons">
-					<li>
-						<a class="icon fa fa-twitter" href="//twitter.com/share?text=Publishing AWS SNS messages to browsers @deepstreamhub&amp;url="
-							onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
-							<span class="label">Twitter</span>
-						</a>
-					</li>
-					<li>
-						<a class="icon fa fa-facebook" href="//www.facebook.com/sharer/sharer.php?u="
-						onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
-						<span class="label">Facebook</span>
-						</a>
-					</li>
-					<li>
-						<a class="icon fa fa-google-plus" href="//plus.google.com/share?url="
-					   onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
-						<span class="label">Google+</span>
-					</a>
-					</li>
+					<div class="post">
+				
+						<header class="post-header">
+							<h1 class="post-title">Publishing AWS SNS messages to browsers</h1>
+							<section class="post-meta">
+								By Wolfram Hempel
+								<span class="post-date">January 4th 2016</span>
+							</section>
+						</header>
+				
+						<section class="post-content">
+				<p>Sending the same message to Smartphones, Email inboxes and VoIP clients on an Amazon scale? Sounds great! And that’s exactly what AWS’ Simple Notification Service lets you do. It’s a realtime-pub-sub-hub that lets you fan out the same data to AWS services like SQS or Lambda as well as to a wide range of connected devices. 
+				There’s one thing though it doesn’t do: send your message directly to web browsers. Here’s how to close this gap with a bit of deepstream.io.</p><h3>The basic setup</h3><p>In this tutorial, we’ll build a “sns-provider”, a node process that subscribes to a SNS topic and forwards its messages as deepstream events. For this to work, our provider needs to</p><ul>
+				<li>Authenticate against AWS</li>
+				<li>Become a SNS HTTP endpoint</li>
+				<li>Subscribe to a SNS topic</li>
+				<li>Connect to deepstream</li>
+				<li>Forward incoming messages as deepstream events</li>
 				</ul>
-				
-			</section>
-
-		<div class="latest-blogs">
-			<h4 class="latest-blogs-header">
-				Latest Blog Articles
-			</h4>
-			<ul class="latest-blogs-content">
-					<li class="latest-blog-article">
-						<a href="../realtime-microservices/">
-							<span class="date">19/03/2016</span>
-							<span class="title">Deepstream Microservices</span>
-						</a>
-					</li>
-					<li class="latest-blog-article">
-						<a href="../listen-benefits/">
-							<span class="date">18/02/2016</span>
-							<span class="title">The benefits of listening</span>
-						</a>
-					</li>
-					<li class="latest-blog-article">
-						<a href="../what-is-realtime/">
-							<span class="date">08/02/2016</span>
-							<span class="title">What is realtime?</span>
-						</a>
-					</li>
-					<li class="latest-blog-article">
-						<a href="../migrating-parse-com-to-deepstream-io/">
-							<span class="date">29/01/2016</span>
-							<span class="title">Migrating from Parse.com to deepstream.io</span>
-						</a>
-					</li>
-			</ul>
-		</div>		</footer>
-	</div>
-
-	<span class="blog-sidebar">
-	
-		<div class="sidebar-item deepstream-learn-more">
-			<h4 class="sidebar-item-header">What is deepstream?</h4>
-			
-			<p>
-				deepstream.io is the open source server thats allows you to create realtime apps with minimal code!
-			</p>
-	
-			<a href="../../">Learn More</a>.
-		</div>
-	
-		<div class="sidebar-item share-story">
-			<h4 class="sidebar-item-header">Using deepstream?</h4>
-			<div class="share-story community-collaborate-content">
-				<img width="100%" src="../../assets/images/ds-stories-background.png" class="share-story-image" >
-				<a class="share-story-content" href="mailto:info@deepstream.io">
-					tell us what you're building with deepstream and get the t-shirt *
-					<span class="comical-warning">
-						* warning: t-shirt actually looks good and is desirable
-					</span>
-				</a>
-			</div>	</div>
-	
-		<div class="sidebar-item deepstream-help-out">
-			<h4 class="sidebar-item-header">Community</h4>
-			
-			<!--<p>
-				If your interested in bringing deepstream to your favourite language, please <a href="mailto:info@deepstreamhub.com" target="_top">contact us</a> for any support!
-			</p>
-			-->
-	
-			<p>
-				Like deepstream.io? Grant it a star!
-			</p>
-			
-			<p>
-				<a class="github-button" href="//github.com/deepstreamIO/deepstream.io" data-icon="octicon-star" data-style="mega" data-count-href="/deepstreamIO/deepstream.io/stargazers" data-count-api="/repos/deepstreamIO/deepstream.io#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star deepstreamIO/deepstream.io on GitHub">Star</a>
-			</p>
-		</div>
-	
-		<div class="sidebar-item deepstream-latest-posts">
-			<div class="latest-blogs">
-				<h4 class="latest-blogs-header">
-					Latest Blog Articles
-				</h4>
-				<ul class="latest-blogs-content">
-						<li class="latest-blog-article">
-							<a href="../realtime-microservices/">
-								<span class="date">19/03/2016</span>
-								<span class="title">Deepstream Microservices</span>
-							</a>
-						</li>
-						<li class="latest-blog-article">
-							<a href="../listen-benefits/">
-								<span class="date">18/02/2016</span>
-								<span class="title">The benefits of listening</span>
-							</a>
-						</li>
-						<li class="latest-blog-article">
-							<a href="../what-is-realtime/">
-								<span class="date">08/02/2016</span>
-								<span class="title">What is realtime?</span>
-							</a>
-						</li>
-						<li class="latest-blog-article">
-							<a href="../migrating-parse-com-to-deepstream-io/">
-								<span class="date">29/01/2016</span>
-								<span class="title">Migrating from Parse.com to deepstream.io</span>
-							</a>
-						</li>
+				<p>Phew, that sounds like a lot! But, it’s actually not that bad. Here’s what our setup will look like</p><p><img src="aws-sns-to-deepstream.png" alt="Basic Setup"></p><p>If you prefer diving right into the code, check out the <a href="//github.com/deepstreamIO/ds-tutorial-aws-sns">github repo</a></p><h3>A bit of a disclaimer</h3><p>For brevities sake, this tutorial skimps on security. AWS security is extremely powerful, but also complex enough to have <a href="//media.amazonwebservices.com/AWS_Security_Best_Practices.pdf">whole books written about it</a>. We’ll be using http instead of https, temporary security tokens (which is a good idea), but store them as plain text in our code (which is not) and a deepstream.io server that’s open to the world, instead of <a href="//deepstream.io/tutorials/authentication.html">properly permissioned</a>.
+				This tutorial also assumes that you&#39;re already familiar with deepstream&#39;s basic concepts. If not, quickly head over to the <a href="//deepstream.io/tutorials/getting-started.html">getting started</a> tutorial - don&#39;t worry, I&#39;ll wait.</p><h3>Let’s get started: Creating a topic.</h3><p>We’ll start by creating a topic via the AWS console. Topics are the fundamental concept for message routing in a pub-sub architecture: Many subscribers listen to a topic and are notified whenever something publishes a message on that topic. Basically, it’s like JavaScript events, but you have to create a topic before you can subscribe.
+				Let’s create a topic called “news” via the console:</p><p><img src="create-sns-topic.png" alt="Creating a SNS topic via the console"></p><h3>Create the http server</h3><p>Next up, we need to start an http server. Why? The way SNS notifies your application of incoming messages is via HTTP.  For this to work, your application needs to:</p><ul>
+				<li>Start a HTTP server</li>
+				<li>Subscribe to a topic and tell SNS which URL it should send updates to</li>
+				<li>Receive a “do you really want to receive updates?” message on that URL</li>
+				<li>Confirm that message</li>
 				</ul>
-			</div>	</div>
-	
-	</span></div>	</div>
+				<p>And from there on, it receives all updates as incoming http requests. A few things to note about these requests:</p><ul>
+				<li>All incoming requests are POST requests</li>
+				<li>The message data is JSON encoded</li>
+				<li>Each message contains a &quot; x-amz-sns-message-type” header that tells you which kind of message it is (e.g. “SubscriptionConfirmation” or “Notification”)</li>
+				</ul>
+				<p>With this in mind, here’s what our http server looks like</p><pre><code class="lang-javascript">function createHttpServer() {
+				    var server = new http.Server();
+				    server.on( &#39;request&#39;, function( request, response ){
+				        request.setEncoding( &#39;utf8&#39; );
+				
+				        //concatenate POST data
+				        var msgBody = &#39;&#39;;
+				        request.on( &#39;data&#39;, function( data ){ 
+				            msgBody += data;
+				        });
+				        request.on( &#39;end&#39;, function(){
+				            var msgData = parseJSON( msgBody );
+				            var msgType = request.headers[ &#39;x-amz-sns-message-type&#39; ];
+				            handleIncomingMessage( msgType, msgData );
+				        });
+				
+				        // SNS doesn&#39;t care about our response as long as it comes
+				        // with a HTTP statuscode of 200
+				        response.end( &#39;OK&#39; );
+				    });
+				
+				    server.listen( 6001, subscribeToSnS );
+				}
+				</code></pre>
+				<p>Oh, and before I forget: Your http server needs to be accessible from the internet. If you&#39;re running it locally, you might want to use a tool like <a href="//ngrok.com/">ngrok</a> to make this possible.</p><h3>Subscribing to a topic</h3><p>Using the <a href="//aws.amazon.com/sdk-for-node-js/">AWS-SDK for NodeJS</a>, subscribing to a topic is as easy as</p><pre><code class="lang-javascript">var AWS = require(&#39;aws-sdk&#39;);
+				var sns = new AWS.SNS();
+				
+				sns.subscribe({
+				    Protocol: &#39;http&#39;,
+				    //You don&#39;t just subscribe to &quot;news&quot;, but the whole Amazon Resource Name (ARN)
+				    TopicArn: &#39;arn:aws:sns:eu-central-1:792569207202:news&#39;,
+				    Endpoint: &#39;//your-endpoint-url.com&#39;
+				}, function( error, data ) {
+				    console.log( error || data );
+				});
+				</code></pre>
+				<p>But for this to work, we need to get two security steps out of the way first: Permission a user to use SNS and add its credentials to the Node SDK.</p><p>Here&#39;s how to permission a user via the AWS console:</p><p><img src="attaching-SNS-policy.png" alt="Attaching SNS user policy"></p><p>Next, we need to create a security token for this user. Using the <a href="//aws.amazon.com/cli/">AWS command line tool</a> this is as simple as</p><pre><code class="lang-text">aws sts get-session-token
+				</code></pre>
+				<p>This will display a set of credentials that we can use to configure our SDK.</p><pre><code class="lang-javascript">var AWS = require(&#39;aws-sdk&#39;);
+				AWS.config.update({
+				    &quot;secretAccessKey&quot;: &quot;...&quot;,
+				    &quot;sessionToken&quot;: &quot;...&quot;,
+				    &quot;accessKeyId&quot;: &quot;...&quot;,
+				    &quot;region&quot;: &quot;eu-central-1&quot;
+				});
+				var sns = new AWS.SNS();
+				</code></pre>
+				<p>As mentioned before, embedding your credentials into the code might be easy, but it isn&#39;t safe. Have a look at the <a href="//docs.aws.amazon.com/AWSJavaScriptSDK/guide/node-configuring.html">config documentation</a> to find a better way to store credentials.</p><h3>Confirming your subscription</h3><p>Great, now our call to <code>sns.subscribe</code> should work. A few milliseconds after we&#39;ve made it, our http server should receive a message, asking it to confirm the subscription. To process it, it&#39;s time to fill in the <code>handleIncomingMessage( msgType, msgData );</code> method from the http-server snippet.</p><pre><code class="lang-javascript">function handleIncomingMessage( msgType, msgData ) {
+				    if( msgType === &#39;SubscriptionConfirmation&#39;) {
+				        //confirm the subscription.
+				        sns.confirmSubscription({
+				            Token: msgData.Token,
+				            TopicArn: msgData.TopicArn
+				        }, onAwsResponse );
+				    } else if ( msgType === &#39;Notification&#39; ) {
+				        // That&#39;s where the actual messages will arrive
+				    } else {
+				        console.log( &#39;Unexpected message type &#39; + msgType );
+				    }
+				}
+				</code></pre>
+				<h3>Starting a deepstream.io server</h3><p>Now it&#39;s time to start our deepstream server. Just create a separate js file (e.g. start-server.js) with</p><pre><code class="lang-javascript">var DeepstreamServer = require( &#39;deepstream.io&#39; ),
+				    server = new DeepstreamServer();
+				
+				server.start();
+				</code></pre>
+				<p>and run it</p><p><img src="deepstream-startup.png" alt="Deepstream.io startup"></p><p>As the console shows, the server is now listening for TCP connections (e.g. from a node client) on port <code>6021</code> and for browser connections on port <code>6020</code>. If you&#39;d prefer different hosts/ports, please have a look at the <a href="//deepstream.io/docs/deepstream.html">configuration docs</a>.</p><p>All that&#39;s left now is to connect our SNS-provider to the deepstream server:</p><pre><code class="lang-javascript">var deepstreamClient = require( &#39;deepstream.io-client-js&#39; );
+				var ds = deepstreamClient( &#39;localhost:6021&#39; ).login();
+				</code></pre>
+				<h3>Forwarding SNS messages as deepstream events</h3><p>Ok, time for the last piece of the puzzle. Every time we receive a message from SNS, we want to forward it as a deepstream event. (Events are deepstream&#39;s pub-sub mechanism. They work exactly like a JavaScript event emitter, distributed across many clients).</p><p>Each SNS message has a &quot;Subject&quot; and a &quot;Message&quot; - both of which are plain text. This leaves us with a couple of choices: We could use the topic as an event name, send JSON as the message body or come up with a totally different mechanism. But for now, let&#39;s keep things simple: Every time we receive a message, we&#39;ll use the Subject as an event-name and send the message content as event-data... or in code, inside our <code>handleIncomingMessage</code> method:</p><pre><code class="lang-javascript">else if ( msgType === &#39;Notification&#39; ) {
+				    ds.event.emit( msgData.Subject, msgData.Message );
+				}
+				</code></pre>
+				<p>Subscribing to this event from a browser is now as easy as</p><pre><code class="lang-javascript">ds.event.subscribe( &#39;someEvent&#39;, function( data ){
+				    //...
+				});
+				</code></pre>
+				<p>And that&#39;s it. Thanks for holding out with me for so long. If you&#39;d like to learn more about events in deepstream, head over to the <a href="//deepstream.io/tutorials/events-and-rpcs.html">Events &amp; RPC tutorial</a>
+				or have a look at the <a href="//deepstream.io/docs/client.event.html">event documentation</a></p>
+						</section>
+				
+						<footer class="post-footer">
+				
+							<section class="author">
+				
+								<img class="author-gravatar" src="http://www.gravatar.com/avatar/f831162b79d84f85f589a1a76b4975db">
+								
+								<span class="author-description">
+									<h4>About the author</h4>
+				
+									<p class="author-bio">
+										Wolfram worked all over the world before settling in Berlin and becoming a co-founder of deepstream.io. He also once studied art-history, but that&#x27;s a different story and shall be told another time.
+									</p>
+								</span>
+				
+								<!--
+									<p>Read <a href="">more posts</a> by this author.</p>
+								
+								<div class="author-meta">
+									
+									
+								</div> 
+								-->
+				
+							</section>
+				
+							<section class="share">
+								<h4>Share this post</h4>
+								<ul class="icons">
+									<li>
+										<a class="icon fa fa-twitter" href="//twitter.com/share?text=Publishing AWS SNS messages to browsers @deepstreamhub&amp;url="
+											onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+											<span class="label">Twitter</span>
+										</a>
+									</li>
+									<li>
+										<a class="icon fa fa-facebook" href="//www.facebook.com/sharer/sharer.php?u="
+										onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+										<span class="label">Facebook</span>
+										</a>
+									</li>
+									<li>
+										<a class="icon fa fa-google-plus" href="//plus.google.com/share?url="
+									   onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+										<span class="label">Google+</span>
+									</a>
+									</li>
+								</ul>
+								
+							</section>
+				
+						<div class="latest-blogs">
+							<h4 class="latest-blogs-header">
+								Latest Blog Articles
+							</h4>
+							<ul class="latest-blogs-content">
+									<li class="latest-blog-article">
+										<a href="../realtime-microservices/">
+											<span class="date">19/03/2016</span>
+											<span class="title">Deepstream Microservices</span>
+										</a>
+									</li>
+									<li class="latest-blog-article">
+										<a href="../listen-benefits/">
+											<span class="date">18/02/2016</span>
+											<span class="title">The benefits of listening</span>
+										</a>
+									</li>
+									<li class="latest-blog-article">
+										<a href="../what-is-realtime/">
+											<span class="date">08/02/2016</span>
+											<span class="title">What is realtime?</span>
+										</a>
+									</li>
+									<li class="latest-blog-article">
+										<a href="../migrating-parse-com-to-deepstream-io/">
+											<span class="date">29/01/2016</span>
+											<span class="title">Migrating from Parse.com to deepstream.io</span>
+										</a>
+									</li>
+							</ul>
+						</div>		</footer>
+					</div>
+				
+					<span class="blog-sidebar">
+					
+						<div class="sidebar-item deepstream-learn-more">
+							<h4 class="sidebar-item-header">What is deepstream?</h4>
+							
+							<p>
+								deepstream.io is the open source server thats allows you to create realtime apps with minimal code!
+							</p>
+					
+							<a href="../../">Learn More</a>.
+						</div>
+					
+						<div class="sidebar-item share-story">
+							<h4 class="sidebar-item-header">Using deepstream?</h4>
+							<div class="share-story community-collaborate-content">
+								<img width="100%" src="../../assets/images/ds-stories-background.png" class="share-story-image" >
+								<a class="share-story-content" href="mailto:info@deepstream.io">
+									tell us what you're building with deepstream and get the t-shirt *
+									<span class="comical-warning">
+										* warning: t-shirt actually looks good and is desirable
+									</span>
+								</a>
+							</div>	</div>
+					
+						<div class="sidebar-item deepstream-help-out">
+							<h4 class="sidebar-item-header">Community</h4>
+							
+							<!--<p>
+								If your interested in bringing deepstream to your favourite language, please <a href="mailto:info@deepstreamhub.com" target="_top">contact us</a> for any support!
+							</p>
+							-->
+					
+							<p>
+								Like deepstream.io? Grant it a star!
+							</p>
+							
+							<p>
+								<a class="github-button" href="//github.com/deepstreamIO/deepstream.io" data-icon="octicon-star" data-style="mega" data-count-href="/deepstreamIO/deepstream.io/stargazers" data-count-api="/repos/deepstreamIO/deepstream.io#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star deepstreamIO/deepstream.io on GitHub">Star</a>
+							</p>
+						</div>
+					
+						<div class="sidebar-item deepstream-latest-posts">
+							<div class="latest-blogs">
+								<h4 class="latest-blogs-header">
+									Latest Blog Articles
+								</h4>
+								<ul class="latest-blogs-content">
+										<li class="latest-blog-article">
+											<a href="../realtime-microservices/">
+												<span class="date">19/03/2016</span>
+												<span class="title">Deepstream Microservices</span>
+											</a>
+										</li>
+										<li class="latest-blog-article">
+											<a href="../listen-benefits/">
+												<span class="date">18/02/2016</span>
+												<span class="title">The benefits of listening</span>
+											</a>
+										</li>
+										<li class="latest-blog-article">
+											<a href="../what-is-realtime/">
+												<span class="date">08/02/2016</span>
+												<span class="title">What is realtime?</span>
+											</a>
+										</li>
+										<li class="latest-blog-article">
+											<a href="../migrating-parse-com-to-deepstream-io/">
+												<span class="date">29/01/2016</span>
+												<span class="title">Migrating from Parse.com to deepstream.io</span>
+											</a>
+										</li>
+								</ul>
+							</div>	</div>
+					
+					</span></div>	</div>
 	<div id="footer">
 		<ul class="footer-items">
 
@@ -371,12 +413,33 @@ or have a look at the <a href="//deepstream.io/docs/client.event.html">event doc
 			<li class="footer-middle">
 				<h4>Browse</h4>
 				<ul>
-					<li ><a href="../..">Home</a></li>
-					<li ><a href="../../download/">Downloads</a></li>
-					<li ><a href="../../tutorials/getting-started.html">Tutorials</a></li>
-					<li ><a href="../../docs/deepstream.html">Documentation</a></li>
-					<li class="active"><a href="../../blog/">Blog</a></li>
-					<li ><a href="../../info/">Info</a></li>
+					<li >
+						<a href="../..">Home</a>
+					</li>
+					
+					<li >
+						<a href="../../download/">Downloads</a>
+					</li>
+					
+					<li >
+						<a href="../../tutorials/getting-started.html">Tutorials</a>
+						
+					</li>
+					
+					<li >
+						<a href="../../docs/deepstream.html">Documentation</a>
+						
+					</li>
+					
+					<li class="active">
+						<a href="../../blog/">Blog</a>
+					</li>
+				
+					<li >
+						<a href="../../info/">Info</a>
+						
+					</li>
+				
 				</ul>			</li>
 
 			<li class="footer-left">
