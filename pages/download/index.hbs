@@ -2,8 +2,8 @@
 <div id="downloads">
 	<div class="top">
 		<ul class="top-downloads">
-			{{downloadItem "Server" "deepstream.io" false "server"}}
-			{{downloadItem "Client" "deepstream.io-client-js" true "plug"}}
+			{{downloadItem "Server" "deepstream.io" false true "server"}}
+			{{downloadItem "Client" "deepstream.io-client-js" true true "plug"}}
 		</ul>
 	</div>
 
@@ -11,8 +11,8 @@
 		<h2><i class="fa fa-bolt"></i>Cache Connectors</h2>
 		<p>Cache connectors enable deepstream to store data in a distributed cache for horizontal scalability and fast read- and write access</p>
 		<ul>
-			{{downloadItem "redis cache connector" "deepstream.io-cache-redis" false}}
-			{{downloadItem "memcached cache connector" "deepstream.io-cache-memcached" false}}
+			{{downloadItem "redis cache connector" "deepstream.io-cache-redis" false true}}
+			{{downloadItem "memcached cache connector" "deepstream.io-cache-memcached" false true}}
 			<li class="write-your-own">
 				Can’t find a connector for your cache of choice? <a href="../tutorials/writing-storage-cache-connector.html">Read a tutorial on how to write your own.</a>
 			</li>
@@ -23,8 +23,8 @@
 		<h2><i class="fa fa-database"></i>Storage Connectors</h2>
 		<p>Storage connectors enable deepstream to store data in a database. This allows to use the database's query capabilities and to persist data when deepstream is used with an in-memory only cache like Memcached. Storing data in a database happens outside of the critical path and doesn't affect update performance.</p>
 		<ul>
-			{{downloadItem "rethinkdb storage connector" "deepstream.io-storage-rethinkdb" false}}
-			{{downloadItem "mongodb storage connector" "deepstream.io-storage-mongodb" false}}
+			{{downloadItem "rethinkdb storage connector" "deepstream.io-storage-rethinkdb" false true}}
+			{{downloadItem "mongodb storage connector" "deepstream.io-storage-mongodb" false true}}
 			<li class="write-your-own">
 				Can’t find a connector for your database of choice? <a href="../tutorials/writing-storage-cache-connector.html">Read a tutorial on how to write your own.</a>
 			</li>
@@ -35,9 +35,9 @@
 		<h2><i class="fa fa-comments"></i>Message Connectors</h2>
 		<p>Message connectors enable multiple deepstream nodes to connect to the same message bus and to distribute updates amongst each other, allowing for horizontal scalability</p>
 		<ul>
-			{{downloadItem "direct message connector" "deepstream.io-msg-direct" false}}
-			{{downloadItem "amqp message connector" "deepstream.io-msg-amqp" false}}
-			{{downloadItem "redis message connector" "deepstream.io-msg-redis" false}}
+			{{downloadItem "direct message connector" "deepstream.io-msg-direct" false true}}
+			{{downloadItem "amqp message connector" "deepstream.io-msg-amqp" false true}}
+			{{downloadItem "redis message connector" "deepstream.io-msg-redis" false true}}
 			<li class="write-your-own">
 				Can’t find a connector for your messaging system of choice? <a href="../tutorials/writing-messaging-connector.html">Read a tutorial on how to write your own.</a>
 			</li>
@@ -48,9 +48,10 @@
 		<h2><i class="fa fa-briefcase"></i>Others</h2>
 		<p>Integration tools and pre-build providers</p>
 		<ul>
-			{{downloadItem "react mixin" "deepstream.io-tools-react" false}}
-			{{downloadItem "knockout js tools" "deepstream.io-tools-ko" false}}
-			{{downloadItem "rethinkdb search provider" "deepstream.io-provider-search-rethinkdb" false}}
+			{{downloadItem "react mixin" "deepstream.io-tools-react" false true}}
+			{{downloadItem "polymer tools" "deepstream.io-tools-polymer" true false}}
+			{{downloadItem "knockout js tools" "deepstream.io-tools-ko" false true}}
+			{{downloadItem "rethinkdb search provider" "deepstream.io-provider-search-rethinkdb" false true}}
 		</ul>
 	</div>
 </div>
