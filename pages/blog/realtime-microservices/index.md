@@ -35,7 +35,7 @@ To connect deepstream to Slack, we’d need to create a “provider” - a small
 
 Our Slack provider connects as a client to deepstream on one side and spins up a HTTP server on the other. Whenever an entry is added to a todo-list, the provider gets notified and sends an HTTP request to Slack. Whenever a trigger-word is mentioned on Slack, it receives an HTTP request and stores its payload as a deepstream record.
 
-Please find a simple implementation of the deepstream-slack connector used in the example above [here].(slack-connector.js)
+Please find a simple implementation of the deepstream-slack connector used in the example above [here](slack-connector.js)
 
 <h3 class="section">Connecting to a database</h3>
 
@@ -49,7 +49,7 @@ deepstream offers a number of out of the box providers for common requirements. 
 
 <h3 class="section">But how does this scale?</h3>
 
-Very well, thank you. Deepstream is built to scale horizontally via a message bus and performs well as a messaging and data backbone for realtime applications.
+Very well indeed. Deepstream is built to scale horizontally via a message bus and performs well as a messaging and data backbone for realtime applications.
 
 Since state is synced between all connected servers it doesn't matter which endpoint your microservices connect to. On top of that, deepstream has a number of built-in features that help help scale backends more easily, e.g. via load balancing remote procedure calls between multiple redundant providers.
 
