@@ -4,7 +4,14 @@
       "date":"March 17th 2016",
       "eventImage": "realtime-web-lightning-talks.jpg",
       "link":"//www.meetup.com/Berlin-Realtime-Web-Meetup/events/228632661/",
-      "locationName":"TBA"
+      "locationName":"Akazienstraße 3, 10823 Berlin"
+   },
+   {
+      "eventName":"Using react and deepstream to easily create realtime apps",
+      "date":"March 11th 2016",
+      "eventImage": "open-source-meetup.png",
+      "link":"//www.meetup.com/Berlin-Open-Source-Software/events/228994955/",
+      "locationName":"Malmöer Str. 6, 10439, Berlin"
    },
    {
       "eventName":"Using rethinkdb and deepstream.io to create a smarter home",
