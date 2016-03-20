@@ -1,5 +1,5 @@
 #wrapper > #content {
-    width: 710px;
+    
 }
 
 table {
@@ -43,6 +43,7 @@ table td, table th {
 
 .section {
 	position: relative;
+	overflow: auto;
 }
 
 .message-type {

@@ -51,12 +51,15 @@ Clients are created in pairs that send messages back and forth on a unique recor
 Each client increments the same field of a record in turns ( even and odd ) until the configured number of messages for the test case is reached.
 
 Using a combination of the following environment variables you can adjust the test harness to either run high throughput, high concurrency or long duration tests.
+
+<div class="table-wrapper">
 <table class="mini">
 	<thead>
 		<tr>
 			<th>Enviroment Variable</th>
 			<th>Example Value</th>
 			<th>Description</th>
+		</tr>
 	</thead>
 	<tbody>
 		<tr>
@@ -116,5 +119,6 @@ Using a combination of the following environment variables you can adjust the te
 		</tr>
 	</tbody>
 </table>
+</div>
  
 </div>

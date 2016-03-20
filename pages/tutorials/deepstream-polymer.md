@@ -25,6 +25,7 @@ You can take a look at the documentation for all deepstream-polymer elements and
 
 ### How to use deepstream-polymer
 
+<div class="table-wrapper">
 <table class="mini space">
     <thead>
         <tr>
@@ -43,6 +44,7 @@ You can take a look at the documentation for all deepstream-polymer elements and
         </tr>
     </tbody>
 </table>
+</div>
 
 The beauty of using polymer is that you can build an entire data-sync application without a line of javascript! Let's look at the building blocks you can use to get deepstream working with polymer.
 

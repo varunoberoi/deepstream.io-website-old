@@ -1,6 +1,6 @@
 $(function(){
 	var resizeSubNav = function() {
-		$('#subnav').height( $(window).height() - 80 );
+		$('#wrapper > #subnav').height( $(window).height() - 80 );
 	};
 
 	$(window).resize( resizeSubNav );

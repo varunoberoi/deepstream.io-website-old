@@ -203,8 +203,6 @@ var buildFile = function( fileExtension, data, fileContent, next ) {
 			data.contextVars.subNav = getSubNav( innerHtml );
 			data.contextVars.nav = new hbs.SafeString( data.nav( data.contextVars ) );
 		}
-		
-		
 		data.contextVars.pageContent = new hbs.SafeString( innerHtml );
 		next( null, mainTemplate( data.contextVars ) );
 	});
