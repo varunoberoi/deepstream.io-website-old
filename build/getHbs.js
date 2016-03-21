@@ -48,7 +48,7 @@ hbs.registerHelper( 'githubstar', function( number ){
 	return new hbs.SafeString( html );
 });
 
-hbs.registerHelper( 'downloadItem', function( name, packageName, hasBower, icon ){
+hbs.registerHelper( 'downloadItem', function( name, packageName, hasBower, hasNpm, icon ){
 	var html = '' +
 		'<li class="download-item ' + packageName.replace( '.', '_') + '" data-package="' + packageName + '">';
 
@@ -59,8 +59,11 @@ hbs.registerHelper( 'downloadItem', function( name, packageName, hasBower, icon 
 		html +=	'<h3 class="download-item-header">' + name + '</h3>' +
 			'<code>' +
 				'<span class="pckg-name">' + packageName + '</span><span class="version">-</span>' +
-			'</code>' +
-			'<a class="npm download-link" title="get from npm" href="//www.npmjs.com/package/' + packageName + '"><i></i><span>NPM</span></a>';
+			'</code>';
+			
+		if( hasNpm === true ) {
+			html += '<a class="npm download-link" title="get from npm" href="//www.npmjs.com/package/' + packageName + '"><i></i><span>NPM</span></a>';
+		}
 		if( hasBower === true ) {
 			html += '<a class="bower download-link" title="get from bower" href="//bower.io/search/?q=' + packageName + '"><i></i><span>Bower</span></a>';
 		}
