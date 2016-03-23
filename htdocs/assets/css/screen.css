@@ -66,7 +66,6 @@ body {
 	float: left;
 }
 .header-tiny-logo h1 {
-	width: 200px;
 	height: 40px;
 	text-indent: -9999px;
 	left: 0;
@@ -81,12 +80,57 @@ body {
 	text-indent: -9999px;
 }
 
-.start-page .header-tiny-logo {
+.start-page .header-tiny-logo, .start-page .header-hiring-text {
 	display: none;
+}
+
+.start-page .navbar-fixed-top .header-tiny-logo, .start-page .navbar-fixed-top .header-hiring-text {
+	display: block;
 }
 
 @media( min-width: 750px ) {
 	.header-tiny-logo {
+		display: none;
+	}
+}
+
+/****************************
+* HIRING LINK
+****************************/
+
+.header-hiring-link, .header-hiring-link:hover {
+  text-decoration: initial;  
+  float: left;
+}
+
+.header-hiring-text {
+	position: relative;
+	right: 20px;
+    font-size: 14px;
+    border: 1px solid white;
+    border-radius: 2px;
+    padding: 3px;
+    background-color: white;
+    color: #145068;
+    font-weight: 500;
+    position: relative;
+    top: 10px;
+}
+
+.header-hiring-text:after  {
+    content: '';
+    position: absolute;
+    border-width: 4px 6px 4px 0;
+    border-style: solid;
+    border-color: transparent #FFFFFF;
+    width: 0;
+    z-index: 1;
+    left: -6px;
+    top: 8px;
+}
+
+@media( max-width: 300px ) {
+	.header-hiring-link {
 		display: none;
 	}
 }
