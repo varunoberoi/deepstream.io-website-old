@@ -116,6 +116,10 @@
 	color: white;
 }
 
+#footer #subnav {
+	display: none;
+}
+
 @media( max-width: 1080px) {
 	.desktop-nav a {
 		padding: 18px 0 10px 0;
