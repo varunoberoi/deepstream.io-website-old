@@ -104,17 +104,17 @@ body {
 }
 
 .header-hiring-text {
-	position: relative;
-	right: 20px;
-    font-size: 14px;
+    font-family: 'Roboto';
+    right: 20px;
+    font-size: 12px;
     border: 1px solid white;
     border-radius: 2px;
-    padding: 3px;
+    padding: 1px 5px;
     background-color: white;
     color: #145068;
     font-weight: 500;
     position: relative;
-    top: 10px;
+    top: 11px;
 }
 
 .header-hiring-text:after  {
@@ -126,7 +126,7 @@ body {
     width: 0;
     z-index: 1;
     left: -6px;
-    top: 8px;
+    top: 4px;
 }
 
 @media( max-width: 300px ) {
