@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>deepstream.io | WebRTC Tips</title>
+	<title>deepstream.io | Running deepstream with an Express server</title>
 
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<meta name="keywords" content="deepstream, deepstream.io, streaming, realtime, server, socket" />
-	<meta name="description" content="General tips and implementation advice for working with WebRTC" />
+	<meta name="description" content="How to attach deepstream to an Express server" />
 	<meta name="author" content="Wolfram Hempel" />
 	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 	<link rel="icon" href="/favicon.ico" type="image/x-icon">
@@ -112,13 +112,13 @@
 					<div class="isActiveIndicator orangeGradient"></div>
 				</li>
 			
-				<li class="active">
+				<li >
 					<a href="webrtc-tips.html">WebRTC Tips</a>
 					<div class="isActiveIndicator orangeGradient"></div>
 				</li>
 			
 				<li class="head">Examples</li>
-				<li >
+				<li class="active">
 					<a href="deepstream-express.html">Using deepstream with Express</a>
 					<div class="isActiveIndicator orangeGradient"></div>
 				</li>
@@ -252,13 +252,13 @@
 						<div class="isActiveIndicator orangeGradient"></div>
 					</li>
 				
-					<li class="active">
+					<li >
 						<a href="webrtc-tips.html">WebRTC Tips</a>
 						<div class="isActiveIndicator orangeGradient"></div>
 					</li>
 				
 					<li class="head">Examples</li>
-					<li >
+					<li class="active">
 						<a href="deepstream-express.html">Using deepstream with Express</a>
 						<div class="isActiveIndicator orangeGradient"></div>
 					</li>
@@ -374,13 +374,13 @@
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
 
-	<li class="active">
+	<li >
 		<a href="webrtc-tips.html">WebRTC Tips</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
 
 	<li class="head">Examples</li>
-	<li >
+	<li class="active">
 		<a href="deepstream-express.html">Using deepstream with Express</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
@@ -407,26 +407,31 @@
 </ul>
 
 			<div id="content">
-				<h1>WebRTC implementation tips</h1><p>A collection of things we found useful when working with WebRTC</p><h3>Use the WebRTC adapter</h3><p>Deepstream expects a standard-compliant WebRTC API – which is almost here. To bridge implementation differences and ensure backwards compatibility in the meantime, the WebRTC initiative offers an <a href="//github.com/webrtc/adapter">adapter script</a> which we highly recommend using for now.</p><h3>Don’t forget to tell your video to play</h3><p>HTML 5 videos don’t play by default, so don’t forget to either add an <code>autoplay</code> attribute</p><pre><code class="lang-html">&lt;video id=&quot;localVideo&quot; autoplay&gt;&lt;/video&gt;
+				<h1>Running deepstream with an Express server</h1><p><img src="../assets/images/express/deepstream-express.png" alt="deepstream-express"></p><p>Deepstream provides all the tools needed to create realtime functionality. However functionality like file uploads and server-side rendering can be based on the mature ecosystem already provided by http servers, such as <a href="//nodejs.org/api/http.html">HTTP node</a>, <a href="//expressjs.com/">Express</a>, <a href="//koajs.com/">koa</a>, <a href="//hapijs.com/">hapi</a> and others.</p><h3>How to attach an Express server to deepstream?</h3><p>You can pass a server to deepstream simply by setting it via the <code>httpServer</code> config. This will inform deepstream that you have a server you want to attach to instead of it spinning up its own.</p><p>The first thing we&#39;ll need to do is requires all the necessary modules to create a deepstream and express server.</p><pre><code class="lang-javascript">var Deepstream = require( &#39;deepstream.io&#39; );
+var http = require( &#39;http&#39; );
+var express = require( &#39;express&#39; );
 </code></pre>
-<p>or call <code>play()</code> after attaching a stream</p><pre><code class="lang-javascript">video = document.getElementById( &#39;localVideo&#39; );
-video.src = URL.createObjectURL( stream );
-video.play();
+<p>Once that is complete you can then create your express application, making sure you have a handle on the HTTP server to pass to deepstream later. You can also add your modules and paths here.</p><pre><code class="lang-javascript">var app = express();
+var server = http.createServer(app);
+
+app.get(&#39;/hello&#39;, function ( req, res ) {
+  res.send( &#39;Hello to you too!&#39; );
+})
 </code></pre>
-<h3>Mute your own audio</h3><p>When you request a video and audio stream (<code>getUserMedia({ video: true, audio: true })</code>) and play it on a video tag, chances are that you end up with a nasty echo / feedback loop. To avoid this, mute your own audio-track by adding a muted attribute</p><pre><code class="lang-html">&lt;video id=&quot;localVideo&quot; muted&gt;&lt;/video&gt;
+<p>Now you can setup your deepstream server and configure it as appropriate. The two important settings here are <code>urlPath</code> so that deepstream only listens to a specific path for connections, since the port will now be shared and <code>httpServer</code> for it to bind connections to.</p><pre><code class="lang-javascript">var deepstream = new Deepstream();
+deepstream.set( &#39;urlPath&#39;, &#39;/deepstream&#39; );
+deepstream.set( &#39;httpServer&#39;, server );
+deepstream.start();
 </code></pre>
-<p>or mute the video in code</p><pre><code class="lang-javascript">video = document.getElementById( &#39;localVideo&#39; );
-video.muted = true;
-</code></pre>
-<h3>Specify a resolution for multi-user chats</h3><p>If you are building an application that allows multiple users to chat with each other at the same time, you might want to limit the resolution for each participants video - otherwise your connection can&#39;t keep up with the amount of data its receiving.</p><p>To do this, use the constrains object that you pass to getUserMedia, e.g.</p><pre><code class="lang-javascript">getUserMedia({
-    audio: true,
-    video: {
-        width: 160,
-        height: 120
-    }
+<p>Finally, all that is left is to start listening to the server on your port. Now you have a combination of all the goodness of deepstream and express!</p><pre><code class="lang-javascript">server.listen( 6020, function(){
+    console.log( &#39;HTTP server listening on 6020&#39; );
 });
 </code></pre>
-
+<h3>What needs to change on the client?</h3><p>Just a single configuration option so it knows what <code>urlPath</code> to use</p><pre><code class="lang-javascript">    var ds = deepstream( &#39;localhost:6020&#39;, {
+        path: &#39;/deepstream&#39;
+    } );
+</code></pre>
+<p>To see this running checkout our tutorial repo here:</p><p><a class="mega" href="//github.com/deepstreamIO/ds-express"><i class="fa fa-github"></i>deepstream &amp; express example</a></p>
 			</div>
 		</div>
 		<script type="text/javascript" src="../assets/js/docs.js"></script>
@@ -543,13 +548,13 @@ video.muted = true;
 						<div class="isActiveIndicator orangeGradient"></div>
 					</li>
 				
-					<li class="active">
+					<li >
 						<a href="webrtc-tips.html">WebRTC Tips</a>
 						<div class="isActiveIndicator orangeGradient"></div>
 					</li>
 				
 					<li class="head">Examples</li>
-					<li >
+					<li class="active">
 						<a href="deepstream-express.html">Using deepstream with Express</a>
 						<div class="isActiveIndicator orangeGradient"></div>
 					</li>
