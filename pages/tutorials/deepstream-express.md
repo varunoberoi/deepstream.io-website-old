@@ -14,7 +14,7 @@ Deepstream provides all the tools needed to create realtime functionality. Howev
 
 You can pass a server to deepstream simply by setting it via the `httpServer` config. This will inform deepstream that you have a server you want to attach to instead of it spinning up its own.
 
-The first thing we'll need to do is requires all the necassary modules to create a deepstream and express server.
+The first thing we'll need to do is requires all the necessary modules to create a deepstream and express server.
 
 ```javascript
 var Deepstream = require( 'deepstream.io' );
