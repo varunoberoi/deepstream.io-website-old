@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>deepstream.io | Transforming outgoing data</title>
+	<title>deepstream.io | Running deepstream with an Express server</title>
 
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<meta name="keywords" content="deepstream, deepstream.io, streaming, realtime, server, socket" />
-	<meta name="description" content="Learn how to use transform functions to manipulate data before it leaves the server" />
+	<meta name="description" content="How to attach deepstream to an Express server" />
 	<meta name="author" content="Wolfram Hempel" />
 	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 	<link rel="icon" href="/favicon.ico" type="image/x-icon">
@@ -73,7 +73,7 @@
 					<a href="searching-and-querying.html">Searching & Querying</a>
 					<div class="isActiveIndicator orangeGradient"></div>
 				</li>
-				<li class="active">
+				<li >
 					<a href="transforming-data.html">Transforming Data</a>
 					<div class="isActiveIndicator orangeGradient"></div>
 				</li>
@@ -118,7 +118,7 @@
 				</li>
 			
 				<li class="head">Examples</li>
-				<li >
+				<li class="active">
 					<a href="deepstream-express.html">Using deepstream with Express</a>
 					<div class="isActiveIndicator orangeGradient"></div>
 				</li>
@@ -213,7 +213,7 @@
 						<a href="searching-and-querying.html">Searching & Querying</a>
 						<div class="isActiveIndicator orangeGradient"></div>
 					</li>
-					<li class="active">
+					<li >
 						<a href="transforming-data.html">Transforming Data</a>
 						<div class="isActiveIndicator orangeGradient"></div>
 					</li>
@@ -258,7 +258,7 @@
 					</li>
 				
 					<li class="head">Examples</li>
-					<li >
+					<li class="active">
 						<a href="deepstream-express.html">Using deepstream with Express</a>
 						<div class="isActiveIndicator orangeGradient"></div>
 					</li>
@@ -335,7 +335,7 @@
 		<a href="searching-and-querying.html">Searching & Querying</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
-	<li class="active">
+	<li >
 		<a href="transforming-data.html">Transforming Data</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
@@ -380,7 +380,7 @@
 	</li>
 
 	<li class="head">Examples</li>
-	<li >
+	<li class="active">
 		<a href="deepstream-express.html">Using deepstream with Express</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 	</li>
@@ -407,141 +407,31 @@
 </ul>
 
 			<div id="content">
-				<h1>Transforming outgoing data</h1><p>Deepstream allows to manipulate data before it leaves the server. This can be useful for a number of usecases</p><ul>
-<li>adding trusted data like usernames to outgoing RPCs</li>
-<li>removing confidential information from record data before it is send to clients</li>
-<li>modifying values based on the user they are sent to, e.g. applying user specific discounts to prices</li>
-</ul>
-<h3>How to manipulate data</h3><p>Data transformation functions can be registered for all TOPIC / ACTION combinations that send out data.</p><table class="mini">
-    <thead>
-        <tr>
-            <th>TOPIC</th>
-            <th>ACTION</th>
-            <th>description</th>
-            <th>meta data</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>RPC</td>
-            <td>REQUEST</td>
-            <td>
-                message from server to RPC provider<br />
-                result of <code>ds.rpc.make( name, data, callback )</code>
-            </td>
-            <td>sender, receiver, rpcName</td>
-        </tr>
-        <tr>
-            <td>RPC</td>
-            <td>RESPONSE</td>
-            <td>response from RPC provider on the way back to its requestor, result of <code>response.send( data )</code></td>
-            <td>sender, receiver, rpcName</td>
-        </tr>
-        <tr>
-            <td>EVENT</td>
-            <td>EVENT</td>
-            <td>data associated with an event send with <br /><code>ds.event.emit( name, data )<code></td>
-            <td>sender, receiver, eventName</td>
-        </tr>
-        <tr>
-            <td>RECORD</td>
-            <td>READ</td>
-            <td>response to a record subscription made with <br /><code>ds.record.getRecord()</code></td>
-            <td>recordName, version, receiver</td>
-        </tr>
-        <tr>
-            <td>RECORD</td>
-            <td>UPDATE</td>
-            <td>full record update,<br />result of <code>ds.record.set({})</code></td>
-            <td>recordName, version, receiver</td>
-        </tr>
-        <tr>
-            <td>RECORD</td>
-            <td>PATCH</td>
-            <td>partial record update,<br />result of <code>ds.record.set(path, value)<code></td>
-            <td>recordName, version, receiver, path</td>
-        </tr>
-    </tbody>
-</table>
-
-<p>Transform-functions are registered using <code>server.set( &#39;dataTransforms&#39;, [...])</code></p><pre><code class="lang-javascript">var Deepstream = require( &#39;deepstream.io&#39; );
-var server = new Deepstream();
-
-server.set( &#39;dataTransforms&#39;, [{
-    topic: C.TOPIC.RPC,
-    action: C.ACTIONS.REQUEST,
-    transform: function( data, metaData ) {
-        if( metaData.rpcName === &#39;get-price&#39; ) {
-            data.discount = userDiscounts[ metaData.sender ];
-        }
-        return data;
-    }
-},{
-    topic: C.TOPIC.RECORD,
-    action: C.ACTIONS.READ,
-    transform: function( data, metaData ) {
-        delete data.confidentialInfo;
-        return data;
-    }
-}]);
-
-server.start();
+				<h1>Running deepstream with an Express server</h1><p><img src="../assets/images/express/deepstream-express.png" alt="deepstream-express"></p><p>Deepstream provides all the tools needed to create realtime functionality. However functionality like file uploads and server-side rendering can be based on the mature ecosystem already provided by http servers, such as <a href="//nodejs.org/api/http.html">HTTP node</a>, <a href="//expressjs.com/">Express</a>, <a href="//koajs.com/">koa</a>, <a href="//hapijs.com/">hapi</a> and others.</p><h3>How to attach an Express server to deepstream?</h3><p>You can pass a server to deepstream simply by setting it via the <code>httpServer</code> config. This will inform deepstream that you have a server you want to attach to instead of it spinning up its own.</p><p>The first thing we&#39;ll need to do is requires all the necassary modules to create a deepstream and express server.</p><pre><code class="lang-javascript">var Deepstream = require( &#39;deepstream.io&#39; );
+var http = require( &#39;http&#39; );
+var express = require( &#39;express&#39; );
 </code></pre>
-<h3>Transforming record data</h3><p>Transforming outgoing record data can be a bit complex, due to the different ways that updates are sent out.</p><ul>
-<li>When a client calls <code>ds.record.getRecord( recordName )</code> the server responds with a READ action. </li>
-<li>When a record is completely updated, using <code>record.set({})</code> with a single argument, an UPDATE action is sent out. </li>
-<li>In case of partial updates, using <code>record.set(path, value)</code>, a PATCH message is sent out, containing the path and only the updated value. </li>
-</ul>
-<p>When manipulating outgoing record-data, all three cases need to be taken into account.</p><p>The following example shows how a user-discount would be applied to the price of an item, assuming</p><ul>
-<li>record names are structured as item/&lt;id&gt;</li>
-<li>record data looks like { price: &lt;id&gt;, other: &lt;...&gt; }</li>
-</ul>
-<pre><code class="lang-javascript">var userDiscounts = {
-    &#39;anne&#39;: 0.97,
-    &#39;max&#39;: 0.90,
-    &#39;lisa&#39;: 0.85
-};
+<p>Once that is complete you can then create your express application, making sure you have a handle on the HTTP server to pass to deepstream later. You can also add your modules and paths here.</p><pre><code class="lang-javascript">var app = express();
+var server = http.createServer(app);
 
-// READ and UPDATE have the same signature,
-// so we can use the same function for both
-var transformReadAndUpdate = function( data, metaData ) {
-    if( metaData.recordName.substr( 0, 5 ) === &#39;item/&#39; ) {
-        data.price *= userDiscounts[ metaData.receiver ];
-    }
-    return data;
-};
-
-server.set( &#39;dataTransforms&#39;, [{
-    topic: C.TOPIC.RECORD,
-    action: C.ACTIONS.READ,
-    transform: transformReadAndUpdate
-}, {
-    topic: C.TOPIC.RECORD,
-    action: C.ACTIONS.UPDATE,
-    transform: transformReadAndUpdate
-},{
-    topic: C.TOPIC.RECORD,
-    action: C.ACTIONS.PATCH,
-    transform: function( data, metaData ) {
-        if( 
-            metaData.recordName.substr( 0, 5 ) === &#39;item/&#39; &amp;&amp;
-            metaData.path === &#39;price&#39;
-        ) {
-            //data for PATCH is just the price
-            return data * userDiscounts[ metaData.receiver ];
-        } else {
-            return data;
-        }
-    }
-}]);
+app.get(&#39;/hello&#39;, function ( req, res ) {
+  res.send( &#39;Hello to you too!&#39; );
+})
 </code></pre>
-<div class="hint-box fa fa-gears">
-    <h3>BUT!...</h3>
-    <p>Transforming data slows deepstream down quite a bit. Usually, messages are constructed once and
-    fanned out to all subscribed clients. If a transform function is registered however, messages are constructed
-    for every receiver specifically which can add considerable overhead. So: Use with caution and do as little as possible
-    in your transform function.</p>
-</div>
+<p>Now you can setup your deepstream server and configure it as appropriate. The two important settings here are <code>urlPath</code> so that deepstream only listens to a specific path for connections, since the port will now be shared and <code>httpServer</code> for it to bind connections to.</p><pre><code class="lang-javascript">var deepstream = new Deepstream();
+deepstream.set( &#39;urlPath&#39;, &#39;/deepstream&#39; );
+deepstream.set( &#39;httpServer&#39;, server );
+deepstream.start();
+</code></pre>
+<p>Finally, all that is left is to start listening to the server on your port. Now you have a combination of all the goodness of deepstream and express!</p><pre><code class="lang-javascript">server.listen( 6020, function(){
+    console.log( &#39;HTTP server listening on 6020&#39; );
+});
+</code></pre>
+<h3>What needs to change on the client?</h3><p>Just a single configuration option so it knows what <code>urlPath</code> to use</p><pre><code class="lang-javascript">    var ds = deepstream( &#39;localhost:6020&#39;, {
+        path: &#39;/deepstream&#39;
+    } );
+</code></pre>
+<p>To see this running checkout our tutorial repo here:</p><p><a class="mega" href="//github.com/deepstreamIO/ds-express"><i class="fa fa-github"></i>deepstream &amp; express example</a></p>
 			</div>
 		</div>
 		<script type="text/javascript" src="../assets/js/docs.js"></script>
@@ -619,7 +509,7 @@ server.set( &#39;dataTransforms&#39;, [{
 						<a href="searching-and-querying.html">Searching & Querying</a>
 						<div class="isActiveIndicator orangeGradient"></div>
 					</li>
-					<li class="active">
+					<li >
 						<a href="transforming-data.html">Transforming Data</a>
 						<div class="isActiveIndicator orangeGradient"></div>
 					</li>
@@ -664,7 +554,7 @@ server.set( &#39;dataTransforms&#39;, [{
 					</li>
 				
 					<li class="head">Examples</li>
-					<li >
+					<li class="active">
 						<a href="deepstream-express.html">Using deepstream with Express</a>
 						<div class="isActiveIndicator orangeGradient"></div>
 					</li>

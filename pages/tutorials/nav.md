@@ -71,6 +71,11 @@
 	</li>
 
 	<li class="head">Examples</li>
+	<li {{#if fileIs_deepstream-express}}class="active"{{/if}}>
+		<a href="deepstream-express.html">Using deepstream with Express</a>
+		<div class="isActiveIndicator orangeGradient"></div>
+	</li>
+
 	<li {{#if fileIs_deepstream-react}}class="active"{{/if}}>
 		<a href="deepstream-react.html">Using deepstream-react</a>
 		<div class="isActiveIndicator orangeGradient"></div>
