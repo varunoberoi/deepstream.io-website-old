@@ -102,7 +102,7 @@ data for records that users are actually interested in.
 
 Some things to note:
 
-* the listen callback will only be called once with subscribed = true for the first timea matching subscription is made and once with subscribed = false once all clients have unsubscribed from the record.
+* the listen callback will only be called once with subscribed = true for the first time a matching subscription is made and once with subscribed = false once all clients have unsubscribed from the record.
 
 * The callback will be called for all matching subscriptions that already exist at the time its registered.
 
