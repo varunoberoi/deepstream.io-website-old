@@ -28,7 +28,7 @@ Permissions are based on incoming messages. Every incoming message will be parse
 * `action` is a constant that defines what should happen to the topic, e.g. 'CREATE_OR_READ', 'SUBSCRIBE', 'DELETE' etc. Please find a full list of actions [here](../docs/constants.html#Actions)
 * `data` is an array of values that relate to the action. The number and order of these values depends on the action they relate to. For every record-related message the first value in the data array is always the record name
 
-If you'd like to learn more about deepstream's message structure, have a look at the [message structure page](message-structure.html)
+If you'd like to learn more about deepstream's message structure, have a look at the [message structure page](../info/messagestructure)
 
 ### Applying permissions
 Based on the username and the incoming message you can now allow or deny operations. Here are some examples:
