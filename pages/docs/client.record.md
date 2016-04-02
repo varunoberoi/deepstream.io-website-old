@@ -15,6 +15,7 @@ type: Function
 optional: false
 desc: A function that will be called with a boolean to indicate whether the record exists. Arguments are (String) error and (Boolean) hasRecord
 
+<<<<<<< HEAD
 Returns a boolean to indicate whether or not the record exists in deepstream. This is useful to avoid creating a record via `getRecord( name )` if you only want to edit the contents.
 
 ```javascript
