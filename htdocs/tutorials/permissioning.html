@@ -424,7 +424,7 @@
 <li><code>action</code> is a constant that defines what should happen to the topic, e.g. &#39;CREATE_OR_READ&#39;, &#39;SUBSCRIBE&#39;, &#39;DELETE&#39; etc. Please find a full list of actions <a href="../docs/constants.html#Actions">here</a></li>
 <li><code>data</code> is an array of values that relate to the action. The number and order of these values depends on the action they relate to. For every record-related message the first value in the data array is always the record name</li>
 </ul>
-<p>If you&#39;d like to learn more about deepstream&#39;s message structure, have a look at the <a href="message-structure.html">message structure page</a></p><h3>Applying permissions</h3><p>Based on the username and the incoming message you can now allow or deny operations. Here are some examples:</p><h3>Allow everything</h3><p>To allow everything, just always pass true to the callback. This is also what the default permissionHandler does.</p><pre><code class="lang-javascript">//Allow everything
+<p>If you&#39;d like to learn more about deepstream&#39;s message structure, have a look at the <a href="../info/messagestructure">message structure page</a></p><h3>Applying permissions</h3><p>Based on the username and the incoming message you can now allow or deny operations. Here are some examples:</p><h3>Allow everything</h3><p>To allow everything, just always pass true to the callback. This is also what the default permissionHandler does.</p><pre><code class="lang-javascript">//Allow everything
 canPerformAction: function( username, message, callback ) {
     callback( null, true );
 }

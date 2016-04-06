@@ -42,12 +42,12 @@ server.start();</code></pre>
 		</div>
 		<div class="code-right">
 <pre><code class="lang-javascript">// Browser / Node Client
-var ds = deepstream( 'localhost:6020' ).login(),
-    record =ds.record.getRecord( 'stock/hxto' );
+ds = deepstream( 'localhost:6020' ).login();
 
-record.get( 'name' ); // Hoxton One
-record.set( 'employees[1].firstname', 'Zack' );
-record.subscribe( 'price', function( price ){ });</code></pre>
+john = ds.record.getRecord( 'user/johnsmith' );
+john.get( 'lastname' ); // Smith
+john.subscribe( 'geo',( geoCoords ) => {} );
+john.set( 'geo.latitude', 52.5200 );</code></pre>
 		</div>
 	</div>
 </div>
