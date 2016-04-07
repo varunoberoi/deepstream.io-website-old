@@ -1,6 +1,6 @@
 {
     "title": "deepstreamHub raises $1 Million seed round to turn realtime into a platform",
-    "dateISO": "20160406",
+    "dateISO": "20160407",
     "author": "wolframhempel",
     "thumbnail": "deepstreamhub-logo-and-claim-bg.png"
 }
@@ -22,10 +22,7 @@ It lets every client perform realtime searches, send and receive emails, texts o
 
 But we won’t stop there. DeepstreamHub is about providing a rich and open ecosystem of third party integrations that allow users to stream data from and to messengers like Slack, developer platforms like GitHub, social networks, IoT endpoints, payment providers, open data sets etc.
 
-<div class="img-box">
-    <img src="founders-01.png" alt="DeepstreamHub Founders" />
-    <label>deepstreamHub founders Wolfram Hempel &amp; Yasser Fadl</label>
-</div>
+![deepstreamHub dashboard](dshub-select-channel.png)
 
 ### Who is deepstreamHub for?
 
@@ -40,6 +37,11 @@ DeepstreamHub is based on deepstream.io, a realtime server that’s fully open s
 A great and supportive community. We believe in open source and are proud to say that despite its young age deepstream.io is already powering production apps and has gathered a great community of explorers, tinkerers and contributors.
 
 Less technical risk / vendor lock­in: A common and justified concern about building applications on top of platform­as­a­service offerings is the associated third party risk. The recent shut­down of popular services like parse.com has increased this concern. By open sourcing the core of our stack from day one, we provide a valuable fallback and alleviate this risk.
+
+<div class="img-box">
+    <img src="founders-01.png" alt="DeepstreamHub Founders" />
+    <label>deepstreamHub founders Wolfram Hempel &amp; Yasser Fadl</label>
+</div>
 
 ### What’s next?
 
