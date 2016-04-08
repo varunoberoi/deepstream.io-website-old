@@ -88,6 +88,34 @@
 				</li>
 			
 				<li class="head">Client Specs</li>
+					<li >
+						<a href="../../info/messagestructure/connectivity.html">
+						Connectivity</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+					</li>
+					<li class="active">
+						<a href="../../info/messagestructure/parsing.html">
+						Parsing</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+							<ul class="overview">
+								<li><a href="#Parsing Messages">Parsing Messages</a></li>
+							</ul>
+					</li>
+					<li >
+						<a href="../../info/messagestructure/rpc.html">
+						Rpc</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+					</li>
+					<li >
+						<a href="../../info/messagestructure/records.html">
+						Records</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+					</li>
+					<li >
+						<a href="../../info/messagestructure/events.html">
+						Events</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+					</li>
 				
 				
 			
@@ -163,6 +191,34 @@
 					</li>
 				
 					<li class="head">Client Specs</li>
+						<li >
+							<a href="../../info/messagestructure/connectivity.html">
+							Connectivity</a>
+							<div class="isActiveIndicator orangeGradient"></div>
+						</li>
+						<li class="active">
+							<a href="../../info/messagestructure/parsing.html">
+							Parsing</a>
+							<div class="isActiveIndicator orangeGradient"></div>
+								<ul class="overview">
+									<li><a href="#Parsing Messages">Parsing Messages</a></li>
+								</ul>
+						</li>
+						<li >
+							<a href="../../info/messagestructure/rpc.html">
+							Rpc</a>
+							<div class="isActiveIndicator orangeGradient"></div>
+						</li>
+						<li >
+							<a href="../../info/messagestructure/records.html">
+							Records</a>
+							<div class="isActiveIndicator orangeGradient"></div>
+						</li>
+						<li >
+							<a href="../../info/messagestructure/events.html">
+							Events</a>
+							<div class="isActiveIndicator orangeGradient"></div>
+						</li>
 					
 					
 				
@@ -206,6 +262,34 @@
 	</li>
 
 	<li class="head">Client Specs</li>
+		<li >
+			<a href="../../info/messagestructure/connectivity.html">
+			Connectivity</a>
+			<div class="isActiveIndicator orangeGradient"></div>
+		</li>
+		<li class="active">
+			<a href="../../info/messagestructure/parsing.html">
+			Parsing</a>
+			<div class="isActiveIndicator orangeGradient"></div>
+				<ul class="overview">
+					<li><a href="#Parsing Messages">Parsing Messages</a></li>
+				</ul>
+		</li>
+		<li >
+			<a href="../../info/messagestructure/rpc.html">
+			Rpc</a>
+			<div class="isActiveIndicator orangeGradient"></div>
+		</li>
+		<li >
+			<a href="../../info/messagestructure/records.html">
+			Records</a>
+			<div class="isActiveIndicator orangeGradient"></div>
+		</li>
+		<li >
+			<a href="../../info/messagestructure/events.html">
+			Events</a>
+			<div class="isActiveIndicator orangeGradient"></div>
+		</li>
 	
 	
 
@@ -239,6 +323,36 @@
     </table>
     <div class="down-arrow"></div>
 </div>
+    <div class="section">  
+        <a name="Parsing Messages"></a>
+        <pre><code class="language-gherkin">@parsing
+Feature: Parsing Messages
+	Every message from that&#x27;s received from the server is validated 
+	for some basic syntactic and semantic criteria
+
+Background:
+	Given the test server is ready
+		And the client is initialised
+		And the client logs in with username &quot;XXX&quot; and password &quot;YYY&quot;
+		And the server sends the message A|A+
+
+Scenario: The client receives a message with too few parts
+	When the server sends the message I only have one part+
+	Then the client throws a &quot;MESSAGE_PARSE_ERROR&quot; error with message &quot;Insufficiant message parts&quot;
+
+#TODO: This shouldn&#x27;t pass in its current state
+#Scenario: The client receives an empty message
+#	When the server sends the message +
+#	Then the client throws a MESSAGE_PARSE_ERROR error with message Insufficiant message parts
+
+Scenario: The client receives a message for an unknown topic
+	When the server sends the message B|R+
+	Then the client throws a &quot;MESSAGE_PARSE_ERROR&quot; error with message &quot;Received message for unknown topic B&quot;
+
+Scenario: The client receives a message with an unknown action
+	When the server sends the message R|XXX+
+	Then the client throws a &quot;MESSAGE_PARSE_ERROR&quot; error with message &quot;Unknown action XXX&quot;</code></pre>
+    </div>
 
 			</div>
 		</div>
@@ -332,6 +446,34 @@
 					</li>
 				
 					<li class="head">Client Specs</li>
+						<li >
+							<a href="../../info/messagestructure/connectivity.html">
+							Connectivity</a>
+							<div class="isActiveIndicator orangeGradient"></div>
+						</li>
+						<li class="active">
+							<a href="../../info/messagestructure/parsing.html">
+							Parsing</a>
+							<div class="isActiveIndicator orangeGradient"></div>
+								<ul class="overview">
+									<li><a href="#Parsing Messages">Parsing Messages</a></li>
+								</ul>
+						</li>
+						<li >
+							<a href="../../info/messagestructure/rpc.html">
+							Rpc</a>
+							<div class="isActiveIndicator orangeGradient"></div>
+						</li>
+						<li >
+							<a href="../../info/messagestructure/records.html">
+							Records</a>
+							<div class="isActiveIndicator orangeGradient"></div>
+						</li>
+						<li >
+							<a href="../../info/messagestructure/events.html">
+							Events</a>
+							<div class="isActiveIndicator orangeGradient"></div>
+						</li>
 					
 					
 				
@@ -364,6 +506,15 @@
 	</div>
 
 
+	<script>
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+		ga('create', 'UA-63583386-1', 'auto');
+		ga('send', 'pageview');
+	</script>
 	<script async defer id="github-bjs" src="//buttons.github.io/buttons.js"></script>
 </body>
 </html>

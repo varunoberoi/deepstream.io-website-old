@@ -88,6 +88,39 @@
 				</li>
 			
 				<li class="head">Client Specs</li>
+					<li >
+						<a href="../../info/messagestructure/connectivity.html">
+						Connectivity</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+					</li>
+					<li >
+						<a href="../../info/messagestructure/parsing.html">
+						Parsing</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+					</li>
+					<li >
+						<a href="../../info/messagestructure/rpc.html">
+						Rpc</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+					</li>
+					<li >
+						<a href="../../info/messagestructure/records.html">
+						Records</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+					</li>
+					<li class="active">
+						<a href="../../info/messagestructure/events.html">
+						Events</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+							<ul class="overview">
+								<li><a href="#Events Misc">Events Misc</a></li>
+								<li><a href="#Events Connectivity">Events Connectivity</a></li>
+								<li><a href="#Event Listen Timeouts">Event Listen Timeouts</a></li>
+								<li><a href="#Event Listen">Event Listen</a></li>
+								<li><a href="#Events Timeouts">Events Timeouts</a></li>
+								<li><a href="#Events">Events</a></li>
+							</ul>
+					</li>
 				
 				
 			
@@ -163,6 +196,39 @@
 					</li>
 				
 					<li class="head">Client Specs</li>
+						<li >
+							<a href="../../info/messagestructure/connectivity.html">
+							Connectivity</a>
+							<div class="isActiveIndicator orangeGradient"></div>
+						</li>
+						<li >
+							<a href="../../info/messagestructure/parsing.html">
+							Parsing</a>
+							<div class="isActiveIndicator orangeGradient"></div>
+						</li>
+						<li >
+							<a href="../../info/messagestructure/rpc.html">
+							Rpc</a>
+							<div class="isActiveIndicator orangeGradient"></div>
+						</li>
+						<li >
+							<a href="../../info/messagestructure/records.html">
+							Records</a>
+							<div class="isActiveIndicator orangeGradient"></div>
+						</li>
+						<li class="active">
+							<a href="../../info/messagestructure/events.html">
+							Events</a>
+							<div class="isActiveIndicator orangeGradient"></div>
+								<ul class="overview">
+									<li><a href="#Events Misc">Events Misc</a></li>
+									<li><a href="#Events Connectivity">Events Connectivity</a></li>
+									<li><a href="#Event Listen Timeouts">Event Listen Timeouts</a></li>
+									<li><a href="#Event Listen">Event Listen</a></li>
+									<li><a href="#Events Timeouts">Events Timeouts</a></li>
+									<li><a href="#Events">Events</a></li>
+								</ul>
+						</li>
 					
 					
 				
@@ -206,6 +272,39 @@
 	</li>
 
 	<li class="head">Client Specs</li>
+		<li >
+			<a href="../../info/messagestructure/connectivity.html">
+			Connectivity</a>
+			<div class="isActiveIndicator orangeGradient"></div>
+		</li>
+		<li >
+			<a href="../../info/messagestructure/parsing.html">
+			Parsing</a>
+			<div class="isActiveIndicator orangeGradient"></div>
+		</li>
+		<li >
+			<a href="../../info/messagestructure/rpc.html">
+			Rpc</a>
+			<div class="isActiveIndicator orangeGradient"></div>
+		</li>
+		<li >
+			<a href="../../info/messagestructure/records.html">
+			Records</a>
+			<div class="isActiveIndicator orangeGradient"></div>
+		</li>
+		<li class="active">
+			<a href="../../info/messagestructure/events.html">
+			Events</a>
+			<div class="isActiveIndicator orangeGradient"></div>
+				<ul class="overview">
+					<li><a href="#Events Misc">Events Misc</a></li>
+					<li><a href="#Events Connectivity">Events Connectivity</a></li>
+					<li><a href="#Event Listen Timeouts">Event Listen Timeouts</a></li>
+					<li><a href="#Event Listen">Event Listen</a></li>
+					<li><a href="#Events Timeouts">Events Timeouts</a></li>
+					<li><a href="#Events">Events</a></li>
+				</ul>
+		</li>
 	
 	
 
@@ -239,6 +338,248 @@
     </table>
     <div class="down-arrow"></div>
 </div>
+    <div class="section">  
+        <a name="Events Misc"></a>
+        <pre><code class="language-gherkin">@events
+Feature: Events Misc
+	This feature covers other possible scenarios that can occur, such as 
+	attempting to unsubscribe to an event that you haven&#x27;t subscribed to.
+
+Scenario: The client is connected
+	Given the test server is ready
+		And the client is initialised
+		And the client logs in with username &quot;XXX&quot; and password &quot;YYY&quot;
+		And the server sends the message A|A+
+
+Scenario: The client attempts to subscribe to the same event multiple times
+		  only triggers a single subscribe message to the server and the incoming events should
+		  be multiplexed on the client
+
+	Given the server resets its message count
+	When the client subscribes to an event named &quot;test2&quot;
+		And the server sends the message E|A|S|test2+		
+		And the client subscribes to an event named &quot;test2&quot;
+	Then the server received the message E|S|test2+
+		And the server has received 1 messages
+
+#TODO: This does not clear the timeout, which means the following test throws an error
+#Scenario: The client tries to unsubscribe from an event it wasn&#x27;t previously subscribed to
+#	When the client unsubscribes from an event named &quot;test3&quot;
+#		And the server sends the message E|E|NOT_SUBSCRIBED|test3+
+#	Then the client throws a &quot;NOT_SUBSCRIBED&quot; error with message &quot;test3&quot;
+
+#TODO Eventhandler needs to pass the client to convert typed
+#Scenario: The client receives a message with typed data, but an unknown type
+	#When the server sends the message E|EVT|someEvent|QXX+
+	#Then the client throws a MESSAGE_PARSE_ERROR error with message Unknown type XXX</code></pre>
+    </div>
+    <div class="section">  
+        <a name="Events Connectivity"></a>
+        <pre><code class="language-gherkin">@events
+Feature: Events Connectivity
+	Events subscriptions must be resent to the server after connection 
+	issues to guarantee it continues recieving them correctly. This 
+	applies to both subscribing to events and listening to event 
+	subscriptions.
+
+Scenario: The client is connected
+	Given the test server is ready
+		And the client is initialised
+		And the client logs in with username &quot;XXX&quot; and password &quot;YYY&quot;
+		And the server sends the message A|A+
+
+Scenario: The client subscribes to an event
+	Given the client subscribes to an event named &quot;test1&quot;
+	Then the last message the server recieved is E|S|test1+
+
+Scenario: The server sends an ACK message for test1
+	Given the server sends the message E|A|S|test1+
+
+Scenario: The client listens to eventPrefix
+	When the client listens to events matching &quot;eventPrefix/.*&quot;
+	Then the last message the server recieved is E|L|eventPrefix/.*+
+
+Scenario: The server sends an ACK message for eventPrefix
+	Given the server sends the message E|A|L|eventPrefix/.*+
+
+Scenario: The client loses its connection to the server
+	When the connection to the server is lost
+	Given two seconds later
+	Then the client throws a &quot;connectionError&quot; error with message &quot;Can&#x27;t connect! Deepstream server unreachable on localhost:7777&quot;
+		And the clients connection state is &quot;RECONNECTING&quot;
+
+Scenario: The client publishes an event
+	When the client publishes an event named &quot;test1&quot; with data &quot;yetAnotherValue&quot;
+	Then the server did not recieve any messages
+	
+Scenario: The client reconnects to the server
+	When the connection to the server is reestablished
+	Then the clients connection state is &quot;AUTHENTICATING&quot;
+
+Scenario: The client successfully reconnects
+	Given the client logs in with username &quot;XXX&quot; and password &quot;YYY&quot;
+		And the server sends the message A|A+
+	Then the clients connection state is &quot;OPEN&quot;
+
+Scenario: The client resends the event subscription
+	Then the server received the message E|S|test1+
+
+Scenario: The client resends the event listen
+	Then the server received the message E|L|eventPrefix/.*+
+
+Scenario: The client sends offline events
+	Then the server received the message E|EVT|test1|SyetAnotherValue+
+</code></pre>
+    </div>
+    <div class="section">  
+        <a name="Event Listen Timeouts"></a>
+        <pre><code class="language-gherkin">@events
+Feature: Event Listen Timeouts
+	Whenever a listen subscribe or unsubscribe event does not recieve 
+	an acknolowdgement from the server the client should emit an ack 
+	timeout error so that the client can attempt to retry.
+
+Scenario: The client is connected
+	Given the test server is ready
+		And the client is initialised
+		And the client logs in with username &quot;XXX&quot; and password &quot;YYY&quot;
+		And the server sends the message A|A+
+
+Scenario: The client listens to eventPrefix
+	When the client listens to events matching &quot;eventPrefix/.*&quot;
+	Then the last message the server recieved is E|L|eventPrefix/.*+
+
+@timeout
+Scenario: The server does not respond in time with a listen ACK
+	When some time passes
+	Then the client throws a &quot;ACK_TIMEOUT&quot; error with message &quot;No ACK message received in time for eventPrefix/.*&quot;
+
+Scenario: The client unlistens to eventPrefix
+	When the client unlistens to events matching &quot;eventPrefix/.*&quot;
+	Then the last message the server recieved is E|UL|eventPrefix/.*+
+
+@timeout
+Scenario: The server does not respond in time with an unlisten ACK
+	When some time passes
+	Then the client throws a &quot;ACK_TIMEOUT&quot; error with message &quot;No ACK message received in time for eventPrefix/.*&quot;</code></pre>
+    </div>
+    <div class="section">  
+        <a name="Event Listen"></a>
+        <pre><code class="language-gherkin">@events
+Feature: Event Listen	
+	Listening to Event subscriptions/unsubscriptions allows the client
+	to reduce the events it needs to publish. If a client subscribes 
+	to an event that matches your pattern or when all the clients 
+	unsubscribe you&#x27;ll be told so you can only publish events that you
+	know are being listened to.
+
+Scenario: The client is connected
+	Given the test server is ready
+		And the client is initialised
+		And the client logs in with username &quot;XXX&quot; and password &quot;YYY&quot;
+		And the server sends the message A|A+
+
+Scenario: The client listens to eventPrefix
+	When the client listens to events matching &quot;eventPrefix/.*&quot;
+	Then the last message the server recieved is E|L|eventPrefix/.*+
+
+Scenario: The server responds with a listen ACK
+	Given the server sends the message E|A|L|eventPrefix/.*+
+
+Scenario: The client gets notified of new matching subscriptions
+	Given the server sends the message E|SP|eventPrefix/.*|eventPrefix/foundAMatch+
+	Then the client will be notified of new event match &quot;eventPrefix/foundAMatch&quot;
+
+Scenario: The client gets notified for removed subscriptions
+	Given the server sends the message E|SR|eventPrefix/.*|eventPrefix/foundAMatch+
+	Then the client will be notified of event match removal &quot;eventPrefix/foundAMatch&quot;
+
+Scenario: The client unlistens to eventPrefix
+	When the client unlistens to events matching &quot;eventPrefix/.*&quot;
+	Then the last message the server recieved is E|UL|eventPrefix/.*+
+
+Scenario: The server responds with a unlisten ACK
+	Given the server sends the message E|A|UL|eventPrefix/.*+
+
+Scenario: Following server updates will throw an error
+	Given the server sends the message E|SP|eventPrefix/.*|eventPrefix/foundAMatch+
+	#TODO: This error message isn&#x27;t great
+	And the client throws a &quot;UNSOLICITED_MESSAGE&quot; error with message &quot;eventPrefix/.*&quot;</code></pre>
+    </div>
+    <div class="section">  
+        <a name="Events Timeouts"></a>
+        <pre><code class="language-gherkin">@events
+Feature: Events Timeouts
+	Whenever a subscribe or unsubscribe event does not recieve an 
+	acknolowdgement from the server the client should emit an ack 
+	timeout error so that the client can attempt to retry.
+
+Scenario: The client is connected
+	Given the test server is ready
+		And the client is initialised
+		And the client logs in with username &quot;XXX&quot; and password &quot;YYY&quot;
+		And the server sends the message A|A+
+
+Scenario: The client subscribes to an event
+	Given the client subscribes to an event named &quot;test1&quot;
+	Then the server received the message E|S|test1+ 
+
+@timeout
+Scenario: The server does not respond in time with a subscribe ACK
+	Given some time passes
+	Then the client throws a &quot;ACK_TIMEOUT&quot; error with message &quot;No ACK message received in time for test1&quot;
+
+Scenario: The client unsubscribes from an event
+	When the client unsubscribes from an event named &quot;test1&quot;
+	Then the server received the message E|US|test1+
+
+@timeout
+Scenario: The server does not respond in time with an unsubscribe ACK
+	Given some time passes
+	Then the client throws a &quot;ACK_TIMEOUT&quot; error with message &quot;No ACK message received in time for test1&quot;
+</code></pre>
+    </div>
+    <div class="section">  
+        <a name="Events"></a>
+        <pre><code class="language-gherkin">@events
+Feature: Events
+	Events are deepstream&#x27;s publish-subscribe pattern. Everytime a 
+	client subscribes to or unsubscribes from an event the server 
+	replies with an acknowledgment message
+
+Scenario: The client is connected
+	Given the test server is ready
+		And the client is initialised
+		And the client logs in with username &quot;XXX&quot; and password &quot;YYY&quot;
+		And the server sends the message A|A+
+
+# Happy Path
+Scenario: The client subscribes to an event
+	Given the client subscribes to an event named &quot;test1&quot;
+	Then the server received the message E|S|test1+ 
+
+Scenario: The server sends an ACK message for test1
+	Given the server sends the message E|A|S|test1+
+
+Scenario: The client receives an event
+	When the server sends the message E|EVT|test1|SsomeValue+
+	Then the client received the event &quot;test1&quot; with data &quot;someValue&quot;
+
+Scenario: The client receives another event
+	When the server sends the message E|EVT|test1|SanotherValue+
+	Then the client received the event &quot;test1&quot; with data &quot;anotherValue&quot;
+
+Scenario: The client publishes an event
+	When the client publishes an event named &quot;test1&quot; with data &quot;yetAnotherValue&quot;
+	Then the server received the message E|EVT|test1|SyetAnotherValue+
+
+Scenario: The client unsubscribes from an event
+	When the client unsubscribes from an event named &quot;test1&quot;
+	Then the server received the message E|US|test1+
+
+Scenario: The server sends an ACK message for test1 unsubscribe
+	Given the server sends the message E|A|US|test1+</code></pre>
+    </div>
 
 			</div>
 		</div>
@@ -332,6 +673,39 @@
 					</li>
 				
 					<li class="head">Client Specs</li>
+						<li >
+							<a href="../../info/messagestructure/connectivity.html">
+							Connectivity</a>
+							<div class="isActiveIndicator orangeGradient"></div>
+						</li>
+						<li >
+							<a href="../../info/messagestructure/parsing.html">
+							Parsing</a>
+							<div class="isActiveIndicator orangeGradient"></div>
+						</li>
+						<li >
+							<a href="../../info/messagestructure/rpc.html">
+							Rpc</a>
+							<div class="isActiveIndicator orangeGradient"></div>
+						</li>
+						<li >
+							<a href="../../info/messagestructure/records.html">
+							Records</a>
+							<div class="isActiveIndicator orangeGradient"></div>
+						</li>
+						<li class="active">
+							<a href="../../info/messagestructure/events.html">
+							Events</a>
+							<div class="isActiveIndicator orangeGradient"></div>
+								<ul class="overview">
+									<li><a href="#Events Misc">Events Misc</a></li>
+									<li><a href="#Events Connectivity">Events Connectivity</a></li>
+									<li><a href="#Event Listen Timeouts">Event Listen Timeouts</a></li>
+									<li><a href="#Event Listen">Event Listen</a></li>
+									<li><a href="#Events Timeouts">Events Timeouts</a></li>
+									<li><a href="#Events">Events</a></li>
+								</ul>
+						</li>
 					
 					
 				
@@ -364,6 +738,15 @@
 	</div>
 
 
+	<script>
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+		ga('create', 'UA-63583386-1', 'auto');
+		ga('send', 'pageview');
+	</script>
 	<script async defer id="github-bjs" src="//buttons.github.io/buttons.js"></script>
 </body>
 </html>

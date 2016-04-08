@@ -88,6 +88,35 @@
 				</li>
 			
 				<li class="head">Client Specs</li>
+					<li class="active">
+						<a href="../../info/messagestructure/connectivity.html">
+						Connectivity</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+							<ul class="overview">
+								<li><a href="#Connecting a client">Connecting a client</a></li>
+								<li><a href="#Logging In">Logging In</a></li>
+							</ul>
+					</li>
+					<li >
+						<a href="../../info/messagestructure/parsing.html">
+						Parsing</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+					</li>
+					<li >
+						<a href="../../info/messagestructure/rpc.html">
+						Rpc</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+					</li>
+					<li >
+						<a href="../../info/messagestructure/records.html">
+						Records</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+					</li>
+					<li >
+						<a href="../../info/messagestructure/events.html">
+						Events</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+					</li>
 				
 				
 			
@@ -163,6 +192,35 @@
 					</li>
 				
 					<li class="head">Client Specs</li>
+						<li class="active">
+							<a href="../../info/messagestructure/connectivity.html">
+							Connectivity</a>
+							<div class="isActiveIndicator orangeGradient"></div>
+								<ul class="overview">
+									<li><a href="#Connecting a client">Connecting a client</a></li>
+									<li><a href="#Logging In">Logging In</a></li>
+								</ul>
+						</li>
+						<li >
+							<a href="../../info/messagestructure/parsing.html">
+							Parsing</a>
+							<div class="isActiveIndicator orangeGradient"></div>
+						</li>
+						<li >
+							<a href="../../info/messagestructure/rpc.html">
+							Rpc</a>
+							<div class="isActiveIndicator orangeGradient"></div>
+						</li>
+						<li >
+							<a href="../../info/messagestructure/records.html">
+							Records</a>
+							<div class="isActiveIndicator orangeGradient"></div>
+						</li>
+						<li >
+							<a href="../../info/messagestructure/events.html">
+							Events</a>
+							<div class="isActiveIndicator orangeGradient"></div>
+						</li>
 					
 					
 				
@@ -206,6 +264,35 @@
 	</li>
 
 	<li class="head">Client Specs</li>
+		<li class="active">
+			<a href="../../info/messagestructure/connectivity.html">
+			Connectivity</a>
+			<div class="isActiveIndicator orangeGradient"></div>
+				<ul class="overview">
+					<li><a href="#Connecting a client">Connecting a client</a></li>
+					<li><a href="#Logging In">Logging In</a></li>
+				</ul>
+		</li>
+		<li >
+			<a href="../../info/messagestructure/parsing.html">
+			Parsing</a>
+			<div class="isActiveIndicator orangeGradient"></div>
+		</li>
+		<li >
+			<a href="../../info/messagestructure/rpc.html">
+			Rpc</a>
+			<div class="isActiveIndicator orangeGradient"></div>
+		</li>
+		<li >
+			<a href="../../info/messagestructure/records.html">
+			Records</a>
+			<div class="isActiveIndicator orangeGradient"></div>
+		</li>
+		<li >
+			<a href="../../info/messagestructure/events.html">
+			Events</a>
+			<div class="isActiveIndicator orangeGradient"></div>
+		</li>
 	
 	
 
@@ -239,6 +326,70 @@
     </table>
     <div class="down-arrow"></div>
 </div>
+    <div class="section">  
+        <a name="Connecting a client"></a>
+        <pre><code class="language-gherkin">@connectivity
+Feature: Connecting a client
+	As soon as the client is instantiated
+	it establishes a TCP connection to the
+	server and awaits login
+
+Scenario: The test server is idle and awaits connections
+	Given the test server is ready
+	Then the server has 0 active connections
+
+Scenario: The client is instantiated and creates a tcp connection
+	Given the test server is ready
+		And the client is initialised
+	Then the server has 1 active connections
+		And the clients connection state is &quot;AWAITING_AUTHENTICATION&quot;</code></pre>
+    </div>
+    <div class="section">  
+        <a name="Logging In"></a>
+        <pre><code class="language-gherkin">@connectivity
+Feature: Logging In
+	As soon as the client is initialised, it creates a connection with
+	the server. However the connection is initially in a quarantine 
+	state until it sends an authentication message. The auth message 
+	(A|REQ|&lt;JSON authData&gt;) must always be the first message send by
+	the client.
+
+Scenario: The client sends login credentials
+	Given the test server is ready
+		And the client is initialised
+	When the client logs in with username &quot;XXX&quot; and password &quot;YYY&quot;
+	Then the last message the server recieved is A|REQ|{&quot;username&quot;:&quot;XXX&quot;,&quot;password&quot;:&quot;YYY&quot;}+
+		And the clients connection state is &quot;AUTHENTICATING&quot;
+
+Scenario: The client receives a login confirmation
+	When the server sends the message A|A+
+	Then the clients connection state is &quot;OPEN&quot;
+		And the last login was successful
+
+Scenario: The client logs in with an invalid authentication message
+	Given the client is initialised
+	When the client logs in with username &quot;XXX&quot; and password &quot;YYY&quot;
+		But the server sends the message A|E|INVALID_AUTH_MSG|Sinvalid authentication message+
+	Then the last login failed with error &quot;INVALID_AUTH_MSG&quot; and message &quot;invalid authentication message&quot;
+
+Scenario: The client&#x27;s authentication data is rejected
+	Given the client is initialised
+	When the client logs in with username &quot;XXX&quot; and password &quot;ZZZ&quot;
+		But the server sends the message A|E|INVALID_AUTH_DATA|Sinvalid authentication data+
+	Then the last login failed with error &quot;INVALID_AUTH_DATA&quot; and message &quot;invalid authentication data&quot;
+
+Scenario: The client has made too many unsuccessful authentication attempts
+	Given the client is initialised
+	When the client logs in with username &quot;XXX&quot; and password &quot;ZZZ&quot;
+		But the server sends the message A|E|TOO_MANY_AUTH_ATTEMPTS|Stoo many authentication attempts+
+	Then the last login failed with error &quot;TOO_MANY_AUTH_ATTEMPTS&quot; and message &quot;too many authentication attempts&quot;
+
+Scenario: The client can&#x27;t made further authentication attempts after it received TOO_MANY_AUTH_ATTEMPTS
+	Given the server resets its message count
+	When the client logs in with username &quot;XXX&quot; and password &quot;ZZZ&quot;
+	Then the server has received 0 messages
+		And the client throws a &quot;IS_CLOSED&quot; error with message &quot;this client&#x27;s connection was closed&quot;</code></pre>
+    </div>
 
 			</div>
 		</div>
@@ -332,6 +483,35 @@
 					</li>
 				
 					<li class="head">Client Specs</li>
+						<li class="active">
+							<a href="../../info/messagestructure/connectivity.html">
+							Connectivity</a>
+							<div class="isActiveIndicator orangeGradient"></div>
+								<ul class="overview">
+									<li><a href="#Connecting a client">Connecting a client</a></li>
+									<li><a href="#Logging In">Logging In</a></li>
+								</ul>
+						</li>
+						<li >
+							<a href="../../info/messagestructure/parsing.html">
+							Parsing</a>
+							<div class="isActiveIndicator orangeGradient"></div>
+						</li>
+						<li >
+							<a href="../../info/messagestructure/rpc.html">
+							Rpc</a>
+							<div class="isActiveIndicator orangeGradient"></div>
+						</li>
+						<li >
+							<a href="../../info/messagestructure/records.html">
+							Records</a>
+							<div class="isActiveIndicator orangeGradient"></div>
+						</li>
+						<li >
+							<a href="../../info/messagestructure/events.html">
+							Events</a>
+							<div class="isActiveIndicator orangeGradient"></div>
+						</li>
 					
 					
 				
@@ -364,6 +544,15 @@
 	</div>
 
 
+	<script>
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+		ga('create', 'UA-63583386-1', 'auto');
+		ga('send', 'pageview');
+	</script>
 	<script async defer id="github-bjs" src="//buttons.github.io/buttons.js"></script>
 </body>
 </html>

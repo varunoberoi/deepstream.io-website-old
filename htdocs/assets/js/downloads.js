@@ -12,7 +12,8 @@
 		versionElement.addClass( 'loading' );
 	});
 
-	$.post('//protected-peak-4681.herokuapp.com/', {packets: packages }, function( result ){ 
+	// Use absolute path incase your looking at it from github pages
+	$.post( '//deepstream.io/versions' , { packets: packages }, function( result ){ 
 	    result = JSON.parse( result );
 
 	    for( var pckg in versionElements ) {
