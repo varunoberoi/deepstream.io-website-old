@@ -2,7 +2,7 @@
 	var packages = [],
 		versionElements = {};
 
-	$( '.download-item' ).each(function(){
+	$( '.download-item' ).has( '.npm' ).each(function(){
 		var element = $( this ),
 			versionElement = element.find( '.version' ),
 			pckg = element.data( 'package' );
