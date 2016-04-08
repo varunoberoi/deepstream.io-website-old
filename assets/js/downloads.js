@@ -2,7 +2,7 @@
 	var packages = [],
 		versionElements = {};
 
-	$( '.download-item' ).each(function(){
+	$( '.download-item' ).has( '.npm' ).each(function(){
 		var element = $( this ),
 			versionElement = element.find( '.version' ),
 			pckg = element.data( 'package' );
@@ -12,7 +12,8 @@
 		versionElement.addClass( 'loading' );
 	});
 
-	$.post( '/versions' , { packets: packages }, function( result ){ 
+	// Use absolute path incase your looking at it from github pages
+	$.post( '//deepstream.io/versions' , { packets: packages }, function( result ){ 
 	    result = JSON.parse( result );
 
 	    for( var pckg in versionElements ) {
