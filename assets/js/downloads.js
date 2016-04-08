@@ -12,7 +12,7 @@
 		versionElement.addClass( 'loading' );
 	});
 
-	$.post('//protected-peak-4681.herokuapp.com/', {packets: packages }, function( result ){ 
+	$.post( '/versions' , { packets: packages }, function( result ){ 
 	    result = JSON.parse( result );
 
 	    for( var pckg in versionElements ) {
