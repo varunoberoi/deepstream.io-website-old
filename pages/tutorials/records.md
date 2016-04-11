@@ -4,7 +4,7 @@
 }
 Records
 ==============================
-[Records](../docs/record.html) are arbitrary JSON structures that can be manipulated and subscribed to. Every change to a record is synced accross all subscribed clients
+[Records](../docs/record.html) are arbitrary JSON structures that can be manipulated and subscribed to. Every change to a record is synced across all subscribed clients
 
 ```javascript
 //creating or retrieving a record is the same
@@ -55,6 +55,20 @@ johnDoe.discard();
 
 //Or delete the record entirely
 johnDoe.delete();
+```
+
+You can also do one off requests to check if the record exists or return its current state without creating a subscription for future changes.
+
+```javascript
+// Check if the record exists on the server
+ds.record.has( 'johnSmith', function( error, hasRecord ) {
+	if( hasRecord ) {
+		alert( 'johnSmith exists!' );
+	}
+} );
+
+// Get the current data for a record without subscribing to updates
+ds.record.snapshot( 'johnSmith', function( error, data ) { /***/ } );
 ```
 
 ### Record names

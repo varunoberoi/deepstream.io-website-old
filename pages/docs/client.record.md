@@ -2,12 +2,14 @@
 	"title": "Record API documentation",
 	"description": "the API docs for deepstream records"
 }
+
+
 client.record.getRecord( name )
 --------------------------------
 argument: name
 type: String
 optional: false
-desc: The name / primaryKey of the record.
+desc: The name of the record.
 
 Retrieves or creates a [Record](record.html) with the given name. Records are persistant datastructures
 that clients can manipulate and observe.
@@ -29,7 +31,7 @@ client.record.getList( name )
 argument: name
 type: String
 optional: false
-desc: The name / primaryKey of the record.
+desc: The name of the record.
 
 Retrieves or creates a [List](list.html) with the given name. Lists are arrays of recordNames that clients
 can manipulate and observe.
@@ -83,6 +85,64 @@ user.setName( 'user/Anton' );
 user.setName( 'user/Wolfram' );
 ```
 
+client.record.has( name, callback )
+--------------------------------
+argument: name
+type: String
+optional: false
+desc: The name / primaryKey of the record.
+
+argument: callback
+type: Function
+optional: false
+desc: A function that will be called with a boolean to indicate whether the record exists. Arguments are (String) error and (Boolean) hasRecord
+
+Returns a boolean to indicate whether or not the record exists in deepstream. This is useful to avoid creating a record via `getRecord( name )` if you only want to edit the contents.
+
+```javascript
+// clientA
+var user = client.record.has( 'user/14', function( error, hasRecord ) {
+	if( error ) {
+		// an error has occured trying to retrieve the record from 
+		// the cache or storage layer in deepstream
+	} else if( hasRecord === true )
+		// record exists on deepstream
+	} else if( hasRecord === false )
+		// record doesn't exist on deepstream
+	}
+} );
+```
+
+client.record.snapshot( name, callback )
+--------------------------------
+argument: name
+type: String
+optional: false
+desc: The name / primaryKey of the record.
+
+argument: callback
+type: Function
+optional: false
+desc: A function that will be called with a snapshot of the record data. Arguments are (String) error and (Object) data
+
+Returns the record content without making a subscription to the server. This can be used to avoid scenarios where you would request the record and discard 
+it immediately afterwards.
+
+```javascript
+// clientA
+var user = client.record.snapshot( 'user/14', function( error, data ) {
+	if( error ) {
+		if( error === C.EVENT.RECORD_NOT_FOUND ) {
+			// record does not exist on the server, similar to a 404
+		} else {
+			// an error has occured trying to retrieve the record from 
+			// the cache or storage layer in deepstream
+		}
+	} else {
+			// use data
+	}
+} );
+```
 
 client.record.listen( pattern, callback )
 --------------------------------

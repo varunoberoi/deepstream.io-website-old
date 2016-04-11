@@ -316,6 +316,16 @@ server.set( 'storageRetrievalTimeout', 4000 );
 * @default 2000
 */
 server.set( 'storageRetrievalTimeout', 4000 );
+
+/**
+* The maximum amount of characters to allow in a single message before
+* a MAXIMUM_MESSAGE_SIZE_EXCEEDED error is thrown and the transport buffer
+* is cleared.
+*
+* @type Number
+* @default 1048576
+*/
+server.set( 'maxMessageSize', 200000 );
 ```
 
 </div>
