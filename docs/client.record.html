@@ -100,6 +100,8 @@
 					<li><a href="#client.record.getRecord(name)">client.record.getRecord(name)</a></li>
 					<li><a href="#client.record.getList(name)">client.record.getList(name)</a></li>
 					<li><a href="#client.record.getAnonymousRecord()">client.record.getAnonymousRecord()</a></li>
+					<li><a href="#client.record.has(name,callback)">client.record.has(name,callback)</a></li>
+					<li><a href="#client.record.snapshot(name,callback)">client.record.snapshot(name,callback)</a></li>
 					<li><a href="#client.record.listen(pattern,callback)">client.record.listen(pattern,callback)</a></li>
 					<li><a href="#client.record.unlisten(pattern)">client.record.unlisten(pattern)</a></li>
 			</ul>
@@ -247,6 +249,8 @@
 						<li><a href="#client.record.getRecord(name)">client.record.getRecord(name)</a></li>
 						<li><a href="#client.record.getList(name)">client.record.getList(name)</a></li>
 						<li><a href="#client.record.getAnonymousRecord()">client.record.getAnonymousRecord()</a></li>
+						<li><a href="#client.record.has(name,callback)">client.record.has(name,callback)</a></li>
+						<li><a href="#client.record.snapshot(name,callback)">client.record.snapshot(name,callback)</a></li>
 						<li><a href="#client.record.listen(pattern,callback)">client.record.listen(pattern,callback)</a></li>
 						<li><a href="#client.record.unlisten(pattern)">client.record.unlisten(pattern)</a></li>
 				</ul>
@@ -371,6 +375,8 @@
 		<li><a href="#client.record.getRecord(name)">client.record.getRecord(name)</a></li>
 		<li><a href="#client.record.getList(name)">client.record.getList(name)</a></li>
 		<li><a href="#client.record.getAnonymousRecord()">client.record.getAnonymousRecord()</a></li>
+		<li><a href="#client.record.has(name,callback)">client.record.has(name,callback)</a></li>
+		<li><a href="#client.record.snapshot(name,callback)">client.record.snapshot(name,callback)</a></li>
 		<li><a href="#client.record.listen(pattern,callback)">client.record.listen(pattern,callback)</a></li>
 		<li><a href="#client.record.unlisten(pattern)">client.record.unlisten(pattern)</a></li>
 </ul>
@@ -428,7 +434,7 @@
 </ul>
 
 			<div id="content">
-				<div class="section"><h2><a name="client.record.getRecord(name)">client.record.getRecord( name )</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">name</td><td class="type">String</td><td class="optional">false</td><td class="default">-</td><td class="description">The name / primaryKey of the record.</td></tr></tbody></table><p>Retrieves or creates a <a href="record.html">Record</a> with the given name. Records are persistant datastructures
+				<div class="section"><h2><a name="client.record.getRecord(name)">client.record.getRecord( name )</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">name</td><td class="type">String</td><td class="optional">false</td><td class="default">-</td><td class="description">The name of the record.</td></tr></tbody></table><p>Retrieves or creates a <a href="record.html">Record</a> with the given name. Records are persistant datastructures
 that clients can manipulate and observe.</p><pre><code class="lang-javascript">// clientA
 var user = client.record.getRecord( &#39;user/14&#39; );
 
@@ -439,7 +445,7 @@ user.subscribe( &#39;age&#39;, function( age ){
 // clientB
 client.record.getRecord( &#39;user/14&#39; ).set( &#39;age&#39;, 30 );
 </code></pre>
-</div><div class="section"><h2><a name="client.record.getList(name)">client.record.getList( name )</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">name</td><td class="type">String</td><td class="optional">false</td><td class="default">-</td><td class="description">The name / primaryKey of the record.</td></tr></tbody></table><p>Retrieves or creates a <a href="list.html">List</a> with the given name. Lists are arrays of recordNames that clients
+</div><div class="section"><h2><a name="client.record.getList(name)">client.record.getList( name )</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">name</td><td class="type">String</td><td class="optional">false</td><td class="default">-</td><td class="description">The name of the record.</td></tr></tbody></table><p>Retrieves or creates a <a href="list.html">List</a> with the given name. Lists are arrays of recordNames that clients
 can manipulate and observe.</p><pre><code class="lang-javascript">var beatlesAlbums = client.record.getList( &#39;beatlesAlbums&#39; );
 
 beatlesAlbums.whenReady(function(){
@@ -478,6 +484,33 @@ bindInput( user, &#39;lastname&#39;, $( &#39;input.lastname&#39; ) );
  */
 user.setName( &#39;user/Anton&#39; );
 user.setName( &#39;user/Wolfram&#39; );
+</code></pre>
+</div><div class="section"><h2><a name="client.record.has(name,callback)">client.record.has( name, callback )</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">name</td><td class="type">String</td><td class="optional">false</td><td class="default">-</td><td class="description">The name / primaryKey of the record.</td></tr><tr><td class="argument">callback</td><td class="type">Function</td><td class="optional">false</td><td class="default">-</td><td class="description">A function that will be called with a boolean to indicate whether the record exists. Arguments are (String) error and (Boolean) hasRecord</td></tr></tbody></table><p>Returns a boolean to indicate whether or not the record exists in deepstream. This is useful to avoid creating a record via <code>getRecord( name )</code> if you only want to edit the contents.</p><pre><code class="lang-javascript">// clientA
+var user = client.record.has( &#39;user/14&#39;, function( error, hasRecord ) {
+    if( error ) {
+        // an error has occured trying to retrieve the record from 
+        // the cache or storage layer in deepstream
+    } else if( hasRecord === true )
+        // record exists on deepstream
+    } else if( hasRecord === false )
+        // record doesn&#39;t exist on deepstream
+    }
+} );
+</code></pre>
+</div><div class="section"><h2><a name="client.record.snapshot(name,callback)">client.record.snapshot( name, callback )</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">name</td><td class="type">String</td><td class="optional">false</td><td class="default">-</td><td class="description">The name / primaryKey of the record.</td></tr><tr><td class="argument">callback</td><td class="type">Function</td><td class="optional">false</td><td class="default">-</td><td class="description">A function that will be called with a snapshot of the record data. Arguments are (String) error and (Object) data</td></tr></tbody></table><p>Returns the record content without making a subscription to the server. This can be used to avoid scenarios where you would request the record and discard 
+it immediately afterwards.</p><pre><code class="lang-javascript">// clientA
+var user = client.record.snapshot( &#39;user/14&#39;, function( error, data ) {
+    if( error ) {
+        if( error === C.EVENT.RECORD_NOT_FOUND ) {
+            // record does not exist on the server, similar to a 404
+        } else {
+            // an error has occured trying to retrieve the record from 
+            // the cache or storage layer in deepstream
+        }
+    } else {
+            // use data
+    }
+} );
 </code></pre>
 </div><div class="section"><h2><a name="client.record.listen(pattern,callback)">client.record.listen( pattern, callback )</a></h2><table class="args"><thead><tr><th>argument</th><th>type</th><th>optional</th><th>default</th><th>description</th></tr></thead><tbody><tr><td class="argument">pattern</td><td class="type">String</td><td class="optional">false</td><td class="default">-</td><td class="description">A RegExp as a string</td></tr><tr><td class="argument">callback</td><td class="type">Function</td><td class="optional">false</td><td class="default">-</td><td class="description">A function that will be called whenever a match is found. Arguments are (String) match and (Boolean) isSubscribed</td></tr></tbody></table><p>Allows to listen for record subscriptions made by any client. This
 is usefull to create &quot;active&quot; data providers, e.g. providers that only provide
@@ -618,6 +651,8 @@ client.record.getRecord( &#39;raceHorse/fast-betty&#39; );
 						<li><a href="#client.record.getRecord(name)">client.record.getRecord(name)</a></li>
 						<li><a href="#client.record.getList(name)">client.record.getList(name)</a></li>
 						<li><a href="#client.record.getAnonymousRecord()">client.record.getAnonymousRecord()</a></li>
+						<li><a href="#client.record.has(name,callback)">client.record.has(name,callback)</a></li>
+						<li><a href="#client.record.snapshot(name,callback)">client.record.snapshot(name,callback)</a></li>
 						<li><a href="#client.record.listen(pattern,callback)">client.record.listen(pattern,callback)</a></li>
 						<li><a href="#client.record.unlisten(pattern)">client.record.unlisten(pattern)</a></li>
 				</ul>

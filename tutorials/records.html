@@ -407,7 +407,7 @@
 </ul>
 
 			<div id="content">
-				<h1>Records</h1><p><a href="../docs/record.html">Records</a> are arbitrary JSON structures that can be manipulated and subscribed to. Every change to a record is synced accross all subscribed clients</p><pre><code class="lang-javascript">//creating or retrieving a record is the same
+				<h1>Records</h1><p><a href="../docs/record.html">Records</a> are arbitrary JSON structures that can be manipulated and subscribed to. Every change to a record is synced across all subscribed clients</p><pre><code class="lang-javascript">//creating or retrieving a record is the same
 var johnDoe = ds.record.getRecord( &#39;johnDoe&#39; );
 
 //you can set the entire record&#39;s content
@@ -455,6 +455,16 @@ johnDoe.discard();
 
 //Or delete the record entirely
 johnDoe.delete();
+</code></pre>
+<p>You can also do one off requests to check if the record exists or return its current state without creating a subscription for future changes.</p><pre><code class="lang-javascript">// Check if the record exists on the server
+ds.record.has( &#39;johnSmith&#39;, function( error, hasRecord ) {
+    if( hasRecord ) {
+        alert( &#39;johnSmith exists!&#39; );
+    }
+} );
+
+// Get the current data for a record without subscribing to updates
+ds.record.snapshot( &#39;johnSmith&#39;, function( error, data ) { /***/ } );
 </code></pre>
 <h3>Record names</h3><p>Every record is identified by a unique name. This name can be any string, but we found that there are some naming conventions that help a lot with larger scale applications:</p><h4>Use unique, randomized ids</h4><p>It&#39;s tempting to use a field that could act as primary key as the recordname, e.g. <code>user/johndoe</code>, but using a UID, e.g. <code>user/iam7f3vy-2mgd656jrx3di</code> has some advantages: You don&#39;t need to ensure its uniqueness, the user can change his username later without invalidating the record and ids generated with deepstream&#39;s <code>ds.getUid()</code> method are loosely sequential (the first 8 characters are a base64 encoded) which helps databases to index them more efficiently.</p><h4>Organize your records into collections</h4><p>Prefixing your record names with a collection, e.g. <code>user/bob</code> rather than just <code>bob</code> makes them easier to organize and allows storage-connectors to create individual database tables or collections for each.</p><h4>Use a security group to support permissioning</h4><p>If your system has to support multiple users or groups that are not allowed to access each others data, it might make sense to include the id of the group into the record name. This allows the permissionHandler to deny access to records straight away if they don&#39;t belong to the user&#39;s group.</p><p><strong>Client</strong></p><pre><code class="lang-javascript">var ds = deepstream( &#39;143.234.324.234:6020&#39; );
 ds.login({ user: &#39;paul&#39;, pass: &#39;abc&#39; }, function( success ){
