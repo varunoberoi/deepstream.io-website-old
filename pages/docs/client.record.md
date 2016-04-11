@@ -3,6 +3,88 @@
 	"description": "the API docs for deepstream records"
 }
 
+
+client.record.getRecord( name )
+--------------------------------
+argument: name
+type: String
+optional: false
+desc: The name of the record.
+
+Retrieves or creates a [Record](record.html) with the given name. Records are persistant datastructures
+that clients can manipulate and observe.
+
+```javascript
+// clientA
+var user = client.record.getRecord( 'user/14' );
+
+user.subscribe( 'age', function( age ){
+	alert( 'Happy Birthday ' + user.get( 'firstname' ) );
+});
+
+// clientB
+client.record.getRecord( 'user/14' ).set( 'age', 30 );
+```
+
+client.record.getList( name )
+--------------------------------
+argument: name
+type: String
+optional: false
+desc: The name of the record.
+
+Retrieves or creates a [List](list.html) with the given name. Lists are arrays of recordNames that clients
+can manipulate and observe.
+
+```javascript
+var beatlesAlbums = client.record.getList( 'beatlesAlbums' );
+
+beatlesAlbums.whenReady(function(){
+
+	beatlesAlbums.getEntries();
+	/*
+		 + Returns e.g.
+		 + [
+		 +		"album/i9l0z34v-109vblpqddy", 
+		 +		"album/i9l0z3v4-ibrbp139rbr", 
+		 +		"album/i9l0z4d8-1w0p8xnk1sy" 
+		 +	]
+	 */
+});
+```
+
+client.record.getAnonymousRecord()
+--------------------------------
+Returns an [AnonymousRecord](anonymous_record.html). 
+
+An AnonymousRecord is a record without a predefined name. It
+acts as a wrapper around an actual record that can
+be swapped out for another one whilst keeping all bindings intact.
+
+```javascript
+var bindInput = function( record, path, inputElement ) {
+	inputElement.on( 'change', function(){
+		record.set( path, inputElement.val() );
+	});
+
+	record.subscribe( path, function( value ){
+		inputElement.val( value );
+	}, true );
+};
+
+user = client.record.getAnonymousRecord();
+
+bindInput( user, 'firstname', $( 'input.firstname' ) );
+bindInput( user, 'lastname', $( 'input.lastname' ) );
+
+/**
+	 + Swap the underlying record while keeping the
+	 + bindings intact
+ */
+user.setName( 'user/Anton' );
+user.setName( 'user/Wolfram' );
+```
+
 client.record.has( name, callback )
 --------------------------------
 argument: name
@@ -61,88 +143,6 @@ var user = client.record.snapshot( 'user/14', function( error, data ) {
 	}
 } );
 ```
-
-client.record.getRecord( name )
---------------------------------
-argument: name
-type: String
-optional: false
-desc: The name / primaryKey of the record.
-
-Retrieves or creates a [Record](record.html) with the given name. Records are persistant datastructures
-that clients can manipulate and observe.
-
-```javascript
-// clientA
-var user = client.record.getRecord( 'user/14' );
-
-user.subscribe( 'age', function( age ){
-	alert( 'Happy Birthday ' + user.get( 'firstname' ) );
-});
-
-// clientB
-client.record.getRecord( 'user/14' ).set( 'age', 30 );
-```
-
-client.record.getList( name )
---------------------------------
-argument: name
-type: String
-optional: false
-desc: The name / primaryKey of the record.
-
-Retrieves or creates a [List](list.html) with the given name. Lists are arrays of recordNames that clients
-can manipulate and observe.
-
-```javascript
-var beatlesAlbums = client.record.getList( 'beatlesAlbums' );
-
-beatlesAlbums.whenReady(function(){
-
-	beatlesAlbums.getEntries();
-	/*
-		 + Returns e.g.
-		 + [
-		 +		"album/i9l0z34v-109vblpqddy", 
-		 +		"album/i9l0z3v4-ibrbp139rbr", 
-		 +		"album/i9l0z4d8-1w0p8xnk1sy" 
-		 +	]
-	 */
-});
-```
-
-client.record.getAnonymousRecord()
---------------------------------
-Returns an [AnonymousRecord](anonymous_record.html). 
-
-An AnonymousRecord is a record without a predefined name. It
-acts as a wrapper around an actual record that can
-be swapped out for another one whilst keeping all bindings intact.
-
-```javascript
-var bindInput = function( record, path, inputElement ) {
-	inputElement.on( 'change', function(){
-		record.set( path, inputElement.val() );
-	});
-
-	record.subscribe( path, function( value ){
-		inputElement.val( value );
-	}, true );
-};
-
-user = client.record.getAnonymousRecord();
-
-bindInput( user, 'firstname', $( 'input.firstname' ) );
-bindInput( user, 'lastname', $( 'input.lastname' ) );
-
-/**
-	 + Swap the underlying record while keeping the
-	 + bindings intact
- */
-user.setName( 'user/Anton' );
-user.setName( 'user/Wolfram' );
-```
-
 
 client.record.listen( pattern, callback )
 --------------------------------
