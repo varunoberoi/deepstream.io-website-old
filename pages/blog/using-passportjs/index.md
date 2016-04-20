@@ -128,6 +128,6 @@ And that's it! PassportJS and Express take care of actually allowing the user to
 
 You can see a working application using both Facebook and Twitter here. You have to setup a [Facebook](//developers.facebook.com/docs/apps/register) and [Twitter](//apps.twitter.com/) application to get your application key and secret.
 
-<img src="PassportJS.gif" alt="PassportJS with Facebook" />
+<img src="passportjs.gif" alt="PassportJS with Facebook" />
 
 <a class="mega" href="//github.com/deepstreamIO/ds-tutorial-passport-auth"><i class="fa fa-github"></i>PassportJS with Facebook and Twitter</a>
