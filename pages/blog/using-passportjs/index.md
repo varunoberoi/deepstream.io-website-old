@@ -1,6 +1,6 @@
 {
 		"title": "Using PassportJS for Facebook and Twitter oAuth",
-		"dateISO": "20160411",
+		"dateISO": "20160420",
 		"author": "yasserf",
 		"thumbnail": "PassportJS.png"
 }
@@ -59,6 +59,8 @@ passport.use( new passportFacebook( {
 
 #### Express
 
+Express is required by the PassportJS to handle the authentication callbacks we expect from oAuth providers, as well as to forward us to the correct authentication provider if we don't already have a session.
+
 ```javascript
 var http = require( 'http' );
 var express = require( 'express' );
@@ -88,6 +90,8 @@ app.get( '/login/facebook/return',
 ```
 
 #### Deepstream
+
+Deepstream can then use the same middleware intialised previously to check whether or not the client attempting to login has a session, and allow/deny them access accordingly.
 
 ```javascript
 var middleware = [ session, initialisedPassport, passportSession ];
