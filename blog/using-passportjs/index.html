@@ -2,14 +2,13 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>deepstream.io | Publishing AWS SNS messages to browsers</title>
+	<title>deepstream.io | Using PassportJS for Facebook and Twitter oAuth</title>
 
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<meta name="keywords" content="deepstream, deepstream.io, streaming, realtime, server, socket" />
-	<meta name="description" content="Sending the same message to Smartphones, Email inboxes and VoIP clients on an Amazon scale? Sounds great! And that’s exactly what AWS’ Simple Notification Service lets you do. It’s a realtime-pub-sub-hub that lets you fan out the same data to AWS services like SQS or Lambda as well as to a wide range of connected devices. 
-There’s one thing though it doesn’t do: send your message directly to web browsers. Here’s how to close this gap with a bit of deepstream.io." />
+	<meta name="description" content="Let&#39;s face it, we each have multiple user profiles and maintaining all those different passwords just never worked. So when OAuth got introduced we let out a sigh of relief knowing those days are behind us. Behold, the second sigh, where deepstream can use the same OAuth-tokens to authenticate your users!" />
 	<meta name="author" content="Wolfram Hempel" />
 	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 	<link rel="icon" href="/favicon.ico" type="image/x-icon">
@@ -30,7 +29,7 @@ There’s one thing though it doesn’t do: send your message directly to web br
 	<link rel="stylesheet" type="text/css" href="../../assets/css/prism.css" />
 </head>
 
-<body class="category_publishing-aws-sns-messages-to-browsers-tutorial ">
+<body class="category_using-passportjs ">
 	<div class="mobile-menu">
 		<div class="nav mobile-nav">
 			<ul>
@@ -114,127 +113,112 @@ There’s one thing though it doesn’t do: send your message directly to web br
 	<div class="post">
 
 		<header class="post-header">
-			<h1 class="post-title">Publishing AWS SNS messages to browsers</h1>
+			<h1 class="post-title">Using PassportJS for Facebook and Twitter oAuth</h1>
 			<section class="post-meta">
-				By Wolfram Hempel
-				<span class="post-date">January 4th 2016</span>
+				By Yasser Fadl
+				<span class="post-date">April 20th 2016</span>
 			</section>
 		</header>
 
 		<section class="post-content">
-<p>Sending the same message to Smartphones, Email inboxes and VoIP clients on an Amazon scale? Sounds great! And that’s exactly what AWS’ Simple Notification Service lets you do. It’s a realtime-pub-sub-hub that lets you fan out the same data to AWS services like SQS or Lambda as well as to a wide range of connected devices. 
-There’s one thing though it doesn’t do: send your message directly to web browsers. Here’s how to close this gap with a bit of deepstream.io.</p><h3>The basic setup</h3><p>In this tutorial, we’ll build a “sns-provider”, a node process that subscribes to a SNS topic and forwards its messages as deepstream events. For this to work, our provider needs to</p><ul>
-<li>Authenticate against AWS</li>
-<li>Become a SNS HTTP endpoint</li>
-<li>Subscribe to a SNS topic</li>
+<p>Let&#39;s face it, we each have multiple user profiles and maintaining all those different passwords just never worked. So when OAuth got introduced we let out a sigh of relief knowing those days are behind us. Behold, the second sigh, where deepstream can use the same OAuth-tokens to authenticate your users!</p><p>In this blog we&#39;ll be looking at using the power of <a href="//expressjs.com/">express</a>, <a href="//PassportJS.org/">PassportJS</a> and a nifty <a href="//github.com/demux/use-express-middleware">plugin</a> by <a href="//twitter.com/arnary">@arnary</a> to allow us to automatically login to deepstream using Facebook or Twitter.</p><h1>What is PassportJS?</h1><p>Before we get started it&#39;s certainly worth looking at <a href="//PassportJS.org/">PassportJS</a>. It&#39;s an authentication middleware for Node.js that currently supports over 300 login-strategies, including Facebook, Twitter and Github.</p><h1>Why use it with deepstream?</h1><p>deepstream has a powerful permission-handler which can allow you to implement any type of user validation. By combining it with PassportJS we can authenticate users by checking if their session token is valid and determine if they can login accordingly.</p><h1>How can it be done?</h1><p>I would recommend looking at the express/PassportJS Facebook <a href="//github.com/passport/express-4.x-facebook-example/blob/master/server.js">example</a> to get a feel for how it works, but the basic idea is pretty simple. Let&#39;s take Facebook as an example:</p><ol>
+<li>Load your application</li>
+<li>Request to login via Facebook</li>
+<li>Login to Facebook ( if not already logged in )</li>
 <li>Connect to deepstream</li>
-<li>Forward incoming messages as deepstream events</li>
-</ul>
-<p>Phew, that sounds like a lot! But, it’s actually not that bad. Here’s what our setup will look like</p><p><img src="aws-sns-to-deepstream.png" alt="Basic Setup"></p><p>If you prefer diving right into the code, check out the <a href="//github.com/deepstreamIO/ds-tutorial-aws-sns">github repo</a></p><h3>A bit of a disclaimer</h3><p>For brevities sake, this tutorial skimps on security. AWS security is extremely powerful, but also complex enough to have <a href="//media.amazonwebservices.com/AWS_Security_Best_Practices.pdf">whole books written about it</a>. We’ll be using http instead of https, temporary security tokens (which is a good idea), but store them as plain text in our code (which is not) and a deepstream.io server that’s open to the world, instead of <a href="//deepstream.io/tutorials/authentication.html">properly permissioned</a>.
-This tutorial also assumes that you&#39;re already familiar with deepstream&#39;s basic concepts. If not, quickly head over to the <a href="//deepstream.io/tutorials/getting-started.html">getting started</a> tutorial - don&#39;t worry, I&#39;ll wait.</p><h3>Let’s get started: Creating a topic.</h3><p>We’ll start by creating a topic via the AWS console. Topics are the fundamental concept for message routing in a pub-sub architecture: Many subscribers listen to a topic and are notified whenever something publishes a message on that topic. Basically, it’s like JavaScript events, but you have to create a topic before you can subscribe.
-Let’s create a topic called “news” via the console:</p><p><img src="create-sns-topic.png" alt="Creating a SNS topic via the console"></p><h3>Create the http server</h3><p>Next up, we need to start an http server. Why? The way SNS notifies your application of incoming messages is via HTTP.  For this to work, your application needs to:</p><ul>
-<li>Start a HTTP server</li>
-<li>Subscribe to a topic and tell SNS which URL it should send updates to</li>
-<li>Receive a “do you really want to receive updates?” message on that URL</li>
-<li>Confirm that message</li>
-</ul>
-<p>And from there on, it receives all updates as incoming http requests. A few things to note about these requests:</p><ul>
-<li>All incoming requests are POST requests</li>
-<li>The message data is JSON encoded</li>
-<li>Each message contains a &quot; x-amz-sns-message-type” header that tells you which kind of message it is (e.g. “SubscriptionConfirmation” or “Notification”)</li>
-</ul>
-<p>With this in mind, here’s what our http server looks like</p><pre><code class="lang-javascript">function createHttpServer() {
-    var server = new http.Server();
-    server.on( &#39;request&#39;, function( request, response ){
-        request.setEncoding( &#39;utf8&#39; );
+</ol>
+<p>Let&#39;s take a look at how the three different parts are implemented.</p><h4>PassportJS</h4><p>PassportJS needs to be initialised and the desired strategies added.</p><pre><code class="lang-javascript">var passport = require( &#39;passport&#39; );
+var passportFacebook = require( &#39;passport-facebook&#39; );
 
-        //concatenate POST data
-        var msgBody = &#39;&#39;;
-        request.on( &#39;data&#39;, function( data ){ 
-            msgBody += data;
-        });
-        request.on( &#39;end&#39;, function(){
-            var msgData = parseJSON( msgBody );
-            var msgType = request.headers[ &#39;x-amz-sns-message-type&#39; ];
-            handleIncomingMessage( msgType, msgData );
-        });
+var initialisedPassport = passport.initialize();
+var passportSession = passport.session();
 
-        // SNS doesn&#39;t care about our response as long as it comes
-        // with a HTTP statuscode of 200
-        response.end( &#39;OK&#39; );
-    });
+passport.serializeUser( function( user, cb ) {
+    //nothing to do here as we use the username as it is
+    cb( null, user );
+} );
 
-    server.listen( 6001, subscribeToSnS );
-}
+passport.deserializeUser( function( obj, cb ) {
+    //again, we just pass the username forward
+    cb( null, obj );
+} );
+
+passport.use( new passportFacebook( {
+        clientID: FACEBOOK_ID,
+        clientSecret: FACEBOOK_SECRET,
+        callbackURL: &#39;//localhost/login/facebook/return&#39;
+    },
+    ( accessToken, refreshToken, profile, cb ) =&gt; {
+        return cb( null, profile );
+}));
 </code></pre>
-<p>Oh, and before I forget: Your http server needs to be accessible from the internet. If you&#39;re running it locally, you might want to use a tool like <a href="//ngrok.com/">ngrok</a> to make this possible.</p><h3>Subscribing to a topic</h3><p>Using the <a href="//aws.amazon.com/sdk-for-node-js/">AWS-SDK for NodeJS</a>, subscribing to a topic is as easy as</p><pre><code class="lang-javascript">var AWS = require(&#39;aws-sdk&#39;);
-var sns = new AWS.SNS();
+<h4>Express</h4><p>Express is required by PassportJS to handle the authentication callbacks we expect from oAuth providers as well as to forward us to the correct authentication provider if we don&#39;t already have a session.</p><pre><code class="lang-javascript">var http = require( &#39;http&#39; );
+var express = require( &#39;express&#39; );
+var expressSession = require( &#39;express-session&#39; );
 
-sns.subscribe({
-    Protocol: &#39;http&#39;,
-    //You don&#39;t just subscribe to &quot;news&quot;, but the whole Amazon Resource Name (ARN)
-    TopicArn: &#39;arn:aws:sns:eu-central-1:792569207202:news&#39;,
-    Endpoint: &#39;//your-endpoint-url.com&#39;
-}, function( error, data ) {
-    console.log( error || data );
+var app = express();
+var httpServer = http.createServer(app);
+var session = expressSession({
+    secret: &#39;60dd06aa-cf8e-4cf8-8925-6de720015ebf&#39;,
+    resave: false,
+    saveUninitialized: false,
+    name: &#39;sid&#39;
 });
+
+app.use( express.static( &#39;../client&#39; ) );
+app.use( session );
+app.use( initialisedPassport );
+app.use( passportSession );
+
+app.get( &#39;/login/facebook&#39;, passport.authenticate(&#39;facebook&#39;) );
+
+app.get( &#39;/login/facebook/return&#39;, 
+        passport.authenticate(&#39;facebook&#39;, { failureRedirect: &#39;/login&#39; }),
+        ( req, res ) =&gt; {
+                res.redirect(&#39;/&#39;);
+} );
 </code></pre>
-<p>But for this to work, we need to get two security steps out of the way first: Permission a user to use SNS and add its credentials to the Node SDK.</p><p>Here&#39;s how to permission a user via the AWS console:</p><p><img src="attaching-SNS-policy.png" alt="Attaching SNS user policy"></p><p>Next, we need to create a security token for this user. Using the <a href="//aws.amazon.com/cli/">AWS command line tool</a> this is as simple as</p><pre><code class="lang-text">aws sts get-session-token
-</code></pre>
-<p>This will display a set of credentials that we can use to configure our SDK.</p><pre><code class="lang-javascript">var AWS = require(&#39;aws-sdk&#39;);
-AWS.config.update({
-    &quot;secretAccessKey&quot;: &quot;...&quot;,
-    &quot;sessionToken&quot;: &quot;...&quot;,
-    &quot;accessKeyId&quot;: &quot;...&quot;,
-    &quot;region&quot;: &quot;eu-central-1&quot;
-});
-var sns = new AWS.SNS();
-</code></pre>
-<p>As mentioned before, embedding your credentials into the code might be easy, but it isn&#39;t safe. Have a look at the <a href="//docs.aws.amazon.com/AWSJavaScriptSDK/guide/node-configuring.html">config documentation</a> to find a better way to store credentials.</p><h3>Confirming your subscription</h3><p>Great, now our call to <code>sns.subscribe</code> should work. A few milliseconds after we&#39;ve made it, our http server should receive a message, asking it to confirm the subscription. To process it, it&#39;s time to fill in the <code>handleIncomingMessage( msgType, msgData );</code> method from the http-server snippet.</p><pre><code class="lang-javascript">function handleIncomingMessage( msgType, msgData ) {
-    if( msgType === &#39;SubscriptionConfirmation&#39;) {
-        //confirm the subscription.
-        sns.confirmSubscription({
-            Token: msgData.Token,
-            TopicArn: msgData.TopicArn
-        }, onAwsResponse );
-    } else if ( msgType === &#39;Notification&#39; ) {
-        // That&#39;s where the actual messages will arrive
-    } else {
-        console.log( &#39;Unexpected message type &#39; + msgType );
+<h4>Deepstream</h4><p>Deepstream can use the same middleware intialised previously to check whether or not the client attempting to login has a session, and allow or deny access accordingly.</p><pre><code class="lang-javascript">var middleware = [ session, initialisedPassport, passportSession ];
+var Deepstream = require( &#39;deepstream.io&#39; );
+var PermissionHandler = require( &#39;./permission-handler&#39; );
+
+var deepstream = new Deepstream();
+deepstream.set( &#39;urlPath&#39;, &#39;/deepstream&#39; );
+deepstream.set( &#39;httpServer&#39;, httpServer );
+deepstream.set( &#39;permissionHandler&#39;, {
+    isValidUser: function( connectionData, authData, callback ) {
+        useExpressMiddleware( connectionData.headers, middleware, ( req, res ) =&gt; {
+            if( req.user ) {
+                callback( null, req.user.id );
+            } else {
+                callback( &#39;Login Denied&#39; );
+            }
+            } );
+    },
+    canPerformAction: function( id, message, callback ) {
+        callback( null, true );
     }
-}
-</code></pre>
-<h3>Starting a deepstream.io server</h3><p>Now it&#39;s time to start our deepstream server. Just create a separate js file (e.g. start-server.js) with</p><pre><code class="lang-javascript">var DeepstreamServer = require( &#39;deepstream.io&#39; ),
-    server = new DeepstreamServer();
-
-server.start();
-</code></pre>
-<p>and run it</p><p><img src="deepstream-startup.png" alt="Deepstream.io startup"></p><p>As the console shows, the server is now listening for TCP connections (e.g. from a node client) on port <code>6021</code> and for browser connections on port <code>6020</code>. If you&#39;d prefer different hosts/ports, please have a look at the <a href="//deepstream.io/docs/deepstream.html">configuration docs</a>.</p><p>All that&#39;s left now is to connect our SNS-provider to the deepstream server:</p><pre><code class="lang-javascript">var deepstreamClient = require( &#39;deepstream.io-client-js&#39; );
-var ds = deepstreamClient( &#39;localhost:6021&#39; ).login();
-</code></pre>
-<h3>Forwarding SNS messages as deepstream events</h3><p>Ok, time for the last piece of the puzzle. Every time we receive a message from SNS, we want to forward it as a deepstream event. (Events are deepstream&#39;s pub-sub mechanism. They work exactly like a JavaScript event emitter, distributed across many clients).</p><p>Each SNS message has a &quot;Subject&quot; and a &quot;Message&quot; - both of which are plain text. This leaves us with a couple of choices: We could use the topic as an event name, send JSON as the message body or come up with a totally different mechanism. But for now, let&#39;s keep things simple: Every time we receive a message, we&#39;ll use the Subject as an event-name and send the message content as event-data... or in code, inside our <code>handleIncomingMessage</code> method:</p><pre><code class="lang-javascript">else if ( msgType === &#39;Notification&#39; ) {
-    ds.event.emit( msgData.Subject, msgData.Message );
-}
-</code></pre>
-<p>Subscribing to this event from a browser is now as easy as</p><pre><code class="lang-javascript">ds.event.subscribe( &#39;someEvent&#39;, function( data ){
-    //...
 });
+deepstream.start();
+
+httpServer.listen( config.HTTP_PORT, function() {
+    console.log( &#39;HTTP server listening on&#39;, process.env.HTTP_PORT );
+} );
 </code></pre>
-<p>And that&#39;s it. Thanks for holding out with me for so long. If you&#39;d like to learn more about events in deepstream, head over to the <a href="//deepstream.io/tutorials/events-and-rpcs.html">Events &amp; RPC tutorial</a>
-or have a look at the <a href="//deepstream.io/docs/client.event.html">event documentation</a></p>
+<p>And that&#39;s it! PassportJS and Express take care of actually allowing the user to create and store a session, and deepstream uses its PermissionHandler to authenticate connections with valid session ids.</p><p>You can see a working application using both Facebook and Twitter here. You have to setup a <a href="//developers.facebook.com/docs/apps/register">Facebook</a> and <a href="//apps.twitter.com/">Twitter</a> application to get your application key and secret.</p><p><img src="PassportJS.gif" alt="PassportJS with Facebook" /></p><p><a class="mega" href="//github.com/deepstreamIO/ds-tutorial-passport-auth"><i class="fa fa-github"></i>PassportJS with Facebook and Twitter</a></p>
 		</section>
 
 		<footer class="post-footer">
 
 			<section class="author">
 
-				<img class="author-gravatar" src="http://www.gravatar.com/avatar/f831162b79d84f85f589a1a76b4975db">
+				<img class="author-gravatar" src="//s.gravatar.com/avatar/47342a117d8faf101cc6022488958ca1?s&#x3D;80">
 				
 				<span class="author-description">
 					<h4>About the author</h4>
 
 					<p class="author-bio">
-						Wolfram worked all over the world before settling in Berlin and becoming a co-founder of deepstreamHub. He also once studied art-history, but that&#x27;s a different story and shall be told another time.
+						Yasser comes out of Egypt, got a bit sunburnt and now enjoys the calmer weather in Berlin. Core team member of deepstream.io and enjoys soldering cupholders.
 					</p>
 				</span>
 
@@ -253,7 +237,7 @@ or have a look at the <a href="//deepstream.io/docs/client.event.html">event doc
 				<h4>Share this post</h4>
 				<ul class="icons">
 					<li>
-						<a class="icon fa fa-twitter" href="//twitter.com/share?text=Publishing AWS SNS messages to browsers @deepstreamhub&amp;url="
+						<a class="icon fa fa-twitter" href="//twitter.com/share?text=Using PassportJS for Facebook and Twitter oAuth @deepstreamhub&amp;url="
 							onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
 							<span class="label">Twitter</span>
 						</a>
@@ -280,7 +264,7 @@ or have a look at the <a href="//deepstream.io/docs/client.event.html">event doc
 			</h4>
 			<ul class="latest-blogs-content">
 					<li class="latest-blog-article">
-						<a href="../using-passportjs/">
+						<a href="">
 							<span class="date">20/04/2016</span>
 							<span class="title">Using PassportJS for Facebook and Twitter oAuth</span>
 						</a>
@@ -355,7 +339,7 @@ or have a look at the <a href="//deepstream.io/docs/client.event.html">event doc
 				</h4>
 				<ul class="latest-blogs-content">
 						<li class="latest-blog-article">
-							<a href="../using-passportjs/">
+							<a href="">
 								<span class="date">20/04/2016</span>
 								<span class="title">Using PassportJS for Facebook and Twitter oAuth</span>
 							</a>
