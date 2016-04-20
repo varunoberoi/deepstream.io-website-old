@@ -150,7 +150,7 @@ var buildBlogPost = function( data, fileContent, next ) {
 
 		data.contextVars.targetFilePath = data.targetFilePath;
 
-		data.contextVars.description = innerHtml.match( '<p>([^<]*)')[ 1 ];
+		data.contextVars.description = new hbs.SafeString( innerHtml.match( '<p>([^<]*)')[ 1 ] );
 		data.contextVars.dateISO = metaData.dateISO;
 		data.contextVars.date = moment( metaData.dateISO, 'YYYYMMDD' ).format( 'MMMM Do YYYY' );
 		data.contextVars.shortDate = moment( metaData.dateISO, 'YYYYMMDD' ).format( 'DD/MM/YYYY' );
