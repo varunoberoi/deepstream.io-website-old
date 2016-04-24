@@ -180,6 +180,7 @@ app.get( &#39;/login/facebook/return&#39;,
 </code></pre>
 <h4>Deepstream</h4><p>Deepstream can use the same middleware intialised previously to check whether or not the client attempting to login has a session, and allow or deny access accordingly.</p><pre><code class="lang-javascript">var middleware = [ session, initialisedPassport, passportSession ];
 var Deepstream = require( &#39;deepstream.io&#39; );
+var useExpressMiddleware = require( &#39;use-express-middleware&#39; );
 var PermissionHandler = require( &#39;./permission-handler&#39; );
 
 var deepstream = new Deepstream();
