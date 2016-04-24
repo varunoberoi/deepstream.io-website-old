@@ -98,6 +98,7 @@ Deepstream can use the same middleware intialised previously to check whether or
 ```javascript
 var middleware = [ session, initialisedPassport, passportSession ];
 var Deepstream = require( 'deepstream.io' );
+var useExpressMiddleware = require( 'use-express-middleware' );
 var PermissionHandler = require( './permission-handler' );
 
 var deepstream = new Deepstream();
