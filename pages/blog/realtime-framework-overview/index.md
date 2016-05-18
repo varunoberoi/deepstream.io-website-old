@@ -17,7 +17,7 @@ there’s a lot of great services and PaaS’ out there that can help you build 
 - #### open source
 there’s a number of proprietary realtime servers and frameworks, e.g. [Caplin Liberator](https://www.caplin.com/developer/component/liberator), [Kaazing](https://kaazing.com/), [Light Streamer](http://lightstreamer.com/) or [Migratory Data](http://migratorydata.com/) which are often used in banking and financial trading. This post purely focuses on open source and freely available libraries
 
-- #### and support browsers and mobile clients
+- #### support browsers and mobile clients
 this post is about technologies that deliver and receive realtime data from browsers and mobile clients. That means we'll exclude libraries that help with TCP / UDP messaging, IoT data collection, multiplayer gaming or financial data processing etc.
 
 Oh, and one more thing (makes Steve Jobs turnaround). You're reading this on the deepstream.io website. Deepstream.io is an open realtime server - and a pretty awesome one at that. (you can find it further down in the "hybrid" section). This shouldn't mean that there's any bias in this overview - if you feel that's not the case, we've missed something or got it wrong, [please let us know](mailto:info@deepstreamhub.com).
@@ -29,14 +29,14 @@ In order to build any kind of realtime functionality, you need to establish a bi
 Yes, you could. Pretty much all modern browsers, Android and iOS versions offer native Websocket support.
 But no, you shouldn't! Websocket libraries do a few things that you will definitely want in production. They give you:
 
-- #### hearbeats / keep alive calls
+- #### heartbeats / keep alive calls
 these are tiny messages that are send on pre-defined intervals. They make sure that the other side is still responsive and prevent certain network constructs like proxies or firewalls from cutting your connection due to inactivity.
 
 - #### reconnecting
 if your connection drops, you want it to be re-established. Some libraries also queue messages while the connection is down and resend them once it becomes available again.
 
 - #### http fallback
-if WebSockets are not available, some libraries fall back to http long polling and other techniques to mimick bi-directional communication (collectively known as "comet"). Depending on your target audience this might not be a necessity, but is still a good choice if your app needs to be available within large corporate infrastructures.
+if WebSockets are not available, some libraries fall back to http long polling and other techniques to mimic bi-directional communication (collectively known as "comet"). Depending on your target audience this might not be a necessity, but is still a good choice if your app needs to be available within large corporate infrastructures.
 
 #### [engine.io](https://github.com/socketio/engine.io)
 Engine.io is the transport layer that powers socket.io, but can also be used as a standalone library. It incorporates a few unusual design choices, such as starting with http long-polling to ensure immediate connectivity and only upgrade the connection to websocket a bit later.
@@ -113,10 +113,13 @@ Data-sync models your data as observable objects or tree-structures that can be 
 
 This significantly reduces request-overhead, makes applications faster and development simpler.
 
-#### [Horizon](http://horizon.io/)
+#### [Horizon](https://horizon.io/)
 The youngest, but certainly one of the most promising entries in this list is RethinkDB’s Horizon - a NodeJS server and associated JavaScript client library that sits on top of RethinkDB and exposes its database and realtime querying capabilities to browser apps.
 
 Horizon supports authentication via openAuth and JSON webtoken and access control via TOML configured permissions for user groups
+
+#### [FeatherJS](http://feathersjs.com/)
+FeatherJS is a RESTful CRUD framework for Node build on top of express.js that sends out events via a socket.io connection whenever an object is created, updated or deleted, allowing clients to react accordingly.
 
 ### Remote Procedure Call (RPC) / Remote Method Invocation (RMI)
 This one is not strictly a realtime concept, but more the classical REST/HTTP request/response workflow, mapped onto a bi-directional connection. RPC allows you to call methods on a remote server and process their response. This can be a powerful concept in itself, but it becomes even more powerful when used in conjunction with other realtime concepts like pub/sub or data-sync... which brings us to the next section:
@@ -135,17 +138,17 @@ Deepstream focuses on ease of use and speed. With an average below [1ms for clus
 
 #### [Meteor](https://www.meteor.com/)
 Meteor is a full stack framework for realtime apps, featuring data-sync, pub/sub, RPCs, realtime search and a host of other features.
-It offers a highly structured and opinionated way to set up and connect servers and databases, build clients and test and deploy applications. It comes with its own, self contained ecosystem, including a proprietary (potentially soon to be deprecated?) [package manager](https://atmospherejs.com/) and originally its own client side templating library.
+It offers a highly structured and opinionated way to set up and connect servers and databases, build clients and test and deploy applications. It comes with its own, self-contained ecosystem, including a proprietary (potentially soon to be deprecated?) [package manager](https://atmospherejs.com/) and originally its own client side templating library.
 
-It’s probably fair to say that Meteor is one of the most polarizing entries in the web technology space. Meteor fans praise it for its ease of use, the development time it saves by offering a well orchestrated stack of components and its high levels of resilience, including an in-browser data-store and robust syncing routines.
+It’s probably fair to say that Meteor is one of the most polarizing entries in the web technology space. Meteor fans praise it for its ease of use, the development time it saves by offering a well-orchestrated stack of components and its high levels of resilience, including an in-browser data-store and robust syncing routines.
 
-It’s critics frequently mention Meteor’s inflexibility, its inability to swap critical components (e.g. to use it with a database other than MongoDB), slow speed and lack of transparency of what happens behind the scenes.
+Its critics frequently mention Meteor’s inflexibility, its inability to swap critical components (e.g. to use it with a database other than MongoDB), slow speed and lack of transparency of what happens behind the scenes.
 With over 30M in Venture Funding and extensive Facebook campaigns, Meteor is also one of the few commercial offerings in this space.
 
-At the bottom line, Meteor comes down to the usual tradeoff presented by fullstack frameworks: If your usecase is a good fit for Meteor, it will save you an awful lot of development time and headaches. If you seek flexibility, you're most likely better of with a combination of smaller, more specialised components
+At the bottom line, Meteor comes down to the usual trade-off presented by full stack frameworks: If your use case is a good fit for Meteor, it will save you an awful lot of development time and headaches. If you seek flexibility, you're most likely better of with a combination of smaller, more specialised components
 
 #### [Kuzzle.io](http://kuzzle.io/)
-A new entry to this list and still in beta, Kuzzle is an intresting new contender for the Meteor crown. Its a NodeJS server that connects to ElasticSearch and Redis and offers data-sync, pub-sub and realtime querying via a number of protocols such as WebSocket, REST, AMQP, MQTT and STOMP.
+A new entry to this list and still in beta, Kuzzle is an interesting new contender for the Meteor crown. It's a NodeJS server that connects to ElasticSearch and Redis and offers data-sync, pub-sub and realtime querying via a number of protocols such as WebSocket, REST, AMQP, MQTT and STOMP.
 
 #### [Autobahn](http://autobahn.ws/)
 Autobahn offers Pub/Sub and RPC. It's a server implementing the WAMP (Web Application Messaging Protocol) spec and offers a selection of clients for JS, Python, Android and C++.
@@ -153,7 +156,7 @@ Autobahn offers Pub/Sub and RPC. It's a server implementing the WAMP (Web Applic
 #### [CometD](https://cometd.org/)
 CometD has been one of the first entries in the realtime space. It combines pub/sub with rpcs and supports browser connectivity via a stack of comet techniques.
 
-### Other ressources and further reading
+### Other resources and further reading
 For further overviews, have a look at the [great blog](http://www.leggetter.co.uk/) of our former colleague Phil Leggetter, especially his [realtime web technologies guide](http://www.leggetter.co.uk/real-time-web-technologies-guide/)
 
 
