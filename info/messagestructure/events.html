@@ -89,11 +89,6 @@
 			
 				<li class="head">Client Specs</li>
 					<li >
-						<a href="../../info/messagestructure/connectivity.html">
-						Connectivity</a>
-						<div class="isActiveIndicator orangeGradient"></div>
-					</li>
-					<li >
 						<a href="../../info/messagestructure/parsing.html">
 						Parsing</a>
 						<div class="isActiveIndicator orangeGradient"></div>
@@ -120,6 +115,11 @@
 								<li><a href="#Events Timeouts">Events Timeouts</a></li>
 								<li><a href="#Events">Events</a></li>
 							</ul>
+					</li>
+					<li >
+						<a href="../../info/messagestructure/connectivity.html">
+						Connectivity</a>
+						<div class="isActiveIndicator orangeGradient"></div>
 					</li>
 				
 				
@@ -197,11 +197,6 @@
 				
 					<li class="head">Client Specs</li>
 						<li >
-							<a href="../../info/messagestructure/connectivity.html">
-							Connectivity</a>
-							<div class="isActiveIndicator orangeGradient"></div>
-						</li>
-						<li >
 							<a href="../../info/messagestructure/parsing.html">
 							Parsing</a>
 							<div class="isActiveIndicator orangeGradient"></div>
@@ -228,6 +223,11 @@
 									<li><a href="#Events Timeouts">Events Timeouts</a></li>
 									<li><a href="#Events">Events</a></li>
 								</ul>
+						</li>
+						<li >
+							<a href="../../info/messagestructure/connectivity.html">
+							Connectivity</a>
+							<div class="isActiveIndicator orangeGradient"></div>
 						</li>
 					
 					
@@ -273,11 +273,6 @@
 
 	<li class="head">Client Specs</li>
 		<li >
-			<a href="../../info/messagestructure/connectivity.html">
-			Connectivity</a>
-			<div class="isActiveIndicator orangeGradient"></div>
-		</li>
-		<li >
 			<a href="../../info/messagestructure/parsing.html">
 			Parsing</a>
 			<div class="isActiveIndicator orangeGradient"></div>
@@ -304,6 +299,11 @@
 					<li><a href="#Events Timeouts">Events Timeouts</a></li>
 					<li><a href="#Events">Events</a></li>
 				</ul>
+		</li>
+		<li >
+			<a href="../../info/messagestructure/connectivity.html">
+			Connectivity</a>
+			<div class="isActiveIndicator orangeGradient"></div>
 		</li>
 	
 	
@@ -348,6 +348,7 @@ Feature: Events Misc
 Scenario: The client is connected
 	Given the test server is ready
 		And the client is initialised
+		And the server sends the message C|A+
 		And the client logs in with username &quot;XXX&quot; and password &quot;YYY&quot;
 		And the server sends the message A|A+
 
@@ -385,6 +386,7 @@ Feature: Events Connectivity
 Scenario: The client is connected
 	Given the test server is ready
 		And the client is initialised
+		And the server sends the message C|A+
 		And the client logs in with username &quot;XXX&quot; and password &quot;YYY&quot;
 		And the server sends the message A|A+
 
@@ -414,6 +416,7 @@ Scenario: The client publishes an event
 	
 Scenario: The client reconnects to the server
 	When the connection to the server is reestablished
+	And the server sends the message C|A+
 	Then the clients connection state is &quot;AUTHENTICATING&quot;
 
 Scenario: The client successfully reconnects
@@ -442,6 +445,7 @@ Feature: Event Listen Timeouts
 Scenario: The client is connected
 	Given the test server is ready
 		And the client is initialised
+		And the server sends the message C|A+
 		And the client logs in with username &quot;XXX&quot; and password &quot;YYY&quot;
 		And the server sends the message A|A+
 
@@ -476,6 +480,7 @@ Feature: Event Listen
 Scenario: The client is connected
 	Given the test server is ready
 		And the client is initialised
+		And the server sends the message C|A+
 		And the client logs in with username &quot;XXX&quot; and password &quot;YYY&quot;
 		And the server sends the message A|A+
 
@@ -517,6 +522,7 @@ Feature: Events Timeouts
 Scenario: The client is connected
 	Given the test server is ready
 		And the client is initialised
+		And the server sends the message C|A+
 		And the client logs in with username &quot;XXX&quot; and password &quot;YYY&quot;
 		And the server sends the message A|A+
 
@@ -550,6 +556,7 @@ Feature: Events
 Scenario: The client is connected
 	Given the test server is ready
 		And the client is initialised
+		And the server sends the message C|A+
 		And the client logs in with username &quot;XXX&quot; and password &quot;YYY&quot;
 		And the server sends the message A|A+
 
@@ -674,11 +681,6 @@ Scenario: The server sends an ACK message for test1 unsubscribe
 				
 					<li class="head">Client Specs</li>
 						<li >
-							<a href="../../info/messagestructure/connectivity.html">
-							Connectivity</a>
-							<div class="isActiveIndicator orangeGradient"></div>
-						</li>
-						<li >
 							<a href="../../info/messagestructure/parsing.html">
 							Parsing</a>
 							<div class="isActiveIndicator orangeGradient"></div>
@@ -705,6 +707,11 @@ Scenario: The server sends an ACK message for test1 unsubscribe
 									<li><a href="#Events Timeouts">Events Timeouts</a></li>
 									<li><a href="#Events">Events</a></li>
 								</ul>
+						</li>
+						<li >
+							<a href="../../info/messagestructure/connectivity.html">
+							Connectivity</a>
+							<div class="isActiveIndicator orangeGradient"></div>
 						</li>
 					
 					

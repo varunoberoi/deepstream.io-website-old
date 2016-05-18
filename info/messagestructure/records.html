@@ -89,11 +89,6 @@
 			
 				<li class="head">Client Specs</li>
 					<li >
-						<a href="../../info/messagestructure/connectivity.html">
-						Connectivity</a>
-						<div class="isActiveIndicator orangeGradient"></div>
-					</li>
-					<li >
 						<a href="../../info/messagestructure/parsing.html">
 						Parsing</a>
 						<div class="isActiveIndicator orangeGradient"></div>
@@ -121,6 +116,11 @@
 					<li >
 						<a href="../../info/messagestructure/events.html">
 						Events</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+					</li>
+					<li >
+						<a href="../../info/messagestructure/connectivity.html">
+						Connectivity</a>
 						<div class="isActiveIndicator orangeGradient"></div>
 					</li>
 				
@@ -199,11 +199,6 @@
 				
 					<li class="head">Client Specs</li>
 						<li >
-							<a href="../../info/messagestructure/connectivity.html">
-							Connectivity</a>
-							<div class="isActiveIndicator orangeGradient"></div>
-						</li>
-						<li >
 							<a href="../../info/messagestructure/parsing.html">
 							Parsing</a>
 							<div class="isActiveIndicator orangeGradient"></div>
@@ -231,6 +226,11 @@
 						<li >
 							<a href="../../info/messagestructure/events.html">
 							Events</a>
+							<div class="isActiveIndicator orangeGradient"></div>
+						</li>
+						<li >
+							<a href="../../info/messagestructure/connectivity.html">
+							Connectivity</a>
 							<div class="isActiveIndicator orangeGradient"></div>
 						</li>
 					
@@ -277,11 +277,6 @@
 
 	<li class="head">Client Specs</li>
 		<li >
-			<a href="../../info/messagestructure/connectivity.html">
-			Connectivity</a>
-			<div class="isActiveIndicator orangeGradient"></div>
-		</li>
-		<li >
 			<a href="../../info/messagestructure/parsing.html">
 			Parsing</a>
 			<div class="isActiveIndicator orangeGradient"></div>
@@ -309,6 +304,11 @@
 		<li >
 			<a href="../../info/messagestructure/events.html">
 			Events</a>
+			<div class="isActiveIndicator orangeGradient"></div>
+		</li>
+		<li >
+			<a href="../../info/messagestructure/connectivity.html">
+			Connectivity</a>
 			<div class="isActiveIndicator orangeGradient"></div>
 		</li>
 	
@@ -362,6 +362,7 @@ Feature: Record Conflicts
 Scenario: The client is connected
 	Given the test server is ready
 		And the client is initialised
+		And the server sends the message C|A+
 		And the client logs in with username &quot;XXX&quot; and password &quot;YYY&quot;
 		And the server sends the message A|A+
 
@@ -398,6 +399,7 @@ Feature: Record Connectivity
 Scenario: The client is connected
 	Given the test server is ready
 		And the client is initialised
+		And the server sends the message C|A+
 		And the client logs in with username &quot;XXX&quot; and password &quot;YYY&quot;
 		And the server sends the message A|A+
 
@@ -427,6 +429,7 @@ Scenario: The client sends an partial update
 	
 Scenario: The client reconnects to the server
 	When the connection to the server is reestablished
+	And the server sends the message C|A+
 	Then the clients connection state is &quot;AUTHENTICATING&quot;
 
 Scenario: The client successfully reconnects
@@ -441,8 +444,7 @@ Scenario: The client resends the listen record
 	Then the server received the message R|L|recordPrefix/.*+
 
 Scenario: The client sends offline changes
-	Then the server received the message R|P|connectionRecord|101|pets.0.name|SMax+
-</code></pre>
+	Then the server received the message R|P|connectionRecord|101|pets.0.name|SMax+</code></pre>
     </div>
     <div class="section">  
         <a name="Record Listen Timeouts"></a>
@@ -455,6 +457,7 @@ Feature: Record Listen Timeouts
 Scenario: The client is connected
 	Given the test server is ready
 		And the client is initialised
+		And the server sends the message C|A+
 		And the client logs in with username &quot;XXX&quot; and password &quot;YYY&quot;
 		And the server sends the message A|A+
 
@@ -495,6 +498,7 @@ Feature: Record Listen
 Scenario: The client is connected
 	Given the test server is ready
 		And the client is initialised
+		And the server sends the message C|A+
 		And the client logs in with username &quot;XXX&quot; and password &quot;YYY&quot;
 		And the server sends the message A|A+
 
@@ -536,6 +540,7 @@ Feature: Record Misc
 Scenario: The client is connected
 	Given the test server is ready
 		And the client is initialised
+		And the server sends the message C|A+
 		And the client logs in with username &quot;XXX&quot; and password &quot;YYY&quot;
 		And the server sends the message A|A+
 
@@ -575,6 +580,7 @@ Feature: Record Subscription
 Scenario: The client is connected
 	Given the test server is ready
 		And the client is initialised
+		And the server sends the message C|A+
 		And the client logs in with username &quot;XXX&quot; and password &quot;YYY&quot;
 		And the server sends the message A|A+
 
@@ -663,6 +669,7 @@ Feature: Record Timeouts
 Scenario: The client is connected
 	Given the test server is ready
 		And the client is initialised
+		And the server sends the message C|A+
 		And the client logs in with username &quot;XXX&quot; and password &quot;YYY&quot;
 		And the server sends the message A|A+
 
@@ -734,6 +741,7 @@ Feature: Record
 Scenario: The client is connected
 	Given the test server is ready
 		And the client is initialised
+		And the server sends the message C|A+
 		And the client logs in with username &quot;XXX&quot; and password &quot;YYY&quot;
 		And the server sends the message A|A+
 
@@ -875,11 +883,6 @@ Scenario: The server responds with a delete ACK
 				
 					<li class="head">Client Specs</li>
 						<li >
-							<a href="../../info/messagestructure/connectivity.html">
-							Connectivity</a>
-							<div class="isActiveIndicator orangeGradient"></div>
-						</li>
-						<li >
 							<a href="../../info/messagestructure/parsing.html">
 							Parsing</a>
 							<div class="isActiveIndicator orangeGradient"></div>
@@ -907,6 +910,11 @@ Scenario: The server responds with a delete ACK
 						<li >
 							<a href="../../info/messagestructure/events.html">
 							Events</a>
+							<div class="isActiveIndicator orangeGradient"></div>
+						</li>
+						<li >
+							<a href="../../info/messagestructure/connectivity.html">
+							Connectivity</a>
 							<div class="isActiveIndicator orangeGradient"></div>
 						</li>
 					

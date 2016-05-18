@@ -89,11 +89,6 @@
 			
 				<li class="head">Client Specs</li>
 					<li >
-						<a href="../../info/messagestructure/connectivity.html">
-						Connectivity</a>
-						<div class="isActiveIndicator orangeGradient"></div>
-					</li>
-					<li >
 						<a href="../../info/messagestructure/parsing.html">
 						Parsing</a>
 						<div class="isActiveIndicator orangeGradient"></div>
@@ -117,6 +112,11 @@
 					<li >
 						<a href="../../info/messagestructure/events.html">
 						Events</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+					</li>
+					<li >
+						<a href="../../info/messagestructure/connectivity.html">
+						Connectivity</a>
 						<div class="isActiveIndicator orangeGradient"></div>
 					</li>
 				
@@ -195,11 +195,6 @@
 				
 					<li class="head">Client Specs</li>
 						<li >
-							<a href="../../info/messagestructure/connectivity.html">
-							Connectivity</a>
-							<div class="isActiveIndicator orangeGradient"></div>
-						</li>
-						<li >
 							<a href="../../info/messagestructure/parsing.html">
 							Parsing</a>
 							<div class="isActiveIndicator orangeGradient"></div>
@@ -223,6 +218,11 @@
 						<li >
 							<a href="../../info/messagestructure/events.html">
 							Events</a>
+							<div class="isActiveIndicator orangeGradient"></div>
+						</li>
+						<li >
+							<a href="../../info/messagestructure/connectivity.html">
+							Connectivity</a>
 							<div class="isActiveIndicator orangeGradient"></div>
 						</li>
 					
@@ -269,11 +269,6 @@
 
 	<li class="head">Client Specs</li>
 		<li >
-			<a href="../../info/messagestructure/connectivity.html">
-			Connectivity</a>
-			<div class="isActiveIndicator orangeGradient"></div>
-		</li>
-		<li >
 			<a href="../../info/messagestructure/parsing.html">
 			Parsing</a>
 			<div class="isActiveIndicator orangeGradient"></div>
@@ -297,6 +292,11 @@
 		<li >
 			<a href="../../info/messagestructure/events.html">
 			Events</a>
+			<div class="isActiveIndicator orangeGradient"></div>
+		</li>
+		<li >
+			<a href="../../info/messagestructure/connectivity.html">
+			Connectivity</a>
 			<div class="isActiveIndicator orangeGradient"></div>
 		</li>
 	
@@ -342,6 +342,7 @@ Feature: RPC Connectivity
 Scenario: The client is connected
 	Given the test server is ready
 		And the client is initialised
+		And the server sends the message C|A+
 		And the client logs in with username &quot;XXX&quot; and password &quot;YYY&quot;
 		And the server sends the message A|A+
 
@@ -360,6 +361,7 @@ Scenario: The client loses it connection to the server
 	
 Scenario: The client reconnects to the server
 	When the connection to the server is reestablished
+		And the server sends the message C|A+
 	Then the clients connection state is &quot;AUTHENTICATING&quot;
 
 Scenario: The client successfully reconnects
@@ -393,6 +395,7 @@ Feature: Providing RPC
 Scenario: The client is connected
 	Given the test server is ready
 		And the client is initialised
+		And the server sends the message C|A+
 		And the client logs in with username &quot;XXX&quot; and password &quot;YYY&quot;
 		And the server sends the message A|A+
 
@@ -480,6 +483,7 @@ Feature: Requesting an RPC
 Scenario: The client is connected
 	Given the test server is ready
 		And the client is initialised
+		And the server sends the message C|A+
 		And the client logs in with username &quot;XXX&quot; and password &quot;YYY&quot;
 		And the server sends the message A|A+
 
@@ -525,6 +529,7 @@ Feature: RPC Timeouts
 Scenario: The client is connected
 	Given the test server is ready
 		And the client is initialised
+		And the server sends the message C|A+
 		And the client logs in with username &quot;XXX&quot; and password &quot;YYY&quot;
 		And the server sends the message A|A+
 
@@ -655,11 +660,6 @@ Scenario: The server does not respond in time with an unsubscribe ACK
 				
 					<li class="head">Client Specs</li>
 						<li >
-							<a href="../../info/messagestructure/connectivity.html">
-							Connectivity</a>
-							<div class="isActiveIndicator orangeGradient"></div>
-						</li>
-						<li >
 							<a href="../../info/messagestructure/parsing.html">
 							Parsing</a>
 							<div class="isActiveIndicator orangeGradient"></div>
@@ -683,6 +683,11 @@ Scenario: The server does not respond in time with an unsubscribe ACK
 						<li >
 							<a href="../../info/messagestructure/events.html">
 							Events</a>
+							<div class="isActiveIndicator orangeGradient"></div>
+						</li>
+						<li >
+							<a href="../../info/messagestructure/connectivity.html">
+							Connectivity</a>
 							<div class="isActiveIndicator orangeGradient"></div>
 						</li>
 					
