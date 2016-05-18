@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>deepstream.io | Introducing deepstreamHub</title>
+	<title>deepstream.io | Using PassportJS for Facebook and Twitter oAuth</title>
 
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<meta name="keywords" content="deepstream, deepstream.io, streaming, realtime, server, socket" />
-	<meta name="description" content="Ever since we’ve started working on deepstream.io, we’ve been toying with the idea of using it to build something bigger: A platform that makes it easy for developers from all backgrounds to build great real-time apps, using their own data as well as live feeds from a myriad of services." />
+	<meta name="description" content="Let&#39;s face it, we each have multiple user profiles and maintaining all those different passwords just never worked. So when OAuth got introduced we let out a sigh of relief knowing those days are behind us. Behold, the second sigh, where deepstream can use the same OAuth-tokens to authenticate your users!" />
 	<meta name="author" content="Wolfram Hempel" />
 	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 	<link rel="icon" href="/favicon.ico" type="image/x-icon">
@@ -29,7 +29,7 @@
 	<link rel="stylesheet" type="text/css" href="../../assets/css/prism.css" />
 </head>
 
-<body class="category_introducing-deepstreamhub ">
+<body class="category_using-passportjs ">
 	<div class="mobile-menu">
 		<div class="nav mobile-nav">
 			<ul>
@@ -113,28 +113,113 @@
 	<div class="post">
 
 		<header class="post-header">
-			<h1 class="post-title">Introducing deepstreamHub</h1>
+			<h1 class="post-title">Using PassportJS for Facebook and Twitter oAuth</h1>
 			<section class="post-meta">
-				By Wolfram Hempel
-				<span class="post-date">December 15th 2015</span>
+				By Yasser Fadl
+				<span class="post-date">April 20th 2016</span>
 			</section>
 		</header>
 
 		<section class="post-content">
-<p>Ever since we’ve started working on deepstream.io, we’ve been toying with the idea of using it to build something bigger: A platform that makes it easy for developers from all backgrounds to build great real-time apps, using their own data as well as live feeds from a myriad of services.</p><p>Today, we’re ready to announce that we’ve started developing just that: <strong>deepstreamHub</strong>.</p><p><a href="./deepstream-hub-750.png"><img src="deepstream-hub-750.png" alt="deepstreamHub"></a></p><p>deepstreamHub will be a hosted deepstream cluster in the cloud, comparable to Firebase, Pusher or realtime.co, but offering the full deepstream feature set of data-sync, pub-sub, request-response and WebRTC.</p><p>Where it gets really interesting though are deepstreamHub’s <strong>Channels</strong>. Channels let you stream data from third party services directly into your frontend – without any integration code.</p><h3>Here’s how it works:</h3><p>Channels let you connect to a wide array of services. Collaboration tools (e.g. Trello, Google Docs), communication (e.g. Slack), dev-tools (e.g. Github), social networks, content management systems etc…</p><p>We&#39;re also planning premium channels for Financial Data, Sports Results, Payment, CRM systems and so on. Whichever channels you add to your app, the process is always the same:</p><p>1) Select one or more channels:</p><p><a href="./dshub-select-channel.png"><img src="dshub-select-channel.png" alt="Selecting a channel"></a></p><p>2) Add the channel:</p><p>View the channel description to get a clear view on the type of data the channel provides</p><p><a href="./dshub-add-channel.png"><img src="dshub-add-channel.png" alt="Adding a channel"></a></p><p>3) Authenticate:</p><p>Authenticate with the third party service to work with deepstreamHub</p><p><a href="./dshub-authenticate-channel.png"><img src="dshub-authenticate-channel.png" alt="Authenticate a channel"></a></p><p>4) Use it</p><p>And that’s it! From here on your channel’s real-time data is available to all connected front or backend services as ds-records, lists or events.</p><p>If you’d like to learn more, follow us on <a href="//twitter.com/deepstreamIO">twitter</a> or subscribe to our newsletter. And of course, give deepstream.io a try…it’s actually quite neat.</p>
+<p>Let&#39;s face it, we each have multiple user profiles and maintaining all those different passwords just never worked. So when OAuth got introduced we let out a sigh of relief knowing those days are behind us. Behold, the second sigh, where deepstream can use the same OAuth-tokens to authenticate your users!</p><p>In this blog we&#39;ll be looking at using the power of <a href="//expressjs.com/">express</a>, <a href="//PassportJS.org/">PassportJS</a> and a nifty <a href="//github.com/demux/use-express-middleware">plugin</a> by <a href="//twitter.com/arnary">@arnary</a> to allow us to automatically login to deepstream using Facebook or Twitter.</p><h1>What is PassportJS?</h1><p>Before we get started it&#39;s certainly worth looking at <a href="//PassportJS.org/">PassportJS</a>. It&#39;s an authentication middleware for Node.js that currently supports over 300 login-strategies, including Facebook, Twitter and Github.</p><h1>Why use it with deepstream?</h1><p>deepstream has a powerful permission-handler which can allow you to implement any type of user validation. By combining it with PassportJS we can authenticate users by checking if their session token is valid and determine if they can login accordingly.</p><h1>How can it be done?</h1><p>I would recommend looking at the express/PassportJS Facebook <a href="//github.com/passport/express-4.x-facebook-example/blob/master/server.js">example</a> to get a feel for how it works, but the basic idea is pretty simple. Let&#39;s take Facebook as an example:</p><ol>
+<li>Load your application</li>
+<li>Request to login via Facebook</li>
+<li>Login to Facebook ( if not already logged in )</li>
+<li>Connect to deepstream</li>
+</ol>
+<p>Let&#39;s take a look at how the three different parts are implemented.</p><h4>PassportJS</h4><p>PassportJS needs to be initialised and the desired strategies added.</p><pre><code class="lang-javascript">var passport = require( &#39;passport&#39; );
+var passportFacebook = require( &#39;passport-facebook&#39; );
+
+var initialisedPassport = passport.initialize();
+var passportSession = passport.session();
+
+passport.serializeUser( function( user, cb ) {
+    //nothing to do here as we use the username as it is
+    cb( null, user );
+} );
+
+passport.deserializeUser( function( obj, cb ) {
+    //again, we just pass the username forward
+    cb( null, obj );
+} );
+
+passport.use( new passportFacebook( {
+        clientID: FACEBOOK_ID,
+        clientSecret: FACEBOOK_SECRET,
+        callbackURL: &#39;//localhost/login/facebook/return&#39;
+    },
+    ( accessToken, refreshToken, profile, cb ) =&gt; {
+        return cb( null, profile );
+}));
+</code></pre>
+<h4>Express</h4><p>Express is required by PassportJS to handle the authentication callbacks we expect from oAuth providers as well as to forward us to the correct authentication provider if we don&#39;t already have a session.</p><pre><code class="lang-javascript">var http = require( &#39;http&#39; );
+var express = require( &#39;express&#39; );
+var expressSession = require( &#39;express-session&#39; );
+
+var app = express();
+var httpServer = http.createServer(app);
+var session = expressSession({
+    secret: &#39;60dd06aa-cf8e-4cf8-8925-6de720015ebf&#39;,
+    resave: false,
+    saveUninitialized: false,
+    name: &#39;sid&#39;
+});
+
+app.use( express.static( &#39;../client&#39; ) );
+app.use( session );
+app.use( initialisedPassport );
+app.use( passportSession );
+
+app.get( &#39;/login/facebook&#39;, passport.authenticate(&#39;facebook&#39;) );
+
+app.get( &#39;/login/facebook/return&#39;, 
+        passport.authenticate(&#39;facebook&#39;, { failureRedirect: &#39;/login&#39; }),
+        ( req, res ) =&gt; {
+                res.redirect(&#39;/&#39;);
+} );
+</code></pre>
+<h4>Deepstream</h4><p>Deepstream can use the same middleware intialised previously to check whether or not the client attempting to login has a session, and allow or deny access accordingly.</p><pre><code class="lang-javascript">var middleware = [ session, initialisedPassport, passportSession ];
+var Deepstream = require( &#39;deepstream.io&#39; );
+var useExpressMiddleware = require( &#39;use-express-middleware&#39; );
+var PermissionHandler = require( &#39;./permission-handler&#39; );
+
+var deepstream = new Deepstream();
+deepstream.set( &#39;urlPath&#39;, &#39;/deepstream&#39; );
+deepstream.set( &#39;httpServer&#39;, httpServer );
+deepstream.set( &#39;permissionHandler&#39;, {
+    isValidUser: function( connectionData, authData, callback ) {
+        useExpressMiddleware( connectionData.headers, middleware, ( req, res ) =&gt; {
+            if( req.user ) {
+                callback( null, req.user.id );
+            } else {
+                callback( &#39;Login Denied&#39; );
+            }
+            } );
+    },
+    canPerformAction: function( id, message, callback ) {
+        callback( null, true );
+    }
+});
+deepstream.start();
+
+httpServer.listen( config.HTTP_PORT, function() {
+    console.log( &#39;HTTP server listening on&#39;, process.env.HTTP_PORT );
+} );
+</code></pre>
+<p>And that&#39;s it! PassportJS and Express take care of actually allowing the user to create and store a session, and deepstream uses its PermissionHandler to authenticate connections with valid session ids.</p><p>You can see a working application using both Facebook and Twitter here. You have to setup a <a href="//developers.facebook.com/docs/apps/register">Facebook</a> and <a href="//apps.twitter.com/">Twitter</a> application to get your application key and secret.</p><p><img src="passportjs.gif" alt="PassportJS with Facebook" /></p><p><a class="mega" href="//github.com/deepstreamIO/ds-tutorial-passport-auth"><i class="fa fa-github"></i>PassportJS with Facebook and Twitter</a></p>
 		</section>
 
 		<footer class="post-footer">
 
 			<section class="author">
 
-				<img class="author-gravatar" src="http://www.gravatar.com/avatar/f831162b79d84f85f589a1a76b4975db">
+				<img class="author-gravatar" src="//s.gravatar.com/avatar/47342a117d8faf101cc6022488958ca1?s&#x3D;80">
 				
 				<span class="author-description">
 					<h4>About the author</h4>
 
 					<p class="author-bio">
-						Wolfram worked all over the world before settling in Berlin and becoming a co-founder of deepstreamHub. He also once studied art-history, but that&#x27;s a different story and shall be told another time.
+						Yasser comes out of Egypt, got a bit sunburnt and now enjoys the calmer weather in Berlin. Core team member of deepstream.io and enjoys soldering cupholders.
 					</p>
 				</span>
 
@@ -153,7 +238,7 @@
 				<h4>Share this post</h4>
 				<ul class="icons">
 					<li>
-						<a class="icon fa fa-twitter" href="//twitter.com/share?text=Introducing deepstreamHub @deepstreamhub&amp;url="
+						<a class="icon fa fa-twitter" href="//twitter.com/share?text=Using PassportJS for Facebook and Twitter oAuth @deepstreamhub&amp;url="
 							onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
 							<span class="label">Twitter</span>
 						</a>
@@ -186,7 +271,7 @@
 						</a>
 					</li>
 					<li class="latest-blog-article">
-						<a href="../using-passportjs/">
+						<a href="">
 							<span class="date">20/04/2016</span>
 							<span class="title">Using PassportJS for Facebook and Twitter oAuth</span>
 						</a>
@@ -261,7 +346,7 @@
 							</a>
 						</li>
 						<li class="latest-blog-article">
-							<a href="../using-passportjs/">
+							<a href="">
 								<span class="date">20/04/2016</span>
 								<span class="title">Using PassportJS for Facebook and Twitter oAuth</span>
 							</a>

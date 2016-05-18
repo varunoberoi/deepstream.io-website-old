@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>deepstream.io | An overview of realtime libraries and frameworks</title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="keywords" content="deepstream, deepstream.io, streaming, realtime, server, socket" />
+	<meta name="description" content="Time to build a realtime app. Whether it&#39;s just a few notification popups or a fully synchronized collaboration app, you’re probably doing the right thing - users have come to expect to see changes happen when they happen - not just once the page is refreshed." />
+	<meta name="author" content="Wolfram Hempel" />
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="stylesheet" type="text/css" href="../../assets/css/navigation.css" />
+	<link rel="stylesheet" type="text/css" href="../../assets/css/screen.css" />
+	<script type="text/javascript">
+	document.createElement( 'header' );
+	document.createElement( 'nav' );
+	</script>
+	<script type="text/javascript" src="../../assets/js/jquery.js"></script>
+	<script type="text/javascript" src="../../assets/js/menu.js"></script>
+	<script type="text/javascript" src="../../assets/js/prism.js"></script>
+
+	<link href='//fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+	<link href='//fonts.googleapis.com/css?family=Quicksand:300,400,700' rel='stylesheet' type='text/css'>
+	<link href='//fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="../../assets/css/prism.css" />
+</head>
+
+<body class="category_realtime-framework-overview ">
+	<div class="mobile-menu">
+		<div class="nav mobile-nav">
+			<ul>
+				<li >
+					<a href="../..">Home</a>
+				</li>
+				
+				<li >
+					<a href="../../download/">Downloads</a>
+				</li>
+				
+				<li >
+					<a href="../../tutorials/getting-started.html">Tutorials</a>
+					
+				</li>
+				
+				<li >
+					<a href="../../docs/deepstream.html">Documentation</a>
+					
+				</li>
+				
+				<li class="active">
+					<a href="../../blog/">Blog</a>
+				</li>
+			
+				<li >
+					<a href="../../info/">Info</a>
+					
+				</li>
+			
+			</ul>		</div>
+	</div>
+
+	<div id="outer-wrapper">
+		<div id="header" class="compact-header">
+			<div class="header-tiny-logo">
+				<h1><a href="../..">deepstream.io - a scalable server for realtime web apps</a></h1>
+			</div>
+			<a href="//deepstreamHub.com/careers"  class="header-hiring-link">
+				<span class="header-hiring-text">we're hiring!</span>
+			</a>
+			<div class="nav desktop-nav">
+				<ul>
+					<li >
+						<a href="../..">Home</a>
+					</li>
+					
+					<li >
+						<a href="../../download/">Downloads</a>
+					</li>
+					
+					<li >
+						<a href="../../tutorials/getting-started.html">Tutorials</a>
+						
+					</li>
+					
+					<li >
+						<a href="../../docs/deepstream.html">Documentation</a>
+						
+					</li>
+					
+					<li class="active">
+						<a href="../../blog/">Blog</a>
+					</li>
+				
+					<li >
+						<a href="../../info/">Info</a>
+						
+					</li>
+				
+				</ul>			</div>
+			<span class="menu-button menu-icon">
+				<i class="fa fa-bars"></i>
+			</span>
+		</div>
+<link rel="stylesheet" type="text/css" href="../../assets/css/community.css" />
+<link rel="stylesheet" type="text/css" href="../../assets/css/blog.css" />
+
+<div id="wrapper" class="blog-wrapper">
+
+	<div class="post">
+
+		<header class="post-header">
+			<h1 class="post-title">An overview of realtime libraries and frameworks</h1>
+			<section class="post-meta">
+				By Wolfram Hempel
+				<span class="post-date">May 18th 2016</span>
+			</section>
+		</header>
+
+		<section class="post-content">
+<p>Time to build a realtime app. Whether it&#39;s just a few notification popups or a fully synchronized collaboration app, you’re probably doing the right thing - users have come to expect to see changes happen when they happen - not just once the page is refreshed.</p><p>But as realtime functionality becomes the standard, the ecosystem of servers, libraries and frameworks that power it is growing massively - and it becomes increasingly harder to choose a good starting point.</p><p>This post tries to provide an overview of the types of technologies out there, what they do and which to choose. But, with the amount of choices available, we had to limit it a little bit, so this post focuses on technologies that are:</p><ul>
+<li><h4>self hosted</h4><p>there’s a lot of great services and PaaS’ out there that can help you build realtime apps, e.g. <a href="https://pusher.com/">Pusher</a>, <a href="https://www.pubnub.com/">PubNub</a>, <a href="https://www.firebase.com/">Firebase</a>, <a href="https://framework.realtime.co/messaging/">realtime.co</a> or soon <a href="https://deepstreamhub.com/">deepstreamHub</a>. For this post we’ll purely concentrate on backends that you host yourself.</p></li>
+<li><h4>open source</h4><p>there’s a number of proprietary realtime servers and frameworks, e.g. <a href="https://www.caplin.com/developer/component/liberator">Caplin Liberator</a>, <a href="https://kaazing.com/">Kaazing</a>, <a href="http://lightstreamer.com/">Light Streamer</a> or <a href="http://migratorydata.com/">Migratory Data</a> which are often used in banking and financial trading. This post purely focuses on open source and freely available libraries</p></li>
+<li><h4>support browsers and mobile clients</h4><p>this post is about technologies that deliver and receive realtime data from browsers and mobile clients. That means we&#39;ll exclude libraries that help with TCP / UDP messaging, IoT data collection, multiplayer gaming or financial data processing etc.</p></li>
+</ul>
+<p>Oh, and one more thing (makes Steve Jobs turnaround). You&#39;re reading this on the deepstream.io website. Deepstream.io is an open realtime server - and a pretty awesome one at that. (you can find it further down in the &quot;hybrid&quot; section). This shouldn&#39;t mean that there&#39;s any bias in this overview - if you feel that&#39;s not the case, we&#39;ve missed something or got it wrong, <a href="mailto:info@deepstreamhub.com">please let us know</a>.</p><h3>Websocket &amp; Messaging libraries</h3><p>In order to build any kind of realtime functionality, you need to establish a bi-directional connection between client and server and send messages over it. This is the foundation for any higher level concept, but depending on your requirements, a low level websocket library might already be enough.</p><h4>But wait, can&#39;t I just use WebSockets directly?</h4><p>Yes, you could. Pretty much all modern browsers, Android and iOS versions offer native Websocket support.
+But no, you shouldn&#39;t! Websocket libraries do a few things that you will definitely want in production. They give you:</p><ul>
+<li><h4>heartbeats / keep alive calls</h4><p>these are tiny messages that are send on pre-defined intervals. They make sure that the other side is still responsive and prevent certain network constructs like proxies or firewalls from cutting your connection due to inactivity.</p></li>
+<li><h4>reconnecting</h4><p>if your connection drops, you want it to be re-established. Some libraries also queue messages while the connection is down and resend them once it becomes available again.</p></li>
+<li><h4>http fallback</h4><p>if WebSockets are not available, some libraries fall back to http long polling and other techniques to mimic bi-directional communication (collectively known as &quot;comet&quot;). Depending on your target audience this might not be a necessity, but is still a good choice if your app needs to be available within large corporate infrastructures.</p></li>
+</ul>
+<h4><a href="https://github.com/socketio/engine.io">engine.io</a></h4><p>Engine.io is the transport layer that powers socket.io, but can also be used as a standalone library. It incorporates a few unusual design choices, such as starting with http long-polling to ensure immediate connectivity and only upgrade the connection to websocket a bit later.
+It&#39;s what we chose for browser communication in deepstream.io after extensive testing and comparing and have never regretted it since.</p><h4><a href="https://github.com/websockets/ws">WS</a></h4><p>A solid, barebone WebSocket server for node. Used by engine.io</p><h4><a href="https://github.com/sockjs/sockjs-client">SockJS</a></h4><p>A fast JavaScript / NodeJS abstraction layer for websockets, supporting a number of fallback techniques</p><h4><a href="https://github.com/primus/primus">Primus</a></h4><p>If commitment is not for you, Primus is. Its not a connectivity library in itself, but an abstraction layer that allows you to switch your connectivity library once the initial romance has worn off.</p><h4><a href="http://www.tornadoweb.org/">Tornado</a></h4><p>Tornado is a general purpose networking library for Python, offering Websocket abstractions and fallbacks.</p><h4><a href="https://github.com/gimite/web-socket-js">web-socket-js</a></h4><p>Flash based websocket implementation</p><h4><a href="https://libwebsockets.org/">libwebsocket</a></h4><p>Really fast websocket implementation in low level C.</p><h4><a href="https://github.com/statianzo/Fleck">Fleck</a></h4><p>Fleck is a WebSocket implementation in C#</p><h4><a href="https://github.com/Atmosphere/atmosphere">Atmosphere</a></h4><p>Atmosphere is a general websocket abstraction layer for JVM compatible languages. It&#39;s focused to run on Java and J2EE application servers and comes with an ecosystem of extension points to connect it to caches like Redis or Hazelcast.</p><h4><a href="http://java-websocket.org/">Java Web Socket</a></h4><p>Exactly what the name suggests</p><h4><a href="http://mojolicious.org/">Mojolicious</a></h4><p>A websocket implementation with fallbacks for Perl</p><h4><a href="http://signalr.net/">SignalR</a></h4><p>WebSocket abstraction for .NET</p><h4><a href="http://superwebsocket.codeplex.com/">SuperWebSocket</a></h4><p>TCP/Websocket library for .NET</p><h4><a href="http://www.plezi.io/">Plezy</a></h4><p>WebSocket abstraction for Ruby</p><h3>Publish / Subscribe libraries</h3><p>Pub/Sub is a simple, widely adopted pattern for realtime messaging. If you&#39;ve ever used an event-emitter, you already know the concept. Many clients subscribe to a topic (sometimes also called an event, namespace or channel) and other clients publish messages on that topic. This is a simple and scalable pattern for many-to-many communication.</p><h4><a href="http://socket.io/">socket.io</a></h4><p>Definitely the most popular entry in this list. Socket.io is a NodeJS library that comes with clients in many languages. It offers direct messaging and pub-sub based on rooms (think chat-rooms) with the ability to distribute load across multiple nodes using a Redis server in the background.</p><h4><a href="http://socketcluster.io/">socket cluster</a></h4><p>A pub-sub framework built in NodeJS that focuses on load-balancing connections across a larger cluster of processes.</p><h4><a href="http://faye.jcoglan.com/">Faye</a></h4><p>One of the first pub/sub systems around. Faye offers servers in both Ruby and Node and implements the Bayeux Protocol, designed 2007 by the Dojo foundation. Similar to socket.io, Faye relies on Redis pub/sub to scale across multiple nodes. It does however lack support for Redis clusters which limits its scalability to a single Redis instance.</p><h4><a href="http://firehose.io/">Firehose.io</a></h4><p>A simple, Ruby based pub-sub system with integration points for Backbone and Ember.</p><h4><a href="https://github.com/centrifugal/centrifugo">Centrifugo</a></h4><p>A backend agnostic pub-sub system written in Go</p><h4><a href="http://www.phoenixframework.org/">Phoenix Framework</a></h4><p>Phoenix is a whole web-app framework for Erlang, but with a focus on pub/sub via channels.</p><h3>Data-Sync</h3><p>Pub/Sub has been the default pattern for realtime apps since day one and is still the best choice for many usecases. But one of its most widespread uses in realtime apps is actually pretty terrible - it goes something like this:</p><p>User A changes some data and hits save. The data is send via ajax to a server and stored in a database. The client now publishes an event, e.g. <code>data-update/&lt;some-id&gt;</code>. Other clients receive this event, make an ajax request to the server and download the updated data.</p><p>Sounds familiar? Don&#39;t worry, this has been the default solution for many companies and years. But now we&#39;ve come up with something better: data-sync.</p><p>Data-sync models your data as observable objects or tree-structures that can be manipulated by clients and servers. Any change to the data is immediately  synchronised across all connected clients.</p><p>This significantly reduces request-overhead, makes applications faster and development simpler.</p><h4><a href="https://horizon.io/">Horizon</a></h4><p>The youngest, but certainly one of the most promising entries in this list is RethinkDB’s Horizon - a NodeJS server and associated JavaScript client library that sits on top of RethinkDB and exposes its database and realtime querying capabilities to browser apps.</p><p>Horizon supports authentication via openAuth and JSON webtoken and access control via TOML configured permissions for user groups</p><h4><a href="http://feathersjs.com/">FeatherJS</a></h4><p>FeatherJS is a RESTful CRUD framework for Node build on top of express.js that sends out events via a socket.io connection whenever an object is created, updated or deleted, allowing clients to react accordingly.</p><h3>Remote Procedure Call (RPC) / Remote Method Invocation (RMI)</h3><p>This one is not strictly a realtime concept, but more the classical REST/HTTP request/response workflow, mapped onto a bi-directional connection. RPC allows you to call methods on a remote server and process their response. This can be a powerful concept in itself, but it becomes even more powerful when used in conjunction with other realtime concepts like pub/sub or data-sync... which brings us to the next section:</p><h3>Hybrids</h3><p>Most production use cases benefit from a combination of realtime concepts. In a voting system you might want to send a user’s vote as a remote method invocation - which increment the number of votes on a data-sync object as well as block the voting user from voting more than once. For multiplayer games it can make sense to rely on simple pub-sub messaging to update player positions whilst using data-sync to keep track of scores.</p><p>As a result, many of the most popular realtime frameworks are hybrids that offer multiple, interacting realtime concepts to both clients and servers.</p><h4><a href="https://deepstream.io/">Deepstream.io</a></h4><p>Deepstream.io is a realtime server that combines data-sync with pub/sub and request response. It’s un-opinionated and offers an open ecosystem of connectors for databases, caches and messaging systems. Its unobtrusive client plays well with any M*C framework and comes with plugins for React, Polymer and other libraries.</p><p>Deepstream focuses on ease of use and speed. With an average below <a href="https://deepstream.io/info/performance-single-node-vs-cluster.html">1ms for clusters under load</a> it’s a good fit even for demanding use cases like multiplayer gaming or financial trading.</p><h4><a href="https://www.meteor.com/">Meteor</a></h4><p>Meteor is a full stack framework for realtime apps, featuring data-sync, pub/sub, RPCs, realtime search and a host of other features.
+It offers a highly structured and opinionated way to set up and connect servers and databases, build clients and test and deploy applications. It comes with its own, self-contained ecosystem, including a proprietary (potentially soon to be deprecated?) <a href="https://atmospherejs.com/">package manager</a> and originally its own client side templating library.</p><p>It’s probably fair to say that Meteor is one of the most polarizing entries in the web technology space. Meteor fans praise it for its ease of use, the development time it saves by offering a well-orchestrated stack of components and its high levels of resilience, including an in-browser data-store and robust syncing routines.</p><p>Its critics frequently mention Meteor’s inflexibility, its inability to swap critical components (e.g. to use it with a database other than MongoDB), slow speed and lack of transparency of what happens behind the scenes.
+With over 30M in Venture Funding and extensive Facebook campaigns, Meteor is also one of the few commercial offerings in this space.</p><p>At the bottom line, Meteor comes down to the usual trade-off presented by full stack frameworks: If your use case is a good fit for Meteor, it will save you an awful lot of development time and headaches. If you seek flexibility, you&#39;re most likely better of with a combination of smaller, more specialised components</p><h4><a href="http://kuzzle.io/">Kuzzle.io</a></h4><p>A new entry to this list and still in beta, Kuzzle is an interesting new contender for the Meteor crown. It&#39;s a NodeJS server that connects to ElasticSearch and Redis and offers data-sync, pub-sub and realtime querying via a number of protocols such as WebSocket, REST, AMQP, MQTT and STOMP.</p><h4><a href="http://autobahn.ws/">Autobahn</a></h4><p>Autobahn offers Pub/Sub and RPC. It&#39;s a server implementing the WAMP (Web Application Messaging Protocol) spec and offers a selection of clients for JS, Python, Android and C++.</p><h4><a href="https://cometd.org/">CometD</a></h4><p>CometD has been one of the first entries in the realtime space. It combines pub/sub with rpcs and supports browser connectivity via a stack of comet techniques.</p><h3>Other resources and further reading</h3><p>For further overviews, have a look at the <a href="http://www.leggetter.co.uk/">great blog</a> of our former colleague Phil Leggetter, especially his <a href="http://www.leggetter.co.uk/real-time-web-technologies-guide/">realtime web technologies guide</a></p>
+		</section>
+
+		<footer class="post-footer">
+
+			<section class="author">
+
+				<img class="author-gravatar" src="http://www.gravatar.com/avatar/f831162b79d84f85f589a1a76b4975db">
+				
+				<span class="author-description">
+					<h4>About the author</h4>
+
+					<p class="author-bio">
+						Wolfram worked all over the world before settling in Berlin and becoming a co-founder of deepstreamHub. He also once studied art-history, but that&#x27;s a different story and shall be told another time.
+					</p>
+				</span>
+
+				<!--
+					<p>Read <a href="">more posts</a> by this author.</p>
+				
+				<div class="author-meta">
+					
+					
+				</div> 
+				-->
+
+			</section>
+
+			<section class="share">
+				<h4>Share this post</h4>
+				<ul class="icons">
+					<li>
+						<a class="icon fa fa-twitter" href="//twitter.com/share?text=An overview of realtime libraries and frameworks @deepstreamhub&amp;url="
+							onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+							<span class="label">Twitter</span>
+						</a>
+					</li>
+					<li>
+						<a class="icon fa fa-facebook" href="//www.facebook.com/sharer/sharer.php?u="
+						onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+						<span class="label">Facebook</span>
+						</a>
+					</li>
+					<li>
+						<a class="icon fa fa-google-plus" href="//plus.google.com/share?url="
+					   onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+						<span class="label">Google+</span>
+					</a>
+					</li>
+				</ul>
+				
+			</section>
+
+		<div class="latest-blogs">
+			<h4 class="latest-blogs-header">
+				Latest Blog Articles
+			</h4>
+			<ul class="latest-blogs-content">
+					<li class="latest-blog-article">
+						<a href="">
+							<span class="date">18/05/2016</span>
+							<span class="title">An overview of realtime libraries and frameworks</span>
+						</a>
+					</li>
+					<li class="latest-blog-article">
+						<a href="../using-passportjs/">
+							<span class="date">20/04/2016</span>
+							<span class="title">Using PassportJS for Facebook and Twitter oAuth</span>
+						</a>
+					</li>
+					<li class="latest-blog-article">
+						<a href="../deepstreamhub-raises-one-million-seed-round/">
+							<span class="date">07/04/2016</span>
+							<span class="title">deepstreamHub raises $1 Million seed round to turn realtime into a platform</span>
+						</a>
+					</li>
+					<li class="latest-blog-article">
+						<a href="../realtime-microservices/">
+							<span class="date">19/03/2016</span>
+							<span class="title">Deepstream Microservices</span>
+						</a>
+					</li>
+			</ul>
+		</div>		</footer>
+	</div>
+
+	<span class="blog-sidebar">
+	
+		<div class="sidebar-item deepstream-learn-more">
+			<h4 class="sidebar-item-header">What is deepstream?</h4>
+			
+			<p>
+				deepstream.io is the open source server thats allows you to create realtime apps with minimal code!
+			</p>
+	
+			<a href="../../">Learn More</a>.
+		</div>
+	
+		<div class="sidebar-item share-story">
+			<h4 class="sidebar-item-header">Using deepstream?</h4>
+			<div class="share-story community-collaborate-content">
+				<img width="100%" src="../../assets/images/ds-stories-background.png" class="share-story-image" >
+				<a class="share-story-content" href="mailto:info@deepstream.io">
+					tell us what you're building with deepstream and get the t-shirt *
+					<span class="comical-warning">
+						* warning: t-shirt actually looks good and is desirable
+					</span>
+				</a>
+			</div>	</div>
+	
+		<div class="sidebar-item deepstream-help-out">
+			<h4 class="sidebar-item-header">Community</h4>
+			
+			<!--<p>
+				If your interested in bringing deepstream to your favourite language, please <a href="mailto:info@deepstreamhub.com" target="_top">contact us</a> for any support!
+			</p>
+			-->
+	
+			<p>
+				Like deepstream.io? Grant it a star!
+			</p>
+			
+			<p>
+				<a class="github-button" href="//github.com/deepstreamIO/deepstream.io" data-icon="octicon-star" data-style="mega" data-count-href="/deepstreamIO/deepstream.io/stargazers" data-count-api="/repos/deepstreamIO/deepstream.io#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star deepstreamIO/deepstream.io on GitHub">Star</a>
+			</p>
+		</div>
+	
+		<div class="sidebar-item deepstream-latest-posts">
+			<div class="latest-blogs">
+				<h4 class="latest-blogs-header">
+					Latest Blog Articles
+				</h4>
+				<ul class="latest-blogs-content">
+						<li class="latest-blog-article">
+							<a href="">
+								<span class="date">18/05/2016</span>
+								<span class="title">An overview of realtime libraries and frameworks</span>
+							</a>
+						</li>
+						<li class="latest-blog-article">
+							<a href="../using-passportjs/">
+								<span class="date">20/04/2016</span>
+								<span class="title">Using PassportJS for Facebook and Twitter oAuth</span>
+							</a>
+						</li>
+						<li class="latest-blog-article">
+							<a href="../deepstreamhub-raises-one-million-seed-round/">
+								<span class="date">07/04/2016</span>
+								<span class="title">deepstreamHub raises $1 Million seed round to turn realtime into a platform</span>
+							</a>
+						</li>
+						<li class="latest-blog-article">
+							<a href="../realtime-microservices/">
+								<span class="date">19/03/2016</span>
+								<span class="title">Deepstream Microservices</span>
+							</a>
+						</li>
+				</ul>
+			</div>	</div>
+	
+	</span></div>	</div>
+	<div id="footer">
+		<ul class="footer-items">
+
+			<li class="footer-right">
+				<ul class="social">
+					<li class="twitter">
+						<a href="//twitter.com/deepstreamIO">
+							<i class="fa fa-twitter"></i>  Twitter
+						</a>
+					</li>
+					<li class="github">
+						<a href="//github.com/deepstreamIO">
+							<i class="fa fa-github"></i>  Github
+						</a>
+					</li>
+					<a href="//www.facebook.com/deepstreamIO/">
+						<i class="fa fa-facebook"></i>  Facebook
+					</a>
+					<li class="stack-overflow">
+						<a href="http://stackoverflow.com/questions/tagged/deepstream.io">
+							<i class="fa fa-stack-overflow"></i>  Stack Overflow
+						</a>
+					</li>
+					<li>
+						<a href="//deepstream-slack.herokuapp.com/">
+							<i class="fa fa-slack"></i>  Slack
+						</a>
+					</li>
+				</ul>
+			</li>
+
+			<li class="footer-middle">
+				<h4>Browse</h4>
+				<ul>
+					<li >
+						<a href="../..">Home</a>
+					</li>
+					
+					<li >
+						<a href="../../download/">Downloads</a>
+					</li>
+					
+					<li >
+						<a href="../../tutorials/getting-started.html">Tutorials</a>
+						
+					</li>
+					
+					<li >
+						<a href="../../docs/deepstream.html">Documentation</a>
+						
+					</li>
+					
+					<li class="active">
+						<a href="../../blog/">Blog</a>
+					</li>
+				
+					<li >
+						<a href="../../info/">Info</a>
+						
+					</li>
+				
+				</ul>			</li>
+
+			<li class="footer-left">
+				<h4>Star this project on github!</h4>
+				<p>
+					<a class="github-button" href="//github.com/deepstreamIO/deepstream.io" data-icon="octicon-star" data-style="mega" data-count-href="/deepstreamIO/deepstream.io/stargazers" data-count-api="/repos/deepstreamIO/deepstream.io#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star deepstreamIO/deepstream.io on GitHub">Star</a>
+				</p>
+
+				<h4>Contact the team</h4>
+				<p>
+					<a href="mailto:info@deepstream.io">info@deepstream.io</a>
+					<ul class="address">
+						<li><strong>deepstreamHub GmbH</strong></li>
+						<li>Lindenstrasse 20-25</li>
+						<li>10969 Berlin</li>
+						<li>Germany</li>
+					</ul>
+				</p>
+			</li>
+
+		</ul>
+	</div>
+
+
+	<script async defer id="github-bjs" src="//buttons.github.io/buttons.js"></script>
+</body>
+</html>

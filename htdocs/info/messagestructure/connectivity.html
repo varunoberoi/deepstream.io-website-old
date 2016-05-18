@@ -88,15 +88,6 @@
 				</li>
 			
 				<li class="head">Client Specs</li>
-					<li class="active">
-						<a href="../../info/messagestructure/connectivity.html">
-						Connectivity</a>
-						<div class="isActiveIndicator orangeGradient"></div>
-							<ul class="overview">
-								<li><a href="#Connecting a client">Connecting a client</a></li>
-								<li><a href="#Logging In">Logging In</a></li>
-							</ul>
-					</li>
 					<li >
 						<a href="../../info/messagestructure/parsing.html">
 						Parsing</a>
@@ -116,6 +107,17 @@
 						<a href="../../info/messagestructure/events.html">
 						Events</a>
 						<div class="isActiveIndicator orangeGradient"></div>
+					</li>
+					<li class="active">
+						<a href="../../info/messagestructure/connectivity.html">
+						Connectivity</a>
+						<div class="isActiveIndicator orangeGradient"></div>
+							<ul class="overview">
+								<li><a href="#Connecting a client">Connecting a client</a></li>
+								<li><a href="#Redirecting the client to another deepstream gets rejected">Redirecting the client to another deepstream gets rejected</a></li>
+								<li><a href="#Redirecting a client to another deepstream">Redirecting a client to another deepstream</a></li>
+								<li><a href="#Logging In">Logging In</a></li>
+							</ul>
 					</li>
 				
 				
@@ -192,15 +194,6 @@
 					</li>
 				
 					<li class="head">Client Specs</li>
-						<li class="active">
-							<a href="../../info/messagestructure/connectivity.html">
-							Connectivity</a>
-							<div class="isActiveIndicator orangeGradient"></div>
-								<ul class="overview">
-									<li><a href="#Connecting a client">Connecting a client</a></li>
-									<li><a href="#Logging In">Logging In</a></li>
-								</ul>
-						</li>
 						<li >
 							<a href="../../info/messagestructure/parsing.html">
 							Parsing</a>
@@ -220,6 +213,17 @@
 							<a href="../../info/messagestructure/events.html">
 							Events</a>
 							<div class="isActiveIndicator orangeGradient"></div>
+						</li>
+						<li class="active">
+							<a href="../../info/messagestructure/connectivity.html">
+							Connectivity</a>
+							<div class="isActiveIndicator orangeGradient"></div>
+								<ul class="overview">
+									<li><a href="#Connecting a client">Connecting a client</a></li>
+									<li><a href="#Redirecting the client to another deepstream gets rejected">Redirecting the client to another deepstream gets rejected</a></li>
+									<li><a href="#Redirecting a client to another deepstream">Redirecting a client to another deepstream</a></li>
+									<li><a href="#Logging In">Logging In</a></li>
+								</ul>
 						</li>
 					
 					
@@ -264,15 +268,6 @@
 	</li>
 
 	<li class="head">Client Specs</li>
-		<li class="active">
-			<a href="../../info/messagestructure/connectivity.html">
-			Connectivity</a>
-			<div class="isActiveIndicator orangeGradient"></div>
-				<ul class="overview">
-					<li><a href="#Connecting a client">Connecting a client</a></li>
-					<li><a href="#Logging In">Logging In</a></li>
-				</ul>
-		</li>
 		<li >
 			<a href="../../info/messagestructure/parsing.html">
 			Parsing</a>
@@ -292,6 +287,17 @@
 			<a href="../../info/messagestructure/events.html">
 			Events</a>
 			<div class="isActiveIndicator orangeGradient"></div>
+		</li>
+		<li class="active">
+			<a href="../../info/messagestructure/connectivity.html">
+			Connectivity</a>
+			<div class="isActiveIndicator orangeGradient"></div>
+				<ul class="overview">
+					<li><a href="#Connecting a client">Connecting a client</a></li>
+					<li><a href="#Redirecting the client to another deepstream gets rejected">Redirecting the client to another deepstream gets rejected</a></li>
+					<li><a href="#Redirecting a client to another deepstream">Redirecting a client to another deepstream</a></li>
+					<li><a href="#Logging In">Logging In</a></li>
+				</ul>
 		</li>
 	
 	
@@ -342,7 +348,85 @@ Scenario: The client is instantiated and creates a tcp connection
 	Given the test server is ready
 		And the client is initialised
 	Then the server has 1 active connections
-		And the clients connection state is &quot;AWAITING_AUTHENTICATION&quot;</code></pre>
+		And the clients connection state is &quot;AWAITING_CONNECTION&quot;</code></pre>
+    </div>
+    <div class="section">  
+        <a name="Redirecting the client to another deepstream gets rejected"></a>
+        <pre><code class="language-gherkin">@connectivity
+Feature: Redirecting the client to another deepstream gets rejected
+	If the client fails the connection challenge it should then close the connection
+	and not allow authentication to occur
+
+Scenario: The test server is idle and awaits connections
+	Given the test server is ready
+	Given the second test server is ready
+		And the second server has 0 active connections
+
+Scenario: The client is instantiated and creates a tcp connection
+	Given the test server is ready
+		And the client is initialised
+	Then the server has 1 active connections
+		And the clients connection state is &quot;AWAITING_CONNECTION&quot;
+
+Scenario: The server challenges the client to show which url it wants to connect to
+	When the server sends the message C|CH+
+	Then the last message the server recieved is C|CHR|&lt;FIRST_SERVER_URL&gt;+
+		And the clients connection state is &quot;CHALLENGING&quot;
+
+Scenario: The client closes the connection if the challenge is rejected
+	When the server sends the message C|REJ+
+	Then the server has 0 active connections
+	And the clients connection state is &quot;CLOSED&quot;
+
+Scenario: Throws an error if the user attempts to login
+	When the client logs in with username &quot;XXX&quot; and password &quot;YYY&quot;
+	Then the server has received 1 messages
+		And the client throws a &quot;IS_CLOSED&quot; error with message &quot;this client&#x27;s connection was closed&quot;</code></pre>
+    </div>
+    <div class="section">  
+        <a name="Redirecting a client to another deepstream"></a>
+        <pre><code class="language-gherkin">@connectivity
+Feature: Redirecting a client to another deepstream
+	The client should be able to recieve a connection redirect
+	to allow it to connect to a seperate deepstream url if needed
+
+Scenario: The test server is idle and awaits connections
+	Given the test server is ready
+	Given the second test server is ready
+		And the second server has 0 active connections
+
+Scenario: The client is instantiated and creates a tcp connection
+	Given the test server is ready
+		And the client is initialised
+	Then the server has 1 active connections
+		And the clients connection state is &quot;AWAITING_CONNECTION&quot;
+
+Scenario: The server challenges the client to show which url it wants to connect to
+	When the server sends the message C|CH+
+	Then the last message the server recieved is C|CHR|&lt;FIRST_SERVER_URL&gt;+
+		And the clients connection state is &quot;CHALLENGING&quot;
+
+Scenario: The client attempts to connect to the other server when it recieves a redirect
+	When the server sends the message C|RED|&lt;SECOND_SERVER_URL&gt;+
+	And the server has 0 active connections
+	When some time passes
+	Then the server has 0 active connections
+		And the client is on the second server
+		And the second server has 1 active connections
+		And the clients connection state is &quot;AWAITING_CONNECTION&quot;
+
+Scenario: The client changes to awaiting authentication when it recieves connection ack
+	When the server sends the message C|A+
+
+Scenario: The client sends login credentials
+	When the client logs in with username &quot;XXX&quot; and password &quot;YYY&quot;
+	Then the last message the server recieved is A|REQ|{&quot;username&quot;:&quot;XXX&quot;,&quot;password&quot;:&quot;YYY&quot;}+
+		And the clients connection state is &quot;AUTHENTICATING&quot;
+
+Scenario: The client receives a login confirmation
+	When the server sends the message A|A+
+	Then the clients connection state is &quot;OPEN&quot;
+		And the last login was successful</code></pre>
     </div>
     <div class="section">  
         <a name="Logging In"></a>
@@ -357,6 +441,7 @@ Feature: Logging In
 Scenario: The client sends login credentials
 	Given the test server is ready
 		And the client is initialised
+		And the server sends the message C|A+
 	When the client logs in with username &quot;XXX&quot; and password &quot;YYY&quot;
 	Then the last message the server recieved is A|REQ|{&quot;username&quot;:&quot;XXX&quot;,&quot;password&quot;:&quot;YYY&quot;}+
 		And the clients connection state is &quot;AUTHENTICATING&quot;
@@ -483,15 +568,6 @@ Scenario: The client can&#x27;t made further authentication attempts after it re
 					</li>
 				
 					<li class="head">Client Specs</li>
-						<li class="active">
-							<a href="../../info/messagestructure/connectivity.html">
-							Connectivity</a>
-							<div class="isActiveIndicator orangeGradient"></div>
-								<ul class="overview">
-									<li><a href="#Connecting a client">Connecting a client</a></li>
-									<li><a href="#Logging In">Logging In</a></li>
-								</ul>
-						</li>
 						<li >
 							<a href="../../info/messagestructure/parsing.html">
 							Parsing</a>
@@ -511,6 +587,17 @@ Scenario: The client can&#x27;t made further authentication attempts after it re
 							<a href="../../info/messagestructure/events.html">
 							Events</a>
 							<div class="isActiveIndicator orangeGradient"></div>
+						</li>
+						<li class="active">
+							<a href="../../info/messagestructure/connectivity.html">
+							Connectivity</a>
+							<div class="isActiveIndicator orangeGradient"></div>
+								<ul class="overview">
+									<li><a href="#Connecting a client">Connecting a client</a></li>
+									<li><a href="#Redirecting the client to another deepstream gets rejected">Redirecting the client to another deepstream gets rejected</a></li>
+									<li><a href="#Redirecting a client to another deepstream">Redirecting a client to another deepstream</a></li>
+									<li><a href="#Logging In">Logging In</a></li>
+								</ul>
 						</li>
 					
 					
