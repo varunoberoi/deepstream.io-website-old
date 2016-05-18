@@ -167,7 +167,7 @@ var buildBlogPost = function( data, fileContent, next ) {
 
 var sortBlogs = function( next ) {
 	blogPosts.sort( function( blogA, blogB ) {
-		return blogB.dateISO > blogA.dateISO;
+		return parseInt( blogB.dateISO ) - parseInt( blogA.dateISO );
 	});
 	for( var i = 0; i < blogPosts.length; i++ ) {
 		blogPosts[ i ].isLatest = i < 4;
