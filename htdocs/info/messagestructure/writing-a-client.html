@@ -307,6 +307,7 @@
 <p>Deepstream communicates via <a href="//github.com/socketio/engine.io">engine.io</a> with browsers and via TCP for all other programming languages. Using a low level protocol like TCP means that pretty much everything, from basic Arduinos to enterprise Java servers can communicate with deepstream.</p><p>If you&#39;d like to write a client for your language of choice, have a look if there&#39;s <a href="//github.com/deepstreamIO/deepstream.io/labels/new-client">already an issue for it</a> and get in touch! We&#39;d be more than happy to help.</p><h1>Where to start?</h1><p>Here&#39;s how to tackle writing a deepstream client:</p><ul>
 <li>Have a look at the page on message structure (./index.html)</li>
 <li>Establish a TCP connection to a deepstream server</li>
+<li>Recieve a connection from from deepstream</li>
 <li>Send an <a href="connectivity.html">auth message and parse the response</a></li>
 <li>Start by implementing <a href="events.html#Events">events</a> as they are the simplest feature</li>
 <li>Add Records, RPCs and - if supported - WebRTC</li>
@@ -329,7 +330,17 @@
     </ul>
 </div>
 
-<h1>Connection States</h1><p>Next on is the <a href="../../docs/connection_states.html">connection states</a>. The connection starts off in an AWAITING_AUTHENTICATION mode, in which you are required to login in order to be able to send and recieve messages through the server. Once you do the client should be in AUTHENTICATING, and if the login is successful the connection will end up in OPEN, which means everything is working fine.</p><p>If the connection does drop, clients are expected to go into reconnecting mode to allow them to try and reestablish the connection, in which it can either go back to AWAITING_AUTHENTICATION or result in the client closing after too many failed attempts.</p><p><img width="100%" src="../../assets/images/connection-state-diagram.png" /></p><h1>TCP Buffering</h1><p>Since clients are expected to have a very high throughput it&#39;s good practice to buffer messages within the program and then send it out once at the end of a CPU cycle.</p><p>For example, let us say I have a loop that generates lots of events:</p><pre><code class="lang-javascript">while( i &lt; 10000 ) {
+<h1>Connection States</h1><p>Next on is the <a href="../../docs/connection_states.html">connection states</a>. The connection starts off in an AWAITING_CONNECTION mode, in which the server will reply with a connection ack. You will then be in AWAITING_AUTHENTICATION, where you are required to login in order to be able to send and recieve messages through the server. Once you do the client should be in AUTHENTICATING, and if the login is successful the connection will end up in OPEN, which means everything is working fine.</p><p>If the connection does drop, clients are expected to go into reconnecting mode to allow them to try and reestablish the connection, in which it can either go back to AWAITING_AUTHENTICATION or result in the client closing after too many failed attempts.</p><p><img width="100%" src="../../assets/images/connection-state-diagram.svg" /></p><div class="hint-box fa fa-gears">
+    <h3>Connection redirects</h3>
+    <ul>
+        <li>
+            Deepstream clients have <a href="./connectivity.html#Redirecting a client to another deepstream">redirect functionality</a> built in. This 
+            means they support being redirected to the appropriate deepstream server for custom loadbalancing logic.
+        </li>
+    </ul>
+</div>
+
+<h1>TCP Buffering</h1><p>Since clients are expected to have a very high throughput it&#39;s good practice to buffer messages within the program and then send it out once at the end of a CPU cycle.</p><p>For example, let us say I have a loop that generates lots of events:</p><pre><code class="lang-javascript">while( i &lt; 10000 ) {
     deepstreamClient.event.emit( &#39;value&#39;, Math.random() );
     i++;
 }

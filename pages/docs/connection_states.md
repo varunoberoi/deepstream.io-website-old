@@ -16,8 +16,18 @@ Connection States
 </tr>
 
 <tr>
+<td>AWAITING_CONNECTION</td>
+<td>State after the client was created and no connection ack was recieved</td>
+</tr>
+
+<tr>
+<td>CHALLENGING</td>
+<td>State after the connected server requests you for your current url. This can be used for providing TCP redirects.</td>
+</tr>
+
+<tr>
 <td>AWAITING_AUTHENTICATION</td>
-<td>State after the client was created, but before `login()` was called.</td>
+<td>State after the connection ack is recieved, but before `login()` was called.</td>
 </tr>
 
 <tr>

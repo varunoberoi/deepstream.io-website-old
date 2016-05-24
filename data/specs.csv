@@ -1,4 +1,9 @@
 type,id,action,message,ack,direction,description
+connection,ack,Connection Ack,C|A+,,Server,Sent to acknowledge deepstream server can be used
+connection,redirect,Connection Redirect,C|RED|redirectUrl+,,Server,A redirect message of deepstream instance to connect to
+connection,challenge,Connection Redirect,C|CH+,,Server,Request for the url the client has been created with
+connection,challengeresponse,Challenge Response,C|CHR|originalUrl+,,Client,The url the client was originally provided when created
+connection,challengerejection,Challenge Rejection,C|REJ+,,SERVER,Recieved if the url the client provided during challenge is invalid
 auth,login,Login,A|REQ|loginData+,,Client,Sent to authenticate user
 auth,loginsuccess,Login Success,A|A+,,Server,Recieved when login passes
 auth,invalidlogin,Invalid Login,A|E|INVALID_AUTH_DATA|unknown user+,,Server,Recieved if login fails

@@ -86,6 +86,12 @@
 					<a href="../../info/messagestructure/specs.html">All Messages</a>
 					<div class="isActiveIndicator orangeGradient"></div>
 						<ul class="overview">
+								<li class="de-emphasized">connection</li>
+									<li><a href="#connection-ack">Connection Ack</a></li>
+									<li><a href="#connection-redirect">Connection Redirect</a></li>
+									<li><a href="#connection-challenge">Connection Redirect</a></li>
+									<li><a href="#connection-challengeresponse">Challenge Response</a></li>
+									<li><a href="#connection-challengerejection">Challenge Rejection</a></li>
 								<li class="de-emphasized">auth</li>
 									<li><a href="#auth-login">Login</a></li>
 									<li><a href="#auth-loginsuccess">Login Success</a></li>
@@ -232,6 +238,12 @@
 						<a href="../../info/messagestructure/specs.html">All Messages</a>
 						<div class="isActiveIndicator orangeGradient"></div>
 							<ul class="overview">
+									<li class="de-emphasized">connection</li>
+										<li><a href="#connection-ack">Connection Ack</a></li>
+										<li><a href="#connection-redirect">Connection Redirect</a></li>
+										<li><a href="#connection-challenge">Connection Redirect</a></li>
+										<li><a href="#connection-challengeresponse">Challenge Response</a></li>
+										<li><a href="#connection-challengerejection">Challenge Rejection</a></li>
 									<li class="de-emphasized">auth</li>
 										<li><a href="#auth-login">Login</a></li>
 										<li><a href="#auth-loginsuccess">Login Success</a></li>
@@ -346,6 +358,12 @@
 		<a href="../../info/messagestructure/specs.html">All Messages</a>
 		<div class="isActiveIndicator orangeGradient"></div>
 			<ul class="overview">
+					<li class="de-emphasized">connection</li>
+						<li><a href="#connection-ack">Connection Ack</a></li>
+						<li><a href="#connection-redirect">Connection Redirect</a></li>
+						<li><a href="#connection-challenge">Connection Redirect</a></li>
+						<li><a href="#connection-challengeresponse">Challenge Response</a></li>
+						<li><a href="#connection-challengerejection">Challenge Rejection</a></li>
 					<li class="de-emphasized">auth</li>
 						<li><a href="#auth-login">Login</a></li>
 						<li><a href="#auth-loginsuccess">Login Success</a></li>
@@ -426,6 +444,182 @@
 
 			<div id="content">
 				<h1>
+    Connection
+</h1>
+<link rel="stylesheet" type="text/css" href="../../assets/css/messagestructure.css" />
+<script type="text/javascript" src="../../assets/js/messagestructure.js"></script>
+
+<div class="message-in-depth">
+     <table>
+        <tbody>
+            <tr>
+                <td>Event</td>
+                <td class="event"></td>
+            </tr>
+            <tr>
+                <td>Action</td>
+                <td class="action"></td>
+            </tr>
+            <tr>
+                <td>Data</td>
+                <td class="data"></td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="down-arrow"></div>
+</div>
+    <div class="section">
+        <h2>
+            <a name="connection-ack">Connection Ack</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                Sent to acknowledge deepstream server can be used
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            Server
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <span class="message-format">C|A+</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="section">
+        <h2>
+            <a name="connection-redirect">Connection Redirect</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                A redirect message of deepstream instance to connect to
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            Server
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <span class="message-format">C|RED|redirectUrl+</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="section">
+        <h2>
+            <a name="connection-challenge">Connection Redirect</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                Request for the url the client has been created with
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            Server
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <span class="message-format">C|CH+</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="section">
+        <h2>
+            <a name="connection-challengeresponse">Challenge Response</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                The url the client was originally provided when created
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            Client
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <span class="message-format">C|CHR|originalUrl+</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="section">
+        <h2>
+            <a name="connection-challengerejection">Challenge Rejection</a>
+        </h2>
+        <div class="action-content">
+            <p class="description">
+                Recieved if the url the client provided during challenge is invalid
+            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Direction
+                        </td>
+                        <td>
+                            SERVER
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Message
+                        </td>
+                        <td>
+                            <span class="message-format">C|REJ+</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+<h1>
     Auth
 </h1>
 <link rel="stylesheet" type="text/css" href="../../assets/css/messagestructure.css" />
@@ -1943,6 +2137,12 @@
 						<a href="../../info/messagestructure/specs.html">All Messages</a>
 						<div class="isActiveIndicator orangeGradient"></div>
 							<ul class="overview">
+									<li class="de-emphasized">connection</li>
+										<li><a href="#connection-ack">Connection Ack</a></li>
+										<li><a href="#connection-redirect">Connection Redirect</a></li>
+										<li><a href="#connection-challenge">Connection Redirect</a></li>
+										<li><a href="#connection-challengeresponse">Challenge Response</a></li>
+										<li><a href="#connection-challengerejection">Challenge Rejection</a></li>
 									<li class="de-emphasized">auth</li>
 										<li><a href="#auth-login">Login</a></li>
 										<li><a href="#auth-loginsuccess">Login Success</a></li>

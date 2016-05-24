@@ -35,6 +35,7 @@ If you'd like to write a client for your language of choice, have a look if ther
 Here's how to tackle writing a deepstream client:
 - Have a look at the page on message structure (./index.html)
 - Establish a TCP connection to a deepstream server
+- Recieve a connection from from deepstream
 - Send an [auth message and parse the response](connectivity.html)
 - Start by implementing [events](events.html#Events) as they are the simplest feature
 - Add Records, RPCs and - if supported - WebRTC
@@ -77,11 +78,21 @@ The best place to start would be looking at the [server step definitions](//raw.
 
 # Connection States
 
-Next on is the [connection states](../../docs/connection_states.html). The connection starts off in an AWAITING_AUTHENTICATION mode, in which you are required to login in order to be able to send and recieve messages through the server. Once you do the client should be in AUTHENTICATING, and if the login is successful the connection will end up in OPEN, which means everything is working fine.
+Next on is the [connection states](../../docs/connection_states.html). The connection starts off in an AWAITING_CONNECTION mode, in which the server will reply with a connection ack. You will then be in AWAITING_AUTHENTICATION, where you are required to login in order to be able to send and recieve messages through the server. Once you do the client should be in AUTHENTICATING, and if the login is successful the connection will end up in OPEN, which means everything is working fine.
 
 If the connection does drop, clients are expected to go into reconnecting mode to allow them to try and reestablish the connection, in which it can either go back to AWAITING_AUTHENTICATION or result in the client closing after too many failed attempts.
 
-<img width="100%" src="../../assets/images/connection-state-diagram.png" />
+<img width="100%" src="../../assets/images/connection-state-diagram.svg" />
+
+<div class="hint-box fa fa-gears">
+    <h3>Connection redirects</h3>
+    <ul>
+        <li>
+            Deepstream clients have [redirect functionality](./connectivity.html#Redirecting a client to another deepstream) built in. This 
+            means they support being redirected to the appropriate deepstream server for custom loadbalancing logic.
+        </li>
+    </ul>
+</div>
 
 # TCP Buffering
 
