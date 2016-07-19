@@ -62,27 +62,26 @@ acts as a wrapper around an actual record that can
 be swapped out for another one whilst keeping all bindings intact.
 
 ```javascript
-var bindInput = function( record, path, inputElement ) {
-	inputElement.on( 'change', function(){
-		record.set( path, inputElement.val() );
-	});
+const bindInput = (record, path, inputElement) => {
+  inputElement.addEventListener('change', () => {
+    record.set(path, inputElement.value)
+  })
+  record.subscribe(path, value => {
+    inputElement.value = value
+  }, true)
+}
 
-	record.subscribe( path, function( value ){
-		inputElement.val( value );
-	}, true );
-};
-
-user = client.record.getAnonymousRecord();
-
-bindInput( user, 'firstname', $( 'input.firstname' ) );
-bindInput( user, 'lastname', $( 'input.lastname' ) );
+const user = client.record.getAnonymousRecord()
+const QS = document.querySelector.bind(document)
+bindInput(user, 'firstname', QS('input.firstname'))
+bindInput(user, 'lastname', QS('input.lastname'))
 
 /**
-	 + Swap the underlying record while keeping the
-	 + bindings intact
+  * Swap the underlying record while keeping the
+  * bindings intact
  */
-user.setName( 'user/Anton' );
-user.setName( 'user/Wolfram' );
+user.setName('user/Anton')
+user.setName('user/Wolfram')
 ```
 
 client.record.has( name, callback )
